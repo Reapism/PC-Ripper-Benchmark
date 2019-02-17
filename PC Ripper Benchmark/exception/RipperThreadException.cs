@@ -5,13 +5,13 @@ namespace PC_Ripper_Benchmark.exception
 
     /// <summary>
     /// The <see cref="RipperThreadException"/> class.
-    /// <para>Thrown when an unknown test is being used.</para>
+    /// <para>Thrown when multithreading goes out of sync
+    /// or a race condition occurs.</para>
     /// <para>Author: David Hartglass</para>
     /// </summary>
 
     public class RipperThreadException : Exception
     {
-
         private string message;
 
         /// <summary>
