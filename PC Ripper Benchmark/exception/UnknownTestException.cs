@@ -5,6 +5,7 @@ namespace PC_Ripper_Benchmark.exception {
     /// <summary>
     /// The <see cref="UnknownTestException"/> class.
     /// <para>Thrown when an unknown test is being used.</para>
+    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
     /// </summary>
 
     public class UnknownTestException : Exception {
@@ -28,7 +29,7 @@ namespace PC_Ripper_Benchmark.exception {
         /// <returns></returns>
 
         public override string ToString() {
-            return message;
+            return this.message;
         }
 
     }
