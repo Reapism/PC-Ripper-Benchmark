@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -65,8 +66,10 @@
     </Compile>
     <Compile Include="exception\RipperThreadException.cs" />
     <Compile Include="exception\UnknownTestException.cs" />
-    <Compile Include="function\RipperFunctions.cs" />
+    <Compile Include="function\CPUFunction.cs" />
     <Compile Include="util\ComputerSpecs.cs" />
+    <Compile Include="util\RipperCPUResults.cs" />
+    <Compile Include="util\RipperSettings.cs" />
     <Compile Include="window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
