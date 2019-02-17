@@ -1,12 +1,16 @@
-using System;
+﻿using System;
 
 namespace PC_Ripper_Benchmark.exception
 {
 
     /// <summary>
-    /// Summary description for <see cref="RipperThreadException"/>
+    /// The <see cref="RipperThreadException"/> class.
+    /// <para>Thrown when multithreading goes out of sync
+    /// or a race condition occurs.</para>
+    /// <para>Author: David Hartglass</para>
+
     /// </summary>
-    public class RipperThreadException
+    public class RipperThreadException : Exception
     {
         private string message;
 
@@ -31,5 +35,6 @@ namespace PC_Ripper_Benchmark.exception
         {
             return message;
         }
+
     }
 }
