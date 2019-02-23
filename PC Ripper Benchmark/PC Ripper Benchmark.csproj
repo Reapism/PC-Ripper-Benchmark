@@ -66,9 +66,12 @@
     </Compile>
     <Compile Include="exception\RipperThreadException.cs" />
     <Compile Include="exception\UnknownTestException.cs" />
-    <Compile Include="function\CPUFunction.cs" />
+    <Compile Include="function\CPUFunctions.cs" />
+    <Compile Include="function\FunctionTypes.cs" />
     <Compile Include="util\ComputerSpecs.cs" />
-    <Compile Include="util\RipperCPUResults.cs" />
+    <Compile Include="util\CPUResults.cs" />
+    <Compile Include="util\IResults.cs" />
+    <Compile Include="util\Results.cs" />
     <Compile Include="util\RipperSettings.cs" />
     <Compile Include="window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
