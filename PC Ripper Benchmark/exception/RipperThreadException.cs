@@ -8,8 +8,8 @@ namespace PC_Ripper_Benchmark.exception
     /// <para>Thrown when multithreading goes out of sync
     /// or a race condition occurs.</para>
     /// <para>Author: David Hartglass</para>
-
     /// </summary>
+
     public class RipperThreadException : Exception
     {
         private string message;
