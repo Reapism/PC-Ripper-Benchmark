@@ -82,5 +82,17 @@ namespace PC_Ripper_Benchmark.Properties {
                 this["iter_tree"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool auto_updates {
+            get {
+                return ((bool)(this["auto_updates"]));
+            }
+            set {
+                this["auto_updates"] = value;
+            }
+        }
     }
 }
