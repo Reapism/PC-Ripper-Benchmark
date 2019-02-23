@@ -6,7 +6,7 @@ using PC_Ripper_Benchmark.util;
 namespace PC_Ripper_Benchmark.function {
 
     /// <summary>
-    /// The <see cref="CPUFunction"/> class.
+    /// The <see cref="CPUFunctions"/> class.
     /// <para> </para>
     /// Represents all the functions for 
     /// testing the CPU component. Includes single
@@ -15,7 +15,7 @@ namespace PC_Ripper_Benchmark.function {
     /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
     /// </summary>
 
-    public class CPUFunction {
+    public class CPUFunctions {
 
         #region Instance members (fields)
 
@@ -31,20 +31,37 @@ namespace PC_Ripper_Benchmark.function {
         #region Constructor(s)
 
         /// <summary>
-        /// Default constructor for the <see cref="CPUFunction"/>
+        /// Default constructor for the <see cref="CPUFunctions"/>
         /// class.
         /// <para>Requires a <see cref="RipperSettings"/> instance to
         /// pull various test parameters e.g. iterations per test. </para>
         /// </summary>
         /// <param name="rs">A <see cref="RipperSettings"/> instance by reference.</param>
 
-        public CPUFunction(ref RipperSettings rs) {
+        public CPUFunctions(ref RipperSettings rs) {
             this.rs = rs;
         }
 
         #endregion
 
         #region Instance methods
+
+        /// <summary>
+        /// Runs the benchmarking test 
+        /// </summary>
+        /// <returns>A new <see cref="CPUResults"/> instance
+        /// containing the result.</returns>
+
+        public CPUResults RunCPUBenchmark() {
+            var results = new CPUResults();
+
+            Action run_funcs = new Action(() => {
+
+            });
+
+
+            return results;
+        }
 
         /// <summary>
         /// Runs a naive test on successorship.
@@ -55,19 +72,20 @@ namespace PC_Ripper_Benchmark.function {
 
         private TimeSpan RunSuccessorship() {
             var sw = Stopwatch.StartNew();
+
             for (ulong i = 0; i < this.rs.IterationsSuccessorship; i++) { }
+
             sw.Stop();
             return sw.Elapsed;
         }
 
         /// <summary>
         /// Runs a naive test on boolean logic.
-        /// <para>Internally, generates 2 random integers and 
+        /// <para>Internally, generates 2 random numbers type of <see cref="int"/> and 
         /// compares them. Whichever is greater, it adds to an output list.</para>
         /// Outputs a <see cref="TimeSpan"/> 
         /// representing how long it takes this operation.
         /// </summary>
-
 
         private TimeSpan RunBoolean() {
             Random rnd = new Random();
@@ -142,7 +160,6 @@ namespace PC_Ripper_Benchmark.function {
             return sw.Elapsed;
 
         }
-
 
         /// <summary>
         /// Runs a naive test using Queues.
@@ -255,6 +272,6 @@ namespace PC_Ripper_Benchmark.function {
             sw.Stop();
             return sw.Elapsed;
         }
-
     }
+    #endregion
 }
