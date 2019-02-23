@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -106,7 +107,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>Internally catches possible exceptions, and if found, returns false, and sets
         /// the out <seealso cref="RipperSettings"/> object to null.</para>
         /// </summary>
-        /// <param name="path">The path to store the JSON.</param>
+        /// <param name="path">The path to read the JSON.</param>
         /// <param name="obj">Passing a <seealso cref="RipperSettings"/> instance to serialize.</param>
 
         public static bool DeserializeJSON(string path, out RipperSettings obj) {
@@ -171,7 +172,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>Internally catches possible exceptions, and if found, returns false, and sets
         /// the out <seealso cref="RipperSettings"/> object to null.</para>
         /// </summary>
-        /// <param name="path">The path to store the JSON.</param>
+        /// <param name="path">The path to read the JSON.</param>
         /// <param name="obj">Passing a <seealso cref="RipperSettings"/> instance to serialize.</param>
 
         public static bool DeserializeXML(string path, out RipperSettings obj) {
@@ -202,41 +203,28 @@ namespace PC_Ripper_Benchmark.util {
             return true;
         }
 
-        /// <summary>
-        /// Attempts to load an existing <see cref="RipperSettings"/>
-        /// JSON file into the passed settings instance and saves it into 
-        /// the application.
-        /// <para></para>If unsuccessful, the out 
-        /// <see cref="RipperSettings"/> will be null.
-        /// <para>
-        /// Returns whether the procedure was successful.
-        /// </para>
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="InvalidDataContractException"></exception>
+        #endregion
 
-        public static bool LoadJSON(out RipperSettings rs) {
-            rs = null;
-            throw new NotImplementedException();
-        }
+        #region Static method(s)
 
         /// <summary>
-        /// Attempts to load an existing <see cref="RipperSettings"/>
-        /// XML file into this settings instance and saves it into 
-        /// the application. 
-        /// <para></para>If unsuccessful, the out 
-        /// <see cref="RipperSettings"/> will be null.
-        /// <para>
-        /// Returns whether the procedure was successful.
-        /// </para>
+        /// Saves the application settings using a
+        /// <see cref="RipperSettings"/> instance.
         /// </summary>
+        /// <param name="rs">A <see cref="RipperSettings"/> instance.</param>
         /// <returns></returns>
-        /// <exception cref="InvalidDataContractException"></exception>
 
-        public static bool LoadXML(out RipperSettings rs) {
-            rs = null;
-            throw new NotImplementedException();
+        public static void SaveApplicationSettings(ref RipperSettings rs) {
+            Properties.Settings.Default.auto_updates = rs.AutoCheckForUpdates;
+            Properties.Settings.Default.iter_successorship = rs.IterationsSuccessorship;
+            Properties.Settings.Default.iter_boolean = rs.IterationsBoolean;
+            Properties.Settings.Default.iter_queue = rs.IterationsQueue;
+            Properties.Settings.Default.iter_linkedlist = rs.IterationsLinkedList;
+            Properties.Settings.Default.iter_tree = rs.IterationsTree;
+
+            Properties.Settings.Default.Save();
         }
+
         #endregion
 
     }
