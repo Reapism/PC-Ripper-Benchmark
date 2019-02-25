@@ -23,4 +23,4 @@ and depending on the license, we may or may not include that source-code
 in this repository. 
 
 # Is there more documentation for this project?
-YES. Please check the WIP Wiki tab! 
+YES. Please check the WIP [Wiki](https://github.com/Reapism/PC-Ripper-Benchmark/wiki) tab! 
