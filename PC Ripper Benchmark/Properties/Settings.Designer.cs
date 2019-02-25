@@ -25,7 +25,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_successorship {
             get {
                 return ((ulong)(this["iter_successorship"]));
@@ -37,7 +37,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_boolean {
             get {
                 return ((ulong)(this["iter_boolean"]));
@@ -49,7 +49,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_queue {
             get {
                 return ((ulong)(this["iter_queue"]));
@@ -61,7 +61,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_linkedlist {
             get {
                 return ((ulong)(this["iter_linkedlist"]));
@@ -73,7 +73,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_tree {
             get {
                 return ((ulong)(this["iter_tree"]));
