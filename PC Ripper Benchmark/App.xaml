@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:PC_Ripper_Benchmark"
              StartupUri="window/MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>
