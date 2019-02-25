@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -24,7 +23,13 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>- Includes inserting, deleting, and searching.</para>
         /// </summary>       
         [DataMember(Name = "iter_tree")]
-        public ulong IterationsTree { get; set; }
+        public ulong IterationsTree {
+            get => this.IterationsTree;
+            set {
+                if (value > 0 && value < ulong.MaxValue)
+                    value = this.IterationsTree;
+            }
+        }
 
         /// <summary>
         /// The number of iterations for a <seealso cref="System.Collections.Generic.Queue{T}"/>
@@ -32,7 +37,13 @@ namespace PC_Ripper_Benchmark.util {
         /// <seealso cref="System.Collections.Generic.Queue{T}"/></para>
         /// </summary>
         [DataMember(Name = "iter_queue")]
-        public ulong IterationsQueue { get; set; }
+        public ulong IterationsQueue {
+            get => this.IterationsQueue;
+            set {
+                if (value > 0 && value < ulong.MaxValue)
+                    value = this.IterationsQueue;
+            }
+        }
 
         /// <summary>
         /// The number of iterations for a <seealso cref="System.Collections.Generic.LinkedList{T}"/>
@@ -40,19 +51,37 @@ namespace PC_Ripper_Benchmark.util {
         /// <seealso cref="System.Collections.Generic.LinkedList{T}"/>.</para>
         /// </summary>
         [DataMember(Name = "iter_linkedlist")]
-        public ulong IterationsLinkedList { get; set; }
+        public ulong IterationsLinkedList {
+            get => this.IterationsLinkedList;
+            set {
+                if (value > 0 && value < ulong.MaxValue)
+                    value = this.IterationsLinkedList;
+            }
+        }
 
         /// <summary>
         /// The number of iterations of boolean logic.
         /// </summary>
         [DataMember(Name = "iter_boolean")]
-        public ulong IterationsBoolean { get; set; }
+        public ulong IterationsBoolean {
+            get => this.IterationsBoolean;
+            set {
+                if (value > 0 && value < ulong.MaxValue)
+                    value = this.IterationsBoolean;
+            }
+        }
 
         /// <summary>
         /// The number of iterations of successorship.
         /// </summary>
         [DataMember(Name = "iter_successorship")]
-        public ulong IterationsSuccessorship { get; set; }
+        public ulong IterationsSuccessorship {
+            get => this.IterationsSuccessorship;
+            set {
+                if (value > 0 && value < ulong.MaxValue)
+                    value = this.IterationsSuccessorship;
+            }
+        }
 
         /// <summary>
         /// Automatically check for updates when
@@ -65,8 +94,28 @@ namespace PC_Ripper_Benchmark.util {
 
         #region Constructor(s)
 
-        public RipperSettings() {
+        /// <summary>
+        /// Default constructor for <see cref="RipperSettings"/>.
+        /// <para>Loads the application settings into this instance.</para>
+        /// </summary>
 
+        public RipperSettings() {
+            LoadSettings();
+        }
+
+        /// <summary>
+        /// Gets settings stored from the <see cref="Properties.Settings.Default"/> thats
+        /// stored on the machine.
+        /// </summary>
+
+        private void LoadSettings() {
+            IterationsSuccessorship = Properties.Settings.Default.iter_successorship;
+            IterationsBoolean = Properties.Settings.Default.iter_boolean;
+            IterationsQueue = Properties.Settings.Default.iter_queue;
+            IterationsLinkedList = Properties.Settings.Default.iter_linkedlist;
+            IterationsTree = Properties.Settings.Default.iter_tree;
+
+            AutoCheckForUpdates = Properties.Settings.Default.auto_updates;
         }
 
         #endregion
