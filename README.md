@@ -1,13 +1,13 @@
 # PC-Ripper-Benchmark
-The PC-Ripper Benchmark application is for Senior project BCS 430W. 
+The PC-Ripper-Benchmark application is for Senior project BCS 430W. 
 The is an extension of my original work located here: https://github.com/Reapism/CPU-Ripper
 
 # What is the PC-Ripper Benchmark application?
 Let's call it Ripper for short. The Ripper is an app designed
 to benchmark many components on your computer. It also has the
 ability to query a database that has many components attributes.
-We're able to ask pretty good questions thru these queries so
-it's always expandable. The program will generate a *SCORE* 
+We're able to ask pretty good questions through these queries so
+it's always expandable. The program will generate a *[Score]*(https://github.com/Reapism/PC-Ripper-Benchmark/wiki/Score "Score - wiki")
 contingent upon an internal algorithm that looks at how the
 test was conducted, time it took to complete, and iterations
 per second or tick.
