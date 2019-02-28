@@ -25,6 +25,7 @@ namespace wpfloginscreen
         public LoginScreen()
         {
             InitializeComponent();
+            CenterWindowOnScreen();
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
@@ -42,8 +43,8 @@ namespace wpfloginscreen
                 int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
                 if (count == 1)
                 {
-                    MainWindow dashboard = new MainWindow();
-                    dashboard.Show();
+                    //MainWindow dashboard = new MainWindow();
+                    //dashboard.Show();
                     this.Close();
                 }
                 else
@@ -59,6 +60,16 @@ namespace wpfloginscreen
             {
                 sqlCon.Close();
             }
+        }
+
+        private void CenterWindowOnScreen()
+        {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = this.Width;
+            double windowHeight = this.Height;
+            this.Left = (screenWidth / 2) - (windowWidth / 2);
+            this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
     }
 }
