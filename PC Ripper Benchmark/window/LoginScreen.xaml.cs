@@ -25,6 +25,10 @@ namespace wpfloginscreen
         public LoginScreen()
         {
             InitializeComponent();
+
+            //Change the progressbar visibilty to not show on screen
+            database_progressbar.Visibility = Visibility.Collapsed;
+            
             CenterWindowOnScreen();
         }
 
