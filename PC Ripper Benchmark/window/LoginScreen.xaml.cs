@@ -18,6 +18,7 @@ namespace wpfloginscreen
 {
     /// <summary>
     /// Interaction logic for LoginScreen.xaml
+    /// Inherits from Window base class to have properties of a windows
     /// </summary>
     public partial class LoginScreen : Window
     {
