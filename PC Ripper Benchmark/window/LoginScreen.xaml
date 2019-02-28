@@ -7,9 +7,9 @@
             <Label Content="Welcome" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Username" Foreground="White"/>
-            <TextBox Name="txtUsername" Background="#D3CAD2" Foreground="White" FontSize="18"/>
+            <TextBox Name="txtUsername" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <Label Content="Password" Foreground="White"/>
-            <PasswordBox Name="txtPassword" Background="#D3CAD2" Foreground="White" FontSize="18"/>
+            <PasswordBox Name="txtPassword" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <Button Name="btnSubmit" Click="btnSubmit_Click" Content="Login" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
         </StackPanel>
     </Border>
