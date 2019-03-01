@@ -12,8 +12,9 @@ namespace PC_Ripper_Benchmark.util {
 
     public class ComputerSpecs {
 
-        private Process process;
-        private string path;
+        /// <summary>
+        /// Default constructor for <see cref="ComputerSpecs"/>.
+        /// </summary>
 
         public ComputerSpecs() {
 
@@ -26,8 +27,6 @@ namespace PC_Ripper_Benchmark.util {
         /// <param name="path"></param>
 
         private void CreateProcess(out Process process, string path) {
-
-            throw new NotImplementedException("Did not verify this.");
 
             process = new Process {
                 EnableRaisingEvents = true
