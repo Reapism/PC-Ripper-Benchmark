@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace PC_Ripper_Benchmark
 {
@@ -40,26 +41,44 @@ namespace PC_Ripper_Benchmark
 
         private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            #region TextField Error Checking
             String errorMessage = null;
-
             if (string.IsNullOrWhiteSpace(firstNameTextBox.Text))
             {
                 errorMessage += " \"First Name\" ";
             }
-            else if (string.IsNullOrWhiteSpace(lastNameTextBox.Text))
+
+            if (string.IsNullOrWhiteSpace(lastNameTextBox.Text))
             {
                 errorMessage += " \"Last Name\" ";
             }
-            else if (string.IsNullOrWhiteSpace(emailTextBox.Text))
+
+            if (string.IsNullOrWhiteSpace(emailTextBox.Text))
             {
                 errorMessage += " \"Email\" ";
             }
+
+            if (string.IsNullOrWhiteSpace(userPasswordBox.Password))
             {
                 errorMessage += " \"Password\" ";
             }
 
-            MessageBox.Show($"{errorMessage} field(s) missing value");
+            if (!(errorMessage == null))
+            {
+                MessageBox.Show($"{errorMessage} field(s) missing value");
+            }
+            #endregion
 
+            if (RegexUtilities.IsValidEmail(emailTextBox.Text))
+            {
+                MessageBox.Show("Valid email!");
+            }
+
+            if (!RegexUtilities.IsValidEmail(emailTextBox.Text))
+            {
+                MessageBox.Show("Invalid email!");
+            }
         }
+          
     }
 }

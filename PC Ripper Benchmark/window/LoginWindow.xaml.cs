@@ -37,8 +37,6 @@ namespace PC_Ripper_Benchmark {
             CenterWindowOnScreen();
         }
 
-
-
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
             try {
