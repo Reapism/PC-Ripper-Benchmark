@@ -40,7 +40,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <exception cref="exc"
 
         protected override byte GenerateScore() {
-            
+            return 0;
 
 
         }
