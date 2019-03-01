@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace wpfloginscreen
+namespace PC_Ripper_Benchmark
 {
     /// <summary>
     /// Interaction logic for LoginScreen.xaml
@@ -31,8 +31,20 @@ namespace wpfloginscreen
             
             CenterWindowOnScreen();
         }
+            
 
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+
+        private void CenterWindowOnScreen()
+        {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = this.Width;
+            double windowHeight = this.Height;
+            this.Left = (screenWidth / 2) - (windowWidth / 2);
+            this.Top = (screenHeight / 2) - (windowHeight / 2);
+        }
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
             try
@@ -42,7 +54,7 @@ namespace wpfloginscreen
                 String query = "SELECT COUNT(1) FROM tblUser WHERE Username=@Username AND Password=@Password";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.CommandType = CommandType.Text;
-                sqlCmd.Parameters.AddWithValue("@Username",txtUsername.Text);
+                sqlCmd.Parameters.AddWithValue("@Username", txtUsername.Text);
                 sqlCmd.Parameters.AddWithValue("@Password", txtPassword.Password);
                 int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
                 if (count == 1)
@@ -66,14 +78,12 @@ namespace wpfloginscreen
             }
         }
 
-        private void CenterWindowOnScreen()
+        private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
+            SignUpScreen screen = new SignUpScreen();
+            this.Close();
+            screen.Show();
+
         }
     }
 }

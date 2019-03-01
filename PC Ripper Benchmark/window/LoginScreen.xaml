@@ -1,9 +1,9 @@
-﻿<Window x:Class="wpfloginscreen.LoginScreen"
+﻿<Window x:Class="PC_Ripper_Benchmark.LoginScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PC Ripper Benchmark" Height="350.905" Width="330.005" FontSize="14" Background="#3E8DE6"
-        MinHeight="325" MinWidth="305">
-        
+        Title="PC Ripper Benchmark" Height="420" Width="330.005" FontSize="14" Background="#3E8DE6"
+        MinHeight="420" MinWidth="380">
+
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Welcome" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
@@ -12,8 +12,9 @@
             <TextBox Name="txtUsername" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <Label Content="Password" Foreground="White"/>
             <PasswordBox Name="txtPassword" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
-            <Button Name="btnSubmit" Click="btnSubmit_Click" Content="Login" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <ProgressBar x:Name="database_progressbar" Height="21"/>
+            <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 30"/>
+            <Button Name="loginButton" Click="loginButton_Click" Content="Login" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18"/>
+            <Button x:Name="signUpButton" Click="signUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18"/>
         </StackPanel>
     </Border>
 </Window>

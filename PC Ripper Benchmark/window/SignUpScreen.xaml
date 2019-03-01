@@ -1,0 +1,21 @@
+﻿<Window x:Class="PC_Ripper_Benchmark.SignUpScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PC Ripper Benchmark" Height="350.905" Width="330.005" FontSize="14" Background="#3E8DE6"
+        MinHeight="480" MinWidth="380">
+
+    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        <StackPanel Margin="20">
+            <Label Content="Create Account" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
+            <Separator></Separator>
+            <Label Content="Fist Name" Foreground="White"/>
+            <TextBox Name="firstNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+            <Label Content="Fist Name" Foreground="White"/>
+            <TextBox Name="lastNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+            <Label Content="Email" Foreground="White"/>
+            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+            <Label Content="Password" Foreground="White"/>
+            <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+        </StackPanel>
+    </Border>
+</Window>
