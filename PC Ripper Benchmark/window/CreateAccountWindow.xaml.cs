@@ -84,6 +84,15 @@ namespace PC_Ripper_Benchmark
                 errorMessage += " \"Password\" ";
             }
 
+            if (string.IsNullOrWhiteSpace(confirmUserPasswordBox.Password))
+            {
+                errorMessage += " \"Password\" ";
+            }
+            else if (confirmUserPasswordBox.Password != userPasswordBox.Password)
+            {
+                MessageBox.Show("Password do not match. Please try again.");
+            }
+
             if (!(errorMessage == null))
             {
                 MessageBox.Show($"{errorMessage} field(s) missing value");
