@@ -34,7 +34,8 @@ namespace PC_Ripper_Benchmark {
             //Change the progressbar visibilty to not show on screen
             this.database_progressbar.Visibility = Visibility.Collapsed;
 
-            CenterWindowOnScreen();
+            util.WindowSettings setting = new util.WindowSettings();
+            setting.CenterWindowOnScreen(this.windowLogin);
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
@@ -61,23 +62,7 @@ namespace PC_Ripper_Benchmark {
             } finally {
                 sqlCon.Close();
             }
-        }
-
-        /// <summary>
-        /// Centers the screen <see cref="LoginWindow"/>
-        /// on the screen.
-        /// </summary>                       
-
-        private void CenterWindowOnScreen() {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
-        }
-
+        }                                    
 
         /// <summary>
         /// Event handler for signUpButton in <see cref="LoginWindow"/>.
@@ -88,7 +73,6 @@ namespace PC_Ripper_Benchmark {
         {
             CreateAccountWindow screen2 = new CreateAccountWindow();
             screen2.Show();
-            CenterWindowOnScreen();
             this.Close();
         }      
     }

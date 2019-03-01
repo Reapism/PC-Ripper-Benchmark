@@ -34,25 +34,10 @@ namespace PC_Ripper_Benchmark
         public CreateAccountWindow()
         {
             InitializeComponent();
-            CenterWindowOnScreen();
+            util.WindowSettings settings = new util.WindowSettings();
+            settings.CenterWindowOnScreen(this.windowCreateAccount);
         }
-
-        /// <summary>
-        /// Method in <see cref="CreateAccountWindow"/>.
-        /// <para>Centers the window on the screen</para>
-        /// </summary>
-        /// 
-
-        private void CenterWindowOnScreen()
-        {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
-        }
+                
         /// <summary>
         /// Event handler for button click in <see cref="CreateAccountWindow"/>.
         /// <para>When Submit is clicked, the text fields check to make sure valid data is entered
