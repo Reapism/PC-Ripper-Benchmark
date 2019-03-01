@@ -82,7 +82,7 @@ namespace PC_Ripper_Benchmark {
 
         private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
-            SignUpScreen screen2 = new SignUpScreen();
+            CreateAccountWindow screen2 = new CreateAccountWindow();
             screen2.Show();
             CenterWindowOnScreen();
             this.Close();

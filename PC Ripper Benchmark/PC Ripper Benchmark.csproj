@@ -75,8 +75,8 @@
     <Compile Include="window\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="window\SignUpScreen.xaml.cs">
-      <DependentUpon>SignUpScreen.xaml</DependentUpon>
+    <Compile Include="window\CreateAccountWindow.xaml.cs">
+      <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="window\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,7 +103,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="window\SignUpScreen.xaml">
+    <Page Include="window\CreateAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

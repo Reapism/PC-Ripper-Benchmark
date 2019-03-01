@@ -19,9 +19,9 @@ namespace PC_Ripper_Benchmark
     /// <summary>
     /// Interaction logic for SignUpScreen.xaml
     /// </summary>
-    public partial class SignUpScreen : Window
+    public partial class CreateAccountWindow : Window
     {
-        public SignUpScreen()
+        public CreateAccountWindow()
         {
             InitializeComponent();
             CenterWindowOnScreen();
