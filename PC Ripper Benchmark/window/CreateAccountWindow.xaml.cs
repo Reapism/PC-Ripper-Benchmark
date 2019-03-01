@@ -37,5 +37,29 @@ namespace PC_Ripper_Benchmark
             this.Left = (screenWidth / 2) - (windowWidth / 2);
             this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
+
+        private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            String errorMessage = null;
+
+            if (string.IsNullOrWhiteSpace(firstNameTextBox.Text))
+            {
+                errorMessage += " \"First Name\" ";
+            }
+            else if (string.IsNullOrWhiteSpace(lastNameTextBox.Text))
+            {
+                errorMessage += " \"Last Name\" ";
+            }
+            else if (string.IsNullOrWhiteSpace(emailTextBox.Text))
+            {
+                errorMessage += " \"Email\" ";
+            }
+            {
+                errorMessage += " \"Password\" ";
+            }
+
+            MessageBox.Show($"{errorMessage} field(s) missing value");
+
+        }
     }
 }

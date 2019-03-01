@@ -16,6 +16,7 @@
             <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <Label x:Name="lblPassword" Content="Password" Foreground="White"/>
             <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+            <Button Name="createAccountSubmitButton" Content="Submit" Margin="50 60" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click"/>
         </StackPanel>
     </Border>
 </Window>

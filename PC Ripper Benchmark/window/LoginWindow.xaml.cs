@@ -86,6 +86,6 @@ namespace PC_Ripper_Benchmark {
             screen2.Show();
             CenterWindowOnScreen();
             this.Close();
-        }
+        }      
     }
 }
