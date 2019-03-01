@@ -91,5 +91,22 @@ namespace PC_Ripper_Benchmark.util
             }
         }
         #endregion
+
+        #region First/Last Name Validation
+        public static bool isValidName(string name)
+        {        
+
+             try
+             {
+                return Regex.IsMatch(name, "^[A-Z][a-zA-Z]*$",
+                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
+           
+             }
+             catch (RegexMatchTimeoutException)
+             {
+                 return false;
+             }
+        }
+        #endregion
     }
 }

@@ -93,8 +93,18 @@ namespace PC_Ripper_Benchmark
                
             if (!util.RegexUtilities.isValidPassword(userPasswordBox.Password))
             {
-                MessageBox.Show("Invalid password!" + userPasswordBox.Password);
-            }                    
+                MessageBox.Show("Invalid password!");
+            }
+
+            if (!util.RegexUtilities.isValidName(firstNameTextBox.Text))
+            {
+                MessageBox.Show("Invalid characters in first name!");           
+            }
+
+            if (!util.RegexUtilities.isValidName(lastNameTextBox.Text))
+            {
+                MessageBox.Show("Invalid characters in last name!");
+            }
             #endregion
         }
     }

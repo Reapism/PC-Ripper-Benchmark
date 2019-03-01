@@ -34,10 +34,12 @@ namespace PC_Ripper_Benchmark {
             //Change the progressbar visibilty to not show on screen
             this.database_progressbar.Visibility = Visibility.Collapsed;
 
+            //Create new instance of the window settings class
             util.WindowSettings setting = new util.WindowSettings();
             setting.CenterWindowOnScreen(this.windowLogin);
         }
 
+        #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
             try {
@@ -74,6 +76,7 @@ namespace PC_Ripper_Benchmark {
             CreateAccountWindow screen2 = new CreateAccountWindow();
             screen2.Show();
             this.Close();
-        }      
+        }
+        #endregion
     }
 }
