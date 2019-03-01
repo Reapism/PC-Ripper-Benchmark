@@ -64,9 +64,9 @@ namespace PC_Ripper_Benchmark {
         }
 
         /// <summary>
-        /// Centers the <see cref="LoginWindow"/>
+        /// Centers the screen <see cref="LoginWindow"/>
         /// on the screen.
-        /// </summary>
+        /// </summary>                       
 
         private void CenterWindowOnScreen() {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
@@ -77,6 +77,12 @@ namespace PC_Ripper_Benchmark {
             this.Left = (screenWidth / 2) - (windowWidth / 2);
             this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
+
+
+        /// <summary>
+        /// Event handler for signUpButton in <see cref="LoginWindow"/>.
+        /// <para>When signUpButton is clicked,the window changes to a window of type <see cref="CreateAccountWindow"/></para>
+        /// </summary>
 
         private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
