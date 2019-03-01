@@ -1,9 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace PC_Ripper_Benchmark.window {
+namespace PC_Ripper_Benchmark {
 
     /// <summary>
     /// Interaction logic for <see cref="LoginWindow"/>
@@ -26,7 +37,9 @@ namespace PC_Ripper_Benchmark.window {
             CenterWindowOnScreen();
         }
 
-        private void BtnSubmit_Click(object sender, RoutedEventArgs e) {
+
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
             try {
                 if (sqlCon.State == ConnectionState.Closed)
@@ -65,6 +78,14 @@ namespace PC_Ripper_Benchmark.window {
 
             this.Left = (screenWidth / 2) - (windowWidth / 2);
             this.Top = (screenHeight / 2) - (windowHeight / 2);
+        }
+
+        private void signUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            SignUpScreen screen2 = new SignUpScreen();
+            screen2.Show();
+            CenterWindowOnScreen();
+            this.Close();
         }
     }
 }
