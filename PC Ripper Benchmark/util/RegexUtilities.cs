@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
-namespace PC_Ripper_Benchmark
+namespace PC_Ripper_Benchmark.util
 {
     public partial class RegexUtilities
     {
+        #region Email Validation 
         public static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -54,5 +55,23 @@ namespace PC_Ripper_Benchmark
                 return false;
             }
         }
+        #endregion
+
+        #region Password Validation
+        public static bool isValidPassword(string password)
+        {
+           
+            try
+            {
+                return Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$",
+                    RegexOptions.None, TimeSpan.FromMilliseconds(250));
+                
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

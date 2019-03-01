@@ -69,16 +69,18 @@ namespace PC_Ripper_Benchmark
             }
             #endregion
 
-            if (RegexUtilities.IsValidEmail(emailTextBox.Text))
-            {
-                MessageBox.Show("Valid email!");
-            }
+            #region Regular Expression Checks
 
-            if (!RegexUtilities.IsValidEmail(emailTextBox.Text))
+            if (!util.RegexUtilities.IsValidEmail(emailTextBox.Text))
             {
                 MessageBox.Show("Invalid email!");
             }
+               
+            if (!util.RegexUtilities.isValidPassword(userPasswordBox.Password))
+            {
+                MessageBox.Show("Invalid password!" + userPasswordBox.Password);
+            }                    
+            #endregion
         }
-          
     }
 }
