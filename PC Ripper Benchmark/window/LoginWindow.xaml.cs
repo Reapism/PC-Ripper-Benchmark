@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -35,7 +36,7 @@ namespace PC_Ripper_Benchmark {
             this.database_progressbar.Visibility = Visibility.Collapsed;
 
             //Create new instance of the window settings class
-            util.WindowSettings setting = new util.WindowSettings();
+            function.WindowSettings setting = new function.WindowSettings();
             setting.CenterWindowOnScreen(this.windowLogin);
         }
 
@@ -73,9 +74,11 @@ namespace PC_Ripper_Benchmark {
 
         private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
+            function.WindowSettings settings = new function.WindowSettings();
             CreateAccountWindow screen2 = new CreateAccountWindow();
-            screen2.Show();
-            this.Close();
+            DoubleAnimation openScreen = new DoubleAnimation();
+
+            settings.TransitionToCreateAccountScreen(screen2, this, openScreen);
         }
         #endregion
     }

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 
-namespace PC_Ripper_Benchmark.util
+namespace PC_Ripper_Benchmark.function
 {
 
     /// <summary>
@@ -31,6 +32,27 @@ namespace PC_Ripper_Benchmark.util
 
             myWindow.Left = (screenWidth / 2) - (windowWidth / 2);
             myWindow.Top = (screenHeight / 2) - (windowHeight / 2);
+        }
+
+        /// <summary>
+        /// Method in <see cref="WindowSettings"/>.
+        /// <para>Takes the destination window, current window, and animation.
+        /// The method changes the opacity of the current window
+        /// to 0 and gradually opens the destination window.</para>
+        /// </summary>
+        public void TransitionToCreateAccountScreen(CreateAccountWindow destinationWindow, LoginWindow currentWindow, DoubleAnimation animation)
+        {
+            destinationWindow = new CreateAccountWindow();
+            DoubleAnimation openScreen = new DoubleAnimation();
+
+            destinationWindow.Opacity = 0;
+            destinationWindow.Show();
+            currentWindow.Close();
+
+            openScreen.From = 0;
+            openScreen.To = 1;
+            openScreen.Duration = new Duration(TimeSpan.FromSeconds(.5));
+            destinationWindow.BeginAnimation(UIElement.OpacityProperty, openScreen);
         }
     }
 }

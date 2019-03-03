@@ -34,7 +34,7 @@ namespace PC_Ripper_Benchmark
         public CreateAccountWindow()
         {
             InitializeComponent();
-            util.WindowSettings settings = new util.WindowSettings();
+            function.WindowSettings settings = new function.WindowSettings();
             settings.CenterWindowOnScreen(this.windowCreateAccount);
         }
                 
