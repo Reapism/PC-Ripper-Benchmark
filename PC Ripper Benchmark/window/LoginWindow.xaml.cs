@@ -74,12 +74,11 @@ namespace PC_Ripper_Benchmark {
 
         private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateAccountWindow screen2 = new CreateAccountWindow();
+            CreateAccountWindow createAccountWindow = new CreateAccountWindow();
             DoubleAnimation openScreen = new DoubleAnimation();
 
-            settings.TransitionToCreateAccountScreen(screen2, this, openScreen);
-            this.Close();
+            settings.TransitionToCreateAccountScreen(createAccountWindow, this, openScreen);
         }
-        #endregion
+        #endregion          
     }
 }

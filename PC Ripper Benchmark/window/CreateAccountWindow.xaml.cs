@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Animation;
 
 namespace PC_Ripper_Benchmark
 {
@@ -108,6 +109,11 @@ namespace PC_Ripper_Benchmark
                 MessageBox.Show("Invalid characters in last name!");
             }
             #endregion
+
+            LoginWindow loginWindow = new LoginWindow();
+            DoubleAnimation openScreen = new DoubleAnimation();
+
+            //settings.TransitionToLoginScreen(loginWindow, this, openScreen);
         }
     }
 }
