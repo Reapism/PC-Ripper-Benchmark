@@ -26,6 +26,9 @@ namespace PC_Ripper_Benchmark
     /// </summary>
     public partial class CreateAccountWindow : Window
     {
+        //Global window settings class object
+        function.WindowSettings settings = new function.WindowSettings();
+
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
         /// <para>Creates a window of type CreateWindow
@@ -33,8 +36,7 @@ namespace PC_Ripper_Benchmark
         /// </summary>
         public CreateAccountWindow()
         {
-            InitializeComponent();
-            function.WindowSettings settings = new function.WindowSettings();
+            InitializeComponent();       
             settings.CenterWindowOnScreen(this.windowCreateAccount);
         }
                 
