@@ -43,16 +43,15 @@ namespace PC_Ripper_Benchmark.function
         public void TransitionToCreateAccountScreen(CreateAccountWindow destinationWindow, LoginWindow currentWindow, DoubleAnimation animation)
         {
             destinationWindow = new CreateAccountWindow();
-            DoubleAnimation openScreen = new DoubleAnimation();
 
             destinationWindow.Opacity = 0;
             destinationWindow.Show();
             currentWindow.Close();
 
-            openScreen.From = 0;
-            openScreen.To = 1;
-            openScreen.Duration = new Duration(TimeSpan.FromSeconds(.5));
-            destinationWindow.BeginAnimation(UIElement.OpacityProperty, openScreen);
+            animation.From = 0;
+            animation.To = 1;
+            animation.Duration = new Duration(TimeSpan.FromSeconds(1));
+            destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);
         }
     }
 }

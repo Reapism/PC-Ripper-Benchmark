@@ -37,7 +37,6 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <returns></returns>
         /// <exception cref="UnknownTestException"></exception>
-        /// <exception cref="exc"
 
         protected override byte GenerateScore() {
             return 0;

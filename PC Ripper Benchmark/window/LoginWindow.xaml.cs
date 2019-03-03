@@ -28,6 +28,7 @@ namespace PC_Ripper_Benchmark {
         /// <summary>
         /// Default constructor for <see cref="LoginWindow"/>
         /// </summary>
+        function.WindowSettings settings = new function.WindowSettings();
 
         public LoginWindow() {
             InitializeComponent();
@@ -36,8 +37,7 @@ namespace PC_Ripper_Benchmark {
             this.database_progressbar.Visibility = Visibility.Collapsed;
 
             //Create new instance of the window settings class
-            function.WindowSettings setting = new function.WindowSettings();
-            setting.CenterWindowOnScreen(this.windowLogin);
+            settings.CenterWindowOnScreen(this.windowLogin);
         }
 
         #region Event Handlers
@@ -74,7 +74,6 @@ namespace PC_Ripper_Benchmark {
 
         private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
-            function.WindowSettings settings = new function.WindowSettings();
             CreateAccountWindow screen2 = new CreateAccountWindow();
             DoubleAnimation openScreen = new DoubleAnimation();
 
