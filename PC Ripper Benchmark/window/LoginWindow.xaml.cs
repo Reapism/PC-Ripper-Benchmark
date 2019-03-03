@@ -78,6 +78,7 @@ namespace PC_Ripper_Benchmark {
             DoubleAnimation openScreen = new DoubleAnimation();
 
             settings.TransitionToCreateAccountScreen(screen2, this, openScreen);
+            this.Close();
         }
         #endregion
     }

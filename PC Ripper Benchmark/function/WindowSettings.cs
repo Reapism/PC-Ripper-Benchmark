@@ -42,8 +42,6 @@ namespace PC_Ripper_Benchmark.function
         /// </summary>
         public void TransitionToCreateAccountScreen(CreateAccountWindow destinationWindow, LoginWindow currentWindow, DoubleAnimation animation)
         {
-            destinationWindow = new CreateAccountWindow();
-
             destinationWindow.Opacity = 0;
             destinationWindow.Show();
             currentWindow.Close();
