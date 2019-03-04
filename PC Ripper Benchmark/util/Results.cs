@@ -66,7 +66,6 @@ namespace PC_Ripper_Benchmark.util {
         /// <summary>
         /// Adds a particular test to the <see cref="TestCollection"/>.
         /// </summary>
-        /// <param name="name">The name of the function and test #.</param>
         /// <param name="duration">A <see cref="TimeSpan"/> that represents
         /// a duration for the test.</param>
 
@@ -75,12 +74,11 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         /// <summary>
-        /// Generates a <see cref="Tuple"/> containing 
+        /// Generates a <see cref="Tuple{T1, T2}"/> containing 
         /// the Name and average test.
         /// </summary>
         /// <param name="testCollection"></param>
         /// <returns>A Tuple containing a </returns>
-        /// <exception cref="DivideByZeroException">If testCollection is empty.</exception>
 
         protected virtual Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
             TimeSpan totalTime = new TimeSpan();
@@ -90,12 +88,12 @@ namespace PC_Ripper_Benchmark.util {
             }
 
             if (testCollection.Count > 0) {
-                return Tuple.Create(
-                     this.TestName,
-                     new TimeSpan(totalTime.Ticks / testCollection.Count));
+                return Tuple.Create(this.TestName, new TimeSpan(totalTime.Ticks / testCollection.Count));
             } else {
-                throw new DivideByZeroException();
+                return Tuple.Create(this.TestName, new TimeSpan(totalTime.Ticks / 1));
             }
+
+
         }
 
         #endregion
