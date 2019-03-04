@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace PC_Ripper_Benchmark.exception
-{
+namespace PC_Ripper_Benchmark.exception {
 
     /// <summary>
     /// The <see cref="RipperThreadException"/> class.
@@ -10,8 +9,7 @@ namespace PC_Ripper_Benchmark.exception
     /// <para>Author: David Hartglass</para>
     /// </summary>
 
-    public class RipperThreadException : Exception
-    {
+    public class RipperThreadException : Exception {
         private string message;
 
         /// <summary>
@@ -20,8 +18,7 @@ namespace PC_Ripper_Benchmark.exception
         /// </summary>
         /// <param name="message">The exception message.</param>
 
-        public RipperThreadException(string message)
-        {
+        public RipperThreadException(string message) {
             this.message = message;
         }
 
@@ -31,10 +28,7 @@ namespace PC_Ripper_Benchmark.exception
         /// </summary>
         /// <returns></returns>
 
-        public override string ToString()
-        {
-            return message;
-        }
+        public override string ToString() => this.message;
 
     }
 }
