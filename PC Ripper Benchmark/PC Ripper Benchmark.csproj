@@ -72,10 +72,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="exception\RipperDatabaseException.cs" />
     <Compile Include="exception\Test.cs" />
+    <Compile Include="function\DiskFunctions.cs" />
+    <Compile Include="function\RamFunctions.cs" />
+    <Compile Include="util\DiskResults.cs" />
+    <Compile Include="util\RamResults.cs" />
     <Compile Include="util\RegexUtilities.cs" />
     <Compile Include="function\WindowSettings.cs" />
+    <Compile Include="util\RipperFile.cs" />
+    <Compile Include="util\RipperFolder.cs" />
     <Compile Include="util\User.cs" />
+    <Compile Include="util\UserData.cs" />
     <Compile Include="window\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -94,7 +102,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="exception\RipperScoreException.cs" />
     <Compile Include="exception\RipperThreadException.cs" />
     <Compile Include="exception\UnknownTestException.cs" />
     <Compile Include="function\CPUFunctions.cs" />
