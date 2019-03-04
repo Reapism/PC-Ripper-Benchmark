@@ -9,7 +9,8 @@ namespace PC_Ripper_Benchmark.util {
     /// <para></para>
     /// Represents benchmarking results regarding
     /// a particular test.
-    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class CPUResults : Results {
@@ -21,17 +22,31 @@ namespace PC_Ripper_Benchmark.util {
 
         public override Tuple<string, TimeSpan> AverageTest => GenerateAverageTest(TestCollection);
 
+        /// <summary>
+        /// Represents all the timespans for the CPU tests.
+        /// </summary>
+
         public override List<TimeSpan> TestCollection { get; }
+
+        /// <summary>
+        /// Represents the score for the test.
+        /// </summary>
 
         public override byte Score => GenerateScore();
 
-        public override string Description => throw new NotImplementedException();
+        /// <summary>
+        /// Represents the description for test.
+        /// </summary>
 
-        public override string TestName => throw new NotImplementedException();
+        public override string Description => GenerateDescription();
 
         public override byte UniqueTestCount => throw new NotImplementedException();
 
-        protected override void GenerateDescription() {
+        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
+            throw new NotImplementedException();
+        }
+
+        protected override string GenerateDescription() {
             throw new NotImplementedException();
         }
 
@@ -42,13 +57,9 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>Result will be from 0-100</para>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="UnknownTestException"></exception>
-        /// <exception cref="RipperScoreException"></exception>
 
         protected override byte GenerateScore() {
             return 0;
-
-
         }
     }
 }
