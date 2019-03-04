@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using System;
 using System.Collections.Generic;
+using static PC_Ripper_Benchmark.function.FunctionTypes;
 
 namespace PC_Ripper_Benchmark.util {
 
@@ -7,7 +9,8 @@ namespace PC_Ripper_Benchmark.util {
     /// The abstract <see cref="Results"/> class.
     /// <para>Contains property signatures, and method signatures for
     /// similar data for a particular component results.</para>
-    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public abstract class Results {
@@ -36,11 +39,6 @@ namespace PC_Ripper_Benchmark.util {
         public abstract string Description { get; }
 
         /// <summary>
-        /// Represents the test name for this component.
-        /// </summary>
-        public abstract string TestName { get; }
-
-        /// <summary>
         /// Gets the number of unique individual tests
         /// for the component.
         /// </summary>
@@ -55,13 +53,105 @@ namespace PC_Ripper_Benchmark.util {
         /// given component test.
         /// </summary>
 
-        protected abstract void GenerateDescription();
+        protected abstract string GenerateDescription();
 
         /// <summary>
         /// Generates a score for a particular component.
         /// </summary>
 
         protected abstract byte GenerateScore();
+
+        /// <summary>
+        /// Generates a <see cref="Tuple{T1, T2}"/> containing 
+        /// the Name and average test for a particular component.
+        /// </summary>
+        /// <param name="testCollection">A collection of tests.</param>
+        /// <returns>A Tuple containing a </returns>
+
+        protected abstract Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection); 
+
+        #endregion
+
+        #region Virtual function(s).
+
+        /// <summary>
+        /// Takes in a <see cref="TestName"/> and
+        /// returns a string representing that test name.
+        /// </summary>
+        /// <param name="theTest">The <see cref="TestName"/> enum
+        /// which represents the name.</param>
+        /// <returns></returns>
+        public virtual string GetTestName(TestName theTest) {
+            switch (theTest) {
+                // CPU test names.
+                case TestName.CPUSuccessorship: {
+                    return "Successorship";
+                }
+
+                case TestName.CPUBoolean: {
+                    return "Boolean";
+                }
+
+                case TestName.CPUQueue: {
+                    return "Queue";
+                }
+
+                case TestName.CPULinkedList: {
+                    return "Linked List";
+                }
+
+                case TestName.CPUTree: {
+                    return "Tree";
+                }
+
+                // Disk test names.
+                case TestName.DiskFolderMatrix: {
+                    return "Folder Matrix";
+                }
+
+                case TestName.DiskBulkFile: {
+                    return "Bulk File";
+                }
+
+                case TestName.DiskReadWriteParse: {
+                    return "Read/Write Parse";
+                }
+
+                case TestName.DiskRipper: {
+                    return "Disk Ripper";
+                }
+
+                // Ram test names.
+                case TestName.RamVirtualFolderMatrix: {
+                    return "Virtual Folder Matrix";
+                }
+
+                case TestName.RamVirtualBulkData: {
+                    return "Virtual Bulk Data";
+                }
+
+                case TestName.RamReferenceDereferenceParse: {
+                    return "Reference/Dereference Parse";
+                }
+
+                // GPU test names.
+                case TestName.GPUFolderMatrix: {
+                    return "Not Implemented.";
+                }
+
+                case TestName.GPUBulkFile: {
+                    return "Not Implemented.";
+                }
+
+                case TestName.GPUReadWriteParse: {
+                    return "Not Implemented.";
+                }
+
+                default: {
+                    throw new UnknownTestException("");
+                }
+            }
+        }
 
         /// <summary>
         /// Adds a particular test to the <see cref="TestCollection"/>.
@@ -71,29 +161,6 @@ namespace PC_Ripper_Benchmark.util {
 
         protected virtual void AddTest(TimeSpan duration) {
             this.TestCollection.Add(duration);
-        }
-
-        /// <summary>
-        /// Generates a <see cref="Tuple{T1, T2}"/> containing 
-        /// the Name and average test.
-        /// </summary>
-        /// <param name="testCollection"></param>
-        /// <returns>A Tuple containing a </returns>
-
-        protected virtual Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
-            TimeSpan totalTime = new TimeSpan();
-
-            foreach (TimeSpan time in testCollection) {
-                totalTime = totalTime.Add(time);
-            }
-
-            if (testCollection.Count > 0) {
-                return Tuple.Create(this.TestName, new TimeSpan(totalTime.Ticks / testCollection.Count));
-            } else {
-                return Tuple.Create(this.TestName, new TimeSpan(totalTime.Ticks / 1));
-            }
-
-
         }
 
         #endregion
