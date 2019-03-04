@@ -73,7 +73,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="exception\RipperDatabaseException.cs" />
-    <Compile Include="exception\Test.cs" />
     <Compile Include="function\DiskFunctions.cs" />
     <Compile Include="function\RamFunctions.cs" />
     <Compile Include="util\DiskResults.cs" />
