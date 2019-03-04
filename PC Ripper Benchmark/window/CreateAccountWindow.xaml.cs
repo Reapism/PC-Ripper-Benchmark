@@ -50,7 +50,6 @@ namespace PC_Ripper_Benchmark
 
         private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            int count = 0;
 
             #region TextField Error Checking
             String errorMessage = null;
@@ -95,34 +94,18 @@ namespace PC_Ripper_Benchmark
             {
                 MessageBox.Show("Invalid email!");
             }
-            else
-            {
-                count++;
-            }
 
             if (!util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
             {
                 MessageBox.Show("Invalid phone number!");
-            }
-            else
-            {
-                count++;
             }
 
             if (!util.RegexUtilities.isValidPassword(userPasswordBox.Password))
             {
                 MessageBox.Show("Invalid password!");
             }
-            else
-            {
-                count++;
-            }
 
-            if (userPasswordBox.Password == confirmUserPasswordBox.Password)
-            {
-                count++;
-            }
-            else
+            if (userPasswordBox.Password != confirmUserPasswordBox.Password)
             {
                 MessageBox.Show("Passwords do not match!");
             }
@@ -131,23 +114,21 @@ namespace PC_Ripper_Benchmark
             {
                 MessageBox.Show("Invalid characters in first name!");           
             }
-            else
-            {
-                count++;
-            }
 
             if (!util.RegexUtilities.isValidName(lastNameTextBox.Text))
             {
                 MessageBox.Show("Invalid characters in last name!");
             }
-            else
-            {
-                count++;
-            }
 
-            if (count== 6)
+            if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&
+               util.RegexUtilities.isValidName(firstNameTextBox.Text) &&
+               util.RegexUtilities.isValidName(lastNameTextBox.Text) &&
+               util.RegexUtilities.IsValidEmail(emailTextBox.Text) &&
+               util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&
+               util.RegexUtilities.isValidPassword(userPasswordBox.Password) &&
+               userPasswordBox.Password == confirmUserPasswordBox.Password)
             {
-                MessageBox.Show("Account created!");
+                MessageBox.Show("Account Created!");
             }
             #endregion
 
