@@ -6,7 +6,8 @@ namespace PC_Ripper_Benchmark.exception {
     /// The <see cref="RipperScoreException"/> class.
     /// <para>Thrown when there is insufficient information from a
     /// class that inherits <see cref="PC_Ripper_Benchmark.util.Results"/>.</para>
-    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class RipperScoreException : Exception {
