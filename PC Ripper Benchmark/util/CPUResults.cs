@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using System;
 using System.Collections.Generic;
-using PC_Ripper_Benchmark.exception;
 
 namespace PC_Ripper_Benchmark.util {
 
@@ -13,9 +13,15 @@ namespace PC_Ripper_Benchmark.util {
     /// </summary>
 
     public class CPUResults : Results {
+
+        /// <summary>
+        /// Represents a <see cref="Tuple{T1, T2}"/> which contains
+        /// the name of the test, and the average. If the 
+        /// </summary>
+
         public override Tuple<string, TimeSpan> AverageTest => GenerateAverageTest(TestCollection);
 
-        public override List<TimeSpan> TestCollection => throw new NotImplementedException();
+        public override List<TimeSpan> TestCollection { get; }
 
         public override byte Score => GenerateScore();
 
@@ -37,7 +43,7 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <returns></returns>
         /// <exception cref="UnknownTestException"></exception>
-        /// <exception cref="exc"
+        /// <exception cref="RipperScoreException"></exception>
 
         protected override byte GenerateScore() {
             return 0;
