@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
-namespace PC_Ripper_Benchmark.util
-{
+namespace PC_Ripper_Benchmark.util {
+
     /// <summary>
     /// The <see cref="RegexUtilities"/> class.
     /// <para></para>
@@ -15,30 +11,26 @@ namespace PC_Ripper_Benchmark.util
     /// methods for validation of text fields.
     /// <para>Author: David Hartglass (c), all rights reserved.</para>
     /// </summary>
-    public partial class RegexUtilities
-    {
+
+    public partial class RegexUtilities {
         #region Email Validation 
 
         /// <summary>
-        /// Method in <see cref="RegexUtilities"/>.
+        /// Returns whether the <paramref name="email"/> is valid.
         /// <para>Validates whether a string is a valid email address.</para>
         /// </summary>
-        /// 
 
-        public static bool IsValidEmail(string email)
-        {
+        public static bool IsValidEmail(string email) {
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
-            try
-            {
+            try {
                 // Normalize the domain
                 email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
                                       RegexOptions.None, TimeSpan.FromMilliseconds(200));
 
                 // Examines the domain part of the email and normalizes it.
-                string DomainMapper(Match match)
-                {
+                string DomainMapper(Match match) {
                     // Use IdnMapping class to convert Unicode domain names.
                     var idn = new IdnMapping();
 
@@ -47,25 +39,18 @@ namespace PC_Ripper_Benchmark.util
 
                     return match.Groups[1].Value + domainName;
                 }
-            }
-            catch (RegexMatchTimeoutException e)
-            {
+            } catch (RegexMatchTimeoutException) {
                 return false;
-            }
-            catch (ArgumentException e)
-            {
+            } catch (ArgumentException) {
                 return false;
             }
 
-            try
-            {
+            try {
                 return Regex.IsMatch(email,
                     @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                     @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
                     RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
-            }
-            catch (RegexMatchTimeoutException)
-            {
+            } catch (RegexMatchTimeoutException) {
                 return false;
             }
         }
@@ -74,38 +59,40 @@ namespace PC_Ripper_Benchmark.util
         #region Password Validation
 
         /// <summary>
-        /// Default Method in <see cref="RegexUtilities"/>.
-        /// <para>Validates whether a string is a valid password.</para>
+        /// Returns whether a <paramref name="password"/> is
+        /// valid or not.
         /// </summary>
-        public static bool isValidPassword(string password)
-        {           
-            try
-            {
+        /// <param name="password">The password in plain text.</param>
+        /// <param name="password">The password in plain text.</param>
+        /// <returns></returns>
+
+        public static bool IsValidPassword(string password) {
+            try {
                 return Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
-                
-            }
-            catch (RegexMatchTimeoutException)
-            {
+
+            } catch (RegexMatchTimeoutException) {
                 return false;
             }
         }
         #endregion
 
         #region First/Last Name Validation
-        public static bool isValidName(string name)
-        {        
 
-             try
-             {
+        /// <summary>
+        /// Returns whether a name is valid or not.
+        /// </summary>
+        /// <param name="name">The name to check.</param>
+        /// <returns></returns>
+
+        public static bool IsValidName(string name) {
+            try {
                 return Regex.IsMatch(name, "^[A-Z][a-zA-Z]*$",
                      RegexOptions.None, TimeSpan.FromMilliseconds(250));
-           
-             }
-             catch (RegexMatchTimeoutException)
-             {
-                 return false;
-             }
+
+            } catch (RegexMatchTimeoutException) {
+                return false;
+            }
         }
         #endregion
     }
