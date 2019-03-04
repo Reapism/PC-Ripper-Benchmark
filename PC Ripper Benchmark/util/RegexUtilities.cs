@@ -8,9 +8,23 @@ using System.Globalization;
 
 namespace PC_Ripper_Benchmark.util
 {
+    /// <summary>
+    /// The <see cref="RegexUtilities"/> class.
+    /// <para></para>
+    /// Contains all application regular expression 
+    /// methods for validation of text fields.
+    /// <para>Author: David Hartglass (c), all rights reserved.</para>
+    /// </summary>
     public partial class RegexUtilities
     {
         #region Email Validation 
+
+        /// <summary>
+        /// Method in <see cref="RegexUtilities"/>.
+        /// <para>Validates whether a string is a valid email address.</para>
+        /// </summary>
+        /// 
+
         public static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -58,9 +72,13 @@ namespace PC_Ripper_Benchmark.util
         #endregion
 
         #region Password Validation
+
+        /// <summary>
+        /// Default Method in <see cref="RegexUtilities"/>.
+        /// <para>Validates whether a string is a valid password.</para>
+        /// </summary>
         public static bool isValidPassword(string password)
-        {
-           
+        {           
             try
             {
                 return Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$",
@@ -71,6 +89,23 @@ namespace PC_Ripper_Benchmark.util
             {
                 return false;
             }
+        }
+        #endregion
+
+        #region First/Last Name Validation
+        public static bool isValidName(string name)
+        {        
+
+             try
+             {
+                return Regex.IsMatch(name, "^[A-Z][a-zA-Z]*$",
+                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
+           
+             }
+             catch (RegexMatchTimeoutException)
+             {
+                 return false;
+             }
         }
         #endregion
     }

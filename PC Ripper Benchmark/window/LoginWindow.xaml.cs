@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -27,6 +28,7 @@ namespace PC_Ripper_Benchmark {
         /// <summary>
         /// Default constructor for <see cref="LoginWindow"/>
         /// </summary>
+        function.WindowSettings settings = new function.WindowSettings();
 
         public LoginWindow() {
             InitializeComponent();
@@ -34,9 +36,11 @@ namespace PC_Ripper_Benchmark {
             //Change the progressbar visibilty to not show on screen
             this.database_progressbar.Visibility = Visibility.Collapsed;
 
-            CenterWindowOnScreen();
+            //Create new instance of the window settings class
+            settings.CenterWindowOnScreen(this.windowLogin);
         }
 
+        #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
             try {
@@ -61,29 +65,20 @@ namespace PC_Ripper_Benchmark {
             } finally {
                 sqlCon.Close();
             }
-        }
+        }                                    
 
         /// <summary>
-        /// Centers the <see cref="LoginWindow"/>
-        /// on the screen.
+        /// Event handler for signUpButton in <see cref="LoginWindow"/>.
+        /// <para>When signUpButton is clicked,the window changes to a window of type <see cref="CreateAccountWindow"/></para>
         /// </summary>
-
-        private void CenterWindowOnScreen() {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
-        }
 
         private void signUpButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateAccountWindow screen2 = new CreateAccountWindow();
-            screen2.Show();
-            CenterWindowOnScreen();
-            this.Close();
-        }      
+            CreateAccountWindow createAccountWindow = new CreateAccountWindow();
+            DoubleAnimation openScreen = new DoubleAnimation();
+
+            settings.TransitionToCreateAccountScreen(createAccountWindow, this, openScreen);
+        }
+        #endregion          
     }
 }
