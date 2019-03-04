@@ -82,7 +82,6 @@
     <Compile Include="function\WindowSettings.cs" />
     <Compile Include="util\RipperFile.cs" />
     <Compile Include="util\RipperFolder.cs" />
-    <Compile Include="util\User.cs" />
     <Compile Include="util\UserData.cs" />
     <Compile Include="window\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
