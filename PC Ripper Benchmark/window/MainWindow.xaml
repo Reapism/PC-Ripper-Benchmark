@@ -5,14 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
-        Title="PC Ripper Benchmarking" Height="450" Width="800" MinWidth="800" MinHeight="450">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="167*"/>
-            <ColumnDefinition Width="97*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="gridTop" Height="100" Margin="142,0,0,0" Background="#FF4D6BD3" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="650" Grid.ColumnSpan="2"/>
-        <Grid x:Name="gridNavigation" Margin="0" MinWidth="150" HorizontalAlignment="Left" Width="150" Background="#FF7FBAF5"/>
-
+        
     </Grid>
 </Window>
