@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="exception\Test.cs" />
     <Compile Include="util\RegexUtilities.cs" />
     <Compile Include="function\WindowSettings.cs" />
     <Compile Include="util\User.cs" />
