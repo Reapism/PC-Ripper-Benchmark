@@ -108,5 +108,25 @@ namespace PC_Ripper_Benchmark.util
              }
         }
         #endregion
+
+        #region Phone # Validation
+        /// <summary>
+        /// Default Method in <see cref="RegexUtilities"/>.
+        /// <para>Validates whether a string is a valid password.</para>
+        /// </summary>
+        public static bool isValidPhoneNumber(string phoneNumber)
+        {
+            try
+            {
+                return Regex.IsMatch(phoneNumber, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
+                    RegexOptions.None, TimeSpan.FromMilliseconds(250));
+
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

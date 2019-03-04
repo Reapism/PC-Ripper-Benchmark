@@ -50,6 +50,7 @@ namespace PC_Ripper_Benchmark.function
             animation.To = 1;
             animation.Duration = new Duration(TimeSpan.FromSeconds(1));
             destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);
+            currentWindow.Close();
         }
 
 
@@ -68,7 +69,7 @@ namespace PC_Ripper_Benchmark.function
             animation.From = 0;
             animation.To = 1;
             animation.Duration = new Duration(TimeSpan.FromSeconds(1));
-            destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);
+            destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);                        
         }
     }
 }

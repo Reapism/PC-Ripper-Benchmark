@@ -50,6 +50,8 @@ namespace PC_Ripper_Benchmark
 
         private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            int count = 0;
+
             #region TextField Error Checking
             String errorMessage = null;
             if (string.IsNullOrWhiteSpace(firstNameTextBox.Text))
@@ -93,27 +95,62 @@ namespace PC_Ripper_Benchmark
             {
                 MessageBox.Show("Invalid email!");
             }
-               
+            else
+            {
+                count++;
+            }
+
+            if (!util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
+            {
+                MessageBox.Show("Invalid phone number!");
+            }
+            else
+            {
+                count++;
+            }
+
             if (!util.RegexUtilities.isValidPassword(userPasswordBox.Password))
             {
                 MessageBox.Show("Invalid password!");
+            }
+            else
+            {
+                count++;
+            }
+
+            if (userPasswordBox.Password == confirmUserPasswordBox.Password)
+            {
+                count++;
+            }
+            else
+            {
+                MessageBox.Show("Passwords do not match!");
             }
 
             if (!util.RegexUtilities.isValidName(firstNameTextBox.Text))
             {
                 MessageBox.Show("Invalid characters in first name!");           
             }
+            else
+            {
+                count++;
+            }
 
             if (!util.RegexUtilities.isValidName(lastNameTextBox.Text))
             {
                 MessageBox.Show("Invalid characters in last name!");
             }
+            else
+            {
+                count++;
+            }
+
+            if (count== 6)
+            {
+                MessageBox.Show("Account created!");
+            }
             #endregion
 
-            LoginWindow loginWindow = new LoginWindow();
-            DoubleAnimation openScreen = new DoubleAnimation();
-
-            //settings.TransitionToLoginScreen(loginWindow, this, openScreen);
         }
     }
 }
