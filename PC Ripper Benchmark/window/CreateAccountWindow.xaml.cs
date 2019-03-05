@@ -93,6 +93,7 @@ namespace PC_Ripper_Benchmark
             {
                 MessageBox.Show("Invalid email!");
             }
+            
 
             if (!util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
             {
@@ -140,5 +141,238 @@ namespace PC_Ripper_Benchmark
             #endregion
 
         }
+        #region Border Color Changes 
+
+        //First Name-----------------------------------------------------------------
+        private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
+            {
+                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
+            {
+                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
+            {           
+                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        //Last Name-----------------------------------------------------------------
+        private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidName(lastNameTextBox.Text))
+            {
+                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidName(lastNameTextBox.Text))
+            {
+                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidName(lastNameTextBox.Text))
+            {
+                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        //Email-----------------------------------------------------------------------------
+        private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
+            {
+                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void EmailTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
+            {
+                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
+            {
+                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        //Phone-------------------------------------------------------------------------
+
+        private void PhoneTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
+            {
+                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void PhoneTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
+            {
+                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void PhoneTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
+            {
+                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        //Password----------------------------------------------------------------
+        private void UserPasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
+            {
+                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void UserPasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
+            {
+                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void UserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
+            {
+                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderBrush = Brushes.Red;
+            }
+        }            
+
+        private void ConfirmUserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (userPasswordBox.Password == confirmUserPasswordBox.Password)
+            {
+                confirmUserPasswordBox.BorderThickness = new Thickness(2.0);
+                confirmUserPasswordBox.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                confirmUserPasswordBox.BorderThickness = new Thickness(2.0);
+                confirmUserPasswordBox.BorderBrush = Brushes.Red;
+            }
+        }
+
+        #endregion
     }
 }

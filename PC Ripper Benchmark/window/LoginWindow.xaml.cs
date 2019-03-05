@@ -24,8 +24,8 @@ namespace PC_Ripper_Benchmark {
             InitializeComponent();
 
             //Change the progressbar visibilty to not show on screen
-            this.database_progressbar.Visibility = Visibility.Collapsed;
-
+            this.database_progressbar.Opacity = 0;
+                
             //Create new instance of the window settings class
             this.settings.CenterWindowOnScreen(this.windowLogin);
         }
