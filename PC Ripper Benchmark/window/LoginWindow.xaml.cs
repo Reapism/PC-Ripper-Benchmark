@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PC_Ripper_Benchmark.window;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PC_Ripper_Benchmark {
 
@@ -37,7 +27,7 @@ namespace PC_Ripper_Benchmark {
             this.database_progressbar.Visibility = Visibility.Collapsed;
 
             //Create new instance of the window settings class
-            settings.CenterWindowOnScreen(this.windowLogin);
+            this.settings.CenterWindowOnScreen(this.windowLogin);
         }
 
         #region Event Handlers
@@ -72,13 +62,16 @@ namespace PC_Ripper_Benchmark {
         /// <para>When signUpButton is clicked,the window changes to a window of type <see cref="CreateAccountWindow"/></para>
         /// </summary>
 
-         private void signUpButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void signUpButton_Click(object sender, RoutedEventArgs e) {
             CreateAccountWindow createAccountWindow = new CreateAccountWindow();
             DoubleAnimation openScreen = new DoubleAnimation();
 
-            settings.TransitionToCreateAccountScreen(createAccountWindow, this, openScreen);
+            this.settings.TransitionToCreateAccountScreen(createAccountWindow, this, openScreen);
         }
-        #endregion          
+        #endregion
+
+        private void BtnTemp_Click(object sender, RoutedEventArgs e) {
+            new MainWindow().Show();
+        }
     }
 }
