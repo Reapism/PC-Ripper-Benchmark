@@ -92,32 +92,39 @@ namespace PC_Ripper_Benchmark
             if (!util.RegexUtilities.IsValidEmail(emailTextBox.Text))
             {
                 MessageBox.Show("Invalid email!");
+                emailTextBox.Focus();
             }
             
 
             if (!util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
             {
                 MessageBox.Show("Invalid phone number!");
+                phoneTextBox.Focus();
             }
 
             if (!util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
                 MessageBox.Show("Invalid password!");
+                userPasswordBox.Focus();
+
             }
 
             if (userPasswordBox.Password != confirmUserPasswordBox.Password)
             {
                 MessageBox.Show("Passwords do not match!");
+                confirmUserPasswordBox.Focus();
             }
 
             if (!util.RegexUtilities.IsValidName(firstNameTextBox.Text))
             {
-                MessageBox.Show("Invalid characters in first name!");           
+                MessageBox.Show("Invalid characters in first name!");
+                firstNameTextBox.Focus();
             }
 
             if (!util.RegexUtilities.IsValidName(lastNameTextBox.Text))
             {
                 MessageBox.Show("Invalid characters in last name!");
+                lastNameTextBox.Focus();
             }
 
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&

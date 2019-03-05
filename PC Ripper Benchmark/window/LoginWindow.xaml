@@ -1,18 +1,18 @@
 ﻿<Window x:Name="windowLogin" x:Class="PC_Ripper_Benchmark.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PC Ripper Benchmark" Height="550" Width="384.5" FontSize="14" Background="#3E8DE6"
+        Title="PC Ripper Benchmark" Height="600" Width="385" FontSize="14" Background="#3E8DE6"
         MinHeight="440" MinWidth="380">
 
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
-        <StackPanel Margin="20">
+        <StackPanel Margin="20 80">
             <Label Content="Welcome" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Username" Foreground="White"/>
             <TextBox Name="txtUsername" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <Label Content="Password" Foreground="White"/>
             <PasswordBox Name="txtPassword" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
-            <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 60"/>
+            <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 20"/>
             <Button Name="loginButton" Content="Login" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click"/>
             <Button x:Name="signUpButton" Click="signUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18"/>
             <Button x:Name="btnTemp" Content="[DEBUG]Show MainWindow" Click="BtnTemp_Click"/>
