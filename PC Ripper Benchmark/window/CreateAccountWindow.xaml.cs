@@ -100,7 +100,7 @@ namespace PC_Ripper_Benchmark
                 MessageBox.Show("Invalid phone number!");
             }
 
-            if (!util.RegexUtilities.isValidPassword(userPasswordBox.Password))
+            if (!util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
                 MessageBox.Show("Invalid password!");
             }
@@ -110,31 +110,31 @@ namespace PC_Ripper_Benchmark
                 MessageBox.Show("Passwords do not match!");
             }
 
-            if (!util.RegexUtilities.isValidName(firstNameTextBox.Text))
+            if (!util.RegexUtilities.IsValidName(firstNameTextBox.Text))
             {
                 MessageBox.Show("Invalid characters in first name!");           
             }
 
-            if (!util.RegexUtilities.isValidName(lastNameTextBox.Text))
+            if (!util.RegexUtilities.IsValidName(lastNameTextBox.Text))
             {
                 MessageBox.Show("Invalid characters in last name!");
             }
 
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&
-               util.RegexUtilities.isValidName(firstNameTextBox.Text) &&
-               util.RegexUtilities.isValidName(lastNameTextBox.Text) &&
+               util.RegexUtilities.IsValidName(firstNameTextBox.Text) &&
+               util.RegexUtilities.IsValidName(lastNameTextBox.Text) &&
                util.RegexUtilities.IsValidEmail(emailTextBox.Text) &&
                util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&
-               util.RegexUtilities.isValidPassword(userPasswordBox.Password) &&
+               util.RegexUtilities.IsValidPassword(userPasswordBox.Password) &&
                userPasswordBox.Password == confirmUserPasswordBox.Password)
             {
                 MessageBox.Show("Account Created!");
-                util.User newUser = new util.User();
-                newUser.firstName = firstNameTextBox.Text;
-                newUser.lastName = lastNameTextBox.Text;
-                newUser.email = emailTextBox.Text;
-                newUser.phoneNumber = phoneTextBox.Text;
-                newUser.phoneNumber = userPasswordBox.Password;
+                util.UserData newUser = new util.UserData();
+                newUser.FirstName = firstNameTextBox.Text;
+                newUser.LastName = lastNameTextBox.Text;
+                newUser.Email = emailTextBox.Text;
+                newUser.PhoneNumber = phoneTextBox.Text;
+                newUser.Password = userPasswordBox.Password;
 
                 //byte[] passwordProtected = userPasswordBox.Password;
             }

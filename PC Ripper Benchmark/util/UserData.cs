@@ -24,6 +24,11 @@
         /// <summary>
         /// The password for the account.
         /// </summary>
-        public string Password { get; }
+        public string Password { set;  get; }
+
+        /// <summary>
+        /// The password for the account.
+        /// </summary>
+        public string PhoneNumber { set;  get; }
     }
 }
