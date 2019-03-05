@@ -11,7 +11,8 @@ namespace PC_Ripper_Benchmark.util {
     /// Contains all application settings and 
     /// test settings for all the component
     /// benchmarking tests.
-    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class RipperSettings {
