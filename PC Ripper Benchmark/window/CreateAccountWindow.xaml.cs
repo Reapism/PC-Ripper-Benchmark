@@ -146,7 +146,6 @@ namespace PC_Ripper_Benchmark
                 //byte[] passwordProtected = userPasswordBox.Password;
             }
             #endregion
-
         }
 
         #region Border Color First Name 

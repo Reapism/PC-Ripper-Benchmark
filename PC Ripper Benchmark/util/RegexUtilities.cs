@@ -68,7 +68,7 @@ namespace PC_Ripper_Benchmark.util {
 
         public static bool IsValidPassword(string password) {
             try {
-                return Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$",
+                return Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{6,15}$",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
             } catch (RegexMatchTimeoutException) {
@@ -87,7 +87,7 @@ namespace PC_Ripper_Benchmark.util {
 
         public static bool IsValidName(string name) {
             try {
-                return Regex.IsMatch(name, "^[A-Z][a-zA-Z]*$",
+                return Regex.IsMatch(name, "^[A-Za-z][a-zA-Z]*$",
                      RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
             } catch (RegexMatchTimeoutException) {
