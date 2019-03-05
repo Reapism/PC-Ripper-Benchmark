@@ -141,19 +141,18 @@ namespace PC_Ripper_Benchmark
             #endregion
 
         }
-        #region Border Color Changes 
 
-        //First Name-----------------------------------------------------------------
+        #region Border Color First Name 
         private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
             {
-                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderThickness = new Thickness(3.0);
                 firstNameTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderThickness = new Thickness(3.0);
                 firstNameTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -162,12 +161,12 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
             {
-                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderThickness = new Thickness(3.0);
                 firstNameTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderThickness = new Thickness(3.0);
                 firstNameTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -176,27 +175,27 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
             {           
-                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderThickness = new Thickness(3.0);
                 firstNameTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                firstNameTextBox.BorderThickness = new Thickness(2.0);
+                firstNameTextBox.BorderThickness = new Thickness(3.0);
                 firstNameTextBox.BorderBrush = Brushes.Red;
             }
         }
-
-        //Last Name-----------------------------------------------------------------
+        #endregion
+        #region Border Color Last Name
         private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (util.RegexUtilities.IsValidName(lastNameTextBox.Text))
             {
-                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderThickness = new Thickness(3.0);
                 lastNameTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderThickness = new Thickness(3.0);
                 lastNameTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -205,12 +204,12 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidName(lastNameTextBox.Text))
             {
-                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderThickness = new Thickness(3.0);
                 lastNameTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderThickness = new Thickness(3.0);
                 lastNameTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -219,27 +218,27 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidName(lastNameTextBox.Text))
             {
-                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderThickness = new Thickness(3.0);
                 lastNameTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                lastNameTextBox.BorderThickness = new Thickness(2.0);
+                lastNameTextBox.BorderThickness = new Thickness(3.0);
                 lastNameTextBox.BorderBrush = Brushes.Red;
             }
         }
-
-        //Email-----------------------------------------------------------------------------
+        #endregion
+        #region Border Color Email
         private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
             {
-                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderThickness = new Thickness(3.0);
                 emailTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderThickness = new Thickness(3.0);
                 emailTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -248,12 +247,12 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
             {
-                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderThickness = new Thickness(3.0);
                 emailTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderThickness = new Thickness(3.0);
                 emailTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -262,28 +261,27 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
             {
-                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderThickness = new Thickness(3.0);
                 emailTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                emailTextBox.BorderThickness = new Thickness(2.0);
+                emailTextBox.BorderThickness = new Thickness(3.0);
                 emailTextBox.BorderBrush = Brushes.Red;
             }
         }
-
-        //Phone-------------------------------------------------------------------------
-
+        #endregion
+        #region Border Color Phone
         private void PhoneTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
             {
-                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderThickness = new Thickness(3.0);
                 phoneTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderThickness = new Thickness(3.0);
                 phoneTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -292,12 +290,12 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
             {
-                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderThickness = new Thickness(3.0);
                 phoneTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderThickness = new Thickness(3.0);
                 phoneTextBox.BorderBrush = Brushes.Red;
             }
         }
@@ -306,27 +304,27 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text))
             {
-                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderThickness = new Thickness(3.0);
                 phoneTextBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                phoneTextBox.BorderThickness = new Thickness(2.0);
+                phoneTextBox.BorderThickness = new Thickness(3.0);
                 phoneTextBox.BorderBrush = Brushes.Red;
             }
         }
-
-        //Password----------------------------------------------------------------
+        #endregion
+        #region Border Color Password
         private void UserPasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
-                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Red;
             }
         }
@@ -335,12 +333,12 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
-                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Red;
             }
         }
@@ -349,30 +347,31 @@ namespace PC_Ripper_Benchmark
         {
             if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
-                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                userPasswordBox.BorderThickness = new Thickness(2.0);
+                userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Red;
             }
-        }            
-
+        }
+        #endregion
+        #region Border Color Confirm Password
         private void ConfirmUserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (userPasswordBox.Password == confirmUserPasswordBox.Password)
             {
-                confirmUserPasswordBox.BorderThickness = new Thickness(2.0);
+                confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 confirmUserPasswordBox.BorderBrush = Brushes.Green;
             }
             else
             {
-                confirmUserPasswordBox.BorderThickness = new Thickness(2.0);
+                confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 confirmUserPasswordBox.BorderBrush = Brushes.Red;
             }
         }
-
         #endregion
     }
 }
+ 

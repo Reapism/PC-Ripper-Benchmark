@@ -105,9 +105,8 @@ namespace PC_Ripper_Benchmark.util {
         {
             try
             {
-                return Regex.IsMatch(phoneNumber, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
+                return Regex.IsMatch(phoneNumber, @"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
-
             }
             catch (RegexMatchTimeoutException)
             {
