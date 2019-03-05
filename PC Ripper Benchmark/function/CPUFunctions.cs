@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using PC_Ripper_Benchmark.util;
+using static PC_Ripper_Benchmark.function.FunctionTypes;
 
 namespace PC_Ripper_Benchmark.function {
 
@@ -12,7 +13,8 @@ namespace PC_Ripper_Benchmark.function {
     /// testing the CPU component. Includes single
     /// and multithreaded testing using various
     /// common data structures.
-    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class CPUFunctions {
@@ -47,12 +49,15 @@ namespace PC_Ripper_Benchmark.function {
         #region Instance methods
 
         /// <summary>
-        /// Runs the benchmarking test 
+        /// Runs the benchmarking test on the CPU
+        /// with a particular threading type.
         /// </summary>
+        /// <param name="threadType">The type of threading 
+        /// for the test.</param>
         /// <returns>A new <see cref="CPUResults"/> instance
         /// containing the result.</returns>
 
-        public CPUResults RunCPUBenchmark() {
+        public CPUResults RunCPUBenchmark(ThreadType threadType) {
             var results = new CPUResults();
 
             Action run_funcs = new Action(() => {

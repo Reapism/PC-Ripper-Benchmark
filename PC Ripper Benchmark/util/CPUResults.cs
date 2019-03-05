@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using System;
 using System.Collections.Generic;
-using PC_Ripper_Benchmark.exception;
 
 namespace PC_Ripper_Benchmark.util {
 
@@ -9,23 +9,44 @@ namespace PC_Ripper_Benchmark.util {
     /// <para></para>
     /// Represents benchmarking results regarding
     /// a particular test.
-    /// <para>Author: Anthony Jaghab (c), all rights reserved.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class CPUResults : Results {
+
+        /// <summary>
+        /// Represents a <see cref="Tuple{T1, T2}"/> which contains
+        /// the name of the test, and the average. If the 
+        /// </summary>
+
         public override Tuple<string, TimeSpan> AverageTest => GenerateAverageTest(TestCollection);
 
-        public override List<TimeSpan> TestCollection => throw new NotImplementedException();
+        /// <summary>
+        /// Represents all the timespans for the CPU tests.
+        /// </summary>
+
+        public override List<TimeSpan> TestCollection { get; }
+
+        /// <summary>
+        /// Represents the score for the test.
+        /// </summary>
 
         public override byte Score => GenerateScore();
 
-        public override string Description => throw new NotImplementedException();
+        /// <summary>
+        /// Represents the description for test.
+        /// </summary>
 
-        public override string TestName => throw new NotImplementedException();
+        public override string Description => GenerateDescription();
 
         public override byte UniqueTestCount => throw new NotImplementedException();
 
-        protected override void GenerateDescription() {
+        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
+            throw new NotImplementedException();
+        }
+
+        protected override string GenerateDescription() {
             throw new NotImplementedException();
         }
 
@@ -36,12 +57,9 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>Result will be from 0-100</para>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="UnknownTestException"></exception>
 
         protected override byte GenerateScore() {
             return 0;
-
-
         }
     }
 }
