@@ -7,7 +7,8 @@ namespace PC_Ripper_Benchmark.util {
     /// <summary>
     /// The <see cref="ComputerSpecs"/> class.
     /// <para></para>Represents this particular pro
-    /// Author: Anthony Jaghab (c), all rights reserved.
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class ComputerSpecs {
