@@ -15,6 +15,7 @@
             <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 30"/>
             <Button Name="loginButton" Content="Login" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click"/>
             <Button x:Name="signUpButton" Click="signUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18"/>
+            <Button x:Name="btnTemp" Content="[DEBUG]Show MainWindow" Click="BtnTemp_Click"/>
         </StackPanel>
     </Border>
 </Window>
