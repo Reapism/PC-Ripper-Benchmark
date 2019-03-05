@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace PC_Ripper_Benchmark.util {
 
+
     /// <summary>
-    /// 
+    /// The <see cref="DiskResults"/> class.
+    /// <para></para>
+    /// Represents benchmarking results for
+    /// the disk tests.
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class DiskResults : Results {
