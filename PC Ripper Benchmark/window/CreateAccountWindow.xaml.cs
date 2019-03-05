@@ -129,6 +129,14 @@ namespace PC_Ripper_Benchmark
                userPasswordBox.Password == confirmUserPasswordBox.Password)
             {
                 MessageBox.Show("Account Created!");
+                util.User newUser = new util.User();
+                newUser.firstName = firstNameTextBox.Text;
+                newUser.lastName = lastNameTextBox.Text;
+                newUser.email = emailTextBox.Text;
+                newUser.phoneNumber = phoneTextBox.Text;
+                newUser.phoneNumber = userPasswordBox.Password;
+
+                //byte[] passwordProtected = userPasswordBox.Password;
             }
             #endregion
 
