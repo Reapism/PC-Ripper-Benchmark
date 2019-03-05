@@ -50,7 +50,6 @@ namespace PC_Ripper_Benchmark
 
         private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
         {
-
             #region TextField Error Checking
             String errorMessage = null;
             if (string.IsNullOrWhiteSpace(firstNameTextBox.Text))
