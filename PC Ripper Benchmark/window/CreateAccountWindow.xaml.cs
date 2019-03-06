@@ -39,6 +39,7 @@ namespace PC_Ripper_Benchmark
         {
             InitializeComponent();       
             settings.CenterWindowOnScreen(this.windowCreateAccount);
+            firstNameTextBox.Focus();
         }
                 
         /// <summary>
@@ -143,7 +144,11 @@ namespace PC_Ripper_Benchmark
                 newUser.PhoneNumber = phoneTextBox.Text;
                 newUser.Password = userPasswordBox.Password;
 
-                //byte[] passwordProtected = userPasswordBox.Password;
+                byte[] data = System.Text.Encoding.ASCII.GetBytes(newUser.Password);
+                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+                String hash = System.Text.Encoding.ASCII.GetString(data);
+
+                MessageBox.Show(hash);
             }
             #endregion
         }
