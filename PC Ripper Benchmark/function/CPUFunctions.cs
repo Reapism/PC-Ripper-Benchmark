@@ -1,7 +1,10 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using PC_Ripper_Benchmark.util;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 using static PC_Ripper_Benchmark.function.FunctionTypes;
 
 namespace PC_Ripper_Benchmark.function {
@@ -56,13 +59,45 @@ namespace PC_Ripper_Benchmark.function {
         /// for the test.</param>
         /// <returns>A new <see cref="CPUResults"/> instance
         /// containing the result.</returns>
+        /// <exception cref="RipperThreadException"></exception>
 
         public CPUResults RunCPUBenchmark(ThreadType threadType) {
             var results = new CPUResults();
 
-            Action run_funcs = new Action(() => {
+            switch (threadType) {
 
-            });
+                case ThreadType.Single: {
+                    // runs task on main thread.
+                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                        results.TestCollection.Add(RunSuccessorship());
+                    }
+                    break;
+                }
+
+                case ThreadType.SingleUI: {
+                    // runs task, but doesn't wait for result.
+                    Dispatcher.CurrentDispatcher.Invoke(() => {
+                        Task.Run(() => {
+                            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                                results.TestCollection.Add(RunSuccessorship());
+                            }
+                        });
+                    });
+
+                    break;
+                }
+
+                case ThreadType.Multithreaded: {
+
+                    break;
+                }
+
+                default: {
+                    throw new RipperThreadException("Unknown thread type to call. " +
+                        "public CPUResults RunCPUBenchmark(ThreadType threadType) " +
+                        "in function.CPUFunction ");
+                }
+            }
 
 
             return results;
