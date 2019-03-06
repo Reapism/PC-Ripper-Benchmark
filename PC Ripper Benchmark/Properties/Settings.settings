@@ -2,23 +2,26 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PC_Ripper_Benchmark.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="iter_successorship" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="iter_cpu_successorship" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
     </Setting>
-    <Setting Name="iter_boolean" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="iter_cpu_boolean" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
     </Setting>
-    <Setting Name="iter_queue" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="iter_cpu_queue" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
     </Setting>
-    <Setting Name="iter_linkedlist" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="iter_cpu_linkedlist" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
     </Setting>
-    <Setting Name="iter_tree" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="iter_cpu_tree" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
     </Setting>
     <Setting Name="auto_updates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="iter_per_cpu_test" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">3</Value>
     </Setting>
   </Settings>
 </SettingsFile>
