@@ -21,6 +21,7 @@ namespace PC_Ripper_Benchmark {
         /// <para>Creates a window of type CreateWindow
         /// and calls CenterWindowOnScreen to center the window</para>
         /// </summary>
+        /// 
         public CreateAccountWindow()
         {
             InitializeComponent();       
@@ -34,7 +35,6 @@ namespace PC_Ripper_Benchmark {
         /// using regular expressions in <see cref="util.RegexUtilities"/></para>
         /// </summary>
         /// 
-
         private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
         {
             #region TextField Error Checking
@@ -114,6 +114,10 @@ namespace PC_Ripper_Benchmark {
                 lastNameTextBox.Focus();
             }
 
+            #endregion
+
+            #region Create a user
+            //If all the data is valid...
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&
                util.RegexUtilities.IsValidName(firstNameTextBox.Text) &&
                util.RegexUtilities.IsValidName(lastNameTextBox.Text) &&
@@ -122,24 +126,24 @@ namespace PC_Ripper_Benchmark {
                util.RegexUtilities.IsValidPassword(userPasswordBox.Password) &&
                userPasswordBox.Password == confirmUserPasswordBox.Password)
             {
+
+                //New instance of encryption class
+                util.Encryption passwordEncryption = new util.Encryption();
+
                 MessageBox.Show("Account Created!");
                 util.UserData newUser = new util.UserData();
-                newUser.FirstName = firstNameTextBox.Text;
-                newUser.LastName = lastNameTextBox.Text;
-                newUser.Email = emailTextBox.Text;
-                newUser.PhoneNumber = phoneTextBox.Text;
-                newUser.Password = userPasswordBox.Password;
 
-                byte[] data = System.Text.Encoding.ASCII.GetBytes(newUser.Password);
-                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
-                String hash = System.Text.Encoding.ASCII.GetString(data);
-
-                MessageBox.Show(hash);
+                //Encrypt user data and set to newUser object
+                newUser.FirstName = passwordEncryption.encryptText(firstNameTextBox.Text);
+                newUser.LastName = passwordEncryption.encryptText(lastNameTextBox.Text);
+                newUser.Email = passwordEncryption.encryptText(emailTextBox.Text);
+                newUser.PhoneNumber = passwordEncryption.encryptText(phoneTextBox.Text);
+                newUser.Password = passwordEncryption.encryptText(newUser.Password);
             }
             #endregion
         }
 
-        #region Border Color First Name 
+        #region Border Color First Name
         private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (util.RegexUtilities.IsValidName(firstNameTextBox.Text))
