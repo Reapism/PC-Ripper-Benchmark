@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark.window"
         mc:Ignorable="d"
-        Title="QuestionaireWindowxaml" Height="450" Width="800" MinWidth="850" MinHeight="450">
+        Title="Questionaire" Height="450" Width="800" MinWidth="850" MinHeight="450">
     <Grid x:Name="grdMain">
         <StackPanel x:Name="stkMain" Margin="0" MinWidth="300" MinHeight="300">
             <Label x:Name="lblWelcome" Content="Please fill out this questionaire to complete your profile." FontSize="24" HorizontalAlignment="Center" Background="#00000000" Foreground="#FF5997E2"/>
