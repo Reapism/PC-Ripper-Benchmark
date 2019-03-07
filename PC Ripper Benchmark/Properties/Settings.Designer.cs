@@ -26,60 +26,60 @@ namespace PC_Ripper_Benchmark.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10000")]
-        public ulong iter_successorship {
+        public ulong iter_cpu_successorship {
             get {
-                return ((ulong)(this["iter_successorship"]));
+                return ((ulong)(this["iter_cpu_successorship"]));
             }
             set {
-                this["iter_successorship"] = value;
+                this["iter_cpu_successorship"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10000")]
-        public ulong iter_boolean {
+        public ulong iter_cpu_boolean {
             get {
-                return ((ulong)(this["iter_boolean"]));
+                return ((ulong)(this["iter_cpu_boolean"]));
             }
             set {
-                this["iter_boolean"] = value;
+                this["iter_cpu_boolean"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10000")]
-        public ulong iter_queue {
+        public ulong iter_cpu_queue {
             get {
-                return ((ulong)(this["iter_queue"]));
+                return ((ulong)(this["iter_cpu_queue"]));
             }
             set {
-                this["iter_queue"] = value;
+                this["iter_cpu_queue"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10000")]
-        public ulong iter_linkedlist {
+        public ulong iter_cpu_linkedlist {
             get {
-                return ((ulong)(this["iter_linkedlist"]));
+                return ((ulong)(this["iter_cpu_linkedlist"]));
             }
             set {
-                this["iter_linkedlist"] = value;
+                this["iter_cpu_linkedlist"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10000")]
-        public ulong iter_tree {
+        public ulong iter_cpu_tree {
             get {
-                return ((ulong)(this["iter_tree"]));
+                return ((ulong)(this["iter_cpu_tree"]));
             }
             set {
-                this["iter_tree"] = value;
+                this["iter_cpu_tree"] = value;
             }
         }
         
@@ -92,6 +92,18 @@ namespace PC_Ripper_Benchmark.Properties {
             }
             set {
                 this["auto_updates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public byte iter_per_cpu_test {
+            get {
+                return ((byte)(this["iter_per_cpu_test"]));
+            }
+            set {
+                this["iter_per_cpu_test"] = value;
             }
         }
     }

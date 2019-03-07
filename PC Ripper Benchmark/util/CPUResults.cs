@@ -15,6 +15,8 @@ namespace PC_Ripper_Benchmark.util {
 
     public class CPUResults : Results {
 
+        private const byte uniqueTestCount = 5;
+
         /// <summary>
         /// Represents a <see cref="Tuple{T1, T2}"/> which contains
         /// the name of the test, and the average. If the 
@@ -40,7 +42,11 @@ namespace PC_Ripper_Benchmark.util {
 
         public override string Description => GenerateDescription();
 
-        public override byte UniqueTestCount => throw new NotImplementedException();
+        /// <summary>
+        /// 
+        /// </summary>
+
+        public override byte UniqueTestCount => uniqueTestCount;
 
         protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
             throw new NotImplementedException();

@@ -19,16 +19,38 @@ namespace PC_Ripper_Benchmark.util {
 
         #region Instance members, properties, and enums.
 
+        private byte iter_per_cpu_test;
+
+        private ulong iter_cpu_successorship;
+        private ulong iter_cpu_boolean;
+        private ulong iter_cpu_queue;
+        private ulong iter_cpu_linkedlist;
+        private ulong iter_cpu_tree;
+
+        /// <summary>
+        /// Represents how many times we run a particular test
+        /// to average them.
+        /// </summary>
+        /// <returns></returns>
+        [DataMember(Name = "iter_per_cpu_test")]
+        public byte IterationsPerCPUTest {
+            get => this.iter_per_cpu_test;
+            set {
+                if (value > 0 && value <= byte.MaxValue)
+                    this.iter_per_cpu_test = value;
+            }
+        }
+
         /// <summary>
         /// The number of iterations for a <seealso cref="System.Collections.Generic.SortedSet{T}"/>
         /// <para>- Includes inserting, deleting, and searching.</para>
         /// </summary>       
-        [DataMember(Name = "iter_tree")]
+        [DataMember(Name = "iter_cpu_tree")]
         public ulong IterationsTree {
-            get => this.IterationsTree;
+            get => this.iter_cpu_tree;
             set {
-                if (value > 0 && value < ulong.MaxValue)
-                    value = this.IterationsTree;
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_cpu_tree = value;
             }
         }
 
@@ -37,12 +59,12 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>- Includes adding, removing, searching, and sorting a
         /// <seealso cref="System.Collections.Generic.Queue{T}"/></para>
         /// </summary>
-        [DataMember(Name = "iter_queue")]
+        [DataMember(Name = "iter_cpu_queue")]
         public ulong IterationsQueue {
-            get => this.IterationsQueue;
+            get => this.iter_cpu_queue;
             set {
-                if (value > 0 && value < ulong.MaxValue)
-                    value = this.IterationsQueue;
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_cpu_queue = value;
             }
         }
 
@@ -51,36 +73,36 @@ namespace PC_Ripper_Benchmark.util {
         /// <para>- Includes adding, removing, searching, and sorting a 
         /// <seealso cref="System.Collections.Generic.LinkedList{T}"/>.</para>
         /// </summary>
-        [DataMember(Name = "iter_linkedlist")]
+        [DataMember(Name = "iter_cpu_linkedlist")]
         public ulong IterationsLinkedList {
-            get => this.IterationsLinkedList;
+            get => this.iter_cpu_linkedlist;
             set {
-                if (value > 0 && value < ulong.MaxValue)
-                    value = this.IterationsLinkedList;
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_cpu_linkedlist = value;
             }
         }
 
         /// <summary>
         /// The number of iterations of boolean logic.
         /// </summary>
-        [DataMember(Name = "iter_boolean")]
+        [DataMember(Name = "iter_cpu_boolean")]
         public ulong IterationsBoolean {
-            get => this.IterationsBoolean;
+            get => this.iter_cpu_boolean;
             set {
-                if (value > 0 && value < ulong.MaxValue)
-                    value = this.IterationsBoolean;
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_cpu_boolean = value;
             }
         }
 
         /// <summary>
         /// The number of iterations of successorship.
         /// </summary>
-        [DataMember(Name = "iter_successorship")]
+        [DataMember(Name = "iter_cpu_successorship")]
         public ulong IterationsSuccessorship {
-            get => this.IterationsSuccessorship;
+            get => this.iter_cpu_successorship;
             set {
-                if (value > 0 && value < ulong.MaxValue)
-                    value = this.IterationsSuccessorship;
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_cpu_successorship = value;
             }
         }
 
@@ -105,16 +127,19 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         /// <summary>
-        /// Gets settings stored from the <see cref="Properties.Settings.Default"/> thats
+        /// Gets settings stored from the 
+        /// <see cref="Properties.Settings.Default"/> thats
         /// stored on the machine.
         /// </summary>
 
         private void LoadSettings() {
-            IterationsSuccessorship = Properties.Settings.Default.iter_successorship;
-            IterationsBoolean = Properties.Settings.Default.iter_boolean;
-            IterationsQueue = Properties.Settings.Default.iter_queue;
-            IterationsLinkedList = Properties.Settings.Default.iter_linkedlist;
-            IterationsTree = Properties.Settings.Default.iter_tree;
+            IterationsPerCPUTest = Properties.Settings.Default.iter_per_cpu_test;
+
+            IterationsSuccessorship = Properties.Settings.Default.iter_cpu_successorship;
+            IterationsBoolean = Properties.Settings.Default.iter_cpu_boolean;
+            IterationsQueue = Properties.Settings.Default.iter_cpu_queue;
+            IterationsLinkedList = Properties.Settings.Default.iter_cpu_linkedlist;
+            IterationsTree = Properties.Settings.Default.iter_cpu_tree;
 
             AutoCheckForUpdates = Properties.Settings.Default.auto_updates;
         }
@@ -253,10 +278,6 @@ namespace PC_Ripper_Benchmark.util {
             return true;
         }
 
-        #endregion
-
-        #region Static method(s)
-
         /// <summary>
         /// Saves the application settings using a
         /// <see cref="RipperSettings"/> instance.
@@ -266,11 +287,11 @@ namespace PC_Ripper_Benchmark.util {
 
         public static void SaveApplicationSettings(ref RipperSettings rs) {
             Properties.Settings.Default.auto_updates = rs.AutoCheckForUpdates;
-            Properties.Settings.Default.iter_successorship = rs.IterationsSuccessorship;
-            Properties.Settings.Default.iter_boolean = rs.IterationsBoolean;
-            Properties.Settings.Default.iter_queue = rs.IterationsQueue;
-            Properties.Settings.Default.iter_linkedlist = rs.IterationsLinkedList;
-            Properties.Settings.Default.iter_tree = rs.IterationsTree;
+            Properties.Settings.Default.iter_cpu_successorship = rs.IterationsSuccessorship;
+            Properties.Settings.Default.iter_cpu_boolean = rs.IterationsBoolean;
+            Properties.Settings.Default.iter_cpu_queue = rs.IterationsQueue;
+            Properties.Settings.Default.iter_cpu_linkedlist = rs.IterationsLinkedList;
+            Properties.Settings.Default.iter_cpu_tree = rs.IterationsTree;
 
             Properties.Settings.Default.Save();
         }
