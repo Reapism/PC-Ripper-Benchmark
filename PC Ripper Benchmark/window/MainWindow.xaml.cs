@@ -16,5 +16,9 @@ namespace PC_Ripper_Benchmark.window {
         public MainWindow() {
             InitializeComponent();
         }
+
+        private void BtnTemp_Click(object sender, RoutedEventArgs e) {
+            new QuestionaireWindow().Show();
+        }
     }
 }

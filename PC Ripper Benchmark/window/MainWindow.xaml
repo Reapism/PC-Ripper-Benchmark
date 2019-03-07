@@ -13,6 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="gridNavigation" HorizontalAlignment="Left" MinWidth="150" Background="#BF84B8E4" MinHeight="400" VerticalAlignment="Bottom">
             <StackPanel x:Name="stkNavigation" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" MinWidth="150" MinHeight="420" Height="322"/>
+            <Button x:Name="btnTemp" Content="Show Quest." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnTemp_Click"/>
         </Grid>
         <Grid x:Name="gridTop" Margin="150,0,0,0" VerticalAlignment="Top" Background="#FF4C5461" MinHeight="100" MinWidth="650" Grid.ColumnSpan="2"/>
     </Grid>
