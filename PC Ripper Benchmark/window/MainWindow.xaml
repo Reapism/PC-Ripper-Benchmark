@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
-        Title="PC Ripper Benchmark Tool" Height="450" Width="800" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="800" MinHeight="450">
+        Title="PC Ripper Benchmark Tool" Height="450" Width="800" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="800" MinHeight="450" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico">
     <Grid x:Name="gridMain" Margin="0,0,2,0" Height="420" MinHeight="420">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="196*"/>
