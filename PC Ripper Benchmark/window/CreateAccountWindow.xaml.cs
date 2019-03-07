@@ -142,13 +142,10 @@ namespace PC_Ripper_Benchmark
                 newUser.LastName = lastNameTextBox.Text;
                 newUser.Email = emailTextBox.Text;
                 newUser.PhoneNumber = phoneTextBox.Text;
-                newUser.Password = userPasswordBox.Password;
 
-                byte[] data = System.Text.Encoding.ASCII.GetBytes(newUser.Password);
-                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
-                String hash = System.Text.Encoding.ASCII.GetString(data);
+                util.Encryption passwordEncryption = new util.Encryption();
+                newUser.Password = passwordEncryption.encryptPassword(newUser.Password);
 
-                MessageBox.Show(hash);
             }
             #endregion
         }
