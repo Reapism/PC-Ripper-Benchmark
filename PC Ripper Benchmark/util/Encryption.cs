@@ -17,11 +17,11 @@ namespace PC_Ripper_Benchmark.util
     public class Encryption
     {         
         /// <summary>
-        /// Returns whether the <paramref name="email"/> is valid.
-        /// <para>Validates whether a string is a valid email address.</para>
+        /// Returns the <paramref name="text"/> as an encrypted string.
+        /// <para>Encrypts a stream of bytes into a string using SHA256</para>
         /// </summary>
-        public String encryptPassword(String password) {
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(password);
+        public string encryptText(string text) {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
             data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
             String hash = System.Text.Encoding.ASCII.GetString(data);
 
