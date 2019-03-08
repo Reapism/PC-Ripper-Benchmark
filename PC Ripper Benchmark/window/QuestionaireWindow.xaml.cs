@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using PC_Ripper_Benchmark.util;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PC_Ripper_Benchmark.window {
@@ -80,6 +81,8 @@ namespace PC_Ripper_Benchmark.window {
 
         private void SliderTheme_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             Slider s = (Slider)sender;
+            ThemeManager tm = new ThemeManager();
+
             string userTheme;
 
             switch (e.NewValue) {
@@ -88,6 +91,9 @@ namespace PC_Ripper_Benchmark.window {
                     userTheme = "Light";
                     s.ToolTip = userTheme;
                     this.lblTheme.Content = $"How do you use your computer? {userTheme}";
+
+                    tm.ApplyTheme(ThemeManager.Theme.Light, this);
+
                     break;
                 }
 
@@ -96,6 +102,9 @@ namespace PC_Ripper_Benchmark.window {
                     userTheme = "Dark";
                     s.ToolTip = userTheme;
                     this.lblTheme.Content = $"How do you use your computer? {userTheme}";
+
+                    tm.ApplyTheme(ThemeManager.Theme.Dark, this);
+
                     break;
                 }
             }
