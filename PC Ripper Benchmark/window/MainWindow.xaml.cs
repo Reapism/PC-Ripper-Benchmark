@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace PC_Ripper_Benchmark.window {
 
@@ -19,6 +20,21 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnTemp_Click(object sender, RoutedEventArgs e) {
             new QuestionaireWindow().Show();
+        }
+
+        private void BtnCPU_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
+            btnCPU.BorderThickness = new Thickness(3.0);
+            btnCPU.BorderBrush = Brushes.Salmon;
+        }
+
+        private void BtnCPU_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
+            btnCPU.BorderThickness = new Thickness(3.0);
+            btnCPU.BorderBrush = Brushes.Transparent;
+        }
+
+        private void BtnCPU_Click(object sender, RoutedEventArgs e) {
+            btnCPU.BorderThickness = new Thickness(3.0);
+            btnCPU.BorderBrush = Brushes.Salmon;
         }
     }
 }
