@@ -1,10 +1,11 @@
-﻿using PC_Ripper_Benchmark.exception;
-using PC_Ripper_Benchmark.util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.util;
+
 using static PC_Ripper_Benchmark.function.FunctionTypes;
 
 namespace PC_Ripper_Benchmark.function {
