@@ -1,6 +1,6 @@
 ﻿using PC_Ripper_Benchmark.util;
 using System;
-using static PC_Ripper_Benchmark.function.RipperTypes;
+using static PC_Ripper_Benchmark.function.FunctionTypes;
 
 namespace PC_Ripper_Benchmark.function {
 
