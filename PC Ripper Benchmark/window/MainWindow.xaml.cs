@@ -127,14 +127,14 @@ namespace PC_Ripper_Benchmark.window {
         private void BtnRunTest_Click(object sender, RoutedEventArgs e) {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
             CPUResults results = new CPUResults(this.rs);
-            
+
             ThreadType threadType;
             if (this.radSingle.IsChecked == true) {
                 threadType = ThreadType.SingleUI;
             } else if (this.radMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {
-                MessageBox.Show("Please select a type of test you'd like to perform.", 
+                MessageBox.Show("Please select a type of test you'd like to perform.",
                     "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }

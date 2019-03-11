@@ -1,4 +1,5 @@
-﻿using PC_Ripper_Benchmark.window;
+﻿using PC_Ripper_Benchmark.function;
+using PC_Ripper_Benchmark.window;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,17 +16,19 @@ namespace PC_Ripper_Benchmark {
 
     public partial class LoginWindow : Window {
 
-        /// <summary>
-        /// Default constructor for <see cref="LoginWindow"/>
-        /// </summary>
-        function.WindowSettings settings = new function.WindowSettings();
 
+        private WindowSettings settings = new WindowSettings();
+
+        /// <summary>
+        /// Default constructor for <see cref="LoginWindow"/>.
+        /// </summary>
+        
         public LoginWindow() {
             InitializeComponent();
 
             //Change the progressbar visibilty to not show on screen
             this.database_progressbar.Opacity = 0;
-                
+
             //Create new instance of the window settings class
             this.settings.CenterWindowOnScreen(this.windowLogin);
         }

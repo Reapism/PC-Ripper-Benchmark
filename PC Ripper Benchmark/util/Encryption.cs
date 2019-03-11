@@ -16,7 +16,7 @@ namespace PC_Ripper_Benchmark.util {
         /// Returns the <paramref name="text"/> as an encrypted string.
         /// <para>Encrypts a stream of bytes into a string using SHA256</para>
         /// </summary>
-        
+
         public string EncryptText(string text) {
             byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
             data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);

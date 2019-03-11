@@ -1,7 +1,6 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using System;
 using System.Collections.Generic;
-using PC_Ripper_Benchmark.exception;
-
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {

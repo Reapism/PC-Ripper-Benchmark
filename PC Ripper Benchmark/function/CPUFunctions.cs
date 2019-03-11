@@ -1,11 +1,10 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using PC_Ripper_Benchmark.exception;
-using PC_Ripper_Benchmark.util;
-
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.function {
@@ -75,7 +74,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 case ThreadType.SingleUI: {
                     // runs task, but doesn't wait for result.
-                    Dispatcher.CurrentDispatcher.Invoke(() =>  {
+                    Dispatcher.CurrentDispatcher.Invoke(() => {
                         Task.Run(() => {
                             RunTestsSingle(ref results);
                         });

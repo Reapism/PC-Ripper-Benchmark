@@ -1,8 +1,9 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.function;
+using System;
 using System.Collections.Generic;
-using PC_Ripper_Benchmark.function;
 
 namespace PC_Ripper_Benchmark.util {
+
 
     /// <summary>
     /// The <see cref="RamResults"/> class.
