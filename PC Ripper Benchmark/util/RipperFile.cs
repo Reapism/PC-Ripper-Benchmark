@@ -9,12 +9,15 @@
     /// all rights reserved.</para>
     /// </summary>
 
-    public class RipperFile : RipperFolder {
+    public class RipperFile {
 
         private string fileName;
         private string data;
-        private string size;
-        private RipperFolder path;
+        private long size;
+        private RipperFolder parentDir;
 
+        public RipperFile(string fileName, string data, long size, RipperFolder parentDir) {
+
+        }
     }
 }
