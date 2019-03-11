@@ -130,7 +130,7 @@ namespace PC_Ripper_Benchmark.window {
 
             ThreadType threadType;
             if (this.radSingle.IsChecked == true) {
-                threadType = ThreadType.SingleUI;
+                threadType = ThreadType.Single;
             } else if (this.radMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {
