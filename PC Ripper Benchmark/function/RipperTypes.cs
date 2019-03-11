@@ -75,7 +75,7 @@ namespace PC_Ripper_Benchmark.function {
 
             /// <summary>
             /// Single threaded, runs an action on a new thread
-            /// separate the UI but not s
+            /// separate the UI. 2 total threads.
             /// <para>>> Note: This will not freeze the
             /// UI.</para>
             /// </summary>
@@ -83,7 +83,7 @@ namespace PC_Ripper_Benchmark.function {
 
             /// <summary>
             /// Runs an action split between N thread(s)
-            /// Contingent upon how many logical processor
+            /// contingent upon how many logical processor
             /// (threads) are available on your machine. 
             /// <para></para>Total threads will be (N + 1)
             /// where 1 is the UI thread, n is # of threads on
