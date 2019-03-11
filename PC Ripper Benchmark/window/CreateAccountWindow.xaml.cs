@@ -86,7 +86,8 @@ namespace PC_Ripper_Benchmark {
             }
 
             if (this.userPasswordBox.Password != this.confirmUserPasswordBox.Password) {
-                MessageBox.Show("Passwords do not match!");
+                lblConfirmPassword.Content = "Passwords don't match";
+                lblConfirmPassword.Visibility = Visibility.Visible;
                 this.confirmUserPasswordBox.Focus();
             }
 
@@ -302,11 +303,140 @@ namespace PC_Ripper_Benchmark {
         #region Border Color Confirm Password
         private void ConfirmUserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
             if (this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
+
+                //If the password matches, set passwords match label to green border and visible
+                lblPasswordsMatch.Content = "Passwords match";
+                lblPasswordsMatch.Visibility = Visibility.Visible;
+                lblPasswordsMatch.Background = Brushes.Green;
+            
+                //Confirm password box turns green
                 this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmUserPasswordBox.BorderBrush = Brushes.Green;
-            } else {
+            }
+            else {
+
+                //If the password does not match, set passwords match label to visible;
+                lblPasswordsMatch.Content = "Passwords don't match";
+                lblPasswordsMatch.Visibility = Visibility.Visible;
+                lblPasswordsMatch.Background = Brushes.Red;
+
+
+                //Confirm password box turns red
                 this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmUserPasswordBox.BorderBrush = Brushes.Red;
+            }
+        }
+        #endregion
+
+        #region KeyDown Events
+        private void FirstNameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            {
+                lastNameTextBox.Focus();
+            }
+        }
+
+
+        private void LastNameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            {
+                emailTextBox.Focus();
+                e.Handled = true;
+            }           
+        }
+
+
+        private void EmailTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            {
+                phoneTextBox.Focus();
+                e.Handled = true;
+
+            }
+        }
+
+        private void PhoneTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            {
+                userPasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void UserPasswordBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            {
+                confirmUserPasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void ConfirmUserPasswordBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            {
+                createAccountSubmitButton.Focus();
+                e.Handled = true;
+            }
+        }
+        #endregion
+        #region KeyUp Events
+        private void LastNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                firstNameTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void EmailTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                lastNameTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void PhoneTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                emailTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+             
+        private void UserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                phoneTextBox.Focus();
+                e.Handled = true;
+            }
+        }    
+        
+        private void ConfirmUserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                userPasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void CreateAccountSubmitButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                confirmUserPasswordBox.Focus();
+                e.Handled = true;
             }
         }
         #endregion
