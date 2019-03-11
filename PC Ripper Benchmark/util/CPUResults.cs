@@ -1,6 +1,6 @@
-﻿using PC_Ripper_Benchmark.exception;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {
 
@@ -15,14 +15,13 @@ namespace PC_Ripper_Benchmark.util {
 
     public class CPUResults : Results {
 
+        private readonly RipperSettings rs;
         private const byte uniqueTestCount = 5;
 
-        /// <summary>
-        /// Represents a <see cref="Tuple{T1, T2}"/> which contains
-        /// the name of the test, and the average. If the 
-        /// </summary>
-
-        public override Tuple<string, TimeSpan> AverageTest => GenerateAverageTest(TestCollection);
+        public CPUResults(ref RipperSettings rs) {
+            this.TestCollection = new List<TimeSpan>();
+            this.rs = rs;
+        }
 
         /// <summary>
         /// Represents all the timespans for the CPU tests.
@@ -48,13 +47,91 @@ namespace PC_Ripper_Benchmark.util {
 
         public override byte UniqueTestCount => uniqueTestCount;
 
-        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Returns a <see cref="Tuple{T1, T2}"/> containing
+        /// the name and average of the specific test under the
+        /// <see langword="CPU component"/>.
+        /// </summary>
+        /// <param name="testCollection">The total collection of <see cref="TimeSpan"/>(s)
+        /// for the component.</param>
+        /// <param name="theTest">The test represented by <see cref="TestName"/>.</param>
+        /// <returns></returns>
+
+        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName theTest) {
+            Tuple<string, TimeSpan> averageTest;
+
+            switch (theTest) {
+
+                case TestName.CPUSuccessorship: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
+
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.CPUBoolean: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 1)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.CPUQueue: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 2)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.CPULinkedList: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 3)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.CPUTree: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 4)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                default: {
+                    return Tuple.Create("null", new TimeSpan());
+                }
+            }
+
+            return averageTest;
         }
 
-        protected override string GenerateDescription() {
-            throw new NotImplementedException();
-        }
+        protected override string GenerateDescription() => "";
 
         /// <summary>
         /// Generates a score that takes in the number of iterations
