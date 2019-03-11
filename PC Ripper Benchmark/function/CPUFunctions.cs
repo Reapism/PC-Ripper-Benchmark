@@ -63,7 +63,7 @@ namespace PC_Ripper_Benchmark.function {
         /// <exception cref="RipperThreadException"></exception>
 
         public CPUResults RunCPUBenchmark(ThreadType threadType) {
-            var results = new CPUResults();
+            var results = new CPUResults(this.rs);
 
             switch (threadType) {
 
