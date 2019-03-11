@@ -110,12 +110,12 @@
                     <Grid x:Name="grdRunningTest">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FF9FC791" Offset="1"/>
+                                <GradientStop Color="#FFD9F5CF"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <TextBlock x:Name="txtRunningTest" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Running the BLANK test." VerticalAlignment="Top" FontSize="18"/>
-                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18">
+                        <TextBlock x:Name="txtRunningTest" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Running the BLANK test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
+                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="#FF2C742C" VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text=""/>
