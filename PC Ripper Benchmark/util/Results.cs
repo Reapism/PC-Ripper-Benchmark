@@ -175,6 +175,39 @@ namespace PC_Ripper_Benchmark.util {
                 new TimeSpan(averageMe.Ticks / divideBy);
         }
 
+        /// <summary>
+        /// Returns the total duration of <see cref="TimeSpan"/>(s)
+        /// by adding all the <see cref="TimeSpan"/>(s) in a 
+        /// <see langword="params"/> <see cref="TimeSpan"/>[].
+        /// </summary>
+        /// <param name="times">A <see langword="params"/> 
+        /// <see cref="TimeSpan"/>[] of timespans.</param>
+        /// <returns></returns>
+
+        protected virtual TimeSpan TotalTimeSpan(params TimeSpan[] times) {
+            TimeSpan total = new TimeSpan();
+            foreach (TimeSpan t in times) {
+                total = total.Add(t);
+            }
+            return total;
+        }
+
+        /// <summary>
+        /// Returns the total duration of <see cref="TimeSpan"/>(s)
+        /// by adding all the <see cref="TimeSpan"/>(s) in a 
+        /// <see cref="List{T}"/>.
+        /// </summary>
+        /// <param name="list">A <see cref="List{T}"/> of timespans.</param>
+        /// <returns></returns>
+
+        protected virtual TimeSpan TotalTimeSpan(List<TimeSpan> list) {
+            TimeSpan total = new TimeSpan();
+            foreach (TimeSpan t in list) {
+                total = total.Add(t);
+            }
+            return total;
+        }
+
         #endregion
     }
 }
