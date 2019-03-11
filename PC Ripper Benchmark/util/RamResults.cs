@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PC_Ripper_Benchmark.function;
 
 namespace PC_Ripper_Benchmark.util {
 
@@ -16,7 +17,6 @@ namespace PC_Ripper_Benchmark.util {
         /// Returns a <see cref="Tuple{T1, T2}"/> containing
         /// the name of the test, and number.
         /// </summary>
-        public override Tuple<string, TimeSpan> AverageTest => GenerateAverageTest(TestCollection);
 
         public override List<TimeSpan> TestCollection { get; }
 
@@ -26,7 +26,7 @@ namespace PC_Ripper_Benchmark.util {
 
         public override byte UniqueTestCount => throw new NotImplementedException();
 
-        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection) {
+        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, RipperTypes.TestName testName) {
             throw new NotImplementedException();
         }
 
