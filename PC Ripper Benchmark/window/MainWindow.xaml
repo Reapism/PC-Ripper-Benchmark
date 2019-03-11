@@ -62,9 +62,8 @@
                             <TextBlock x:Name="txtChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
                             <RadioButton x:Name="radSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="radMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Button x:Name="button" Content="Run Test" Margin="0,65,0,0" Width="75" VerticalAlignment="Center" Click="Button_Click"/>
                         </Grid>
-
-
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabDisk" Header="Disk">

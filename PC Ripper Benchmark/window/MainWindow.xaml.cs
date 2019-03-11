@@ -62,6 +62,11 @@ namespace PC_Ripper_Benchmark.window {
                     this.tabComponents.SelectedIndex = (int)Tab.SETTINGS;
                     return;
                 }
+
+                case Tab.RUNNING_TEST: {
+                    this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
+                    return;
+                }
             }
         }
 
@@ -111,5 +116,10 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.RUNNING_TEST);
+           
+        }
     }
 }
