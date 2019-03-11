@@ -30,7 +30,7 @@ namespace PC_Ripper_Benchmark.function {
         /// used to get information about the test
         /// parameters.
         /// </summary>
-        private RipperSettings rs;
+        private readonly RipperSettings rs;
 
         #endregion
 
@@ -63,25 +63,21 @@ namespace PC_Ripper_Benchmark.function {
         /// <exception cref="RipperThreadException"></exception>
 
         public CPUResults RunCPUBenchmark(ThreadType threadType) {
-            var results = new CPUResults(ref this.rs);
+            var results = new CPUResults(this.rs);
 
             switch (threadType) {
 
                 case ThreadType.Single: {
                     // runs task on main thread.
-                    for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
-                        results.TestCollection.Add(RunSuccessorship());
-                    }
+                    RunTestsSingle(ref results);
                     break;
                 }
 
                 case ThreadType.SingleUI: {
                     // runs task, but doesn't wait for result.
-                    Dispatcher.CurrentDispatcher.Invoke(() => {
+                    Dispatcher.CurrentDispatcher.Invoke(() =>  {
                         Task.Run(() => {
-                            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
-                                results.TestCollection.Add(RunSuccessorship());
-                            }
+                            RunTestsSingle(ref results);
                         });
                     });
 
@@ -105,7 +101,38 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs a naive test on successorship.
+        /// Runs each test <see cref="RipperSettings.IterationsPerCPUTest"/> times.
+        /// <para>Should be (<see cref="CPUResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerCPUTest"/>)
+        /// timespans in <see cref="CPUResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="CPUResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingle(ref CPUResults results) {
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunSuccessorship());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunBoolean());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunQueue());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunLinkedList());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunTree());
+            }
+        }
+
+        /// <summary>
+        /// Runs a test on successorship.
         /// <para>Counts from 0 to N.</para>
         /// Outputs a <see cref="TimeSpan"/> 
         /// representing how long it takes this operation.
@@ -121,7 +148,7 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs a naive test on boolean logic.
+        /// Runs a test on boolean logic.
         /// <para>Internally, generates 2 random numbers type of <see cref="int"/> and 
         /// compares them. Whichever is greater, it adds to an output list.</para>
         /// Outputs a <see cref="TimeSpan"/> 
@@ -203,7 +230,7 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs a naive test using Queues.
+        /// Runs a test using Queues.
         /// <para>Creates two <see cref="Queue{T}"/> and
         /// adds, removes, and searches random numbers of type 
         /// <see cref="int"/>.</para>
@@ -259,9 +286,8 @@ namespace PC_Ripper_Benchmark.function {
             return sw.Elapsed;
         }
 
-
         /// <summary>
-        /// Runs a naive test using Trees.
+        /// Runs a test using Trees.
         /// <para>Creates two <see cref="SortedSet{T}"/> and
         /// adds, removes, and searches random numbers of type 
         /// <see cref="int"/>.</para>
