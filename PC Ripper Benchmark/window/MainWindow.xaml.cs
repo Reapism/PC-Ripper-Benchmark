@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.function;
+using PC_Ripper_Benchmark.util;
+using System.Windows;
 using System.Windows.Media;
-
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.window {
@@ -14,6 +16,8 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Instance member(s), and enum(s).        
 
+        private RipperSettings rs;
+
         #endregion
 
         #region Constructor(s) and method(s).
@@ -24,8 +28,11 @@ namespace PC_Ripper_Benchmark.window {
 
         public MainWindow() {
             InitializeComponent();
+
+            rs = new RipperSettings();
             Style s = new Style();
             s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
         }
@@ -117,9 +124,22 @@ namespace PC_Ripper_Benchmark.window {
 
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void BtnRunTest_Click(object sender, RoutedEventArgs e) {
+            CPUFunctions cpu = new CPUFunctions(ref this.rs);
+            CPUResults results = new CPUResults(ref this.rs);
+
+            try {
+                results = cpu.RunCPUBenchmark(ThreadType.Single);
+            } catch (RipperThreadException ex) {
+                MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
+            }
+
+            this.txtResults.AppendText($"CPU Tests" +
+                $"{results.Description}\n\n" +
+                $"\n\n");
             ShowTabWindow(Tab.RUNNING_TEST);
-           
+
         }
+
     }
 }
