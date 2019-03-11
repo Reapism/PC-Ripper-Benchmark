@@ -29,7 +29,7 @@ namespace PC_Ripper_Benchmark.window {
         public MainWindow() {
             InitializeComponent();
 
-            rs = new RipperSettings();
+            this.rs = new RipperSettings();
             Style s = new Style();
             s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
 
@@ -126,19 +126,43 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnRunTest_Click(object sender, RoutedEventArgs e) {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
-            CPUResults results = new CPUResults(ref this.rs);
+            CPUResults results = new CPUResults(this.rs);
+
+            ThreadType threadType;
+            if (this.radSingle.IsChecked == true) {
+                threadType = ThreadType.Single;
+            } else if (this.radMultithread.IsChecked == true) {
+                threadType = ThreadType.Multithreaded;
+            } else {
+                MessageBox.Show("Please select a type of test you'd like to perform.", 
+                    "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
+
+            // SingleUI is going to cause problems because it is
+            // threaded and it doesn't call constructor yet.
+            // before we use the contents of that object.
+            // we need to wait for it.
+
+            this.txtResults.Document.Blocks.Clear();
 
             try {
-                results = cpu.RunCPUBenchmark(ThreadType.Single);
+                results = cpu.RunCPUBenchmark(threadType);
             } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
 
-            this.txtResults.AppendText($"CPU Tests" +
+            this.txtResults.AppendText($"Successfully ran the CPU test! Below is the " +
+                $"results of the test.\n\n" +
                 $"{results.Description}\n\n" +
                 $"\n\n");
-            ShowTabWindow(Tab.RUNNING_TEST);
 
+            this.txtRunningTest.Text = "Results for the CPU test:";
+
+
+            ShowTabWindow(Tab.RUNNING_TEST);
         }
 
     }
