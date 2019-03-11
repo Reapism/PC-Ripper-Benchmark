@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace PC_Ripper_Benchmark {
@@ -16,6 +17,9 @@ namespace PC_Ripper_Benchmark {
         //Global window settings class object
         function.WindowSettings settings = new function.WindowSettings();
 
+        Popup codePopup = new Popup();       
+        TextBlock popupContent = new TextBlock();
+        
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
         /// <para>Creates a window of type CreateWindow
@@ -73,7 +77,6 @@ namespace PC_Ripper_Benchmark {
                 MessageBox.Show($"{errorMessage} field(s) missing value");
             }
             #endregion
-
             #region Regular Expression Checks
 
             if (!util.RegexUtilities.IsValidEmail(emailTextBox.Text))
@@ -115,7 +118,6 @@ namespace PC_Ripper_Benchmark {
             }
 
             #endregion
-
             #region Create a user
             //If all the data is valid...
             if (util.RegexUtilities.isValidPhoneNumber(phoneTextBox.Text) &&
@@ -318,10 +320,22 @@ namespace PC_Ripper_Benchmark {
         #region Border Color Password
         private void UserPasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
+            //Sets the popup values, background property,
+            popupContent.FontSize = 10;
+            codePopup.PlacementTarget = userPasswordBox;
+            popupContent.Text = "Password must contain: \n-One uppercase letter" +
+                "\n-One special character\n-One number";
+            popupContent.Background = Brushes.Black;
+            popupContent.Foreground = Brushes.Red;
+            codePopup.Child = popupContent;
+     
+            codePopup.IsOpen = true;
+
             if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
                 userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Green;
+                codePopup.IsOpen = false;
             }
             else
             {
@@ -332,6 +346,8 @@ namespace PC_Ripper_Benchmark {
 
         private void UserPasswordBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            codePopup.IsOpen = false;
+
             if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
                 userPasswordBox.BorderThickness = new Thickness(3.0);
@@ -348,6 +364,7 @@ namespace PC_Ripper_Benchmark {
         {
             if (util.RegexUtilities.IsValidPassword(userPasswordBox.Password))
             {
+                codePopup.IsOpen = false;
                 userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Green;
             }
@@ -356,6 +373,7 @@ namespace PC_Ripper_Benchmark {
                 userPasswordBox.BorderThickness = new Thickness(3.0);
                 userPasswordBox.BorderBrush = Brushes.Red;
             }
+            
         }
         #endregion
         #region Border Color Confirm Password
