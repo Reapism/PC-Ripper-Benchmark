@@ -13,6 +13,13 @@
 
         private string folderName;
         private string path;
+        private bool isVirtual;
 
+        public RipperFolder() : this("", "", true) { }
+
+
+        public RipperFolder(string folderName, string path, bool isVirtual) {
+
+        }
     }
 }
