@@ -13,33 +13,6 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Instance member(s), and enum(s).
 
-        /// <summary>
-        /// The <see cref="Tab"/> enum.
-        /// Represents all the tabs needed.
-        /// </summary>
-
-        public enum Tab {
-            /// <summary>
-            /// The cpu tab.
-            /// </summary>
-            CPU,
-
-            /// <summary>
-            /// The disk tab.
-            /// </summary>
-            DISK,
-
-            /// <summary>
-            /// The ram tab.
-            /// </summary>
-            RAM,
-
-            /// <summary>
-            /// The gpu tab.
-            /// </summary>
-            GPU
-        }
-
         #endregion
 
         #region Constructor(s) and method(s).

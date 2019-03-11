@@ -6,7 +6,7 @@ using System.Windows.Threading;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
 
-using static PC_Ripper_Benchmark.function.FunctionTypes;
+using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.function {
 
