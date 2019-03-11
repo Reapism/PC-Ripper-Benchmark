@@ -113,7 +113,7 @@
     <Compile Include="exception\RipperThreadException.cs" />
     <Compile Include="exception\UnknownTestException.cs" />
     <Compile Include="function\CPUFunctions.cs" />
-    <Compile Include="function\FunctionTypes.cs" />
+    <Compile Include="function\RipperTypes.cs" />
     <Compile Include="util\ComputerSpecs.cs" />
     <Compile Include="util\CPUResults.cs" />
     <Compile Include="util\Results.cs" />
@@ -171,6 +171,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\pc_ripper_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\bool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\queue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\successorship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\preloader_test.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
