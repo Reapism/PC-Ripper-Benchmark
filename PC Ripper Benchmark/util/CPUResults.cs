@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.exception;
+using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
@@ -18,7 +19,14 @@ namespace PC_Ripper_Benchmark.util {
         private readonly RipperSettings rs;
         private const byte uniqueTestCount = 5;
 
-        public CPUResults(ref RipperSettings rs) {
+        /// <summary>
+        /// Constructs <see cref="CPUResults"/> with
+        /// a <see cref="RipperSettings"/> instance.
+        /// </summary>
+        /// <param name="rs">Takes in an initial <see cref="RipperSettings"/>
+        /// but is marked <see langword="readonly"/> internally.</param>
+
+        public CPUResults(RipperSettings rs) {
             this.TestCollection = new List<TimeSpan>();
             this.rs = rs;
         }
@@ -124,14 +132,121 @@ namespace PC_Ripper_Benchmark.util {
                 }
 
                 default: {
-                    return Tuple.Create("null", new TimeSpan());
+                    return Tuple.Create("**UnknownTest**", new TimeSpan());
                 }
             }
 
             return averageTest;
         }
 
-        protected override string GenerateDescription() => "";
+        /// <summary>
+        /// Generates a description for this <see cref="CPUResults"/> instance.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="UnknownTestException"></exception>
+        protected override string GenerateDescription() {
+
+            // Checking the worst case scenario. if these dont equal, something bad happened.
+            if (this.UniqueTestCount * this.rs.IterationsPerCPUTest != this.TestCollection.Count) {
+                throw new UnknownTestException($"Generating CPU Description: Number of Test" +
+                    $"Collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerCPUTest} !=" +
+                    $" {this.TestCollection.Count}");
+            }
+
+            string desc = string.Empty;
+
+            desc += "Each test runs with a specific number of iterations";
+            desc += Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.CPUSuccessorship)} ran " +
+                $"{this.rs.IterationsSuccessorship.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.CPUBoolean)} ran " +
+                $"{this.rs.IterationsBoolean.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.CPUQueue)} ran " +
+                $"{this.rs.IterationsQueue.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.CPULinkedList)} ran " +
+                $"{this.rs.IterationsLinkedList.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.CPUTree)} ran " +
+                $"{this.rs.IterationsTree.ToString("n0")} iterations per test" + Environment.NewLine;
+
+            // each duration printed.
+            // Should later put in another function.
+
+            desc += $"The Ripper runs {this.rs.IterationsPerCPUTest} iterations of each test. Below are the durations:";
+            desc += Environment.NewLine;
+
+            byte index = 0;
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                desc += $"\t{GetTestName(TestName.CPUSuccessorship)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                desc += $"\t{GetTestName(TestName.CPUBoolean)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                desc += $"\t{GetTestName(TestName.CPUQueue)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                desc += $"\t{GetTestName(TestName.CPULinkedList)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                desc += $"\t{GetTestName(TestName.CPUTree)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            // total time of all tests. 
+            desc += "Total duration of the test:";
+            desc += $"\t{TotalTimeSpan(TestCollection)}";
+
+            // average per test.
+            desc += Environment.NewLine;
+            desc += "Average duration per test:";
+            desc += Environment.NewLine;
+
+            Tuple<string, TimeSpan> averageTest;
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.CPUSuccessorship);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.CPUBoolean);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.CPUQueue);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.CPULinkedList);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.CPUTree);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            // score for the test.
+            desc += Environment.NewLine + Environment.NewLine;
+
+            desc += $"The score for this test is {Score}.";
+
+            desc += Environment.NewLine + Environment.NewLine;
+            desc += "(Algorithm not implemented for generating a score)";
+            return desc;
+
+        }
 
         /// <summary>
         /// Generates a score that takes in the number of iterations
