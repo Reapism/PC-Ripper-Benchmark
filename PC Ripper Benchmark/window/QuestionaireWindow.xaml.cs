@@ -81,7 +81,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void SliderTheme_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             Slider s = (Slider)sender;
-            ThemeManager tm = new ThemeManager();
+            ThemeManager tm;
 
             string userTheme;
 
@@ -92,7 +92,7 @@ namespace PC_Ripper_Benchmark.window {
                     s.ToolTip = userTheme;
                     this.lblTheme.Content = $"How do you use your computer? {userTheme}";
 
-                    tm.ApplyTheme(ThemeManager.Theme.Light, this);
+                    tm = new ThemeManager(ThemeManager.Theme.Light, this);
 
                     break;
                 }
@@ -103,7 +103,7 @@ namespace PC_Ripper_Benchmark.window {
                     s.ToolTip = userTheme;
                     this.lblTheme.Content = $"How do you use your computer? {userTheme}";
 
-                    tm.ApplyTheme(ThemeManager.Theme.Dark, this);
+                    tm = new ThemeManager(ThemeManager.Theme.Dark, this);
 
                     break;
                 }
@@ -111,7 +111,7 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void BtnFinish_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+            Close();
         }
     }
 }

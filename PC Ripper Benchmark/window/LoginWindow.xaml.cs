@@ -65,7 +65,7 @@ namespace PC_Ripper_Benchmark {
         /// <para>When signUpButton is clicked,the window changes to a window of type <see cref="CreateAccountWindow"/></para>
         /// </summary>
 
-        private void signUpButton_Click(object sender, RoutedEventArgs e) {
+        private void SignUpButton_Click(object sender, RoutedEventArgs e) {
             CreateAccountWindow createAccountWindow = new CreateAccountWindow();
             DoubleAnimation openScreen = new DoubleAnimation();
 

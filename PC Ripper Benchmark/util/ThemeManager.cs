@@ -1,5 +1,6 @@
-﻿using System.Windows.Media;
-using PC_Ripper_Benchmark.window;
+﻿using PC_Ripper_Benchmark.window;
+using System.Windows;
+using System.Windows.Media;
 
 namespace PC_Ripper_Benchmark.util {
 
@@ -13,19 +14,42 @@ namespace PC_Ripper_Benchmark.util {
 
     public class ThemeManager {
 
+        /// <summary>
+        /// The <see cref="Theme"/> enum type.
+        /// <para>Represents all possible themes.</para>
+        /// </summary>
+
         public enum Theme {
+
+            /// <summary>
+            /// The light theme.
+            /// </summary>
             Light,
+
+            /// <summary>
+            /// The dark theme.
+            /// </summary>
             Dark
         }
 
         /// <summary>
-        /// Default constructor.
+        /// ApplyAllThemes delegate. us
         /// </summary>
+        /// <param name="themeType"></param>
+        /// <param name="w"></param>
 
-        public ThemeManager() {
-        }
+        public delegate void ApplyAllThemes(Theme themeType, Window w);
 
-        public void ApplyTheme(Theme themeType, QuestionaireWindow w) {
+        private ApplyAllThemes applyAllThemes;
+
+        /// <summary>
+        /// Applies the theme to the <see cref="QuestionaireWindow"/>
+        /// window.
+        /// </summary>
+        /// <param name="themeType"></param>
+        /// <param name="w"></param>
+
+        public ThemeManager(Theme themeType, QuestionaireWindow w) {
             switch (themeType) {
                 case Theme.Light: {
                     w.grdMain.Background = Brushes.White;
@@ -47,6 +71,5 @@ namespace PC_Ripper_Benchmark.util {
                 }
             }
         }
-
     }
 }
