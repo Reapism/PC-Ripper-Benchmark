@@ -187,8 +187,5 @@
   <ItemGroup>
     <Resource Include="resources\tree.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="resources\preloader_test.gif" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
