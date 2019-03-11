@@ -328,69 +328,36 @@ namespace PC_Ripper_Benchmark {
         }
         #endregion
 
-        #region KeyDown Events
-        private void FirstNameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        #region KeyUp Events
+        private void FirstNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            if (e.Key == System.Windows.Input.Key.Down)
             {
                 lastNameTextBox.Focus();
-            }
-        }
-
-
-        private void LastNameTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
-            {
-                emailTextBox.Focus();
                 e.Handled = true;
-            }           
-        }
-
-
-        private void EmailTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
-            {
-                phoneTextBox.Focus();
-                e.Handled = true;
-
             }
-        }
-
-        private void PhoneTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
+            else if (e.Key == System.Windows.Input.Key.Enter)
             {
-                userPasswordBox.Focus();
+                lastNameTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void UserPasswordBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
-            {
-                confirmUserPasswordBox.Focus();
-                e.Handled = true;
-            }
-        }
-
-        private void ConfirmUserPasswordBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter || e.Key == System.Windows.Input.Key.Down)
-            {
-                createAccountSubmitButton.Focus();
-                e.Handled = true;
-            }
-        }
-        #endregion
-        #region KeyUp Events
         private void LastNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Up)
             {
                 firstNameTextBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                emailTextBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                emailTextBox.Focus();
                 e.Handled = true;
             }
         }
@@ -402,6 +369,16 @@ namespace PC_Ripper_Benchmark {
                 lastNameTextBox.Focus();
                 e.Handled = true;
             }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                phoneTextBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                phoneTextBox.Focus();
+                e.Handled = true;
+            }
         }
 
         private void PhoneTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -409,6 +386,16 @@ namespace PC_Ripper_Benchmark {
             if (e.Key == System.Windows.Input.Key.Up)
             {
                 emailTextBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                userPasswordBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                userPasswordBox.Focus();
                 e.Handled = true;
             }
         }
@@ -420,6 +407,16 @@ namespace PC_Ripper_Benchmark {
                 phoneTextBox.Focus();
                 e.Handled = true;
             }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                confirmUserPasswordBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                confirmUserPasswordBox.Focus();
+                e.Handled = true;
+            }
         }    
         
         private void ConfirmUserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -429,16 +426,27 @@ namespace PC_Ripper_Benchmark {
                 userPasswordBox.Focus();
                 e.Handled = true;
             }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                createAccountSubmitButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                createAccountSubmitButton.Focus();
+                e.Handled = true;
+            }
         }
 
         private void CreateAccountSubmitButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == System.Windows.Input.Key.Up)
             {
                 confirmUserPasswordBox.Focus();
                 e.Handled = true;
             }
         }
         #endregion
+             
     }
 }

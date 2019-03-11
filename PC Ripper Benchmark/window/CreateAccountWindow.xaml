@@ -9,17 +9,17 @@
             <Label x:Name="lblCreateAccount" Content="Create Account" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator x:Name="sep1"></Separator>
             <Label x:Name="lblFirstName" Content="First name" Foreground="White"/>
-            <TextBox Name="firstNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" TextChanged="FirstNameTextBox_TextChanged" KeyDown="FirstNameTextBox_KeyDown"/>
+            <TextBox Name="firstNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" TextChanged="FirstNameTextBox_TextChanged" KeyUp="FirstNameTextBox_KeyUp"/>
             <Label x:Name="lblLastName" Content="Last name" Foreground="White"/>
-            <TextBox Name="lastNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" TextChanged="LastNameTextBox_TextChanged" KeyDown="LastNameTextBox_KeyDown" KeyUp="LastNameTextBox_KeyUp"/>
+            <TextBox Name="lastNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" TextChanged="LastNameTextBox_TextChanged" KeyUp="LastNameTextBox_KeyUp"/>
             <Label x:Name="lblEmail" Content="Email" Foreground="White"/>
-            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" LostFocus="EmailTextBox_LostFocus" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyDown="EmailTextBox_KeyDown" KeyUp="EmailTextBox_KeyUp"/>
+            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" LostFocus="EmailTextBox_LostFocus" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyUp="EmailTextBox_KeyUp"/>
             <Label x:Name="phoneLabel" Content="Phone" Foreground="White"/>
-            <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus" KeyUp="PhoneTextBox_KeyUp" KeyDown="PhoneTextBox_KeyDown"/>
+            <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus" KeyUp="PhoneTextBox_KeyUp"/>
             <Label x:Name="lblPassword" Content="Password" Foreground="White" AutomationProperties.IsRequiredForForm="True" FontSize="14"/>
-            <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="UserPasswordBox_GotFocus" LostFocus="UserPasswordBox_LostFocus" PasswordChanged="UserPasswordBox_PasswordChanged" ToolTip="A password must be 6 characters including: One uppercase letter, one special character, one number" KeyUp="UserPasswordBox_KeyUp" KeyDown="UserPasswordBox_KeyDown"/>
+            <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="UserPasswordBox_GotFocus" LostFocus="UserPasswordBox_LostFocus" PasswordChanged="UserPasswordBox_PasswordChanged" ToolTip="A password must be 6 characters including: One uppercase letter, one special character, one number" KeyUp="UserPasswordBox_KeyUp"/>
             <Label x:Name="lblConfirmPassword" Content="Confirm Password" Foreground="White"/>
-            <PasswordBox Name="confirmUserPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" PasswordChanged="ConfirmUserPasswordBox_PasswordChanged" KeyDown="ConfirmUserPasswordBox_KeyDown" KeyUp="ConfirmUserPasswordBox_KeyUp"/>
+            <PasswordBox Name="confirmUserPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" PasswordChanged="ConfirmUserPasswordBox_PasswordChanged" KeyUp="ConfirmUserPasswordBox_KeyUp"/>
             <Label x:Name="lblPasswordsMatch" Foreground="White" Visibility="Hidden" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 30" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" KeyUp="CreateAccountSubmitButton_KeyUp" Height="36"/>
         </StackPanel>
