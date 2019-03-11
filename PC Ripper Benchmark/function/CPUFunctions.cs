@@ -6,7 +6,7 @@ using System.Windows.Threading;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
 
-using static PC_Ripper_Benchmark.function.FunctionTypes;
+using static PC_Ripper_Benchmark.function.RipperTypes ;
 
 namespace PC_Ripper_Benchmark.function {
 
@@ -100,12 +100,11 @@ namespace PC_Ripper_Benchmark.function {
                 }
             }
 
-
             return results;
         }
 
         /// <summary>
-        /// Runs a naive test on successorship.
+        /// Runs a test on successorship.
         /// <para>Counts from 0 to N.</para>
         /// Outputs a <see cref="TimeSpan"/> 
         /// representing how long it takes this operation.
@@ -121,7 +120,7 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs a naive test on boolean logic.
+        /// Runs a test on boolean logic.
         /// <para>Internally, generates 2 random numbers type of <see cref="int"/> and 
         /// compares them. Whichever is greater, it adds to an output list.</para>
         /// Outputs a <see cref="TimeSpan"/> 
@@ -203,7 +202,7 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs a naive test using Queues.
+        /// Runs a test using Queues.
         /// <para>Creates two <see cref="Queue{T}"/> and
         /// adds, removes, and searches random numbers of type 
         /// <see cref="int"/>.</para>
@@ -261,7 +260,7 @@ namespace PC_Ripper_Benchmark.function {
 
 
         /// <summary>
-        /// Runs a naive test using Trees.
+        /// Runs a test using Trees.
         /// <para>Creates two <see cref="SortedSet{T}"/> and
         /// adds, removes, and searches random numbers of type 
         /// <see cref="int"/>.</para>

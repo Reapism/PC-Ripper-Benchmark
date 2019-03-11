@@ -3,7 +3,7 @@
 namespace PC_Ripper_Benchmark.function {
 
     /// <summary>
-    /// The <see cref="FunctionTypes"/> class.
+    /// The <see cref="RipperTypes"/> class.
     /// <para>Contains public generalized functions
     /// for many functions in this project.</para>
     /// <para>Includes <see langword="enums"/>, 
@@ -13,7 +13,49 @@ namespace PC_Ripper_Benchmark.function {
     /// all rights reserved.</para>
     /// </summary>
 
-    public class FunctionTypes {
+    public class RipperTypes {
+
+        /// <summary>
+        /// The <see cref="Tab"/> enum.
+        /// Represents all the tabs needed.
+        /// </summary>
+
+        public enum Tab {
+            /// <summary>
+            /// The welcome tab.
+            /// </summary>
+            WELCOME,
+
+            /// <summary>
+            /// The cpu tab.
+            /// </summary>
+            CPU,
+
+            /// <summary>
+            /// The disk tab.
+            /// </summary>
+            DISK,
+
+            /// <summary>
+            /// The ram tab.
+            /// </summary>
+            RAM,
+
+            /// <summary>
+            /// The gpu tab.
+            /// </summary>
+            GPU,
+
+            /// <summary>
+            /// The settings tab.
+            /// </summary>
+            SETTINGS,
+
+            /// <summary>
+            /// Tab running a test.
+            /// </summary>
+            RUNNING_TEST,
+        }
 
         /// <summary>
         /// Determines which thread type a particular
