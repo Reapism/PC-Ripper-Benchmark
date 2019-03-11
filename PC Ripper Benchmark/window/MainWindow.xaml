@@ -52,17 +52,17 @@
                             <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <Grid x:Name="grdCPUTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636" SizeChanged="GrdCPUTests_SizeChanged">
-                            <Image x:Name="imgSuccessorship" HorizontalAlignment="Left" Height="100" Margin="25,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)."/>
-                            <Image x:Name="imgBoolean" HorizontalAlignment="Left" Height="100" Margin="150,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times."/>
-                            <Image x:Name="imgQueue" HorizontalAlignment="Left" Height="100" Margin="275,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times."/>
-                            <Image x:Name="imgLinkedList" HorizontalAlignment="Left" Height="100" Margin="400,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/list.png" ToolTip="The linked list data structure tests adds, removes, and searches random numbers from its contents (n) times."/>
-                            <Image x:Name="imgTree" HorizontalAlignment="Left" Height="100" Margin="520,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/tree.png" ToolTip="The tree data structure tests adds, removes, and searches random numbers from its contents (n) times."/>
+                            <Image x:Name="imgSuccessorship" HorizontalAlignment="Left" Height="100" Margin="25,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100"/>
+                            <Image x:Name="imgBoolean" HorizontalAlignment="Left" Height="100" Margin="150,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100"/>
+                            <Image x:Name="imgQueue" HorizontalAlignment="Left" Height="100" Margin="275,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100"/>
+                            <Image x:Name="imgLinkedList" HorizontalAlignment="Left" Height="100" Margin="400,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/list.png" ToolTip="The linked list data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100"/>
+                            <Image x:Name="imgTree" HorizontalAlignment="Left" Height="100" Margin="520,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/tree.png" ToolTip="The tree data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100"/>
                         </Grid>
-                        <Grid x:Name="grdResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636">
+                        <Grid x:Name="grdResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
                             <RadioButton x:Name="radSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="radMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Button x:Name="button" Content="Run Test" Margin="0,65,0,0" Width="75" VerticalAlignment="Center" Click="Button_Click"/>
+                            <Button x:Name="btnRunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -115,7 +115,13 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <TextBlock x:Name="txtRunningTest" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Running the BLANK test." VerticalAlignment="Top" FontSize="18"/>
-                        <Image x:Name="image" Margin="200,50" Source="/PC Ripper Benchmark;component/resources/preloader_test.gif" Height="240"/>
+                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text=""/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
                     </Grid>
                 </TabItem>
             </TabControl>
