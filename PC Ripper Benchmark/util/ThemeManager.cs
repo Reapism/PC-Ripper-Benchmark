@@ -1,5 +1,5 @@
-﻿using PC_Ripper_Benchmark.window;
-using System.Windows.Media;
+﻿using System.Windows.Media;
+using PC_Ripper_Benchmark.window;
 
 namespace PC_Ripper_Benchmark.util {
 

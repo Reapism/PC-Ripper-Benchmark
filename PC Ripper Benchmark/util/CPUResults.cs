@@ -1,6 +1,7 @@
-﻿using PC_Ripper_Benchmark.exception;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using PC_Ripper_Benchmark.exception;
+
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {
@@ -28,7 +29,7 @@ namespace PC_Ripper_Benchmark.util {
 
         public CPUResults(RipperSettings rs) {
             this.TestCollection = new List<TimeSpan>();
-            this.rs = rs;
+            this.rs = rs;            
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace PC_Ripper_Benchmark.util {
                     TimeSpan totalTime = new TimeSpan();
 
                     for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 1)]);
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * (int)TestName.CPUBoolean)]);
                     }
 
                     TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
@@ -99,7 +100,7 @@ namespace PC_Ripper_Benchmark.util {
                     TimeSpan totalTime = new TimeSpan();
 
                     for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 2)]);
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * (int)TestName.CPUQueue)]);
                     }
 
                     TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
@@ -111,7 +112,7 @@ namespace PC_Ripper_Benchmark.util {
                     TimeSpan totalTime = new TimeSpan();
 
                     for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 3)]);
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * (int)TestName.CPULinkedList)]);
                     }
 
                     TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
@@ -123,7 +124,7 @@ namespace PC_Ripper_Benchmark.util {
                     TimeSpan totalTime = new TimeSpan();
 
                     for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * 4)]);
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerCPUTest * (int)TestName.CPUTree)]);
                     }
 
                     TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerCPUTest);
@@ -208,7 +209,7 @@ namespace PC_Ripper_Benchmark.util {
 
             // total time of all tests. 
             desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(TestCollection)}";
+            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
 
             // average per test.
             desc += Environment.NewLine;
@@ -240,7 +241,7 @@ namespace PC_Ripper_Benchmark.util {
             // score for the test.
             desc += Environment.NewLine + Environment.NewLine;
 
-            desc += $"The score for this test is {Score}.";
+            desc += $"The score for this test is {this.Score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
             desc += "(Algorithm not implemented for generating a score)";

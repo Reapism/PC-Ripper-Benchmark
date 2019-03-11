@@ -127,10 +127,10 @@ namespace PC_Ripper_Benchmark.window {
         private void BtnRunTest_Click(object sender, RoutedEventArgs e) {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
             CPUResults results = new CPUResults(this.rs);
-
+            
             ThreadType threadType;
             if (this.radSingle.IsChecked == true) {
-                threadType = ThreadType.Single;
+                threadType = ThreadType.SingleUI;
             } else if (this.radMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {

@@ -118,12 +118,12 @@ namespace PC_Ripper_Benchmark {
                 MessageBox.Show("Account Created!");
                 util.UserData newUser = new util.UserData {
                     //Encrypt user data and set to newUser object
-                    FirstName = passwordEncryption.encryptText(this.firstNameTextBox.Text),
-                    LastName = passwordEncryption.encryptText(this.lastNameTextBox.Text),
-                    Email = passwordEncryption.encryptText(this.emailTextBox.Text),
-                    PhoneNumber = passwordEncryption.encryptText(this.phoneTextBox.Text)
+                    FirstName = passwordEncryption.EncryptText(this.firstNameTextBox.Text),
+                    LastName = passwordEncryption.EncryptText(this.lastNameTextBox.Text),
+                    Email = passwordEncryption.EncryptText(this.emailTextBox.Text),
+                    PhoneNumber = passwordEncryption.EncryptText(this.phoneTextBox.Text)
                 };
-                newUser.Password = passwordEncryption.encryptText(newUser.Password);
+                newUser.Password = passwordEncryption.EncryptText(newUser.Password);
             }
             #endregion
         }

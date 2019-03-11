@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using PC_Ripper_Benchmark.exception;
+
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {
@@ -79,7 +79,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <param name="theTest">The <see cref="TestName"/> enum
         /// which represents the name.</param>
         /// <returns></returns>
-        public virtual string GetTestName(TestName theTest) {
+        protected virtual string GetTestName(TestName theTest) {
             switch (theTest) {
                 // CPU test names.
                 case TestName.CPUSuccessorship: {
