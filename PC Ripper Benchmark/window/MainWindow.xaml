@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="PC Ripper Benchmark Tool" Height="450" Width="800" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="800" MinHeight="450" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico">
     <Grid x:Name="grdMain" Margin="0" MinHeight="420" MinWidth="790">
-        <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="50" Background="#BF84B8E4" MinHeight="400" VerticalAlignment="Stretch" Width="150">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="196*"/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="150" Background="#BF84B8E4" MinHeight="400" VerticalAlignment="Stretch">
             <StackPanel x:Name="stkNavigation" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" MinWidth="150" MinHeight="420" Height="322"/>
             <Button x:Name="btnTemp" Content="Show Quest." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnTemp_Click"/>
             <Button x:Name="btnCPU" Content="CPU" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click"/>
@@ -28,98 +32,25 @@
                     </LinearGradientBrush>
                 </TabControl.BorderBrush>
                 <TabItem x:Name="tabWelcome" Header="Welcome &lt;name&gt;, Profile" BorderBrush="#FF7E2F2F">
-                    <Grid x:Name="grdWelcome">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                        <StackPanel Height="100" Margin="0,5,0,0" VerticalAlignment="Top" MinHeight="100" MinWidth="100">
-                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Text="Welcome &lt;user&gt; to the PC Ripper Benchmark. Below you can find your computer specifications." FontSize="18" Margin="36,0,0,0"/>
-                        </StackPanel>
-                    </Grid>
+                    <Grid x:Name="grdWelcome" Background="#FFE5E5E5"/>
                 </TabItem>
                 <TabItem x:Name="tabCPU" Header="CPU">
-                    <Grid x:Name="grdCPU">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                        <StackPanel x:Name="stkCPU" Margin="0,6,0,237" MinHeight="60">
-                            <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                        <Grid x:Name="grdCPUTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636" SizeChanged="GrdCPUTests_SizeChanged">
-                            <Image x:Name="imgSuccessorship" HorizontalAlignment="Left" Height="100" Margin="25,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)."/>
-                            <Image x:Name="imgBoolean" HorizontalAlignment="Left" Height="100" Margin="150,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times."/>
-                            <Image x:Name="imgQueue" HorizontalAlignment="Left" Height="100" Margin="275,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times."/>
-                            <Image x:Name="imgLinkedList" HorizontalAlignment="Left" Height="100" Margin="400,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/list.png" ToolTip="The linked list data structure tests adds, removes, and searches random numbers from its contents (n) times."/>
-                            <Image x:Name="imgTree" HorizontalAlignment="Left" Height="100" Margin="520,10,0,0" VerticalAlignment="Top" Width="100" Source="/PC Ripper Benchmark;component/resources/tree.png" ToolTip="The tree data structure tests adds, removes, and searches random numbers from its contents (n) times."/>
-                        </Grid>
-                        <Grid x:Name="grdResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636">
-                            <TextBlock x:Name="txtChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="radMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                        </Grid>
-                        
-
-                    </Grid>
+                    <Grid x:Name="grdCPU" Background="#FFB2B2B2"/>
                 </TabItem>
                 <TabItem x:Name="tabDisk" Header="Disk">
-                    <Grid x:Name="grdDisk">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                    </Grid>
+                    <Grid x:Name="grdDisk" Background="#FF424242"/>
                 </TabItem>
                 <TabItem x:Name="tabRAM" Header="RAM">
-                    <Grid x:Name="grdRAM">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                    </Grid>
+                    <Grid x:Name="grdRAM" Background="#FF029C72"/>
                 </TabItem>
                 <TabItem x:Name="tabGPU" Header="GPU">
-                    <Grid x:Name="grdGPU">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                    </Grid>
+                    <Grid x:Name="grdGPU" Background="#FF7C235B"/>
                 </TabItem>
                 <TabItem x:Name="tabSettings" Header="Settings">
-                    <Grid x:Name="grdSettings">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                    </Grid>
-                </TabItem>
-                <TabItem x:Name="tabRunningTest" Header="Running the blank test">
-                    <Grid x:Name="grdRunningTest">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                        <TextBlock x:Name="txtRunningTest" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Running the BLANK test." VerticalAlignment="Top" FontSize="18"/>
-                        <Image x:Name="image" Margin="200,50" Source="/PC Ripper Benchmark;component/resources/preloader_test.gif" Height="240"/>
-                    </Grid>
+                    <Grid x:Name="grdSettings" Background="#FFE5E5E5"/>
                 </TabItem>
             </TabControl>
         </Grid>
     </Grid>
+
 </Window>
