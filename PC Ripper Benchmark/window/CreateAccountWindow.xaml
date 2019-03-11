@@ -1,7 +1,7 @@
 ﻿<Window x:Name="windowCreateAccount" x:Class="PC_Ripper_Benchmark.CreateAccountWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PC Ripper Benchmark" Height="600" Width="385" FontSize="14" Background="#3E8DE6"
+        Title="PC Ripper Benchmark" Height="625" Width="385" FontSize="14" Background="#3E8DE6"
         MinHeight="600" MinWidth="385">
 
     <Border x:Name="brdrBackground" Background="#2e3137" CornerRadius="20" Margin="20">
@@ -9,19 +9,19 @@
             <Label x:Name="lblCreateAccount" Content="Create Account" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator x:Name="sep1"></Separator>
             <Label x:Name="lblFirstName" Content="First name" Foreground="White"/>
-            <TextBox Name="firstNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" TextChanged="FirstNameTextBox_TextChanged"/>
+            <TextBox Name="firstNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="FirstNameTextBox_GotFocus" LostFocus="FirstNameTextBox_LostFocus" TextChanged="FirstNameTextBox_TextChanged" KeyDown="FirstNameTextBox_KeyDown"/>
             <Label x:Name="lblLastName" Content="Last name" Foreground="White"/>
-            <TextBox Name="lastNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" TextChanged="LastNameTextBox_TextChanged"/>
+            <TextBox Name="lastNameTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="LastNameTextBox_GotFocus" LostFocus="LastNameTextBox_LostFocus" TextChanged="LastNameTextBox_TextChanged" KeyDown="LastNameTextBox_KeyDown" KeyUp="LastNameTextBox_KeyUp"/>
             <Label x:Name="lblEmail" Content="Email" Foreground="White"/>
-            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" LostFocus="EmailTextBox_LostFocus" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged"/>
+            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" LostFocus="EmailTextBox_LostFocus" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyDown="EmailTextBox_KeyDown" KeyUp="EmailTextBox_KeyUp"/>
             <Label x:Name="phoneLabel" Content="Phone" Foreground="White"/>
-            <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus"/>
+            <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus" KeyUp="PhoneTextBox_KeyUp" KeyDown="PhoneTextBox_KeyDown"/>
             <Label x:Name="lblPassword" Content="Password" Foreground="White" AutomationProperties.IsRequiredForForm="True" FontSize="14"/>
-            <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="UserPasswordBox_GotFocus" LostFocus="UserPasswordBox_LostFocus" PasswordChanged="UserPasswordBox_PasswordChanged" ToolTip="A password must be 6 characters including: One uppercase letter, one special character, one number"/>
+            <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="UserPasswordBox_GotFocus" LostFocus="UserPasswordBox_LostFocus" PasswordChanged="UserPasswordBox_PasswordChanged" ToolTip="A password must be 6 characters including: One uppercase letter, one special character, one number" KeyUp="UserPasswordBox_KeyUp" KeyDown="UserPasswordBox_KeyDown"/>
             <Label x:Name="lblConfirmPassword" Content="Confirm Password" Foreground="White"/>
-            <PasswordBox Name="confirmUserPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" PasswordChanged="ConfirmUserPasswordBox_PasswordChanged"/>
+            <PasswordBox Name="confirmUserPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" PasswordChanged="ConfirmUserPasswordBox_PasswordChanged" KeyDown="ConfirmUserPasswordBox_KeyDown" KeyUp="ConfirmUserPasswordBox_KeyUp"/>
             <Label x:Name="lblPasswordsMatch" Foreground="White" Visibility="Hidden" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            <Button Name="createAccountSubmitButton" Content="Submit" Margin="50 30" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click"/>
+            <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 30" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" KeyUp="CreateAccountSubmitButton_KeyUp" Height="36"/>
         </StackPanel>
     </Border>
 </Window>
