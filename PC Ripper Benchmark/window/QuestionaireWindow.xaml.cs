@@ -25,7 +25,7 @@ namespace PC_Ripper_Benchmark.window {
                     s.Value = 1.0;
                     userSkill = "Beginner";
                     s.ToolTip = userSkill;
-                    this.lblUserSkill.Content = $"How do you use your computer? {userSkill}";
+                    this.lblUserSkill.Content = $"How would you describe your knowledge of computers? {userSkill}";
                     break;
                 }
 
@@ -33,7 +33,7 @@ namespace PC_Ripper_Benchmark.window {
                     s.Value = 2.0;
                     userSkill = "Advanced";
                     s.ToolTip = userSkill;
-                    this.lblUserSkill.Content = $"How do you use your computer? {userSkill}";
+                    this.lblUserSkill.Content = $"How would you describe your knowledge of computers? {userSkill}";
                     break;
                 }
             }
@@ -90,7 +90,7 @@ namespace PC_Ripper_Benchmark.window {
                     s.Value = 1.0;
                     userTheme = "Light";
                     s.ToolTip = userTheme;
-                    this.lblTheme.Content = $"How do you use your computer? {userTheme}";
+                    this.lblTheme.Content = $"Choose a theme! {userTheme}";
 
                     tm = new ThemeManager(ThemeManager.Theme.Light, this);
 
@@ -101,7 +101,7 @@ namespace PC_Ripper_Benchmark.window {
                     s.Value = 2.0;
                     userTheme = "Dark";
                     s.ToolTip = userTheme;
-                    this.lblTheme.Content = $"How do you use your computer? {userTheme}";
+                    this.lblTheme.Content = $"Choose a theme! { userTheme}";
 
                     tm = new ThemeManager(ThemeManager.Theme.Dark, this);
 
