@@ -63,7 +63,6 @@ namespace PC_Ripper_Benchmark.util {
         /// valid or not.
         /// </summary>
         /// <param name="password">The password in plain text.</param>
-        /// <param name="password">The password in plain text.</param>
         /// <returns></returns>
 
         public static bool IsValidPassword(string password) {
@@ -75,6 +74,7 @@ namespace PC_Ripper_Benchmark.util {
                 return false;
             }
         }
+
         #endregion
 
         #region First/Last Name Validation
@@ -97,23 +97,22 @@ namespace PC_Ripper_Benchmark.util {
         #endregion
 
         #region Phone # Validation
+
         /// <summary>
         /// Default Method in <see cref="RegexUtilities"/>.
         /// <para>Validates whether a string is a valid password.</para>
         /// </summary>
-        public static bool isValidPhoneNumber(string phoneNumber)
-        {
-            try
-            {
+
+        public static bool IsValidPhoneNumber(string phoneNumber) {
+            try {
                 return Regex.IsMatch(phoneNumber, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
-            }
-            catch (RegexMatchTimeoutException)
-            {
+            } catch (RegexMatchTimeoutException) {
                 return false;
             }
         }
+
         #endregion
     }
 }
