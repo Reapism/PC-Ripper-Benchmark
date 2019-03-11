@@ -325,7 +325,8 @@ namespace PC_Ripper_Benchmark {
             codePopup.PlacementTarget = userPasswordBox;
             popupContent.Text = "Password must contain: \n-One uppercase letter" +
                 "\n-One special character\n-One number";
-            popupContent.Background = Brushes.Black;
+
+            popupContent.Background = Brushes.PeachPuff;
             popupContent.Foreground = Brushes.Red;
             codePopup.Child = popupContent;
      
