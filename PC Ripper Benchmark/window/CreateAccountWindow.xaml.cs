@@ -86,7 +86,8 @@ namespace PC_Ripper_Benchmark {
             }
 
             if (this.userPasswordBox.Password != this.confirmUserPasswordBox.Password) {
-                MessageBox.Show("Passwords do not match!");
+                lblConfirmPassword.Content = "Passwords don't match";
+                lblConfirmPassword.Visibility = Visibility.Visible;
                 this.confirmUserPasswordBox.Focus();
             }
 
@@ -302,9 +303,25 @@ namespace PC_Ripper_Benchmark {
         #region Border Color Confirm Password
         private void ConfirmUserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
             if (this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
+
+                //If the password matches, set passwords match label to green border and visible
+                lblPasswordsMatch.Content = "Passwords match";
+                lblPasswordsMatch.Visibility = Visibility.Visible;
+                lblPasswordsMatch.Background = Brushes.Green;
+            
+                //Confirm password box turns green
                 this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmUserPasswordBox.BorderBrush = Brushes.Green;
-            } else {
+            }
+            else {
+
+                //If the password does not match, set passwords match label to visible;
+                lblPasswordsMatch.Content = "Passwords don't match";
+                lblPasswordsMatch.Visibility = Visibility.Visible;
+                lblPasswordsMatch.Background = Brushes.Red;
+
+
+                //Confirm password box turns red
                 this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmUserPasswordBox.BorderBrush = Brushes.Red;
             }

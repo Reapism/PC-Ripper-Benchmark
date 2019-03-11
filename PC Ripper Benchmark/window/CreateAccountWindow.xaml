@@ -18,8 +18,9 @@
             <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus"/>
             <Label x:Name="lblPassword" Content="Password" Foreground="White" AutomationProperties.IsRequiredForForm="True" FontSize="14"/>
             <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="UserPasswordBox_GotFocus" LostFocus="UserPasswordBox_LostFocus" PasswordChanged="UserPasswordBox_PasswordChanged" ToolTip="A password must be 6 characters including: One uppercase letter, one special character, one number"/>
-            <Label x:Name="lnlConfirmPassword" Content="Confirm Password" Foreground="White"/>
+            <Label x:Name="lblConfirmPassword" Content="Confirm Password" Foreground="White"/>
             <PasswordBox Name="confirmUserPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" PasswordChanged="ConfirmUserPasswordBox_PasswordChanged"/>
+            <Label x:Name="lblPasswordsMatch" Foreground="White" Visibility="Hidden" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Button Name="createAccountSubmitButton" Content="Submit" Margin="50 30" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click"/>
         </StackPanel>
     </Border>
