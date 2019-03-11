@@ -19,12 +19,6 @@ namespace PC_Ripper_Benchmark.util {
         #region Abstract properties for a given component.
 
         /// <summary>
-        /// Represents a <see cref="Tuple{T1, T2}"/> containing the name of the test,
-        /// and the average time it took the test.
-        /// </summary>
-        public abstract Tuple<string, TimeSpan> AverageTest { get; }
-
-        /// <summary>
         /// Represents the individual time for each test before the averaging.
         /// </summary>
         public abstract List<TimeSpan> TestCollection { get; }
@@ -51,7 +45,9 @@ namespace PC_Ripper_Benchmark.util {
 
         /// <summary>
         /// Generates a particular description based on a
-        /// given component test.
+        /// given component test. Contains information
+        /// about each test and its duration, and the 
+        /// average of the tests, and the score.
         /// </summary>
 
         protected abstract string GenerateDescription();
@@ -67,13 +63,14 @@ namespace PC_Ripper_Benchmark.util {
         /// the Name and average test for a particular component.
         /// </summary>
         /// <param name="testCollection">A collection of tests.</param>
+        /// <param name="testName">A <see cref="TestName"/> to represent the test.</param>
         /// <returns>A Tuple containing a </returns>
 
-        protected abstract Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection); 
+        protected abstract Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName testName);
 
         #endregion
 
-        #region Virtual function(s).
+        #region Virtual function(s).       
 
         /// <summary>
         /// Takes in a <see cref="TestName"/> and
@@ -162,6 +159,20 @@ namespace PC_Ripper_Benchmark.util {
 
         protected virtual void AddTest(TimeSpan duration) {
             this.TestCollection.Add(duration);
+        }
+
+        /// <summary>
+        /// Averages a particular <see cref="TimeSpan"/> with a number and
+        /// returns a new <see cref="TimeSpan"/> with the average.
+        /// </summary>
+        /// <param name="averageMe">A <see cref="TimeSpan"/> object to average.</param>
+        /// <param name="divideBy">The number to divide the <see cref="TimeSpan"/> by.</param>
+        /// <returns></returns>
+        /// <exception cref="DivideByZeroException">Thrown if a number is less than or = to 0.</exception>
+
+        protected virtual TimeSpan AverageTimespan(ref TimeSpan averageMe, int divideBy) {
+            return (divideBy <= 0) ? throw new DivideByZeroException() :
+                new TimeSpan(averageMe.Ticks / divideBy);
         }
 
         #endregion
