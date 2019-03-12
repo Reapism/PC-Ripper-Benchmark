@@ -139,8 +139,6 @@ namespace PC_Ripper_Benchmark.window {
                 return;
             }
 
-
-
             // SingleUI is going to cause problems because it is
             // threaded and it doesn't call constructor yet.
             // before we use the contents of that object.
@@ -160,7 +158,6 @@ namespace PC_Ripper_Benchmark.window {
                 $"\n\n");
 
             this.txtRunningTest.Text = "Results for the CPU test:";
-
 
             ShowTabWindow(Tab.RUNNING_TEST);
         }
