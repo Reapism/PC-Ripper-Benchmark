@@ -113,17 +113,17 @@ namespace PC_Ripper_Benchmark {
                this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
 
                 //New instance of encryption class
-                util.Encryption passwordEncryption = new util.Encryption();
+                util.Encryption encrypter = new util.Encryption();
 
                 MessageBox.Show("Account Created!");
                 util.UserData newUser = new util.UserData {
                     //Encrypt user data and set to newUser object
-                    FirstName = passwordEncryption.EncryptText(this.firstNameTextBox.Text),
-                    LastName = passwordEncryption.EncryptText(this.lastNameTextBox.Text),
-                    Email = passwordEncryption.EncryptText(this.emailTextBox.Text),
-                    PhoneNumber = passwordEncryption.EncryptText(this.phoneTextBox.Text)
+                    FirstName = encrypter.EncryptText(this.firstNameTextBox.Text),
+                    LastName = encrypter.EncryptText(this.lastNameTextBox.Text),
+                    Email = encrypter.EncryptText(this.emailTextBox.Text),
+                    PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
+                    Password = encrypter.EncryptText(this.userPasswordBox.Password)
                 };
-                newUser.Password = passwordEncryption.EncryptText(newUser.Password);
             }
             #endregion
         }
