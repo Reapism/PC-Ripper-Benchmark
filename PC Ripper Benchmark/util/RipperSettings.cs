@@ -17,7 +17,7 @@ namespace PC_Ripper_Benchmark.util {
 
     public class RipperSettings {
 
-        #region Instance members, properties, and enums.
+        #region Instance members (fields).
 
         private byte iter_per_cpu_test;
 
@@ -27,9 +27,83 @@ namespace PC_Ripper_Benchmark.util {
         private ulong iter_cpu_linkedlist;
         private ulong iter_cpu_tree;
 
+        private byte iter_per_ram_test;
+
+        private ulong iter_ram_foldermatrix;
+        private ulong iter_ram_referencedereference;    
+        private ulong iter_ram_virtualbulkfile;
+
+        private byte iter_per_disk_test;
+
+        #endregion
+
+        #region Properties for fields.
+
         /// <summary>
         /// Represents how many times we run a particular test
-        /// to average them.
+        /// for each ram test to average them.
+        /// </summary>
+        /// <returns></returns>
+        [DataMember(Name = "iter_per_ram_test")]
+        public byte IterationsPerRAMTest {
+            get => this.iter_per_ram_test;
+            set {
+                if (value > 0 && value <= byte.MaxValue)
+                    this.iter_per_ram_test = value;
+            }
+        }
+
+        /// <summary>
+        /// The number of iterations for a creating (N) 
+        /// <see cref="RipperFolder"/>(s) and placing (N/2)
+        /// <see cref="RipperFile"/>(s) in them.
+        /// <para>- Includes writing data into each 
+        /// <see cref="RipperFile"/> and reading a virtual
+        /// <see cref="RipperFolder"/> as its directory.</para>
+        /// </summary>  
+        [DataMember(Name = "iter_ram_foldermatrix")]
+        public ulong IterationsRAMFolderMatrix {
+            get => this.iter_ram_foldermatrix;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_ram_foldermatrix = value;
+            }
+        }
+
+        /// <summary>
+        /// The number of iterations for referencing
+        /// and dereferencing <see langword="objects"/> in memory quickly.
+        /// </summary>
+        /// <returns></returns>
+        [DataMember(Name = "iter_ram_referencedereference")]
+        public ulong IterationsRAMReferenceDereference {
+            get => this.iter_ram_referencedereference;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_ram_referencedereference = value;
+            }
+        }
+
+        /// <summary>
+        /// The number of iterations for creating N virtual
+        /// <see cref="RipperFile"/>(s) in memory
+        /// and placing random numbers in them.
+        /// <para>- Includes writing data to each 
+        /// <see cref="RipperFile"/> and reading that data.</para>
+        /// </summary>
+        /// <returns></returns>
+        [DataMember(Name = "iter_ram_virtualbulkfile")]
+        public ulong IterationsRAMVirtualBulkFile {
+            get => this.iter_ram_virtualbulkfile;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_ram_virtualbulkfile = value;
+            }
+        }
+
+        /// <summary>
+        /// Represents how many times we run a particular test
+        /// for each cpu test to average them.
         /// </summary>
         /// <returns></returns>
         [DataMember(Name = "iter_per_cpu_test")]
@@ -133,15 +207,21 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
 
         private void LoadSettings() {
-            IterationsPerCPUTest = Properties.Settings.Default.iter_per_cpu_test;
+            this.IterationsPerCPUTest = Properties.Settings.Default.iter_per_cpu_test;
 
-            IterationsSuccessorship = Properties.Settings.Default.iter_cpu_successorship;
-            IterationsBoolean = Properties.Settings.Default.iter_cpu_boolean;
-            IterationsQueue = Properties.Settings.Default.iter_cpu_queue;
-            IterationsLinkedList = Properties.Settings.Default.iter_cpu_linkedlist;
-            IterationsTree = Properties.Settings.Default.iter_cpu_tree;
+            this.IterationsSuccessorship = Properties.Settings.Default.iter_cpu_successorship;
+            this.IterationsBoolean = Properties.Settings.Default.iter_cpu_boolean;
+            this.IterationsQueue = Properties.Settings.Default.iter_cpu_queue;
+            this.IterationsLinkedList = Properties.Settings.Default.iter_cpu_linkedlist;
+            this.IterationsTree = Properties.Settings.Default.iter_cpu_tree;
 
-            AutoCheckForUpdates = Properties.Settings.Default.auto_updates;
+            this.IterationsPerRAMTest = Properties.Settings.Default.iter_per_ram_test;
+
+            this.IterationsRAMFolderMatrix = Properties.Settings.Default.iter_ram_foldermatrix;
+            this.IterationsRAMReferenceDereference = Properties.Settings.Default.iter_ram_referencedereference;
+            this.IterationsRAMVirtualBulkFile = Properties.Settings.Default.iter_ram_virtualbulkfile;
+
+            this.AutoCheckForUpdates = Properties.Settings.Default.auto_updates;
         }
 
         #endregion
