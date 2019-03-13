@@ -17,12 +17,25 @@ namespace PC_Ripper_Benchmark.function {
 
     public class DiskFunctions {
 
+        #region Instance members (fields)
+
+        /// <summary>
+        /// A <see cref="RipperSettings"/> instance
+        /// used to get information about the test
+        /// parameters.
+        /// </summary>
+        private readonly RipperSettings rs;
+
+        #endregion
+
+        #region Constructor(s)
+
         /// <summary>
         /// Default constructor.
         /// </summary>
 
-        public DiskFunctions() {
-
+        public DiskFunctions(ref RipperSettings rs) {
+            this.rs = rs;
         }
 
         /// <summary>
