@@ -102,32 +102,32 @@ namespace PC_Ripper_Benchmark.util {
                 }
 
                 // Disk test names.
-                case TestName.DiskFolderMatrix: {
+                case TestName.DISKFolderMatrix: {
                     return "Folder Matrix";
                 }
 
-                case TestName.DiskBulkFile: {
+                case TestName.DISKBulkFile: {
                     return "Bulk File";
                 }
 
-                case TestName.DiskReadWriteParse: {
+                case TestName.DISKReadWriteParse: {
                     return "Read/Write Parse";
                 }
 
-                case TestName.DiskRipper: {
+                case TestName.DISKRipper: {
                     return "Disk Ripper";
                 }
 
                 // Ram test names.
-                case TestName.RamVirtualFolderMatrix: {
+                case TestName.RAMFolderMatrix: {
                     return "Virtual Folder Matrix";
                 }
 
-                case TestName.RamVirtualBulkData: {
+                case TestName.RAMBulkFile: {
                     return "Virtual Bulk Data";
                 }
 
-                case TestName.RamReferenceDereferenceParse: {
+                case TestName.RAMReferenceDereferenceParse: {
                     return "Reference/Dereference Parse";
                 }
 
