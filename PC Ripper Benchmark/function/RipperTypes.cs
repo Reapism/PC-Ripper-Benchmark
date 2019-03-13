@@ -126,38 +126,38 @@ namespace PC_Ripper_Benchmark.function {
             /// <summary>
             /// The folder matrix test.
             /// </summary>
-            DiskFolderMatrix,
+            DISKFolderMatrix,
 
             /// <summary>
             /// The bulk-file test.
             /// </summary>
-            DiskBulkFile,
+            DISKBulkFile,
 
             /// <summary>
             /// The read and write parsing test.
             /// </summary>
-            DiskReadWriteParse,
+            DISKReadWriteParse,
 
             /// <summary>
             /// The combination of folder matrix and
             /// bulk file.
             /// </summary>
-            DiskRipper,
+            DISKRipper,
 
             /// <summary>
             /// The folder matrix test.
             /// </summary>
-            RamVirtualFolderMatrix,
+            RAMFolderMatrix,
 
             /// <summary>
             /// The bulk-file test.
             /// </summary>
-            RamVirtualBulkData,
+            RAMBulkFile,
 
             /// <summary>
             /// The read and write parsing test.
             /// </summary>
-            RamReferenceDereferenceParse,
+            RAMReferenceDereferenceParse,
 
             /// <summary>
             /// The folder matrix test.
