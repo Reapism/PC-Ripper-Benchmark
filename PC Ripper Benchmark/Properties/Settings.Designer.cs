@@ -106,5 +106,53 @@ namespace PC_Ripper_Benchmark.Properties {
                 this["iter_per_cpu_test"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public byte iter_per_ram_test {
+            get {
+                return ((byte)(this["iter_per_ram_test"]));
+            }
+            set {
+                this["iter_per_ram_test"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_ram_virtualbulkfile {
+            get {
+                return ((ulong)(this["iter_ram_virtualbulkfile"]));
+            }
+            set {
+                this["iter_ram_virtualbulkfile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_ram_foldermatrix {
+            get {
+                return ((ulong)(this["iter_ram_foldermatrix"]));
+            }
+            set {
+                this["iter_ram_foldermatrix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_ram_referencedereference {
+            get {
+                return ((ulong)(this["iter_ram_referencedereference"]));
+            }
+            set {
+                this["iter_ram_referencedereference"] = value;
+            }
+        }
     }
 }
