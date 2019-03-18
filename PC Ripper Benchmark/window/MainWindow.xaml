@@ -11,6 +11,7 @@
             <StackPanel x:Name="stkNavigation" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" MinWidth="150" MinHeight="420" Height="322"/>
             <Button x:Name="btnTemp" Content="Show Quest." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnTemp_Click"/>
             <Button x:Name="btnCPU" Content="CPU" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click"/>
+            <Button x:Name="btnRAM" Content="RAM" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click"/>
         </Grid>
         <Grid x:Name="grdTop" Margin="150,0,0,0" VerticalAlignment="Top" Background="#FF4C5461" MinHeight="100" MinWidth="650" Grid.ColumnSpan="2"/>
         <Grid x:Name="grdWindow" Margin="150,100,0,0" Grid.ColumnSpan="2" MinWidth="640" MinHeight="320">
@@ -51,38 +52,38 @@
                         <StackPanel x:Name="stkCPU" Margin="0,6,0,237" MinHeight="60">
                             <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdCPUTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636" SizeChanged="GrdCPUTests_SizeChanged">
-                            <Image x:Name="imgSuccessorship" Margin="-500,10,0,0" Source="/PC Ripper Benchmark;component/resources/successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                        <Grid x:Name="grdCPUTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636">
+                            <Image x:Name="imgCPUSuccessorship" Margin="-500,10,0,0" Source="/PC Ripper Benchmark;component/resources/cpu_successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgBoolean" Height="100" Margin="-250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUBoolean" Height="100" Margin="-250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgQueue" Height="100" Margin="0" Width="100" Source="/PC Ripper Benchmark;component/resources/queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUQueue" Height="100" Margin="0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgLinkedList" Height="100" Margin="250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/list.png" ToolTip="The linked list data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPULinkedList" Height="100" Margin="250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_list.png" ToolTip="The linked list data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgTree" Height="100" Margin="500,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/tree.png" ToolTip="The tree data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUTree" Height="100" Margin="500,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_tree.png" ToolTip="The tree data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
                         </Grid>
-                        <Grid x:Name="grdResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
-                            <TextBlock x:Name="txtChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="radMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Button x:Name="btnRunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                        <Grid x:Name="grdCPUResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
+                            <TextBlock x:Name="txtCPUChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
+                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Button x:Name="btnCPURunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -94,6 +95,32 @@
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
+                        <StackPanel x:Name="stkDisk" Margin="0,6,0,237" MinHeight="60">
+                            <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <Grid x:Name="grdDiskTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636">
+                            <Image x:Name="imgDiskFolderMatrix" Margin="-500,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_folder_matrix.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
+                                </Image.Effect>
+                            </Image>
+                            <Image x:Name="imgDiskBulkFile" Height="100" Margin="-250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_bulk_file.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
+                                </Image.Effect>
+                            </Image>
+                            <Image x:Name="imgDiskReferenceDereference" Height="100" Margin="0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_reference_dereference_parse.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
+                                </Image.Effect>
+                            </Image>
+                        </Grid>
+                        <Grid x:Name="grdDiskResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
+                            <TextBlock x:Name="txtDiskChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
+                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="radDiskMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Button x:Name="btnDiskRunTest" Content="Run the DISK test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                        </Grid>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabRAM" Header="RAM">
@@ -104,6 +131,32 @@
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
+                        <StackPanel x:Name="stkRAM" Margin="0,6,0,237" MinHeight="60">
+                            <TextBlock x:Name="txtRAMWelcome" TextWrapping="Wrap" Text="Welcome to the RAM benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <Grid x:Name="grdRAMTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636">
+                            <Image x:Name="imgRamFolderMatrix" Margin="-500,10,0,0" Source="/PC Ripper Benchmark;component/resources/successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
+                                </Image.Effect>
+                            </Image>
+                            <Image x:Name="imgRamBulkFile" Height="100" Margin="-250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
+                                </Image.Effect>
+                            </Image>
+                            <Image x:Name="imgRamReferenceDereference" Height="100" Margin="0" Width="100" Source="/PC Ripper Benchmark;component/resources/queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
+                                </Image.Effect>
+                            </Image>
+                        </Grid>
+                        <Grid x:Name="grdRamResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
+                            <TextBlock x:Name="txtRamChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
+                            <RadioButton x:Name="radRamSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="radRamMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Button x:Name="btnRamRunTest" Content="Run the RAM test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRamRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                        </Grid>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabGPU" Header="GPU">
