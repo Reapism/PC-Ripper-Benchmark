@@ -11,12 +11,21 @@
 
     public class RipperFile {
 
-        #region Instance members (fields).
+        #region Properties
 
-        private string fileName;
-        private string data;
-        private long size;
-        private RipperFolder parentDir;
+
+        /// <summary>
+        /// Get's the filename for this <see cref="RipperFile"/> instance.
+        /// </summary>
+        public string FileName { get; }
+        /// <summary>
+        /// Get's the data for this <see cref="RipperFile"/> instance.
+        /// </summary>
+        public string Data { get; }
+        /// <summary>
+        /// Get's the size for this <see cref="RipperFile"/> instance.
+        /// </summary>
+        public ulong Size { get; }
 
         #endregion
 
@@ -27,7 +36,7 @@
         /// <para>It's best to use the parameterized constructor.</para>
         /// </summary>
 
-        public RipperFile() : this("", "", 0, null) { }
+        public RipperFile() : this("", "", 0) { }
 
         /// <summary>
         /// Parameterized constructor for creating a 
@@ -41,15 +50,19 @@
         /// <param name="data">The contents of the
         /// <see cref="RipperFile"/>.</param>
         /// <param name="size">The size of the <see cref="RipperFile"/>.</param>
-        /// <param name="parentDir">The parent directory of this <see cref="RipperFile"/>.</param>
 
-        public RipperFile(string fileName, string data, long size, RipperFolder parentDir) {
-            this.fileName = fileName;
-            this.data = data;
-            this.size = size;
-            this.parentDir = parentDir;
+        public RipperFile(string fileName, string data, ulong size) {
+            // This works because internally, an auto property is converted
+            // to readonly, which means it can be set in the constructor,
+            // and only in the constructor.
+
+            this.FileName = fileName;
+            this.Data = data;
+            this.Size = size;
         }
 
         #endregion
+
+
     }
 }
