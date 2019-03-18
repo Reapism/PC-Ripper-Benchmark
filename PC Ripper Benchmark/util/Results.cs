@@ -62,10 +62,10 @@ namespace PC_Ripper_Benchmark.util {
         /// the Name and average test for a particular component.
         /// </summary>
         /// <param name="testCollection">A collection of tests.</param>
-        /// <param name="testName">A <see cref="TestName"/> to represent the test.</param>
+        /// <param name="theTest">A <see cref="TestName"/> to represent the test.</param>
         /// <returns>A Tuple containing a </returns>
 
-        protected abstract Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName testName);
+        protected abstract Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName theTest);
 
         #endregion
 
