@@ -63,7 +63,7 @@ namespace PC_Ripper_Benchmark.function {
         /// <summary>
         /// Creates (N) virtual directories in memory
         /// using the <see cref="RipperFolder"/> class
-        /// with (N/2) <see cref="RipperFile"/>(s) thrown in.
+        /// with ~(N/2) <see cref="RipperFile"/>(s) thrown in.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
@@ -74,29 +74,26 @@ namespace PC_Ripper_Benchmark.function {
             List<RipperFolder> lstFolders = new List<RipperFolder>();
             List<RipperFile> lstFiles = new List<RipperFile>();
             Random rnd = new Random();
+            Random rnd2 = new Random();
 
-            ulong NUM_FILES = this.rs.IterationsRAMFolderMatrix;
+            ulong NUM_FOLDERS = this.rs.IterationsRAMFolderMatrix;
+            ulong NUM_FILES = this.rs.IterationsRAMFolderMatrix / 2;
 
-            // Create N folders
-            for (ulong i = 0; i < this.rs.IterationsRAMFolderMatrix; i++) {
-                lstFolders.Add(new RipperFolder($"folder{i}", $"path={i}", true));
-            }
+            const int num_rnd_data = 5;
 
-            // Create N/2 Files and place them in random folders.
+            // Create N folders with ~N/2 files randomly in them.
+            // Naming convention of folder and files are in HEX.
+            // File and Folders contain same name if they are embedded.
+            for (ulong i = 0; i < NUM_FOLDERS; i++) {
 
-            for (ulong i = 0; i < NUM_FILES; i++) {           
-                int data = rnd.Next(int.MaxValue);
-
-                byte[] buf = new byte[8];
-                rnd.NextBytes(buf);
-                // instead, use hex to name folders and filenames!
-                string folderName = $"folder{(ulong)BitConverter.ToInt64(buf, 0)}";
-                
-
+                lstFolders.Add(new RipperFolder($"folder{string.Format("0x{0:X}", i)}",
+                    $"path={string.Format("0x{0:X}", i)}", true,
+                    rnd2.Next(2) == 0 ? null : new RipperFile($"file{string.Format("0x{0:X}", i)}",
+                    GenerateData(ref rnd, num_rnd_data), num_rnd_data)));
             }
 
 
-                sw.Stop();
+            sw.Stop();
             return sw.Elapsed;
         }
 
@@ -112,10 +109,24 @@ namespace PC_Ripper_Benchmark.function {
 
         private TimeSpan RunVirtualBulkFile() {
             var sw = Stopwatch.StartNew();
-            
 
+            List<RipperFile> ripperFiles = new List<RipperFile>();
+            Random rnd = new Random();
 
-            sw.Stop();
+            const int size = 1000;
+
+            // write 
+            for (ulong u = 0; u < this.rs.IterationsRAMVirtualBulkFile; u++) {
+                ripperFiles.Add(new RipperFile($"file{string.Format("0x{0:X}", u)}",
+                    GenerateData(ref rnd, size),size));
+            }
+
+            // read
+            for (ulong u = 0; u < this.rs.IterationsRAMVirtualBulkFile; u++) {
+                string readIn = ripperFiles[u].
+            }
+
+                sw.Stop();
             return sw.Elapsed;
         }
 
@@ -133,7 +144,25 @@ namespace PC_Ripper_Benchmark.function {
             sw.Stop();
             return sw.Elapsed;
         }
-        
+
+        /// <summary>
+        /// Returns a string containing random data.
+        /// </summary>
+        /// <param name="rnd">The <see cref="Random"/> object by reference to use.</param>
+        /// <param name="size">Size in terms of number of random data.</param>
+        /// <returns></returns>
+
+        private string GenerateData(ref Random rnd, int size) {
+            string returnMe = string.Empty;
+
+            for (int i = 0; i < size; i++) {
+                returnMe += rnd.Next(int.MaxValue).ToString();
+            }
+
+            return returnMe;
+        }
     }
+
+
     #endregion
 }
