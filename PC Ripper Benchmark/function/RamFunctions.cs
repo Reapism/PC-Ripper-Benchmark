@@ -139,7 +139,21 @@ namespace PC_Ripper_Benchmark.function {
         private TimeSpan RunReferenceDereference() {
             var sw = Stopwatch.StartNew();
 
+            List<RipperFile> lstObjects = new List<RipperFile>();
 
+            // add objects
+            for (ulong u = 0; u < this.rs.IterationsRAMReferenceDereference; u++) {
+                lstObjects.Add(new RipperFile());
+            }
+
+            // reference/ dereference objects
+            foreach (RipperFile file in lstObjects) {
+                lstObjects.Remove(file);
+            }
+
+            if (lstObjects.Count != 0) {
+                
+            }
 
             sw.Stop();
             return sw.Elapsed;
