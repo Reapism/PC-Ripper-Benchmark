@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -115,15 +117,53 @@ namespace PC_Ripper_Benchmark {
                 //New instance of encryption class
                 util.Encryption encrypter = new util.Encryption();
 
-                MessageBox.Show("Account Created!");
                 util.UserData newUser = new util.UserData {
                     //Encrypt user data and set to newUser object
                     FirstName = encrypter.EncryptText(this.firstNameTextBox.Text),
                     LastName = encrypter.EncryptText(this.lastNameTextBox.Text),
                     Email = encrypter.EncryptText(this.emailTextBox.Text),
                     PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
-                    Password = encrypter.EncryptText(this.userPasswordBox.Password)
+                    Password = encrypter.EncryptText(this.userPasswordBox.Password)                                     
                 };
+
+                SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder();
+                stringBuilder.DataSource = "tcp:bcsproject.database.windows.net,1433";
+                stringBuilder.UserID = "Konrad100";
+                stringBuilder.Password = "Coolguy100";
+                stringBuilder.PersistSecurityInfo = false;
+                stringBuilder.InitialCatalog = "CPURipper";
+                stringBuilder.MultipleActiveResultSets = false;
+                stringBuilder.Encrypt = true;
+                stringBuilder.TrustServerCertificate = false;
+                stringBuilder.ConnectTimeout = 30;
+
+                SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
+                try
+                {
+                    if (connection.State == ConnectionState.Closed)
+                    {
+
+                        connection.Open();
+                        SqlCommand createUser = new SqlCommand("CREATE USER @param1 WITH PASSWORD @param2", connection);
+                        createUser.Parameters.AddWithValue("@param1", newUser.FirstName);
+                        createUser.Parameters.AddWithValue("@param2", newUser.LastName);
+
+                        SqlDataReader reader = createUser.ExecuteReader();
+                        MessageBox.Show("Account created");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Username or password is incorrect.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
             #endregion
         }

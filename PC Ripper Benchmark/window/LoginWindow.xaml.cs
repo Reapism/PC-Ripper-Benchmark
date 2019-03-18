@@ -35,28 +35,33 @@ namespace PC_Ripper_Benchmark {
 
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
-            try {
-                if (sqlCon.State == ConnectionState.Closed)
-                    sqlCon.Open();
-                string query = "SELECT COUNT(1) FROM tblUser WHERE Username=@Username AND Password=@Password";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon) {
-                    CommandType = CommandType.Text
-                };
-                sqlCmd.Parameters.AddWithValue("@Username", this.txtUsername.Text);
-                sqlCmd.Parameters.AddWithValue("@Password", this.txtPassword.Password);
-                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                if (count == 1) {
-                    //MainWindow dashboard = new MainWindow();
-                    //dashboard.Show();
-                    Close();
-                } else {
+            SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder();
+            stringBuilder.DataSource = "tcp:bcsproject.database.windows.net,1433";
+            stringBuilder.UserID = "Konrad100";
+            stringBuilder.Password = "Coolguy100";
+            stringBuilder.PersistSecurityInfo = false;
+            stringBuilder.InitialCatalog = "CPURipper";
+            stringBuilder.MultipleActiveResultSets = false;
+            stringBuilder.Encrypt = true;
+            stringBuilder.TrustServerCertificate = false;
+            stringBuilder.ConnectTimeout = 30;
+
+            SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
+            try
+            {
+                if (connection.State == ConnectionState.Closed) {
+                    connection.Open();
                     MessageBox.Show("Username or password is incorrect.");
                 }
-            } catch (Exception ex) {
+                else {
+                    MessageBox.Show("Username or password is incorrect.");
+                }
+            }
+            catch (Exception ex) {
                 MessageBox.Show(ex.Message);
-            } finally {
-                sqlCon.Close();
+            }
+            finally {
+                 connection.Close();
             }
         }
 
