@@ -118,15 +118,15 @@ namespace PC_Ripper_Benchmark.function {
             // write 
             for (ulong u = 0; u < this.rs.IterationsRAMVirtualBulkFile; u++) {
                 ripperFiles.Add(new RipperFile($"file{string.Format("0x{0:X}", u)}",
-                    GenerateData(ref rnd, size),size));
+                    GenerateData(ref rnd, size), size));
             }
 
             // read
-            for (ulong u = 0; u < this.rs.IterationsRAMVirtualBulkFile; u++) {
-                string readIn = ripperFiles[u].
+            foreach (RipperFile file in ripperFiles) {
+                string readIn = file.Data;
             }
 
-                sw.Stop();
+            sw.Stop();
             return sw.Elapsed;
         }
 
