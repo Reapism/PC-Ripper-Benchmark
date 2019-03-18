@@ -1,8 +1,11 @@
-﻿using PC_Ripper_Benchmark.util;
+﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.function {
@@ -48,16 +51,66 @@ namespace PC_Ripper_Benchmark.function {
         /// for the test.</param>
         /// <returns>A new <see cref="RamResults"/> instance
         /// containing the result.</returns>
+        /// <exception cref="RipperThreadException"></exception>
 
-        public RamResults RunRamBenchmark(ThreadType threadType) {
-            var results = new RamResults();
+        public RamResults RunRAMBenchmark(ThreadType threadType) {
+            var results = new RamResults(this.rs);
 
-            Action run_funcs = new Action(() => {
+            switch (threadType) {
 
-            });
+                case ThreadType.Single: {
+                    // runs task on main thread.
+                    RunTestsSingle(ref results);
+                    break;
+                }
 
+                case ThreadType.SingleUI: {
+                    // runs task, but doesn't wait for result.
+                    Dispatcher.CurrentDispatcher.Invoke(() => {
+                        Task.Run(() => {
+                            RunTestsSingle(ref results);
+                        });
+                    });
+
+                    break;
+                }
+
+                case ThreadType.Multithreaded: {
+
+                    break;
+                }
+
+                default: {
+                    throw new RipperThreadException("Unknown thread type to call. " +
+                        "public RAMResults RunRAMBenchmark(ThreadType threadType) " +
+                        "in function.RamFunctions ");
+                }
+            }
 
             return results;
+        }
+
+        /// <summary>
+        /// Runs each test <see cref="RipperSettings.IterationsPerRAMTest"/> times.
+        /// <para>Should be (<see cref="RamResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerRAMTest"/>)
+        /// timespans in <see cref="RamResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="RamResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingle(ref RamResults results) {
+            for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
+                results.TestCollection.Add(RunVirtualFolderMatrix());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
+                results.TestCollection.Add(RunVirtualBulkFile());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
+                results.TestCollection.Add(RunReferenceDereference());
+            }
         }
 
         /// <summary>
@@ -147,12 +200,8 @@ namespace PC_Ripper_Benchmark.function {
             }
 
             // reference/ dereference objects
-            foreach (RipperFile file in lstObjects) {
-                lstObjects.Remove(file);
-            }
-
-            if (lstObjects.Count != 0) {
-                
+            for (int i = 0; i < lstObjects.Count; i++) {
+                lstObjects.RemoveAt(i);
             }
 
             sw.Stop();
