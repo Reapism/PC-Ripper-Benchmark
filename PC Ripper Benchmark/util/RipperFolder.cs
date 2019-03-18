@@ -11,11 +11,28 @@
 
     public class RipperFolder {
 
-        #region Instance members (fields).
+        #region Properties
 
-        private string folderName;
-        private string path;
-        private bool isVirtual;
+        /// <summary>
+        /// Get's the folder name for this <see cref="RipperFolder"/> instance.
+        /// </summary>
+        public string FolderName { get; }
+
+        /// <summary>
+        /// Get's the path for this <see cref="RipperFolder"/> instance.
+        /// </summary>
+        public string Path { get; }
+
+        /// <summary>
+        /// Get's whether this <see cref="RipperFolder"/> instance is a 
+        /// virtual one or located on disk.
+        /// </summary>
+        public bool IsVirtual { get; }
+
+        /// <summary>
+        /// Get's the <see cref="RipperFile"/> for this <see cref="RipperFolder"/> instance.
+        /// </summary>
+        public RipperFile File { get; }
 
         #endregion
 
@@ -24,9 +41,10 @@
         /// <summary>
         /// Default constructor for creating a 
         /// <see cref="RipperFolder"/>.
+        /// <para>It's best to use the parameterized constructor.</para>
         /// </summary>
 
-        public RipperFolder() : this("", "", true) { }
+        public RipperFolder() : this("", "", true, null) { }
 
         /// <summary>
         /// Parameterized constructor for creating a 
@@ -49,11 +67,15 @@
         /// <para>Useful for checking how the path is different.
         /// <para>Usage: if (this.isVirtual) { // parse path as virtual }</para>
         /// </para></param>
+        /// <param name="file">A <see cref="RipperFile"/> instance. Can be passed with null
+        /// if no <see cref="RipperFile"/> exists for this <see cref="RipperFolder"/>.</param>
 
-        public RipperFolder(string folderName, string path, bool isVirtual) {
-            this.folderName = folderName;
-            this.path = path;
-            this.isVirtual = isVirtual;
+        public RipperFolder(string folderName, string path, bool isVirtual, RipperFile file) {
+            this.FolderName = folderName;
+            this.Path = path;
+            this.IsVirtual = isVirtual;
+
+            this.File = file;
         }
 
         #endregion
