@@ -52,9 +52,14 @@ namespace PC_Ripper_Benchmark.function {
             SETTINGS,
 
             /// <summary>
+            /// Results tab.
+            /// </summary>
+            RESULTS,
+
+            /// <summary>
             /// Tab running a test.
             /// </summary>
-            RUNNING_TEST,
+            RUNNING_TEST
         }
 
         /// <summary>
