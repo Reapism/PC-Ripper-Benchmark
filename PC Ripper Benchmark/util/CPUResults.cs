@@ -9,7 +9,7 @@ namespace PC_Ripper_Benchmark.util {
     /// The <see cref="CPUResults"/> class.
     /// <para></para>
     /// Represents benchmarking results regarding
-    /// a particular test.
+    /// the CPU benchmarking test.
     /// <para>Author: <see langword="Anthony Jaghab"/> (c),
     /// all rights reserved.</para>
     /// </summary>
@@ -50,7 +50,7 @@ namespace PC_Ripper_Benchmark.util {
         public override string Description => GenerateDescription();
 
         /// <summary>
-        /// 
+        /// The number of different tests for the CPU component.
         /// </summary>
 
         public override byte UniqueTestCount => uniqueTestCount;

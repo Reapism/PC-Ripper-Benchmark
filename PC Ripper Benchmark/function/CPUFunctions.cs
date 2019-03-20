@@ -91,10 +91,9 @@ namespace PC_Ripper_Benchmark.function {
                 default: {
                     throw new RipperThreadException("Unknown thread type to call. " +
                         "public CPUResults RunCPUBenchmark(ThreadType threadType) " +
-                        "in function.CPUFunction ");
+                        "in function.CPUFunctions ");
                 }
             }
-
 
             return results;
         }

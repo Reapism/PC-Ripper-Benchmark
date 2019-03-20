@@ -45,6 +45,7 @@ namespace PC_Ripper_Benchmark.window {
                     return;
                 }
 
+
                 case Tab.CPU: {
                     this.tabComponents.SelectedIndex = (int)Tab.CPU;
                     return;
@@ -67,6 +68,11 @@ namespace PC_Ripper_Benchmark.window {
 
                 case Tab.SETTINGS: {
                     this.tabComponents.SelectedIndex = (int)Tab.SETTINGS;
+                    return;
+                }
+
+                case Tab.RESULTS: {
+                    this.tabComponents.SelectedIndex = (int)Tab.RESULTS;
                     return;
                 }
 
@@ -97,29 +103,16 @@ namespace PC_Ripper_Benchmark.window {
             ShowTabWindow(Tab.CPU);
         }
 
-        private void GrdCPUTests_SizeChanged(object sender, SizeChangedEventArgs e) {
-            //double widthDifference = System.Math.Abs(grdCPUTests.ActualWidth - e.NewSize.Width - e.PreviousSize.Width);
+        private void BtnRAM_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
+            this.btnRAM.Foreground = Brushes.Salmon;
+        }
 
-            //this.imgSuccessorship.Margin = new Thickness(this.imgSuccessorship.Margin.Left + widthDifference,
-            //    this.imgSuccessorship.Margin.Top, this.imgSuccessorship.Margin.Right,
-            //    this.imgSuccessorship.Margin.Bottom);
+        private void BtnRAM_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
+            this.btnRAM.Foreground = Brushes.Black;
+        }
 
-            //this.imgBoolean.Margin = new Thickness(this.imgBoolean.Margin.Left + widthDifference,
-            //    this.imgBoolean.Margin.Top, this.imgBoolean.Margin.Right,
-            //    this.imgBoolean.Margin.Bottom);
-
-            //this.imgQueue.Margin = new Thickness(this.imgQueue.Margin.Left + widthDifference,
-            //    this.imgQueue.Margin.Top, this.imgQueue.Margin.Right,
-            //    this.imgQueue.Margin.Bottom);
-
-            //this.imgLinkedList.Margin = new Thickness(this.imgLinkedList.Margin.Left + widthDifference,
-            //    this.imgLinkedList.Margin.Top, this.imgLinkedList.Margin.Right,
-            //    this.imgLinkedList.Margin.Bottom);
-
-            //this.imgTree.Margin = new Thickness(this.imgTree.Margin.Left + widthDifference,
-            //    this.imgTree.Margin.Top, this.imgTree.Margin.Right,
-            //    this.imgTree.Margin.Bottom);
-
+        private void BtnRAM_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.RAM);
         }
 
         #endregion
@@ -129,9 +122,10 @@ namespace PC_Ripper_Benchmark.window {
             CPUResults results = new CPUResults(this.rs);
 
             ThreadType threadType;
-            if (this.radSingle.IsChecked == true) {
+
+            if (this.radCPUSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
-            } else if (this.radMultithread.IsChecked == true) {
+            } else if (this.radCPUMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {
                 MessageBox.Show("Please select a type of test you'd like to perform.",
@@ -145,6 +139,7 @@ namespace PC_Ripper_Benchmark.window {
             // we need to wait for it.
 
             this.txtResults.Document.Blocks.Clear();
+            ShowTabWindow(Tab.RUNNING_TEST);
 
             try {
                 results = cpu.RunCPUBenchmark(threadType);
@@ -159,8 +154,47 @@ namespace PC_Ripper_Benchmark.window {
 
             this.txtRunningTest.Text = "Results for the CPU test:";
 
-            ShowTabWindow(Tab.RUNNING_TEST);
+            ShowTabWindow(Tab.RESULTS);
         }
 
+        private void BtnRamRunTest_Click(object sender, RoutedEventArgs e) {
+            RamFunctions ram = new RamFunctions(ref this.rs);
+            RamResults results = new RamResults(this.rs);
+
+            ThreadType threadType;
+
+            if (this.radRamSingle.IsChecked == true) {
+                threadType = ThreadType.Single;
+            } else if (this.radRamMultithread.IsChecked == true) {
+                threadType = ThreadType.Multithreaded;
+            } else {
+                MessageBox.Show("Please select a type of test you'd like to perform.",
+                    "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // SingleUI is going to cause problems because it is
+            // threaded and it doesn't call constructor yet.
+            // before we use the contents of that object.
+            // we need to wait for it.
+
+            this.txtResults.Document.Blocks.Clear();
+            ShowTabWindow(Tab.RUNNING_TEST);
+
+            try {
+                results = ram.RunRAMBenchmark(threadType);
+            } catch (RipperThreadException ex) {
+                MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
+            }
+
+            this.txtResults.AppendText($"Successfully ran the RAM test! Below is the " +
+                $"results of the test.\n\n" +
+                $"{results.Description}\n\n" +
+                $"\n\n");
+
+            this.txtRunningTest.Text = "Results for the RAM test:";
+
+            ShowTabWindow(Tab.RESULTS);
+        }
     }
 }

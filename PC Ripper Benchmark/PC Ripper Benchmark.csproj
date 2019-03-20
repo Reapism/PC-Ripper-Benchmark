@@ -174,19 +174,19 @@
     <Resource Include="resources\pc_ripper_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\bool.png" />
+    <Resource Include="resources\cpu_bool.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\list.png" />
+    <Resource Include="resources\cpu_list.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\queue.png" />
+    <Resource Include="resources\cpu_queue.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\successorship.png" />
+    <Resource Include="resources\cpu_successorship.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\tree.png" />
+    <Resource Include="resources\cpu_tree.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
