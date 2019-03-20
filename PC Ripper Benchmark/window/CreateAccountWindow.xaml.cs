@@ -126,7 +126,8 @@ namespace PC_Ripper_Benchmark {
                     PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
                     Password = encrypter.EncryptText(this.userPasswordBox.Password)                                     
                 };
-
+                
+                //SQL Connection String
                 SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder();
                 connectionString.DataSource = "tcp:bcsproject.database.windows.net,1433";
                 connectionString.UserID = "Konrad100";
@@ -139,8 +140,8 @@ namespace PC_Ripper_Benchmark {
                 connectionString.ConnectTimeout = 30;
 
                 //Open database connection and send that data to the database hashed.
-                database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString, 
-                    newUser.FirstName, newUser.LastName, newUser.Email, newUser.PhoneNumber, newUser.Password);
+                database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);
+                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.Email, newUser.PhoneNumber, newUser.Password)
                                
             }
             #endregion

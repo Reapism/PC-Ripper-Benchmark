@@ -21,25 +21,39 @@ namespace PC_Ripper_Benchmark.database {
         /// used to create a database connection.
         /// All user data must be passed as parameters. 
         /// </summary>
-        public DatabaseConnection(SqlConnectionStringBuilder connectionString, string firstName, 
-            string lastName, string phoneNumber, string email, string password) {
+        /// 
 
-            using (SqlConnection connection = new SqlConnection(connectionString.ConnectionString))
-            {
-                MessageBox.Show(connectionString.ConnectionString);
-                connection.Open();
-                SqlCommand addUser = new SqlCommand("UserAdd", connection);
-                addUser.CommandType = CommandType.StoredProcedure;
+        public SqlConnection connection { get; set; }
 
-                addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
-                addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
-                addUser.Parameters.AddWithValue("@PhoneNumber", phoneNumber.Trim());
-                addUser.Parameters.AddWithValue("@Email", email.Trim());
-                addUser.Parameters.AddWithValue("@Password", password.Trim());
+        /// <summary>
+        /// Default constructor. Takes a connection string to open the connection to the database
+        /// </summary>
+        public DatabaseConnection(string connectionString) {
+            connection = new SqlConnection();
+            connection.ConnectionString = connectionString;
+            connection.Open();
+        }
 
-                addUser.ExecuteNonQuery();
-                MessageBox.Show("Registration Successful");
-            }
+        /// <summary>
+        /// Member function that adds a user to the database.
+        /// Takes a connection, and the required fields to
+        /// insert into the database using a stored
+        /// procedure
+        /// </summary>
+        public void addUserToDatabase(SqlConnection connection, string firstName,
+            string lastName, string phoneNumber, string email, string password)
+        {           
+            SqlCommand addUser = new SqlCommand("UserAdd", connection);
+            addUser.CommandType = CommandType.StoredProcedure;
+
+            addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
+            addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
+            addUser.Parameters.AddWithValue("@PhoneNumber", phoneNumber.Trim());
+            addUser.Parameters.AddWithValue("@Email", email.Trim());
+            addUser.Parameters.AddWithValue("@Password", password.Trim());
+
+            addUser.ExecuteNonQuery();
+            MessageBox.Show("Registration Successful");
         }
     }
 }
