@@ -45,7 +45,6 @@ namespace PC_Ripper_Benchmark.window {
                     return;
                 }
 
-
                 case Tab.CPU: {
                     this.tabComponents.SelectedIndex = (int)Tab.CPU;
                     return;
