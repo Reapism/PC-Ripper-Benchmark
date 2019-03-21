@@ -42,18 +42,65 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
         public void addUserToDatabase(SqlConnection connection, string firstName,
             string lastName, string phoneNumber, string email, string password)
-        {           
-            SqlCommand addUser = new SqlCommand("UserAdd", connection);
-            addUser.CommandType = CommandType.StoredProcedure;
+        {
+            try
+            {
+                SqlCommand addUser = new SqlCommand("UserAdd", connection);
+                addUser.CommandType = CommandType.StoredProcedure;
 
-            addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
-            addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
-            addUser.Parameters.AddWithValue("@PhoneNumber", phoneNumber.Trim());
-            addUser.Parameters.AddWithValue("@Email", email.Trim());
-            addUser.Parameters.AddWithValue("@Password", password.Trim());
+                addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
+                addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
+                addUser.Parameters.AddWithValue("@PhoneNumber", phoneNumber.Trim());
+                addUser.Parameters.AddWithValue("@Email", email.Trim());
+                addUser.Parameters.AddWithValue("@Password", password.Trim());
 
-            addUser.ExecuteNonQuery();
-            MessageBox.Show("Registration Successful");
+                addUser.ExecuteNonQuery();
+                MessageBox.Show("Registration Successful");
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An account with that email already exists!");
+            }                  
+        }
+
+        /// <summary>
+        /// Member function that checks if an 
+        /// email exists in the database.
+        /// The stored procedure will return 
+        /// a 0 or 1 to determine if it exists.
+        /// </summary>
+        /// 
+        public void checkAccountExists(SqlConnection connection, string email, string password)
+        {
+            util.Encryption encrypter = new util.Encryption();
+
+            SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
+            email = encrypter.EncryptText(email);
+            password = encrypter.EncryptText(password);
+
+            checkAccount.Parameters.AddWithValue("@Email", email);
+            checkAccount.Parameters.AddWithValue("@Password", password);
+
+            connection.Open();
+            checkAccount.ExecuteNonQuery();
+
+            SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds);
+
+            int count = ds.Tables[0].Rows.Count;
+
+            if (count == 1)
+            {
+                window.MainWindow mainWindow = new window.MainWindow();
+                mainWindow.Show();
+                connection.Close();
+            }
+            else
+            {
+                MessageBox.Show("Invalid Login");
+                connection.Close();
+            }
         }
     }
 }
