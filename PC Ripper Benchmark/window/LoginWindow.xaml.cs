@@ -49,7 +49,7 @@ namespace PC_Ripper_Benchmark {
             SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
-            newConnection.checkAccountExists(connection, emailTextBox.Text, passwordTextBox.Password);
+            newConnection.CheckAccountExists(connection, emailTextBox.Text, passwordTextBox.Password);
            
         }
 
