@@ -8,10 +8,10 @@
         <StackPanel Margin="20 80">
             <Label Content="Welcome" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
-            <Label Content="Username" Foreground="White"/>
-            <TextBox Name="txtUsername" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+            <Label Content="Email" Foreground="White"/>
+            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <Label Content="Password" Foreground="White"/>
-            <PasswordBox Name="txtPassword" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
+            <PasswordBox Name="passwordTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18"/>
             <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 20"/>
             <Button Name="loginButton" Content="Login" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click"/>
             <Button x:Name="signUpButton" Click="SignUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18"/>

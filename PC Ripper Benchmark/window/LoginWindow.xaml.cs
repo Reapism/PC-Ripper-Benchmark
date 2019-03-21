@@ -47,22 +47,10 @@ namespace PC_Ripper_Benchmark {
             stringBuilder.ConnectTimeout = 30;
 
             SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
-            try
-            {
-                if (connection.State == ConnectionState.Closed) {
-                    connection.Open();
-                    MessageBox.Show("Username or password is incorrect.");
-                }
-                else {
-                    MessageBox.Show("Username or password is incorrect.");
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message);
-            }
-            finally {
-                 connection.Close();
-            }
+            database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
+
+            newConnection.checkAccountExists(connection, emailTextBox.Text, passwordTextBox.Password);
+           
         }
 
         /// <summary>

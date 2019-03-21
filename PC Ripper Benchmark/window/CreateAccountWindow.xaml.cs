@@ -140,9 +140,8 @@ namespace PC_Ripper_Benchmark {
                 connectionString.ConnectTimeout = 30;
 
                 //Open database connection and send that data to the database hashed.
-                database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);
-                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.Email, newUser.PhoneNumber, newUser.Password)
-                               
+                database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);                              
+                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.PhoneNumber, newUser.Email, newUser.Password);          
             }
             #endregion
         }
