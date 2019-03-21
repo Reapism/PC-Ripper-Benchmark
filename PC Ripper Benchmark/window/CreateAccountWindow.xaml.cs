@@ -21,7 +21,7 @@ namespace PC_Ripper_Benchmark {
 
         Popup codePopup = new Popup();
         TextBlock popupContent = new TextBlock();
-
+        function.WindowSettings windowSettings = new function.WindowSettings();
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
         /// <para>Creates a window of type CreateWindow
@@ -141,7 +141,10 @@ namespace PC_Ripper_Benchmark {
 
                 //Open database connection and send that data to the database hashed.
                 database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);                              
-                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.PhoneNumber, newUser.Email, newUser.Password);          
+                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.PhoneNumber, newUser.Email, newUser.Password);
+
+                window.MainWindow mainWindow = new window.MainWindow();
+                this.windowSettings.transitionScreen(mainWindow, this);
             }
             #endregion
         }

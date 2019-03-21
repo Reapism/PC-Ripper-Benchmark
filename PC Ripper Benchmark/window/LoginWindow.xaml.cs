@@ -60,9 +60,8 @@ namespace PC_Ripper_Benchmark {
 
         private void SignUpButton_Click(object sender, RoutedEventArgs e) {
             CreateAccountWindow createAccountWindow = new CreateAccountWindow();
-            DoubleAnimation openScreen = new DoubleAnimation();
 
-            this.settings.TransitionToCreateAccountScreen(createAccountWindow, this, openScreen);
+            this.settings.transitionScreen(createAccountWindow, this);
         }
         #endregion
 
