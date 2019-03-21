@@ -449,6 +449,44 @@ namespace PC_Ripper_Benchmark {
             }
             else if (e.Key == System.Windows.Input.Key.Enter)
             {
+                securityQuestionComboBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                securityQuestionComboBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void SecurityQuestionComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                confirmUserPasswordBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                securityQuestionTextBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                securityQuestionTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void SecurityQuestionTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                securityQuestionComboBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
                 createAccountSubmitButton.Focus();
                 e.Handled = true;
             }
@@ -463,11 +501,11 @@ namespace PC_Ripper_Benchmark {
         {
             if (e.Key == System.Windows.Input.Key.Up)
             {
-                confirmUserPasswordBox.Focus();
+                securityQuestionTextBox.Focus();
                 e.Handled = true;
             }
         }
+
         #endregion
-             
     }
 }
