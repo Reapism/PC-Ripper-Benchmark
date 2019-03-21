@@ -151,7 +151,7 @@ namespace PC_Ripper_Benchmark.window {
                 $"{results.Description}\n\n" +
                 $"\n\n");
 
-            this.txtRunningTest.Text = "Results for the CPU test:";
+            this.txtBlkResults.Text = "Results for the CPU test:";
 
             ShowTabWindow(Tab.RESULTS);
         }
@@ -191,7 +191,7 @@ namespace PC_Ripper_Benchmark.window {
                 $"{results.Description}\n\n" +
                 $"\n\n");
 
-            this.txtRunningTest.Text = "Results for the RAM test:";
+            this.txtBlkResults.Text = "Results for the RAM test:";
 
             ShowTabWindow(Tab.RESULTS);
         }
