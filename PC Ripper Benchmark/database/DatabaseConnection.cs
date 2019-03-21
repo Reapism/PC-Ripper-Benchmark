@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using PC_Ripper_Benchmark.exception;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 
@@ -7,13 +8,12 @@ namespace PC_Ripper_Benchmark.database {
     /// <summary>
     /// The <see cref="DatabaseConnection"/> class.
     /// <para> </para>
-    /// Represents all the functions for 
-    /// testing the CPU component. Includes single
-    /// and multithreaded testing using various
-    /// common data structures.
+    /// Represents functions for connecting to the
+    /// online Azure DB.
     /// <para>Author: David Hartglass
     /// all rights reserved.</para>
     /// </summary>
+
     public class DatabaseConnection {
 
         /// <summary>
@@ -21,17 +21,30 @@ namespace PC_Ripper_Benchmark.database {
         /// used to create a database connection.
         /// All user data must be passed as parameters. 
         /// </summary>
-        /// 
 
-        public SqlConnection connection { get; set; }
+        public SqlConnection Connection { get; set; }
 
         /// <summary>
-        /// Default constructor. Takes a connection string to open the connection to the database
+        /// Default constructor. Sets the connection string.
         /// </summary>
+
         public DatabaseConnection(string connectionString) {
-            connection = new SqlConnection();
-            connection.ConnectionString = connectionString;
-            connection.Open();
+            this.Connection = new SqlConnection {
+                ConnectionString = connectionString
+            };
+        }
+
+        /// <summary>
+        /// Opens the SQL database connection.
+        /// </summary>
+        /// <exception cref="RipperDatabaseException"></exception>
+
+        public void Open() {
+            try {
+                this.Connection.Open();
+            } catch {
+                throw new RipperDatabaseException("Failed to open connection.");
+            }
         }
 
         /// <summary>
@@ -40,13 +53,13 @@ namespace PC_Ripper_Benchmark.database {
         /// insert into the database using a stored
         /// procedure
         /// </summary>
-        public void addUserToDatabase(SqlConnection connection, string firstName,
-            string lastName, string phoneNumber, string email, string password)
-        {
-            try
-            {
-                SqlCommand addUser = new SqlCommand("UserAdd", connection);
-                addUser.CommandType = CommandType.StoredProcedure;
+
+        public void AddUserToDatabase(SqlConnection connection, string firstName,
+            string lastName, string phoneNumber, string email, string password) {
+            try {
+                SqlCommand addUser = new SqlCommand("UserAdd", connection) {
+                    CommandType = CommandType.StoredProcedure
+                };
 
                 addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
                 addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
@@ -56,11 +69,9 @@ namespace PC_Ripper_Benchmark.database {
 
                 addUser.ExecuteNonQuery();
                 MessageBox.Show("Registration Successful");
-            }
-            catch (SqlException ex)
-            {
+            } catch (SqlException) {
                 MessageBox.Show("An account with that email already exists!");
-            }                  
+            }
         }
 
         /// <summary>
@@ -69,9 +80,8 @@ namespace PC_Ripper_Benchmark.database {
         /// The stored procedure will return 
         /// a 0 or 1 to determine if it exists.
         /// </summary>
-        /// 
-        public void checkAccountExists(SqlConnection connection, string email, string password)
-        {
+
+        public void CheckAccountExists(SqlConnection connection, string email, string password) {
             util.Encryption encrypter = new util.Encryption();
 
             SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
@@ -90,14 +100,11 @@ namespace PC_Ripper_Benchmark.database {
 
             int count = ds.Tables[0].Rows.Count;
 
-            if (count == 1)
-            {
+            if (count == 1) {
                 window.MainWindow mainWindow = new window.MainWindow();
                 mainWindow.Show();
                 connection.Close();
-            }
-            else
-            {
+            } else {
                 MessageBox.Show("Invalid Login");
                 connection.Close();
             }
