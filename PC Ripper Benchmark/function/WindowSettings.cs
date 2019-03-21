@@ -34,7 +34,9 @@ namespace PC_Ripper_Benchmark.function {
         /// to 0 and gradually opens the destination window.</para>
         /// </summary>
 
-        public void TransitionToCreateAccountScreen(CreateAccountWindow destinationWindow, LoginWindow currentWindow, DoubleAnimation animation) {
+        public void transitionScreen(Window destinationWindow, Window currentWindow) {
+            DoubleAnimation animation = new DoubleAnimation();
+
             destinationWindow.Opacity = 0;
             destinationWindow.Show();
             currentWindow.Opacity = 0;
@@ -44,24 +46,6 @@ namespace PC_Ripper_Benchmark.function {
             animation.Duration = new Duration(TimeSpan.FromSeconds(1));
             destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);
             currentWindow.Close();
-        }
-
-
-        /// <summary>
-        /// Method in <see cref="WindowSettings"/>.
-        /// <para>Takes the destination window, current window, and animation.
-        /// The method changes the opacity of the current window
-        /// to 0 and gradually opens the destination window.</para>
-        /// </summary>
-        public void TransitionToLoginScreen(LoginWindow destinationWindow, CreateAccountWindow currentWindow, DoubleAnimation animation) {
-            destinationWindow.Opacity = 0;
-            destinationWindow.Show();
-            currentWindow.Opacity = 0;
-
-            animation.From = 0;
-            animation.To = 1;
-            animation.Duration = new Duration(TimeSpan.FromSeconds(1));
-            destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Runtime.Serialization.Json;
 
 namespace PC_Ripper_Benchmark {
     /// <summary>
@@ -20,7 +21,7 @@ namespace PC_Ripper_Benchmark {
 
         Popup codePopup = new Popup();
         TextBlock popupContent = new TextBlock();
-
+        function.WindowSettings windowSettings = new function.WindowSettings();
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
         /// <para>Creates a window of type CreateWindow
@@ -125,45 +126,25 @@ namespace PC_Ripper_Benchmark {
                     PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
                     Password = encrypter.EncryptText(this.userPasswordBox.Password)                                     
                 };
+                
+                //SQL Connection String
+                SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder();
+                connectionString.DataSource = "tcp:bcsproject.database.windows.net,1433";
+                connectionString.UserID = "Konrad100";
+                connectionString.Password = "Coolguy100";
+                connectionString.PersistSecurityInfo = false;
+                connectionString.InitialCatalog = "CPURipper";
+                connectionString.MultipleActiveResultSets = false;
+                connectionString.Encrypt = true;
+                connectionString.TrustServerCertificate = false;
+                connectionString.ConnectTimeout = 30;
 
-                SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder();
-                stringBuilder.DataSource = "tcp:bcsproject.database.windows.net,1433";
-                stringBuilder.UserID = "Konrad100";
-                stringBuilder.Password = "Coolguy100";
-                stringBuilder.PersistSecurityInfo = false;
-                stringBuilder.InitialCatalog = "CPURipper";
-                stringBuilder.MultipleActiveResultSets = false;
-                stringBuilder.Encrypt = true;
-                stringBuilder.TrustServerCertificate = false;
-                stringBuilder.ConnectTimeout = 30;
+                //Open database connection and send that data to the database hashed.
+                database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);                              
+                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.PhoneNumber, newUser.Email, newUser.Password);
 
-                SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
-                try
-                {
-                    if (connection.State == ConnectionState.Closed)
-                    {
-
-                        connection.Open();
-                        SqlCommand createUser = new SqlCommand("CREATE USER @param1 WITH PASSWORD @param2", connection);
-                        createUser.Parameters.AddWithValue("@param1", newUser.FirstName);
-                        createUser.Parameters.AddWithValue("@param2", newUser.LastName);
-
-                        SqlDataReader reader = createUser.ExecuteReader();
-                        MessageBox.Show("Account created");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Username or password is incorrect.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                window.MainWindow mainWindow = new window.MainWindow();
+                this.windowSettings.transitionScreen(mainWindow, this);
             }
             #endregion
         }
@@ -468,6 +449,44 @@ namespace PC_Ripper_Benchmark {
             }
             else if (e.Key == System.Windows.Input.Key.Enter)
             {
+                securityQuestionComboBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                securityQuestionComboBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void SecurityQuestionComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                confirmUserPasswordBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                securityQuestionTextBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                securityQuestionTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void SecurityQuestionTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                securityQuestionComboBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
                 createAccountSubmitButton.Focus();
                 e.Handled = true;
             }
@@ -482,11 +501,11 @@ namespace PC_Ripper_Benchmark {
         {
             if (e.Key == System.Windows.Input.Key.Up)
             {
-                confirmUserPasswordBox.Focus();
+                securityQuestionTextBox.Focus();
                 e.Handled = true;
             }
         }
+
         #endregion
-             
     }
 }
