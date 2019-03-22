@@ -91,7 +91,7 @@ namespace PC_Ripper_Benchmark.database {
             checkAccount.Parameters.AddWithValue("@Email", email);
             checkAccount.Parameters.AddWithValue("@Password", password);
 
-            connection.Open();
+            connection.Open(); 
             checkAccount.ExecuteNonQuery();
 
             SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
