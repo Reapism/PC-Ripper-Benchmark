@@ -35,5 +35,20 @@
     <Setting Name="iter_ram_referencedereference" Type="System.UInt64" Scope="User">
       <Value Profile="(Default)">10000</Value>
     </Setting>
+    <Setting Name="iter_per_disk_test" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="iter_disk_foldermatrix" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="iter_disk_bulkfile" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="iter_disk_readwrite" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="iter_disk_diskripper" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

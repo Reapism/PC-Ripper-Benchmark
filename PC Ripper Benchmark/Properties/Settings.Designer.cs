@@ -154,5 +154,65 @@ namespace PC_Ripper_Benchmark.Properties {
                 this["iter_ram_referencedereference"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public byte iter_per_disk_test {
+            get {
+                return ((byte)(this["iter_per_disk_test"]));
+            }
+            set {
+                this["iter_per_disk_test"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_disk_foldermatrix {
+            get {
+                return ((ulong)(this["iter_disk_foldermatrix"]));
+            }
+            set {
+                this["iter_disk_foldermatrix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_disk_bulkfile {
+            get {
+                return ((ulong)(this["iter_disk_bulkfile"]));
+            }
+            set {
+                this["iter_disk_bulkfile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_disk_readwrite {
+            get {
+                return ((ulong)(this["iter_disk_readwrite"]));
+            }
+            set {
+                this["iter_disk_readwrite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public ulong iter_disk_diskripper {
+            get {
+                return ((ulong)(this["iter_disk_diskripper"]));
+            }
+            set {
+                this["iter_disk_diskripper"] = value;
+            }
+        }
     }
 }
