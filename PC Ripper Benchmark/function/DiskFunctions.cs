@@ -48,7 +48,7 @@ namespace PC_Ripper_Benchmark.function {
         /// containing the result.</returns>
 
         public DiskResults RunDiskBenchmark(ThreadType threadType) {
-            var results = new DiskResults();
+            var results = new DiskResults(this.rs);
 
             Action run_funcs = new Action(() => {
 
