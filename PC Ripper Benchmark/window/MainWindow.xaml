@@ -179,7 +179,7 @@
                         </Grid.Background>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabTestResults" Header="Running the blank test">
+                <TabItem x:Name="tabTestResults" Header="Results">
                     <Grid x:Name="grdResults">
                         <Grid.Background>
                             <RadialGradientBrush>
@@ -187,12 +187,21 @@
                                 <GradientStop Color="#FFD9F5CF"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Running the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
+                        <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Results the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
                         <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="#FF2C742C" VerticalScrollBarVisibility="Auto">
+                            <RichTextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="menuResultsSelectAll" Header="Select All"/>
+                                    <MenuItem x:Name="menuResultsCopy" Header="Copy"/>
+                                    <Separator/>
+                                    <MenuItem x:Name="menuResultsExprt" Header="Export">
+                                        <MenuItem x:Name="menuResultsExprtTxt" Header="Text-File" Click="MenuResultsExprtTxt_Click"/>
+                                        <MenuItem x:Name="menuResultsExprtXaml" Header="XAML" Click="MenuResultsExprtXaml_Click"/>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </RichTextBox.ContextMenu>
                             <FlowDocument>
-                                <Paragraph>
-                                    <Run Text=""/>
-                                </Paragraph>
+                                <Paragraph/>
                             </FlowDocument>
                         </RichTextBox>
                     </Grid>

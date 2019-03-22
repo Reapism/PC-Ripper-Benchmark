@@ -1,7 +1,11 @@
-﻿using PC_Ripper_Benchmark.exception;
+﻿using Microsoft.Win32;
+using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
+using System;
+using System.IO;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
@@ -9,7 +13,8 @@ namespace PC_Ripper_Benchmark.window {
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// Author(s): Anthony Jaghab, David Hartglass, (c) all rights reserved.
+    /// <para></para>Author(s): <see langword="Anthony Jaghab"/>, 
+    /// David Hartglass, (c) all rights reserved.
     /// </summary>
 
     public partial class MainWindow : Window {
@@ -82,6 +87,54 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
+        private void ExportResults(ExportType type) {
+            SaveFileDialog saveFile = new SaveFileDialog {
+                Title = "Export file to...",
+                InitialDirectory = Path.GetDirectoryName(Environment.GetFolderPath(
+                    Environment.SpecialFolder.DesktopDirectory)),
+            };
+
+            TextRange range;
+            FileStream fStream;
+
+            string format = string.Empty;
+
+            switch (type) {
+
+                case ExportType.TEXTFILE: {
+                    saveFile.Filter = "Textfile|*.txt";
+                    format = DataFormats.Text;
+                    break;
+                }
+
+                case ExportType.XAML: {
+                    saveFile.Filter = "XAML|*.xaml";
+                    format = DataFormats.Xaml;
+                    break;
+                }
+            }
+
+            try {
+
+                if (saveFile.ShowDialog() != true) { throw new FileFormatException(); }
+
+                range = new TextRange(this.txtResults.Document.ContentStart,
+                    this.txtResults.Document.ContentEnd);
+                fStream = new FileStream(saveFile.FileName, FileMode.Create);
+
+                range.Save(fStream, format);
+                fStream.Close();
+            } catch (Exception e) {
+                MessageBox.Show($"An exception has occured in generating the file. {e.ToString()}", "SaveFileException",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            MessageBox.Show($"The {saveFile.SafeFileName} was exported to " +
+                $"{saveFile.FileName} successfully.", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+        }
+
         #endregion
 
         #region Event(s) and event handler(s).
@@ -113,8 +166,6 @@ namespace PC_Ripper_Benchmark.window {
         private void BtnRAM_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RAM);
         }
-
-        #endregion
 
         private void BtnRunTest_Click(object sender, RoutedEventArgs e) {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
@@ -195,5 +246,23 @@ namespace PC_Ripper_Benchmark.window {
 
             ShowTabWindow(Tab.RESULTS);
         }
+
+        private void MenuResultsExprtCSV_Click(object sender, RoutedEventArgs e) {
+            ExportResults(ExportType.CSV);
+        }
+
+        private void MenuResultsExprtHtml_Click(object sender, RoutedEventArgs e) {
+            ExportResults(ExportType.HTML);
+        }
+
+        private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {
+            ExportResults(ExportType.TEXTFILE);
+        }
+
+        private void MenuResultsExprtXaml_Click(object sender, RoutedEventArgs e) {
+            ExportResults(ExportType.XAML);
+        }
+
+        #endregion
     }
 }
