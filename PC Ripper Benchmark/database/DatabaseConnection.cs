@@ -40,19 +40,17 @@ namespace PC_Ripper_Benchmark.database {
         /// insert into the database using a stored
         /// procedure
         /// </summary>
-        public void addUserToDatabase(SqlConnection connection, string firstName,
-            string lastName, string phoneNumber, string email, string password)
+        public void addUserToDatabase(SqlConnection connection, util.UserData user)
         {
             try
             {
                 SqlCommand addUser = new SqlCommand("UserAdd", connection);
                 addUser.CommandType = CommandType.StoredProcedure;
-
-                addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
-                addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
-                addUser.Parameters.AddWithValue("@PhoneNumber", phoneNumber.Trim());
-                addUser.Parameters.AddWithValue("@Email", email.Trim());
-                addUser.Parameters.AddWithValue("@Password", password.Trim());
+                addUser.Parameters.AddWithValue("@FirstName", user.FirstName.Trim());
+                addUser.Parameters.AddWithValue("@LastName", user.LastName.Trim());
+                addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
+                addUser.Parameters.AddWithValue("@Email", user.Email.Trim());
+                addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
 
                 addUser.ExecuteNonQuery();
                 MessageBox.Show("Registration Successful");
@@ -60,6 +58,7 @@ namespace PC_Ripper_Benchmark.database {
             catch (SqlException ex)
             {
                 MessageBox.Show("An account with that email already exists!");
+
             }                  
         }
 

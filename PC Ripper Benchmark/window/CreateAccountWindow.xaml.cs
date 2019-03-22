@@ -141,7 +141,7 @@ namespace PC_Ripper_Benchmark {
 
                 //Open database connection and send that data to the database hashed.
                 database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);                              
-                dbConnection.addUserToDatabase(dbConnection.connection, newUser.FirstName, newUser.LastName, newUser.PhoneNumber, newUser.Email, newUser.Password);
+                dbConnection.addUserToDatabase(dbConnection.connection, newUser);
 
                 window.MainWindow mainWindow = new window.MainWindow();
                 this.windowSettings.transitionScreen(mainWindow, this);
