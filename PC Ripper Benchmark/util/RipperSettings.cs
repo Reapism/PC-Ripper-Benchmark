@@ -35,9 +35,71 @@ namespace PC_Ripper_Benchmark.util {
 
         private byte iter_per_disk_test;
 
+        private ulong iter_disk_foldermatrix;
+        private ulong iter_disk_bulkfile;
+        private ulong iter_disk_readwriteparse;
+        private ulong iter_disk_diskripper;
+
         #endregion
 
         #region Properties for fields.
+
+
+        [DataMember(Name = "iter_per_disk_test")]
+        public byte IterationsPerDiskTest {
+            get => this.iter_per_disk_test;
+            set {
+                if (value > 0 && value <= byte.MaxValue)
+                    this.iter_per_disk_test = value;
+            }
+        }
+
+
+        [DataMember(Name = "iter_disk_diskripper")]
+        public ulong IterationsDiskRipper {
+            get => this.iter_disk_diskripper;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_disk_diskripper = value;
+            }
+        }
+
+
+        [DataMember(Name = "iter_disk_readwrite")]
+        public ulong IterationsDiskReadWriteParse {
+            get => this.iter_disk_readwriteparse;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_disk_readwriteparse = value;
+            }
+        }
+
+
+        [DataMember(Name = "iter_disk_bulkfile")]
+        public ulong IterationsDiskBulkFile {
+            get => this.iter_disk_bulkfile;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_disk_bulkfile = value;
+            }
+        }
+
+        /// <summary>
+        /// The number of iterations for a creating (N) 
+        /// <see cref="RipperFolder"/>(s) and placing (N/2)
+        /// <see cref="RipperFile"/>(s) in them on disk.
+        /// <para>- Includes writing data into each 
+        /// <see cref="RipperFile"/> and reading physical
+        /// <see cref="RipperFolder"/> as its directory.</para>
+        /// </summary>  
+        [DataMember(Name = "iter_disk_foldermatrix")]
+        public ulong IterationsDISKFolderMatrix {
+            get => this.iter_disk_foldermatrix;
+            set {
+                if (value > 0 && value <= ulong.MaxValue)
+                    this.iter_disk_foldermatrix = value;
+            }
+        }
 
         /// <summary>
         /// Represents how many times we run a particular test
