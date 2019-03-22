@@ -54,18 +54,17 @@ namespace PC_Ripper_Benchmark.database {
         /// procedure
         /// </summary>
 
-        public void AddUserToDatabase(SqlConnection connection, string firstName,
-            string lastName, string phoneNumber, string email, string password) {
+        public void AddUserToDatabase(SqlConnection connection, util.UserData user) {
             try {
                 SqlCommand addUser = new SqlCommand("UserAdd", connection) {
                     CommandType = CommandType.StoredProcedure
                 };
 
-                addUser.Parameters.AddWithValue("@FirstName", firstName.Trim());
-                addUser.Parameters.AddWithValue("@LastName", lastName.Trim());
-                addUser.Parameters.AddWithValue("@PhoneNumber", phoneNumber.Trim());
-                addUser.Parameters.AddWithValue("@Email", email.Trim());
-                addUser.Parameters.AddWithValue("@Password", password.Trim());
+                addUser.Parameters.AddWithValue("@FirstName", user.FirstName.Trim());
+                addUser.Parameters.AddWithValue("@LastName", user.LastName.Trim());
+                addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
+                addUser.Parameters.AddWithValue("@Email", user.Email.Trim());
+                addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
 
                 addUser.ExecuteNonQuery();
                 MessageBox.Show("Registration Successful");
