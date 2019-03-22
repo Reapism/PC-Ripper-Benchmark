@@ -16,7 +16,6 @@ namespace PC_Ripper_Benchmark {
 
     public partial class LoginWindow : Window {
 
-
         private WindowSettings settings = new WindowSettings();
 
         /// <summary>

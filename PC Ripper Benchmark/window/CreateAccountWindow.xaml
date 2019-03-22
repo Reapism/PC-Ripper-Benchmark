@@ -22,7 +22,7 @@
             <PasswordBox Name="confirmUserPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" PasswordChanged="ConfirmUserPasswordBox_PasswordChanged" KeyUp="ConfirmUserPasswordBox_KeyUp"/>
             <Label x:Name="lblPasswordsMatch" Foreground="White" Visibility="Hidden" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Label x:Name="lblSecurityQuestion" Content="Security Question" Foreground="White"/>
-            <ComboBox x:Name="securityQuestionComboBox" KeyUp="SecurityQuestionComboBox_KeyUp" Margin="0 0 0 20" Height="26">
+            <ComboBox x:Name="securityQuestionComboBox" KeyUp="SecurityQuestionComboBox_KeyUp" SelectedIndex="1" Margin="0 0 0 20" Height="26">
                 <ComboBoxItem Content="What is your mothers maiden name?" HorizontalAlignment="Center"/>
                 <ComboBoxItem Content="What is the name of the town you grew up in?" HorizontalAlignment="Center"/>
                 <ComboBoxItem Content="What is your fathers middle name?" HorizontalAlignment="Center"/>
