@@ -16,6 +16,35 @@ namespace PC_Ripper_Benchmark.function {
     public class RipperTypes {
 
         /// <summary>
+        /// The <see cref="ExportType"/> type.
+        /// <para>Represents how to export information.</para>
+        /// </summary>
+
+        public enum ExportType {
+
+            /// <summary>
+            /// Export a file as type .CSV
+            /// </summary>
+            CSV,
+
+            /// <summary>
+            /// Export a file as type .HTML
+            /// </summary>
+            HTML,
+
+            /// <summary>
+            /// Export a file as type .TXT
+            /// </summary>
+            TEXTFILE,
+
+            /// <summary>
+            /// Export a file as type .XML
+            /// </summary>
+            XAML
+
+        }
+
+        /// <summary>
         /// The <see cref="Tab"/> enum.
         /// Represents all the tabs needed.
         /// </summary>
