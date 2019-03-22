@@ -167,6 +167,54 @@ namespace PC_Ripper_Benchmark.window {
             ShowTabWindow(Tab.RAM);
         }
 
+        private void BtnDisk_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
+            this.btnDisk.Foreground = Brushes.Salmon;
+        }
+
+        private void BtnDisk_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
+            this.btnDisk.Foreground = Brushes.Black;
+        }
+
+        private void BtnDisk_Click(object sender, RoutedEventArgs e) {
+            DiskFunctions disk = new DiskFunctions(ref this.rs);
+            DiskResults results = new DiskResults(this.rs);
+
+            ThreadType threadType;
+
+            if (this.radCPUSingle.IsChecked == true) {
+                threadType = ThreadType.Single;
+            } else if (this.radCPUMultithread.IsChecked == true) {
+                threadType = ThreadType.Multithreaded;
+            } else {
+                MessageBox.Show("Please select a type of test you'd like to perform.",
+                    "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // SingleUI is going to cause problems because it is
+            // threaded and it doesn't call constructor yet.
+            // before we use the contents of that object.
+            // we need to wait for it.
+
+            this.txtResults.Document.Blocks.Clear();
+            ShowTabWindow(Tab.RUNNING_TEST);
+
+            try {
+                results = disk.RunDiskBenchmark(threadType);
+            } catch (RipperThreadException ex) {
+                MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
+            }
+
+            this.txtResults.AppendText($"Successfully ran the DISK test! Below is the " +
+                $"results of the test.\n\n" +
+                $"{results.Description}\n\n" +
+                $"\n\n");
+
+            this.txtBlkResults.Text = "Results for the CPU test:";
+
+            ShowTabWindow(Tab.RESULTS);
+        }
+
         private void BtnRunTest_Click(object sender, RoutedEventArgs e) {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
             CPUResults results = new CPUResults(this.rs);
@@ -264,5 +312,6 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         #endregion
+
     }
 }

@@ -12,6 +12,7 @@
             <Button x:Name="btnTemp" Content="Show Quest." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnTemp_Click"/>
             <Button x:Name="btnCPU" Content="CPU" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click"/>
             <Button x:Name="btnRAM" Content="RAM" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click"/>
+            <Button x:Name="btnDisk" Content="DISK" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click"/>
         </Grid>
         <Grid x:Name="grdTop" Margin="150,0,0,0" VerticalAlignment="Top" Background="#FF4C5461" MinHeight="100" MinWidth="650" Grid.ColumnSpan="2"/>
         <Grid x:Name="grdWindow" Margin="150,100,0,0" Grid.ColumnSpan="2" MinWidth="640" MinHeight="320">
