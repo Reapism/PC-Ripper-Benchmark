@@ -45,7 +45,7 @@ namespace PC_Ripper_Benchmark.function {
 
         /// <summary>
         /// Runs the benchmarking test on the RAM
-        /// with a particular threading type.
+        /// with a particular <see cref="ThreadType"/>.
         /// </summary>
         /// <param name="threadType">The type of threading 
         /// for the test.</param>
@@ -119,7 +119,6 @@ namespace PC_Ripper_Benchmark.function {
         /// with ~(N/2) <see cref="RipperFile"/>(s) thrown in.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
 
         private TimeSpan RunVirtualFolderMatrix() {
             var sw = Stopwatch.StartNew();
@@ -144,7 +143,6 @@ namespace PC_Ripper_Benchmark.function {
                     rnd2.Next(2) == 0 ? null : new RipperFile($"file{string.Format("0x{0:X}", i)}",
                     GenerateData(ref rnd, num_rnd_data), num_rnd_data)));
             }
-
 
             sw.Stop();
             return sw.Elapsed;
