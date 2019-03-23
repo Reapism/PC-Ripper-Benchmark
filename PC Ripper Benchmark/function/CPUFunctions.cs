@@ -53,7 +53,7 @@ namespace PC_Ripper_Benchmark.function {
 
         /// <summary>
         /// Runs the benchmarking test on the CPU
-        /// with a particular threading type.
+        /// with a particular <see cref="ThreadType"/>.
         /// </summary>
         /// <param name="threadType">The type of threading 
         /// for the test.</param>
@@ -73,18 +73,22 @@ namespace PC_Ripper_Benchmark.function {
                 }
 
                 case ThreadType.SingleUI: {
-                    // runs task, but doesn't wait for result.
-                    Dispatcher.CurrentDispatcher.Invoke(() => {
-                        Task.Run(() => {
-                            RunTestsSingle(ref results);
-                        });
-                    });
+                    // runs task, and waits for results.
+
+                    // local function instead of action, very similar to
+                    // Action a = delegate () { RunTestsSingle(ref results); }; 
+                    void a() { RunTestsSingle(ref results); }
+
+                    Task t = new Task(a);
+
+                    t.Start();
+                    t.Wait(); // the placement of this wait will have to be outside of here.
+                    // likely in MainWindow.
 
                     break;
                 }
 
                 case ThreadType.Multithreaded: {
-
                     break;
                 }
 
@@ -127,6 +131,10 @@ namespace PC_Ripper_Benchmark.function {
             for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
                 results.TestCollection.Add(RunTree());
             }
+        }
+
+        private async Task<CPUResults> RunTestsMultithreaded() {
+
         }
 
         /// <summary>
