@@ -127,9 +127,9 @@ namespace PC_Ripper_Benchmark.util {
 
             // Checking the worst case scenario. if these dont equal, something bad happened.
             if (this.UniqueTestCount * this.rs.IterationsPerRAMTest != this.TestCollection.Count) {
-                throw new UnknownTestException($"Generating RAM Description: Number of Test" +
-                    $"Collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerRAMTest} !=" +
-                    $" {this.TestCollection.Count}");
+                throw new UnknownTestException($"Generating RAM Description: Number of Test " +
+                    $"Collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerRAMTest} != " +
+                    $"{this.TestCollection.Count}");
             }
 
             string desc = string.Empty;
@@ -208,6 +208,7 @@ namespace PC_Ripper_Benchmark.util {
         /// per test, how much iterations performed per second/tick,
         /// and total execution time for all tests.
         /// <para>Result will be from 0-100</para>
+        /// <para>101+ will be errors</para>
         /// </summary>
         /// <returns></returns>
 

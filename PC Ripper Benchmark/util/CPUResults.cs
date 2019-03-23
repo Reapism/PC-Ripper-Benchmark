@@ -144,13 +144,14 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <returns></returns>
         /// <exception cref="UnknownTestException"></exception>
+        
         protected override string GenerateDescription() {
 
             // Checking the worst case scenario. if these dont equal, something bad happened.
             if (this.UniqueTestCount * this.rs.IterationsPerCPUTest != this.TestCollection.Count) {
                 throw new UnknownTestException($"Generating CPU Description: Number of Test" +
-                    $"Collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerCPUTest} !=" +
-                    $" {this.TestCollection.Count}");
+                    $"Collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerCPUTest} != " +
+                    $"{this.TestCollection.Count}");
             }
 
             string desc = string.Empty;
@@ -253,6 +254,7 @@ namespace PC_Ripper_Benchmark.util {
         /// per test, how much iterations performed per second/tick,
         /// and total execution time for all tests.
         /// <para>Result will be from 0-100</para>
+        /// <para>101+ will be errors</para>
         /// </summary>
         /// <returns></returns>
 
