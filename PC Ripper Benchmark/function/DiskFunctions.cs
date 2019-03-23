@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Threading;
+using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
 
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -39,22 +41,77 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs the benchmarking test on the disk
-        /// with a particular threading type.
+        /// Runs the benchmarking test on the DISK
+        /// with a particular <see cref="ThreadType"/>.
         /// </summary>
         /// <param name="threadType">The type of threading 
         /// for the test.</param>
         /// <returns>A new <see cref="DiskFunctions"/> instance
         /// containing the result.</returns>
+        /// <exception cref="RipperThreadException"></exception>
 
         public DiskResults RunDiskBenchmark(ThreadType threadType) {
             var results = new DiskResults(this.rs);
 
-            Action run_funcs = new Action(() => {
+            switch (threadType) {
 
-            });
+                case ThreadType.Single: {
+                    // runs task on main thread.
+                    RunTestsSingle(ref results);
+                    break;
+                }
+
+                case ThreadType.SingleUI: {
+                    // runs task, but doesn't wait for result.
+                    Dispatcher.CurrentDispatcher.Invoke(() => {
+                        Task.Run(() => {
+                            RunTestsSingle(ref results);
+                        });
+                    });
+
+                    break;
+                }
+
+                case ThreadType.Multithreaded: {
+
+                    break;
+                }
+
+                default: {
+                    throw new RipperThreadException("Unknown thread type to call. " +
+                        "public DiskResults RunDiskBenchmark(ThreadType threadType) " +
+                        "in function.DiskFunctions ");
+                }
+            }
 
             return results;
+        }
+
+        /// <summary>
+        /// Runs each test <see cref="RipperSettings.IterationsPerDiskTest"/> times.
+        /// <para>Should be (<see cref="DiskResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerDiskTest"/>)
+        /// timespans in <see cref="DiskResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="DiskResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingle(ref DiskResults results) {
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunFolderMatrix());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunBulkFile());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunReadWriteParse());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunDiskRipper());
+            }
         }
 
         /// <summary>
@@ -63,7 +120,6 @@ namespace PC_Ripper_Benchmark.function {
         /// and searches the random filestructure for the 
         /// given files.
         /// <para>Intensive unit test.</para>
-        /// 
         /// </summary>
         /// <returns></returns>
 
@@ -73,7 +129,7 @@ namespace PC_Ripper_Benchmark.function {
 
         /// <summary>
         /// Writes a bunch of random characters
-        /// to a file and 
+        /// to a file. 
         /// </summary>
         /// <returns></returns>
 
@@ -82,7 +138,9 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// 
+        /// Attempts to read/write folders and files
+        /// on the directory <see cref="RunFolderMatrix"/>
+        /// creates.
         /// </summary>
         /// <returns></returns>
 
@@ -97,7 +155,7 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <returns></returns>
 
-        private TimeSpan DiskRipper() {
+        private TimeSpan RunDiskRipper() {
             throw new NotImplementedException();
         }
 
