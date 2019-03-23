@@ -1,4 +1,5 @@
-﻿using PC_Ripper_Benchmark.function;
+﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.function;
 using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -56,12 +57,113 @@ namespace PC_Ripper_Benchmark.util {
 
         public override byte UniqueTestCount => uniqueTestCount;
 
+        /// <summary>
+        /// Generates a description for this <see cref="DiskResults"/> instance.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="UnknownTestException"></exception>
+
         protected override string GenerateDescription() {
-            throw new NotImplementedException();
+            // Checking the worst case scenario. if these dont equal, something bad happened.
+            if (this.UniqueTestCount * this.rs.IterationsPerDiskTest != this.TestCollection.Count) {
+                throw new UnknownTestException($"Generating DISK Description: Number of test " +
+                    $"collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerDiskTest} != " +
+                    $"{this.TestCollection.Count}");
+            }
+
+            string desc = string.Empty;
+
+            desc += "Each test runs with a specific number of iterations";
+            desc += Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.DISKFolderMatrix)} ran " +
+                $"{this.rs.IterationsSuccessorship.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.DISKBulkFile)} ran " +
+                $"{this.rs.IterationsBoolean.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.DISKReadWriteParse)} ran " +
+                $"{this.rs.IterationsQueue.ToString("n0")} iterations per test" + Environment.NewLine;
+            desc += $"\tThe {GetTestName(TestName.DISKRipper)} ran " +
+                $"{this.rs.IterationsLinkedList.ToString("n0")} iterations per test" + Environment.NewLine;  
+
+            // each duration printed.
+            // Should later put in another function.
+
+            desc += $"The Ripper runs {this.rs.IterationsPerDiskTest} iterations of each test. Below are the durations:";
+            desc += Environment.NewLine;
+
+            byte index = 0;
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                desc += $"\t{GetTestName(TestName.DISKFolderMatrix)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                desc += $"\t{GetTestName(TestName.DISKBulkFile)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                desc += $"\t{GetTestName(TestName.DISKReadWriteParse)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                desc += $"\t{GetTestName(TestName.DISKRipper)}[{b + 1}] - " +
+                    $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
+                index++;
+            }
+
+            // total time of all tests. 
+            desc += "Total duration of the test:";
+            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+
+            // average per test.
+            desc += Environment.NewLine;
+            desc += "Average duration per test:";
+            desc += Environment.NewLine;
+
+            Tuple<string, TimeSpan> averageTest;
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.DISKFolderMatrix);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.DISKBulkFile);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.DISKReadWriteParse);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            averageTest =
+                GenerateAverageTest(this.TestCollection, TestName.DISKRipper);
+            desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
+
+            // score for the test.
+            desc += Environment.NewLine + Environment.NewLine;
+
+            desc += $"The score for this test is {this.Score}.";
+
+            desc += Environment.NewLine + Environment.NewLine;
+            desc += "(Algorithm not implemented for generating a score)";
+            return desc;
         }
 
+        /// <summary>
+        /// Generates a score that takes in the number of iterations
+        /// per test, how much iterations performed per second/tick,
+        /// and total execution time for all tests.
+        /// <para>Result will be from 0-100</para>
+        /// <para>101+ will be errors</para>
+        /// </summary>
+        /// <returns></returns>
+
         protected override byte GenerateScore() {
-            throw new NotImplementedException();
+            return 0;
         }
 
         /// <summary>
