@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.function {
@@ -79,10 +78,10 @@ namespace PC_Ripper_Benchmark.function {
                     // Action a = delegate () { RunTestsSingle(ref results); }; 
                     void a() { RunTestsSingle(ref results); }
 
-                    Task t = new Task(a);
+                    Task task = new Task(a);
 
-                    t.Start();
-                    t.Wait(); // the placement of this wait will have to be outside of here.
+                    task.Start();
+                    // the placement of this wait will have to be outside of here.
                     // likely in MainWindow.
 
                     break;
@@ -134,7 +133,7 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         private async Task<CPUResults> RunTestsMultithreaded() {
-
+            return null;
         }
 
         /// <summary>
