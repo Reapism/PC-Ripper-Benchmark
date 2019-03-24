@@ -188,5 +188,26 @@
   <ItemGroup>
     <Resource Include="resources\cpu_tree.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\disk_bulkfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\disk_foldermatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\disk_readwrite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\disk_ripper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\ram_bulkfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\ram_foldermatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\ram_referencedereference.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
