@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Windows.Forms;
 using System.Windows.Threading;
+using Microsoft.Win32;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
 
@@ -27,7 +30,7 @@ namespace PC_Ripper_Benchmark.function {
         /// parameters.
         /// </summary>
         private readonly RipperSettings rs;
-
+        private string workingDir;
         #endregion
 
         #region Constructor(s)
@@ -38,6 +41,7 @@ namespace PC_Ripper_Benchmark.function {
 
         public DiskFunctions(ref RipperSettings rs) {
             this.rs = rs;
+            workingDir = string.Empty;
         }
 
         /// <summary>
@@ -63,11 +67,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 case ThreadType.SingleUI: {
                     // runs task, but doesn't wait for result.
-                    Dispatcher.CurrentDispatcher.Invoke(() => {
-                        Task.Run(() => {
-                            RunTestsSingle(ref results);
-                        });
-                    });
+                    
 
                     break;
                 }
@@ -85,6 +85,30 @@ namespace PC_Ripper_Benchmark.function {
             }
 
             return results;
+        }
+
+        /// <summary>
+        /// Prompts the user to choose a directory
+        /// and outputs the <paramref name="path"/> as a string.
+        /// Returns whether the directory exists.
+        /// </summary>
+        /// <param name="path">Sets a working directory 
+        /// and if its valid, passes it out.</param>
+        /// <returns></returns>
+
+        public static bool SetWorkingDirectory(out string path) {
+            path = string.Empty;
+
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog {
+                Description = "Choose a directory!",
+                ShowNewFolderButton = true,               
+            };
+
+            if (folderBrowser.ShowDialog() == DialogResult.OK) {
+                path = folderBrowser.SelectedPath;       
+            } 
+
+            return Directory.Exists(path);
         }
 
         /// <summary>
