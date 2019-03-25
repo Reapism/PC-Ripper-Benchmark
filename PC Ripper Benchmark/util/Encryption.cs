@@ -18,11 +18,11 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
 
         public string EncryptText(string text) {
-            text.Trim().ToUpper();
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
+            String upperCaseText = text.ToUpper().Trim();
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(upperCaseText);
             data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
-            String hash = System.Text.Encoding.ASCII.GetString(data);
 
+            String hash = System.Text.Encoding.ASCII.GetString(data);
             return hash;
         }
     }
