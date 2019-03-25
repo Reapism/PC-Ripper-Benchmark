@@ -116,7 +116,8 @@ namespace PC_Ripper_Benchmark.function {
         /// <summary>
         /// Creates (N) virtual directories in memory
         /// using the <see cref="RipperFolder"/> class
-        /// with ~(N/2) <see cref="RipperFile"/>(s) thrown in.
+        /// with ~(N/2) <see cref="RipperFile"/>(s) thrown in
+        /// and reads all the files back into memory.
         /// </summary>
         /// <returns></returns>
 
@@ -135,13 +136,18 @@ namespace PC_Ripper_Benchmark.function {
 
             // Create N folders with ~N/2 files randomly in them.
             // Naming convention of folder and files are in HEX.
-            // File and Folders contain same name if they are embedded.
+            // File and Folders contain the same name if they are derived.
             for (ulong i = 0; i < NUM_FOLDERS; i++) {
 
                 lstFolders.Add(new RipperFolder($"folder{string.Format("0x{0:X}", i)}",
                     $"path={string.Format("0x{0:X}", i)}", true,
                     rnd2.Next(2) == 0 ? null : new RipperFile($"file{string.Format("0x{0:X}", i)}",
                     GenerateData(ref rnd, num_rnd_data), num_rnd_data)));
+            }
+
+            // read all files in the directories
+            foreach (RipperFolder dir in lstFolders) {
+                RipperFile file = dir.File;
             }
 
             sw.Stop();
@@ -223,7 +229,6 @@ namespace PC_Ripper_Benchmark.function {
             return returnMe;
         }
     }
-
 
     #endregion
 }
