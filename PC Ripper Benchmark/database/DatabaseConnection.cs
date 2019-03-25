@@ -85,11 +85,11 @@ namespace PC_Ripper_Benchmark.database {
 
         public void CheckAccountExists(SqlConnection connection, string email, string password) {
             try {
-                connection.Open();
-            } catch (Exception e) {
+            }catch (Exception e) {
                 throw new RipperDatabaseException($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
             }
-            
+
+            connection.Open();
 
             util.Encryption encrypter = new util.Encryption();
 

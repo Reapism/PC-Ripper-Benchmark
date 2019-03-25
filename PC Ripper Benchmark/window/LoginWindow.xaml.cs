@@ -34,6 +34,7 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
+
             SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder();
             stringBuilder.DataSource = "tcp:bcsproject.database.windows.net,1433";
             stringBuilder.UserID = "Konrad100";
@@ -48,8 +49,18 @@ namespace PC_Ripper_Benchmark.window {
             SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
-            newConnection.CheckAccountExists(connection, emailTextBox.Text, passwordTextBox.Password);
-           
+
+            try
+            {
+                newConnection.CheckAccountExists(connection, emailTextBox.Text, passwordTextBox.Password);
+                this.Close();
+            }
+            catch (SqlException a)
+            {
+                MessageBox.Show(a.Errors.ToString());
+                connection.Close();
+                throw;
+            }
         }
 
         /// <summary>
