@@ -34,7 +34,7 @@ namespace PC_Ripper_Benchmark.function {
         /// to 0 and gradually opens the destination window.</para>
         /// </summary>
 
-        public void transitionScreen(Window destinationWindow, Window currentWindow) {
+        public void TransitionScreen(Window destinationWindow, Window currentWindow) {
             DoubleAnimation animation = new DoubleAnimation();
 
             destinationWindow.Opacity = 0;
