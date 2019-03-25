@@ -283,6 +283,13 @@ namespace PC_Ripper_Benchmark.util {
             this.IterationsRAMReferenceDereference = Properties.Settings.Default.iter_ram_referencedereference;
             this.IterationsRAMVirtualBulkFile = Properties.Settings.Default.iter_ram_virtualbulkfile;
 
+            this.IterationsPerDiskTest = Properties.Settings.Default.iter_per_disk_test;
+
+            this.IterationsDISKFolderMatrix = Properties.Settings.Default.iter_disk_foldermatrix;
+            this.IterationsDiskBulkFile = Properties.Settings.Default.iter_disk_bulkfile;
+            this.IterationsDiskReadWriteParse = Properties.Settings.Default.iter_disk_readwrite;
+            this.IterationsDiskRipper = Properties.Settings.Default.iter_disk_diskripper;
+
             this.AutoCheckForUpdates = Properties.Settings.Default.auto_updates;
         }
 
@@ -429,11 +436,26 @@ namespace PC_Ripper_Benchmark.util {
 
         public static void SaveApplicationSettings(ref RipperSettings rs) {
             Properties.Settings.Default.auto_updates = rs.AutoCheckForUpdates;
+
             Properties.Settings.Default.iter_cpu_successorship = rs.IterationsSuccessorship;
+
             Properties.Settings.Default.iter_cpu_boolean = rs.IterationsBoolean;
             Properties.Settings.Default.iter_cpu_queue = rs.IterationsQueue;
             Properties.Settings.Default.iter_cpu_linkedlist = rs.IterationsLinkedList;
             Properties.Settings.Default.iter_cpu_tree = rs.IterationsTree;
+
+            Properties.Settings.Default.iter_per_ram_test = rs.IterationsPerRAMTest;
+
+            Properties.Settings.Default.iter_ram_foldermatrix = rs.IterationsBoolean;
+            Properties.Settings.Default.iter_ram_virtualbulkfile = rs.IterationsRAMVirtualBulkFile;
+            Properties.Settings.Default.iter_ram_referencedereference = rs.IterationsRAMReferenceDereference;
+
+            Properties.Settings.Default.iter_per_disk_test = rs.IterationsPerDiskTest;
+
+            Properties.Settings.Default.iter_disk_foldermatrix = rs.IterationsDISKFolderMatrix;
+            Properties.Settings.Default.iter_disk_bulkfile = rs.IterationsDiskBulkFile;
+            Properties.Settings.Default.iter_disk_readwrite = rs.IterationsDiskReadWriteParse;
+            Properties.Settings.Default.iter_disk_diskripper = rs.IterationsDiskRipper;
 
             Properties.Settings.Default.Save();
         }
