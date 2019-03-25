@@ -28,7 +28,17 @@ namespace PC_Ripper_Benchmark.function {
         /// parameters.
         /// </summary>
         private readonly RipperSettings rs;
-        private char[] charList;
+
+        /// <summary>
+        /// The character list used to generate
+        /// random strings from.
+        /// </summary>
+        private readonly char[] charList;
+
+        /// <summary>
+        /// The file extension for the files.
+        /// </summary>
+        private readonly string fileExt;
 
         /// <summary>
         /// The working directory of the test.
@@ -45,11 +55,16 @@ namespace PC_Ripper_Benchmark.function {
 
         public DiskFunctions(ref RipperSettings rs) {
             this.rs = rs;
-            this.WorkingDir = string.Empty;
-
+            this.fileExt = "ripperblk";
             this.charList = ("abcdefghijklmnopqrstuvwxyz" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").ToCharArray();
+
+            this.WorkingDir = string.Empty;
         }
+
+        #endregion
+
+        #region Disk Function(s) 
 
         /// <summary>
         /// Runs the benchmarking test on the DISK
@@ -74,13 +89,10 @@ namespace PC_Ripper_Benchmark.function {
 
                 case ThreadType.SingleUI: {
                     // runs task, but doesn't wait for result.
-
-
                     break;
                 }
 
                 case ThreadType.Multithreaded: {
-
                     break;
                 }
 
@@ -93,6 +105,144 @@ namespace PC_Ripper_Benchmark.function {
 
             return results;
         }
+
+        /// <summary>
+        /// Runs each test <see cref="RipperSettings.IterationsPerDiskTest"/> times.
+        /// <para>Should be (<see cref="DiskResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerDiskTest"/>)
+        /// timespans in <see cref="DiskResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="DiskResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingle(ref DiskResults results) {
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunFolderMatrix());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunBulkFile());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunReadWriteParse());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunDiskRipper());
+            }
+        }
+
+        /// <summary>
+        /// Creates random directories on the filesystem,
+        /// <para>Non-Intensive unit test.</para>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException"></exception>
+
+        private TimeSpan RunFolderMatrix() {
+            var sw = Stopwatch.StartNew();
+
+            GenerateConfigFile(this.WorkingDir, TestName.DISKFolderMatrix);
+            FolderMatrixSnapshot();
+            DeleteDirectories(this.WorkingDir);
+            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
+
+            sw.Stop();
+            return sw.Elapsed;
+        }
+
+        /// <summary>
+        /// Writes N files with
+        /// random characters to the files
+        /// and reads them.
+        /// <para>All these operations will be 
+        /// included in the time.</para>
+        /// </summary>
+        /// <returns></returns>
+
+        private TimeSpan RunBulkFile() {
+            var sw = Stopwatch.StartNew();
+
+            GenerateConfigFile(this.WorkingDir, TestName.DISKBulkFile);
+            BulkFileSnapshot();
+            DeleteDirectories(this.WorkingDir);
+            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
+
+            //DirectoryInfo d = new DirectoryInfo(this.WorkingDir);
+            //FileInfo[] Files = d.GetFiles($"*{fileExt}");
+
+            //foreach (FileInfo file in Files) {
+            //    try {
+            //        File.Delete(file.FullName);
+            //    } catch (Exception e) {
+            //        throw new FileNotFoundException($"Error deleting the file!" + e.ToString());
+            //    }
+            //}
+
+            sw.Stop();
+            return sw.Elapsed;
+        }
+
+        /// <summary>
+        /// Writes a single large file and reads it back.
+        /// <para>( N * 16 ) characters in the file.</para>
+        /// </summary>
+        /// <returns></returns>
+
+        private TimeSpan RunReadWriteParse() {
+            var sw = Stopwatch.StartNew();
+
+            FileStream fileStream;
+            StreamReader sr;
+            StreamWriter writer;
+
+            string fileName = "BULK"; // the path of the file.
+            string desc = GetReadWriteDesc(); // gets the description of the file (header).
+            const int charBlock = 16;
+
+            fileName = Path.Combine(this.WorkingDir, fileName + this.fileExt);
+            fileStream = File.Create(fileName);
+            writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8);
+            writer.Write(desc);
+
+            // Write each file.
+            for (ulong i = 0; i < this.rs.IterationsDiskReadWriteParse; i++) {
+                writer.Write(GetRandomString(charBlock));
+            }
+
+            writer.Close();
+            sr = new StreamReader(fileName);
+
+            // Read each file.
+            while (!sr.EndOfStream) {
+                sr.Read();
+            }
+
+            sr.Close();
+            sw.Stop();
+            return sw.Elapsed;
+        }
+
+        /// <summary>
+        /// Runs <see cref="RunReadWriteParse"/> in every
+        /// directory generated by <see cref="RunFolderMatrix"/>
+        /// <para>Very intensive task.</para>
+        /// </summary>
+        /// <returns></returns>
+
+        private TimeSpan RunDiskRipper() {
+            var sw = Stopwatch.StartNew();
+
+
+
+            sw.Stop();
+            return sw.Elapsed;
+        }
+
+        #endregion
+
+        #region Extraneous function(s) and helper function(s).
 
         /// <summary>
         /// Generates a random string that may contain
@@ -167,102 +317,142 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Runs each test <see cref="RipperSettings.IterationsPerDiskTest"/> times.
-        /// <para>Should be (<see cref="DiskResults.UniqueTestCount"/> * 
-        /// <see cref="RipperSettings.IterationsPerDiskTest"/>)
-        /// timespans in <see cref="DiskResults.TestCollection"/>.</para>
+        /// Attempts to generate a configuration file
+        /// in the path. Returns whether the it was 
+        /// successful.
         /// </summary>
-        /// <param name="results">The <see cref="DiskResults"/> by reference 
-        /// to add the <see cref="TimeSpan"/>(s).</param>
+        /// <param name="path">The path to create the config file.</param>
+        /// <param name="testName">Represents a test which changes the description
+        /// for the config file.</param>
+        /// <returns></returns>
 
-        private void RunTestsSingle(ref DiskResults results) {
-            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                results.TestCollection.Add(RunFolderMatrix());
+        private bool GenerateConfigFile(string path, TestName testName) {
+            Func<string> funcGenDescription;
+
+            switch (testName) {
+                case TestName.DISKFolderMatrix: {
+                    funcGenDescription = new Func<string>(GetFolderMatrixDesc);
+                    break;
+                }
+
+                case TestName.DISKBulkFile: {
+                    funcGenDescription = new Func<string>(GetBulkFileDesc);
+                    break;
+                }
+
+                case TestName.DISKReadWriteParse: {
+                    funcGenDescription = new Func<string>(GetReadWriteDesc);
+                    break;
+                }
+
+                case TestName.DISKRipper: {
+                    funcGenDescription = new Func<string>(GetDiskRipperDesc);
+                    break;
+                }
+
+                default: {
+                    funcGenDescription = new Func<string>(GetNullDesc);
+                    return false;
+                }
             }
 
-            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                results.TestCollection.Add(RunBulkFile());
+            string data = funcGenDescription();
+
+            StreamWriter writer;
+
+            string fileName; // the path of the file.
+
+            // create a file config.ripperblk with a description in it.
+            try {
+                fileName = Path.Combine(path, "config" + this.fileExt);
+
+                writer = new StreamWriter(fileName, true);
+                writer.Write(GetBulkFileDesc());
+                writer.Close();
+            } catch (Exception e) {
+                MessageBox.Show($"Oh no, we couldn't generate this config file. {e.ToString()}");
+                return false;
             }
 
-            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                results.TestCollection.Add(RunReadWriteParse());
+            return true;
+        }
+
+        /// <summary>
+        /// Returns whether the the function was able
+        /// to delete the file located at <paramref name="path"/>.
+        /// </summary>
+        /// <param name="path">The path of the file to delete.</param>
+        /// <returns></returns>
+
+        private bool DeleteConfigFile(string path) {
+            try {
+                File.Delete(path);
+            } catch (Exception) {
+                return false;
             }
 
-            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                results.TestCollection.Add(RunDiskRipper());
+            return true;
+        }
+
+
+        /// <summary>
+        /// Attempts to delete all files that
+        /// start with "config" in the specified
+        /// path. Ignores files that can't be 
+        /// deleted.
+        /// </summary>
+        /// <param name="path">The path to delete 
+        /// the config files.</param>
+
+        private void DeleteConfigFiles(string path) {
+            DirectoryInfo d = new DirectoryInfo(path);
+            FileInfo[] Files = d.GetFiles($"config*");
+
+            foreach (FileInfo file in Files) {
+                try {
+                    File.Delete(file.FullName);
+                } catch (Exception) {
+                    continue;
+                }
             }
         }
 
         /// <summary>
-        /// Creates random directories on the filesystem,
-        /// <para>Non-Intensive unit test.</para>
+        /// Creates the folder structure 
+        /// for the FolderMatrix algorithm.
+        /// <para>Internally catches exceptions,
+        /// and reports them as a <see cref="MessageBox"/>
+        /// to the caller.</para>
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="UnauthorizedAccessException"></exception>
 
-        private TimeSpan RunFolderMatrix() {
-            var sw = Stopwatch.StartNew();
-
+        private void FolderMatrixSnapshot() {
             DirectoryInfo directoryInfo;
-            string dirName;
-            const int dirNameLength = 15;
 
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
-                dirName = GetRandomString(dirNameLength);
                 try {
                     directoryInfo = Directory.CreateDirectory(Path.Combine(this.WorkingDir, u.ToString()));
                 } catch (Exception e) {
-                    MessageBox.Show($"{u} {dirName} failed. {e.ToString()}");
+                    MessageBox.Show($"{u} failed. {e.ToString()}");
+                    continue;
                 }
             }
-
-            DirectoryInfo d = new DirectoryInfo(this.WorkingDir);
-            DirectoryInfo[] directories = d.GetDirectories($"*");
-
-            foreach (DirectoryInfo dir in directories) {
-                try {
-                    Directory.Delete(dir.FullName);
-                } catch (Exception e) {
-                    throw new FileNotFoundException($"Error deleting the directory!" + e.ToString());
-                }
-            }
-
-            sw.Stop();
-            return sw.Elapsed;
         }
 
         /// <summary>
-        /// Writes N files with
-        /// random characters to the files
-        /// and reads them.
-        /// <para>All these operations will be 
-        /// included in the time.</para>
+        /// Creates .ripperblk files in a directory.
         /// </summary>
-        /// <returns></returns>
 
-        private TimeSpan RunBulkFile() {
-            var sw = Stopwatch.StartNew();
-
+        private void BulkFileSnapshot() {
             FileStream fileStream;
             Random rnd = new Random();
             StreamReader sr;
             StreamWriter writer;
-            StreamWriter writer2;
 
             string fileName; // the path of the file.
-            const string fileExt = ".ripperblk"; // file extension for file.
-            const int fileNameLength = 15; // the length of the random name.
 
-            // create a file config.ripperblk with a description in it.
-            fileName = this.WorkingDir + "config" + fileExt;
-            writer2 = new StreamWriter(fileName, true);
-            writer2.Write(GetBulkFileDesc());
-            writer2.Close();
-
+            // Write each file.
             for (ulong u = 0; u < this.rs.IterationsDiskBulkFile; u++) {
-                // Write each file.
-
-                fileName = Path.Combine(this.WorkingDir, u.ToString() + fileExt);
+                fileName = Path.Combine(this.WorkingDir, u.ToString() + this.fileExt);
 
                 try {
                     fileStream = File.Create(fileName);
@@ -281,152 +471,114 @@ namespace PC_Ripper_Benchmark.function {
                 writer.Flush();
                 writer.Close();
             }
+        }
 
+        /// <summary>
+        /// Delete directories used for cleaning up the disk after
+        /// the tests.
+        /// </summary>
+        /// <param name="path">The path to delete directories in.</param>
+        /// <param name="recursiveDelete">Choose whether to 
+        /// recursively delete subdirectories</param>
 
+        private void DeleteDirectories(string path, bool recursiveDelete = false) {
+            DirectoryInfo d = new DirectoryInfo(path);
+            DirectoryInfo[] directories = d.GetDirectories($"*");
 
-            DirectoryInfo d = new DirectoryInfo(this.WorkingDir);
-            FileInfo[] Files = d.GetFiles($"*{fileExt}");
-
-            foreach (FileInfo file in Files) {
+            foreach (DirectoryInfo dir in directories) {
                 try {
-                    File.Delete(file.FullName);
+                    Directory.Delete(dir.FullName, recursiveDelete);
                 } catch (Exception e) {
-                    throw new FileNotFoundException($"Error deleting the file!" + e.ToString());
+                    MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                    continue;
                 }
             }
-
-            sw.Stop();
-            return sw.Elapsed;
         }
 
         /// <summary>
-        /// Writes a single large file and reads it back.
-        /// <para>( N * 16 ) characters in the file.</para>
+        /// Represents a null description by returing
+        /// null as a string.
         /// </summary>
         /// <returns></returns>
 
-        private TimeSpan RunReadWriteParse() {
-            var sw = Stopwatch.StartNew();
-
-            FileStream fileStream;
-            StreamReader sr;
-            StreamWriter writer;
-
-            string fileName = "BULK"; // the path of the file.
-            string desc = GetReadWriteDesc(); // gets the description of the file (header).
-            const string fileExt = ".ripperblk"; // file extension for file.
-            const int charBlock = 16;
-
-            fileName = Path.Combine(this.WorkingDir, fileName, fileExt);
-            fileStream = File.Create(fileName);
-            writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8);
-            writer.Write(desc);
-
-            // Write each file.
-            for (ulong i = 0; i < this.rs.IterationsDiskReadWriteParse; i++) {
-                writer.Write(GetRandomString(charBlock));
-            }
-
-            sr = new StreamReader(fileStream, true);
-
-            // Read each file.
-            while (!sr.EndOfStream) {
-                sr.Read();
-            }
-
-            writer.Close();
-
-
-            sw.Stop();
-            return sw.Elapsed;
-        }
+        private string GetNullDesc() => "NULL";
 
         /// <summary>
-        /// Runs <see cref="RunBulkFile"/> in every
-        /// directory generated by <see cref="RunFolderMatrix"/>
-        /// <para>Very intensive task.</para>
+        /// Returns the FolderMatrix description that would be embedded 
+        /// in a config. If the user finds this file, its
+        /// likely the test failed.
         /// </summary>
         /// <returns></returns>
 
-        private TimeSpan RunDiskRipper() {
-            var sw = Stopwatch.StartNew();
+        private string GetFolderMatrixDesc() {
+            string desc = string.Empty;
 
-            //FileStream fileStream;
-            //StreamReader sr;
-            //StreamWriter writer;
+            desc += $"******This file was generated by the FOLDER MATRIX algorithm" +
+                $" starting at {DateTime.Now.ToLongTimeString()}. This file should" +
+                $" automatically be deleted if a successful run of the algorithm." +
+                $" Please report this as a bug if the file(s) persist after running" +
+                $" a test.******";
 
-            //string fileName; // the path of the file.
-            //string desc = GetReadWriteDesc(); // gets the description of the file (header).
-            //const string fileExt = ".ripperblk"; // file extension for file.
-            //const int fileNameLength = 8; // the length of the random name.
-            //const int charBlock = 16;
-
-            //DirectoryInfo d = new DirectoryInfo(this.workingDir);
-            //FileInfo[] Files = d.GetFiles($"*{fileExt}");
-
-            //foreach (FileInfo file in Files) {
-            //    try {
-            //        File.OpenWrite
-            //        writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8);
-            //        writer.Write(desc);
-            //        File.Delete(file.FullName);
-            //    } catch (Exception e) {
-            //        throw new FileNotFoundException($"Error deleting the file!" + e.ToString());
-            //    }
-            //}
-
-            sw.Stop();
-            return sw.Elapsed;
+            return desc;
         }
 
         /// <summary>
-        /// Just creates the folder structure 
-        /// and doesn't perform a search
+        /// Returns the BulkFile description that would be embedded 
+        /// in a config. If the user finds this file, its
+        /// likely the test failed.
         /// </summary>
-
-        private void FolderMatrixSnapshot() {
-
-        }
-
-        private void BulkFileSnapshot() {
-
-        }
+        /// <returns></returns>
 
         private string GetBulkFileDesc() {
             string desc = string.Empty;
 
-            desc += $"This file was generated by the BULK FILE algorithm" +
+            desc += $"******This file was generated by the BULK FILE algorithm" +
                 $" starting at {DateTime.Now.ToLongTimeString()}. This file should" +
                 $" automatically be deleted if a successful run of the algorithm." +
                 $" Please report this as a bug if the file(s) persist after running" +
-                $" a test.";
+                $" a test.******";
 
             return desc;
         }
+
+        /// <summary>
+        /// Returns the ReadWrite description that would be embedded 
+        /// in a config. If the user finds this file, its
+        /// likely the test failed.
+        /// </summary>
+        /// <returns></returns>
 
         private string GetReadWriteDesc() {
             string desc = string.Empty;
 
-            desc += $"This file was generated by the READ & WRITE PARSE algorithm" +
+            desc += $"******This file was generated by the READ & WRITE PARSE algorithm" +
                 $" starting at {DateTime.Now.ToLongTimeString()}. This file should" +
                 $" automatically be deleted if a successful run of the algorithm." +
                 $" Please report this as a bug if the file(s) persist after running" +
-                $" a test.";
+                $" a test.******";
 
             return desc;
         }
+
+        /// <summary>
+        /// Returns the DiskRipper description that would be embedded 
+        /// in a config. If the user finds this file, its
+        /// likely the test failed.
+        /// </summary>
+        /// <returns></returns>
 
         private string GetDiskRipperDesc() {
             string desc = string.Empty;
 
-            desc += $"This file was generated by the DISK RIPPER algorithm" +
+            desc += $"******This file was generated by the DISK RIPPER algorithm" +
                 $" starting at {DateTime.Now.ToLongTimeString()}. This file should" +
                 $" automatically be deleted if a successful run of the algorithm." +
                 $" Please report this as a bug if the file(s) persist after running" +
-                $" a test.";
+                $" a test.******";
 
             return desc;
         }
     }
+
     #endregion
 }

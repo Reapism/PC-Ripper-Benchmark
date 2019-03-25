@@ -76,7 +76,7 @@ namespace PC_Ripper_Benchmark.window {
         private void SignUpButton_Click(object sender, RoutedEventArgs e) {
             CreateAccountWindow createAccountWindow = new CreateAccountWindow();
 
-            this.settings.transitionScreen(createAccountWindow, this);
+            this.settings.TransitionScreen(createAccountWindow, this);
         }
         #endregion
 

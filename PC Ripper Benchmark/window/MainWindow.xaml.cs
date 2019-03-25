@@ -23,7 +23,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private RipperSettings rs;
         private Tab testToRun;
-        private string workingDir; 
+        private string workingDir;
         #endregion
 
         #region Constructor(s) and method(s).
@@ -42,7 +42,7 @@ namespace PC_Ripper_Benchmark.window {
 
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
-            this.btnDiskRunTest.IsEnabled = false;      
+            this.btnDiskRunTest.IsEnabled = false;
         }
 
         /// <summary>
@@ -396,10 +396,20 @@ namespace PC_Ripper_Benchmark.window {
             var disk = new DiskFunctions(ref this.rs);
 
             if (disk.SetWorkingDirectory(out string path)) {
-                workingDir = path;
+                this.workingDir = path;
                 ValidDirectory(path);
             } else {
                 InvalidDirectory(path);
+            }
+        }
+
+        private void MenuResultsSelectAll_Click(object sender, RoutedEventArgs e) {
+            this.txtResults.SelectAll();
+        }
+
+        private void MenuResultsCopy_Click(object sender, RoutedEventArgs e) {
+            if (!this.txtResults.Selection.IsEmpty) {
+                Clipboard.SetText(this.txtResults.Selection.Text);
             }
         }
 
