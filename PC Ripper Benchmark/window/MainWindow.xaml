@@ -132,7 +132,7 @@
                                     <DropShadowEffect BlurRadius="15"/>
                                 </Image.Effect>
                             </Image>
-                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="0,0,0,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed:" VerticalAlignment="Bottom" FontSize="16"/>
+                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed. Its recommended you put this in a new folder you create on your desktop for easy accessibility." VerticalAlignment="Bottom" FontSize="16"/>
                             <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Center" Margin="0,0,500,66" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="20" MinWidth="75" Click="BtnBrowseWorkingDir_Click"/>
                             <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,23" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="16"/>
                         </Grid>
@@ -213,8 +213,8 @@
                         <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="#FF2C742C" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="menuResultsSelectAll" Header="Select All"/>
-                                    <MenuItem x:Name="menuResultsCopy" Header="Copy"/>
+                                    <MenuItem x:Name="menuResultsSelectAll" Header="Select All" Click="MenuResultsSelectAll_Click"/>
+                                    <MenuItem x:Name="menuResultsCopy" Header="Copy" Click="MenuResultsCopy_Click"/>
                                     <Separator/>
                                     <MenuItem x:Name="menuResultsExprt" Header="Export">
                                         <MenuItem x:Name="menuResultsExprtTxt" Header="Text-File" Click="MenuResultsExprtTxt_Click"/>
