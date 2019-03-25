@@ -31,7 +31,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         public CreateAccountWindow() {
-            InitializeComponent();
+            InitializeComponent();         
             this.settings.CenterWindowOnScreen(this.windowCreateAccount);
             this.firstNameTextBox.Focus();
         }
@@ -143,9 +143,12 @@ namespace PC_Ripper_Benchmark.window {
 
                 //Open database connection and send that data to the database hashed.
                 database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);
-                dbConnection.AddUserToDatabase(dbConnection.Connection, newUser);
-                window.MainWindow mainWindow = new window.MainWindow();
-                this.windowSettings.transitionScreen(mainWindow, this);
+
+                if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser))
+                {
+                    window.LoginWindow loginWindow = new window.LoginWindow();
+                    this.windowSettings.transitionScreen(loginWindow, this);
+                }
             }
             #endregion
         }

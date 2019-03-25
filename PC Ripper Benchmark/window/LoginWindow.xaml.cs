@@ -24,7 +24,6 @@ namespace PC_Ripper_Benchmark.window {
         
         public LoginWindow() {
             InitializeComponent();
-
             //Change the progressbar visibilty to not show on screen
             this.database_progressbar.Opacity = 0;
 
@@ -52,8 +51,14 @@ namespace PC_Ripper_Benchmark.window {
 
             try
             {
-                newConnection.CheckAccountExists(connection, emailTextBox.Text, passwordTextBox.Password);
-                this.Close();
+                if (!newConnection.CheckAccountExists(connection, emailTextBox.Text, passwordTextBox.Password))
+                {
+                    Console.WriteLine("Good credentials");
+                }
+                else {
+                    this.Close();
+                }
+               
             }
             catch (SqlException a)
             {

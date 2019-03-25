@@ -55,7 +55,7 @@ namespace PC_Ripper_Benchmark.database {
         /// procedure
         /// </summary>
 
-        public void AddUserToDatabase(SqlConnection connection, util.UserData user) {
+        public bool AddUserToDatabase(SqlConnection connection, util.UserData user) {
             try {
                 SqlCommand addUser = new SqlCommand("UserAdd", connection) {
                     CommandType = CommandType.StoredProcedure
@@ -71,8 +71,12 @@ namespace PC_Ripper_Benchmark.database {
                 addUser.ExecuteNonQuery();
                 connection.Close();
                 MessageBox.Show("Registration Successful");
+
+                return true;
             } catch (SqlException) {
+                
                 MessageBox.Show("An account with that email already exists!");
+                return false;
             }
         }
 
@@ -83,38 +87,45 @@ namespace PC_Ripper_Benchmark.database {
         /// a 0 or 1 to determine if it exists.
         /// </summary>
 
-        public void CheckAccountExists(SqlConnection connection, string email, string password) {
-            try {
-            }catch (Exception e) {
+        public bool CheckAccountExists(SqlConnection connection, string email, string password) {
+            try
+            {
+                connection.Open();
+
+                util.Encryption encrypter = new util.Encryption();
+
+                SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
+                email = encrypter.EncryptText(email.ToUpper().Trim());
+                password = encrypter.EncryptText(password.ToUpper().Trim());
+
+                checkAccount.Parameters.AddWithValue("@Email", email);
+                checkAccount.Parameters.AddWithValue("@Password", password);
+                checkAccount.ExecuteNonQuery();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+
+                int count = ds.Tables[0].Rows.Count;
+
+                if (count == 1)
+                {
+                    window.MainWindow mainWindow = new window.MainWindow();
+                    mainWindow.Show();
+                    connection.Close();
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid login!");
+                    connection.Close();
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
                 throw new RipperDatabaseException($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
-            }
-
-            connection.Open();
-
-            util.Encryption encrypter = new util.Encryption();
-
-            SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
-            email = encrypter.EncryptText(email);
-            password = encrypter.EncryptText(password);
-
-            checkAccount.Parameters.AddWithValue("@Email", email);
-            checkAccount.Parameters.AddWithValue("@Password", password);
-            checkAccount.ExecuteNonQuery();
-
-            SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds);
-
-            int count = ds.Tables[0].Rows.Count;
-
-            if (count == 1) {
-                window.MainWindow mainWindow = new window.MainWindow();
-                mainWindow.Show();
-                connection.Close();
-            } else {
-                MessageBox.Show("Invalid Login");
-                connection.Close();
-            }
+            }         
         }
     }
 }
