@@ -144,7 +144,7 @@ namespace PC_Ripper_Benchmark.function {
             var sw = Stopwatch.StartNew();
 
             GenerateConfigFile(this.WorkingDir, TestName.DISKFolderMatrix);
-            FolderMatrixSnapshot();
+            FolderMatrixSnapshot(this.WorkingDir);
             DeleteDirectories(this.WorkingDir);
             DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
@@ -165,20 +165,9 @@ namespace PC_Ripper_Benchmark.function {
             var sw = Stopwatch.StartNew();
 
             GenerateConfigFile(this.WorkingDir, TestName.DISKBulkFile);
-            BulkFileSnapshot();
+            BulkFileSnapshot(this.WorkingDir);
             DeleteDirectories(this.WorkingDir);
             DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
-
-            //DirectoryInfo d = new DirectoryInfo(this.WorkingDir);
-            //FileInfo[] Files = d.GetFiles($"*{fileExt}");
-
-            //foreach (FileInfo file in Files) {
-            //    try {
-            //        File.Delete(file.FullName);
-            //    } catch (Exception e) {
-            //        throw new FileNotFoundException($"Error deleting the file!" + e.ToString());
-            //    }
-            //}
 
             sw.Stop();
             return sw.Elapsed;
@@ -193,33 +182,12 @@ namespace PC_Ripper_Benchmark.function {
         private TimeSpan RunReadWriteParse() {
             var sw = Stopwatch.StartNew();
 
-            FileStream fileStream;
-            StreamReader sr;
-            StreamWriter writer;
+            GenerateConfigFile(this.WorkingDir, TestName.DISKReadWriteParse);
+            ReadWriteSnapshot(this.WorkingDir);
+            DeleteDirectories(this.WorkingDir, true);
+            DeleteFiles(this.WorkingDir);
+            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
-            string fileName = "BULK"; // the path of the file.
-            string desc = GetReadWriteDesc(); // gets the description of the file (header).
-            const int charBlock = 16;
-
-            fileName = Path.Combine(this.WorkingDir, fileName + this.fileExt);
-            fileStream = File.Create(fileName);
-            writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8);
-            writer.Write(desc);
-
-            // Write each file.
-            for (ulong i = 0; i < this.rs.IterationsDiskReadWriteParse; i++) {
-                writer.Write(GetRandomString(charBlock));
-            }
-
-            writer.Close();
-            sr = new StreamReader(fileName);
-
-            // Read each file.
-            while (!sr.EndOfStream) {
-                sr.Read();
-            }
-
-            sr.Close();
             sw.Stop();
             return sw.Elapsed;
         }
@@ -234,7 +202,11 @@ namespace PC_Ripper_Benchmark.function {
         private TimeSpan RunDiskRipper() {
             var sw = Stopwatch.StartNew();
 
-
+            GenerateConfigFile(this.WorkingDir, TestName.DISKRipper);
+            DiskRipperSnapshot(this.WorkingDir);
+            DeleteDirectories(this.WorkingDir, true);
+            DeleteFiles(this.WorkingDir);
+            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
             sw.Stop();
             return sw.Elapsed;
@@ -364,7 +336,7 @@ namespace PC_Ripper_Benchmark.function {
 
             // create a file config.ripperblk with a description in it.
             try {
-                fileName = Path.Combine(path, "config" + this.fileExt);
+                fileName = Path.Combine(path, "config." + this.fileExt);
 
                 writer = new StreamWriter(fileName, true);
                 writer.Write(GetBulkFileDesc());
@@ -424,13 +396,15 @@ namespace PC_Ripper_Benchmark.function {
         /// and reports them as a <see cref="MessageBox"/>
         /// to the caller.</para>
         /// </summary>
+        /// <param name="path">The path to create 
+        /// subdirectories within.</param>
 
-        private void FolderMatrixSnapshot() {
+        private void FolderMatrixSnapshot(string path) {
             DirectoryInfo directoryInfo;
 
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
                 try {
-                    directoryInfo = Directory.CreateDirectory(Path.Combine(this.WorkingDir, u.ToString()));
+                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, u.ToString()));
                 } catch (Exception e) {
                     MessageBox.Show($"{u} failed. {e.ToString()}");
                     continue;
@@ -441,8 +415,10 @@ namespace PC_Ripper_Benchmark.function {
         /// <summary>
         /// Creates .ripperblk files in a directory.
         /// </summary>
+        /// <param name="path">The path to create 
+        /// files within.</param>
 
-        private void BulkFileSnapshot() {
+        private void BulkFileSnapshot(string path) {
             FileStream fileStream;
             Random rnd = new Random();
             StreamReader sr;
@@ -452,7 +428,7 @@ namespace PC_Ripper_Benchmark.function {
 
             // Write each file.
             for (ulong u = 0; u < this.rs.IterationsDiskBulkFile; u++) {
-                fileName = Path.Combine(this.WorkingDir, u.ToString() + this.fileExt);
+                fileName = Path.Combine(path, $"{u.ToString()}.{this.fileExt}");
 
                 try {
                     fileStream = File.Create(fileName);
@@ -474,6 +450,74 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
+        /// Creates a large file with
+        /// N random number iterations inside.
+        /// </summary>
+        /// <param name="path">The directory to 
+        /// create the file in.</param>
+
+        private void ReadWriteSnapshot(string path) {
+            FileStream fileStream;
+            Random rnd = new Random();
+            StreamReader sr;
+            StreamWriter writer;
+
+            string filePath = Path.Combine(path, $"BULK.{this.fileExt}");
+
+            try {
+                fileStream = File.Create(filePath);
+                writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8) {
+                    AutoFlush = true
+                };
+
+                // Write each file.
+                for (ulong i = 0; i < this.rs.IterationsDiskReadWriteParse; i++) {
+                    writer.Write(rnd.Next());
+                }
+
+                writer.Close();
+                sr = new StreamReader(filePath);
+
+                // Read each file.
+                while (!sr.EndOfStream) {
+                    sr.Read();
+                }
+
+                sr.Close();
+            } catch {
+
+            }
+        }
+
+        /// <summary>
+        /// Creates a large file with
+        /// N random number iterations inside.
+        /// </summary>
+        /// <param name="path">The directory to 
+        /// create directories and files within.</param>
+
+        private void DiskRipperSnapshot(string path) {
+            FolderMatrixSnapshot(path);
+
+            DirectoryInfo d = new DirectoryInfo(path);
+            DirectoryInfo[] directories = d.GetDirectories($"*");
+
+            ulong u = 0;
+            foreach (DirectoryInfo dir in directories) {
+                try {
+                    // creates a DiskRipper file in every directory from
+                    // FolderMatrix algorithm.
+                    FileStream fs = File.Create(Path.Combine(path, u.ToString(),
+                        $"DiskRipper{u.ToString()}.{this.fileExt}"));
+                    u++;
+                } catch (Exception e) {
+                    MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
         /// Delete directories used for cleaning up the disk after
         /// the tests.
         /// </summary>
@@ -488,6 +532,27 @@ namespace PC_Ripper_Benchmark.function {
             foreach (DirectoryInfo dir in directories) {
                 try {
                     Directory.Delete(dir.FullName, recursiveDelete);
+                } catch (Exception e) {
+                    MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete files in a directory used for 
+        /// cleaning up the disk afterthe tests.
+        /// </summary>
+        /// <param name="path">The path to delete 
+        /// files within.</param>
+
+        private void DeleteFiles(string path) {
+            DirectoryInfo d = new DirectoryInfo(path);
+            FileInfo[] Files = d.GetFiles($"*");
+
+            foreach (FileInfo dir in Files) {
+                try {
+                    File.Delete(dir.FullName);
                 } catch (Exception e) {
                     MessageBox.Show($"Error deleting the directory!" + e.ToString());
                     continue;
