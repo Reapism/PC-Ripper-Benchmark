@@ -103,7 +103,7 @@ namespace PC_Ripper_Benchmark.function {
         /// <exception cref="ArgumentOutOfRangeException"></exception>
 
         private string GetRandomString(int length) {
-            Random rnd = new Random();
+            Random rnd = new Random((int)DateTime.Now.Ticks);
             string rndStr = string.Empty;
 
             if (length < 1) {
@@ -115,8 +115,6 @@ namespace PC_Ripper_Benchmark.function {
             }
 
             return rndStr;
-
-
         }
 
         /// <summary>
@@ -212,7 +210,7 @@ namespace PC_Ripper_Benchmark.function {
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
                 dirName = GetRandomString(dirNameLength);
                 try {
-                    directoryInfo = Directory.CreateDirectory(this.WorkingDir + dirName);
+                    directoryInfo = Directory.CreateDirectory(Path.Combine(this.WorkingDir, u.ToString()));
                 } catch (Exception e) {
                     MessageBox.Show($"{u} {dirName} failed. {e.ToString()}");
                 }
@@ -249,6 +247,7 @@ namespace PC_Ripper_Benchmark.function {
             Random rnd = new Random();
             StreamReader sr;
             StreamWriter writer;
+            StreamWriter writer2;
 
             string fileName; // the path of the file.
             const string fileExt = ".ripperblk"; // file extension for file.
@@ -256,13 +255,14 @@ namespace PC_Ripper_Benchmark.function {
 
             // create a file config.ripperblk with a description in it.
             fileName = this.WorkingDir + "config" + fileExt;
-            writer = new StreamWriter(fileName, true);
-            writer.Write(GetBulkFileDesc());
+            writer2 = new StreamWriter(fileName, true);
+            writer2.Write(GetBulkFileDesc());
+            writer2.Close();
 
-            for (ulong i = 0; i < this.rs.IterationsDiskBulkFile; i++) {
+            for (ulong u = 0; u < this.rs.IterationsDiskBulkFile; u++) {
                 // Write each file.
 
-                fileName = this.WorkingDir + GetRandomString(fileNameLength) + fileExt;
+                fileName = Path.Combine(this.WorkingDir, u.ToString() + fileExt);
 
                 try {
                     fileStream = File.Create(fileName);
@@ -274,18 +274,15 @@ namespace PC_Ripper_Benchmark.function {
 
                     writer.Write(rnd.Next().ToString());
 
-                    while (!sr.EndOfStream) {
-                        sr.Read();
-                    }
                 } catch (Exception e) {
                     throw new Exception("Oh no. We don't have jurisdiction in this directory.", e);
                 }
 
-                // Read each file.
-
-
-
+                writer.Flush();
+                writer.Close();
             }
+
+
 
             DirectoryInfo d = new DirectoryInfo(this.WorkingDir);
             FileInfo[] Files = d.GetFiles($"*{fileExt}");
@@ -315,16 +312,13 @@ namespace PC_Ripper_Benchmark.function {
             StreamReader sr;
             StreamWriter writer;
 
-            string fileName; // the path of the file.
+            string fileName = "BULK"; // the path of the file.
             string desc = GetReadWriteDesc(); // gets the description of the file (header).
             const string fileExt = ".ripperblk"; // file extension for file.
-            const int fileNameLength = 8; // the length of the random name.
             const int charBlock = 16;
 
-
-            fileName = this.WorkingDir + GetRandomString(fileNameLength) + fileExt;
+            fileName = Path.Combine(this.WorkingDir, fileName, fileExt);
             fileStream = File.Create(fileName);
-            sr = new StreamReader(fileStream, true);
             writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8);
             writer.Write(desc);
 
@@ -333,10 +327,15 @@ namespace PC_Ripper_Benchmark.function {
                 writer.Write(GetRandomString(charBlock));
             }
 
+            sr = new StreamReader(fileStream, true);
+
             // Read each file.
             while (!sr.EndOfStream) {
                 sr.Read();
             }
+
+            writer.Close();
+
 
             sw.Stop();
             return sw.Elapsed;
