@@ -1,4 +1,4 @@
-﻿<Window x:Name="windowCreateAccount" x:Class="PC_Ripper_Benchmark.CreateAccountWindow"
+﻿<Window x:Name="windowCreateAccount" x:Class="PC_Ripper_Benchmark.window.CreateAccountWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PC Ripper Benchmark" Height="731.5" Width="413.5" FontSize="14" Background="#3E8DE6"
@@ -28,7 +28,8 @@
                 <ComboBoxItem Content="What is your fathers middle name?" HorizontalAlignment="Center"/>
             </ComboBox>
             <TextBox Name="securityQuestionTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyUp="SecurityQuestionTextBox_KeyUp"/>
-            <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 30" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" KeyUp="CreateAccountSubmitButton_KeyUp" Height="36"/>
+            <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 15" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" KeyUp="CreateAccountSubmitButton_KeyUp" Height="36"/>
+            <Button x:Name="loginButton" Content="Login" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" Click="loginButton_Click" Height="36" KeyUp="LoginButton_KeyUp"/>
         </StackPanel>
     </Border>
 </Window>

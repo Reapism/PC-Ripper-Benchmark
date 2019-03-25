@@ -60,6 +60,7 @@ namespace PC_Ripper_Benchmark.database {
                     CommandType = CommandType.StoredProcedure
                 };
 
+                connection.Open();
                 addUser.Parameters.AddWithValue("@FirstName", user.FirstName.Trim());
                 addUser.Parameters.AddWithValue("@LastName", user.LastName.Trim());
                 addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
@@ -67,6 +68,7 @@ namespace PC_Ripper_Benchmark.database {
                 addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
 
                 addUser.ExecuteNonQuery();
+                connection.Close();
                 MessageBox.Show("Registration Successful");
             } catch (SqlException) {
                 MessageBox.Show("An account with that email already exists!");
@@ -81,6 +83,8 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
 
         public void CheckAccountExists(SqlConnection connection, string email, string password) {
+            connection.Open();
+
             util.Encryption encrypter = new util.Encryption();
 
             SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
@@ -89,8 +93,6 @@ namespace PC_Ripper_Benchmark.database {
 
             checkAccount.Parameters.AddWithValue("@Email", email);
             checkAccount.Parameters.AddWithValue("@Password", password);
-
-            connection.Open(); 
             checkAccount.ExecuteNonQuery();
 
             SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);

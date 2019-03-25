@@ -7,7 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Runtime.Serialization.Json;
 
-namespace PC_Ripper_Benchmark {
+namespace PC_Ripper_Benchmark.window {
     /// <summary>
     /// The <see cref="CreateAccountWindow"/> class.
     /// <para></para>
@@ -16,12 +16,14 @@ namespace PC_Ripper_Benchmark {
     /// <para>Author: David Hartglass (c), all rights reserved.</para>
     /// </summary>
     public partial class CreateAccountWindow : Window {
+
         //Global window settings class object
         function.WindowSettings settings = new function.WindowSettings();
 
         Popup codePopup = new Popup();
         TextBlock popupContent = new TextBlock();
         function.WindowSettings windowSettings = new function.WindowSettings();
+        
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
         /// <para>Creates a window of type CreateWindow
@@ -502,9 +504,38 @@ namespace PC_Ripper_Benchmark {
             {
                 securityQuestionTextBox.Focus();
                 e.Handled = true;
+            }          
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                loginButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                loginButton.Focus();
+                e.Handled = true;
             }
         }
 
+        private void LoginButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                createAccountSubmitButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                loginButton.Focus();
+                e.Handled = true;
+            }           
+        }
         #endregion
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new window.LoginWindow();
+            this.windowSettings.transitionScreen(window, this);
+        }
     }
 }

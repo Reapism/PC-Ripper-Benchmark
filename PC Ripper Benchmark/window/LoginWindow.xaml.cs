@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace PC_Ripper_Benchmark {
+namespace PC_Ripper_Benchmark.window {
 
     /// <summary>
     /// Interaction logic for <see cref="LoginWindow"/>
