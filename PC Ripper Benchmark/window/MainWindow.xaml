@@ -65,7 +65,7 @@
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgCPUBoolean" Height="100" Margin="-300,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_bool.png" ToolTip="The boolean logic algorithm compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUBoolean" Height="100" Margin="-300,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_bool.png" ToolTip="The boolean logic algorithm compares two random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
