@@ -1,4 +1,5 @@
 ﻿using PC_Ripper_Benchmark.exception;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
@@ -83,7 +84,12 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
 
         public void CheckAccountExists(SqlConnection connection, string email, string password) {
-            connection.Open();
+            try {
+                connection.Open();
+            } catch (Exception e) {
+                throw new RipperDatabaseException($"Oh no. A RipperDatabaseException occured. {e.ToString}");
+            }
+            
 
             util.Encryption encrypter = new util.Encryption();
 
