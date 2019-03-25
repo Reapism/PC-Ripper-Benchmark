@@ -147,7 +147,7 @@ namespace PC_Ripper_Benchmark.window {
                 if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser))
                 {
                     window.LoginWindow loginWindow = new window.LoginWindow();
-                    this.windowSettings.transitionScreen(loginWindow, this);
+                    this.windowSettings.TransitionScreen(loginWindow, this);
                 }
             }
             #endregion
@@ -538,7 +538,7 @@ namespace PC_Ripper_Benchmark.window {
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             Window window = new window.LoginWindow();
-            this.windowSettings.transitionScreen(window, this);
+            this.windowSettings.TransitionScreen(window, this);
         }
     }
 }
