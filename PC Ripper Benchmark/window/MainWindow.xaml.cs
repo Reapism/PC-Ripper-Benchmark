@@ -23,7 +23,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private RipperSettings rs;
         private Tab testToRun;
-
+        private string workingDir; 
         #endregion
 
         #region Constructor(s) and method(s).
@@ -34,15 +34,15 @@ namespace PC_Ripper_Benchmark.window {
 
         public MainWindow() {
             InitializeComponent();
-
+            this.testToRun = Tab.WELCOME;
             this.rs = new RipperSettings();
+
             Style s = new Style();
             s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
 
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
-
-            this.testToRun = Tab.WELCOME;
+            this.btnDiskRunTest.IsEnabled = false;      
         }
 
         /// <summary>
@@ -213,7 +213,6 @@ namespace PC_Ripper_Benchmark.window {
             // we need to wait for it.
 
             this.txtResults.Document.Blocks.Clear();
-            ShowTabWindow(Tab.RUNNING_TEST);
 
             try {
                 this.Dispatcher.Invoke(() => {
@@ -235,7 +234,9 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void RunDISKTest() {
-            DiskFunctions disk = new DiskFunctions(ref this.rs);
+            DiskFunctions disk = new DiskFunctions(ref this.rs) {
+                WorkingDir = this.workingDir
+            };
             DiskResults results = new DiskResults(this.rs);
 
             ThreadType threadType;
@@ -259,7 +260,6 @@ namespace PC_Ripper_Benchmark.window {
             // we need to wait for it.
 
             this.txtResults.Document.Blocks.Clear();
-            ShowTabWindow(Tab.RUNNING_TEST);
 
             try {
                 this.Dispatcher.Invoke(() => {
@@ -298,6 +298,18 @@ namespace PC_Ripper_Benchmark.window {
                 }
 
             }
+        }
+
+        private void ValidDirectory(string path) {
+            this.btnDiskRunTest.IsEnabled = true;
+            this.txtBlkWorkingDir.Text = $"Working Directory Path: {path}";
+            this.txtBlkWorkingDir.Foreground = Brushes.DarkOliveGreen;
+        }
+
+        private void InvalidDirectory(string path) {
+            this.btnDiskRunTest.IsEnabled = false;
+            this.txtBlkWorkingDir.Text = $"Invalid path: {path}";
+            this.txtBlkWorkingDir.Foreground = Brushes.LightSalmon;
         }
 
         #endregion
@@ -377,6 +389,18 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnRunTheTest_Click(object sender, RoutedEventArgs e) {
             RunTest();
+        }
+
+        private void BtnBrowseWorkingDir_Click(object sender, RoutedEventArgs e) {
+            // if path is good.
+            var disk = new DiskFunctions(ref this.rs);
+
+            if (disk.SetWorkingDirectory(out string path)) {
+                workingDir = path;
+                ValidDirectory(path);
+            } else {
+                InvalidDirectory(path);
+            }
         }
 
         #endregion

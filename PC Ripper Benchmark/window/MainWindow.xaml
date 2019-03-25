@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
-        Title="PC Ripper Benchmark Tool" Height="450" Width="800" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="800" MinHeight="450" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico">
+        Title="PC Ripper Benchmark Tool" Height="650" Width="1000" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="997" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico">
     <Grid x:Name="grdMain" Margin="0" MinHeight="420" MinWidth="790">
         <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="50" Background="#BF84B8E4" MinHeight="400" VerticalAlignment="Stretch" Width="150">
             <StackPanel x:Name="stkNavigation" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" MinWidth="150" MinHeight="420" Height="322"/>
@@ -50,37 +50,37 @@
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <StackPanel x:Name="stkCPU" Margin="0,6,0,237" MinHeight="60">
+                        <StackPanel x:Name="stkCPU" Margin="0,6,0,453" MinHeight="60">
                             <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdCPUTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636">
+                        <Grid x:Name="grdCPUTests" Margin="0,65,0,104" MinHeight="110" MinWidth="636">
                             <Grid.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#7F000000" Offset="0"/>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#38000000" Offset="0"/>
                                     <GradientStop Color="#33FFFFFF" Offset="1"/>
-                                </LinearGradientBrush>
+                                </RadialGradientBrush>
                             </Grid.Background>
-                            <Image x:Name="imgCPUSuccessorship" Margin="-500,10,0,0" Source="/PC Ripper Benchmark;component/resources/cpu_successorship.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                            <Image x:Name="imgCPUSuccessorship" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/cpu_successorship.png" ToolTip="The successorship algorithm runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgCPUBoolean" Height="100" Margin="-250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_bool.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUBoolean" Height="100" Margin="-300,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_bool.png" ToolTip="The boolean logic algorithm compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgCPUQueue" Height="100" Margin="0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_queue.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUQueue" Height="100" Margin="0,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_queue.png" ToolTip="The queue data structure algorithm adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgCPULinkedList" Height="100" Margin="250,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_list.png" ToolTip="The linked list data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPULinkedList" Height="100" Margin="300,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_list.png" ToolTip="The linked list data structure algorithm tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgCPUTree" Height="100" Margin="500,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_tree.png" ToolTip="The tree data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUTree" Height="100" Margin="600,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_tree.png" ToolTip="The tree data structure algorithms adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
@@ -108,30 +108,33 @@
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <StackPanel x:Name="stkDisk" Margin="0,6,0,237" MinHeight="60">
+                        <StackPanel x:Name="stkDisk" Margin="0,6,0,465" MinHeight="60">
                             <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdDiskTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636">
-                            <Image x:Name="imgDiskFolderMatrix" Margin="-400,10,0,0" Source="/PC Ripper Benchmark;component/resources/disk_foldermatrix.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                        <Grid x:Name="grdDiskTests" Margin="0,65,0,100" MinHeight="110" MinWidth="636">
+                            <Image x:Name="imgDiskFolderMatrix" Margin="-600,10,0,100" Source="/PC Ripper Benchmark;component/resources/disk_foldermatrix.png" ToolTip="The FolderMatrix algorithm generates folders in the working directory and reads them back." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgDiskBulkFile" Height="100" Margin="-125,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_bulkfile.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgDiskBulkFile" Height="100" Margin="-200,10,0,100" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_bulkfile.png" ToolTip="The BulkFile algorithm creates files and write data to them in the directories FolderMatrix creates." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgDiskReferenceDereference" Height="100" Margin="150,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_readwrite.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgDiskReferenceDereference" Height="100" Margin="200,10,0,100" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_readwrite.png" ToolTip="The Read&amp;WriteParse algorithm writes a single large file in the working directory and reads it back into memory from the filesystem." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgDiskRipper" Height="100" Margin="425,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_ripper.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgDiskRipper" Height="100" Margin="600,10,0,100" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_ripper.png" ToolTip="The DiskRipper algorithm runs the BulkFile algorithm on every directory generated by the FolderMatrix algorithm. [Very Intensive Task] " MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15"/>
                                 </Image.Effect>
                             </Image>
+                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="0,0,0,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed:" VerticalAlignment="Bottom" FontSize="16"/>
+                            <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Center" Margin="0,0,500,66" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="20" MinWidth="75" Click="BtnBrowseWorkingDir_Click"/>
+                            <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,23" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="16"/>
                         </Grid>
                         <Grid x:Name="grdDiskResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtDiskChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
@@ -139,6 +142,7 @@
                             <RadioButton x:Name="radDiskMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
                             <Button x:Name="btnDiskRunTest" Content="Run the DISK test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnDiskRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
                         </Grid>
+
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabRAM" Header="RAM">
@@ -149,21 +153,21 @@
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <StackPanel x:Name="stkRAM" Margin="0,6,0,237" MinHeight="60">
+                        <StackPanel x:Name="stkRAM" Margin="0,6,0,464" MinHeight="60">
                             <TextBlock x:Name="txtRAMWelcome" TextWrapping="Wrap" Text="Welcome to the RAM benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdRAMTests" Margin="0,65,0,0" VerticalAlignment="Top" MinHeight="110" MinWidth="636">
-                            <Image x:Name="imgRamFolderMatrix" Margin="-400,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The successorship function runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                        <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636">
+                            <Image x:Name="imgRamFolderMatrix" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The VirtualFolderMatrix algorithm creates (N) virtual directories in memory with about (N / 2) virtual files in them and reads them back into memory." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgRamBulkFile" Height="100" Margin="0,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_bulkfile.png" ToolTip="The boolean logic test compares to random numbers and returns which one is greater than the other (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgRamBulkFile" Height="100" Margin="0,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_bulkfile.png" ToolTip="The VirtualBulkFile algorithm creates N virtual files in the memory and reads them back." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgRamReferenceDereference" Height="100" Margin="450,10,67,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_referencedereference.png" ToolTip="The queue data structure tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgRamReferenceDereference" Height="100" Margin="600,10,67,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_referencedereference.png" ToolTip="The ReferenceDereferenceParse algorithm creates RipperFiles in memory, finds them and deletes them." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
