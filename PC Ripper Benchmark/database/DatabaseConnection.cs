@@ -87,7 +87,7 @@ namespace PC_Ripper_Benchmark.database {
             try {
                 connection.Open();
             } catch (Exception e) {
-                throw new RipperDatabaseException($"Oh no. A RipperDatabaseException occured. {e.ToString}");
+                throw new RipperDatabaseException($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
             }
             
 
