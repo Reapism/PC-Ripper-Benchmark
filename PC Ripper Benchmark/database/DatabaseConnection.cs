@@ -74,7 +74,7 @@ namespace PC_Ripper_Benchmark.database {
 
                 return true;
             } catch (SqlException) {
-                
+
                 MessageBox.Show("An account with that email already exists!");
                 return false;
             }
@@ -88,8 +88,7 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
 
         public bool CheckAccountExists(SqlConnection connection, string email, string password) {
-            try
-            {
+            try {
                 connection.Open();
 
                 util.Encryption encrypter = new util.Encryption();
@@ -108,24 +107,20 @@ namespace PC_Ripper_Benchmark.database {
 
                 int count = ds.Tables[0].Rows.Count;
 
-                if (count == 1)
-                {
+                if (count == 1) {
                     window.MainWindow mainWindow = new window.MainWindow();
                     mainWindow.Show();
                     connection.Close();
                     return true;
-                }
-                else
-                {
+                } else {
                     MessageBox.Show("Invalid login!");
                     connection.Close();
                     return false;
                 }
+            } catch (Exception e) {
+                MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
+                return false;
             }
-            catch (Exception e)
-            {
-                throw new RipperDatabaseException($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
-            }         
         }
     }
 }
