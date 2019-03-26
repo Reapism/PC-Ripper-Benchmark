@@ -2,10 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PC Ripper Benchmark" Height="731" Width="413.5" FontSize="14" Background="#17b79a"
-        MinHeight="600" MinWidth="385" MaxWidth="400" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" WindowStartupLocation="CenterScreen" AllowDrop="True">
+        MinHeight="715" MinWidth="385" MaxWidth="400" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" WindowStartupLocation="CenterScreen" AllowDrop="True">
 
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
-        <StackPanel Margin="20,100,20,59">
+        <StackPanel Margin="20,10">
+            <Image x:Name="image" Height="100" Margin="100,30" Source="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico"/>
             <Label Content="Welcome" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Email" Foreground="White"/>
