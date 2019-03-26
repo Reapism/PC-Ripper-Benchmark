@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using System.Runtime.Serialization.Json;
 
 namespace PC_Ripper_Benchmark.window {
     /// <summary>
@@ -23,7 +21,7 @@ namespace PC_Ripper_Benchmark.window {
         Popup codePopup = new Popup();
         TextBlock popupContent = new TextBlock();
         function.WindowSettings windowSettings = new function.WindowSettings();
-        
+
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
         /// <para>Creates a window of type CreateWindow
@@ -31,7 +29,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         public CreateAccountWindow() {
-            InitializeComponent();         
+            InitializeComponent();
             this.settings.CenterWindowOnScreen(this.windowCreateAccount);
             this.firstNameTextBox.Focus();
         }
@@ -64,45 +62,39 @@ namespace PC_Ripper_Benchmark.window {
             if (string.IsNullOrWhiteSpace(this.confirmUserPasswordBox.Password)) {
                 errorMessage += " \"Password\" ";
             } else if (this.confirmUserPasswordBox.Password != this.userPasswordBox.Password) {
-                MessageBox.Show("Password do not match. Please try again.");
+                MessageBox.Show("Password do not match. Please try again.", "Invalid Password", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             if (!(errorMessage == null)) {
-                MessageBox.Show($"{errorMessage} field(s) missing value");
+                MessageBox.Show($"{errorMessage} field(s) missing value", "Invalid Fields", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             #endregion
             #region Regular Expression Checks
 
             if (!util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
-                MessageBox.Show("Invalid email!");
                 this.emailTextBox.Focus();
             }
 
 
             if (!util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
-                MessageBox.Show("Invalid phone number!");
                 this.phoneTextBox.Focus();
             }
 
             if (!util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password)) {
-                MessageBox.Show("Invalid password!");
                 this.userPasswordBox.Focus();
 
             }
 
             if (this.userPasswordBox.Password != this.confirmUserPasswordBox.Password) {
-                lblConfirmPassword.Content = "Passwords don't match";
-                lblConfirmPassword.Visibility = Visibility.Visible;
+                this.lblConfirmPassword.Visibility = Visibility.Visible;
                 this.confirmUserPasswordBox.Focus();
             }
 
             if (!util.RegexUtilities.IsValidName(this.firstNameTextBox.Text)) {
-                MessageBox.Show("Invalid characters in first name!");
                 this.firstNameTextBox.Focus();
             }
 
             if (!util.RegexUtilities.IsValidName(this.lastNameTextBox.Text)) {
-                MessageBox.Show("Invalid characters in last name!");
                 this.lastNameTextBox.Focus();
             }
 
@@ -126,7 +118,7 @@ namespace PC_Ripper_Benchmark.window {
                     LastName = encrypter.EncryptText(this.lastNameTextBox.Text),
                     Email = encrypter.EncryptText(this.emailTextBox.Text),
                     PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
-                    Password = encrypter.EncryptText(this.userPasswordBox.Password)                                     
+                    Password = encrypter.EncryptText(this.userPasswordBox.Password)
                 };
 
                 //SQL Connection String
@@ -143,10 +135,9 @@ namespace PC_Ripper_Benchmark.window {
                 };
 
                 //Open database connection and send that data to the database hashed.
-                database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);
+                database.DatabaseConnection dbConnection = new database.DatabaseConnection(connectionString.ConnectionString);
 
-                if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser))
-                {
+                if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser)) {
                     LoginWindow loginWindow = new LoginWindow();
                     this.windowSettings.TransitionScreen(loginWindow, this);
                 }
@@ -331,20 +322,19 @@ namespace PC_Ripper_Benchmark.window {
             if (this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
 
                 //If the password matches, set passwords match label to green border and visible
-                lblPasswordsMatch.Content = "Passwords match";
-                lblPasswordsMatch.Visibility = Visibility.Visible;
-                lblPasswordsMatch.Background = Brushes.Green;
-            
+                this.lblPasswordsMatch.Content = "Passwords match";
+                this.lblPasswordsMatch.Visibility = Visibility.Visible;
+                this.lblPasswordsMatch.Background = Brushes.Green;
+
                 //Confirm password box turns green
                 this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmUserPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else {
+            } else {
 
                 //If the password does not match, set passwords match label to visible;
-                lblPasswordsMatch.Content = "Passwords don't match";
-                lblPasswordsMatch.Visibility = Visibility.Visible;
-                lblPasswordsMatch.Background = Brushes.Red;
+                this.lblPasswordsMatch.Content = "Passwords don't match";
+                this.lblPasswordsMatch.Visibility = Visibility.Visible;
+                this.lblPasswordsMatch.Background = Brushes.Red;
 
 
                 //Confirm password box turns red
@@ -355,189 +345,132 @@ namespace PC_Ripper_Benchmark.window {
         #endregion
 
         #region KeyUp Events
-        private void FirstNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Down)
-            {
-                lastNameTextBox.Focus();
+        private void FirstNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Down) {
+                this.lastNameTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                lastNameTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.lastNameTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void LastNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                firstNameTextBox.Focus();
+        private void LastNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.firstNameTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                emailTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.emailTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                emailTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.emailTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void EmailTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                lastNameTextBox.Focus();
+        private void EmailTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.lastNameTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                phoneTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.phoneTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                phoneTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.phoneTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void PhoneTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                emailTextBox.Focus();
+        private void PhoneTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.emailTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                userPasswordBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.userPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                userPasswordBox.Focus();
-                e.Handled = true;
-            }
-        }
-             
-        private void UserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                phoneTextBox.Focus();
-                e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                confirmUserPasswordBox.Focus();
-                e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                confirmUserPasswordBox.Focus();
-                e.Handled = true;
-            }
-        }    
-        
-        private void ConfirmUserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                userPasswordBox.Focus();
-                e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                securityQuestionComboBox.Focus();
-                e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                securityQuestionComboBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.userPasswordBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void SecurityQuestionComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                confirmUserPasswordBox.Focus();
+        private void UserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.phoneTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                securityQuestionTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.confirmUserPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                securityQuestionTextBox.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.confirmUserPasswordBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void SecurityQuestionTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                securityQuestionComboBox.Focus();
+        private void ConfirmUserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.userPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                createAccountSubmitButton.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.securityQuestionComboBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                createAccountSubmitButton.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.securityQuestionComboBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void CreateAccountSubmitButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                securityQuestionTextBox.Focus();
+        private void SecurityQuestionComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.confirmUserPasswordBox.Focus();
                 e.Handled = true;
-            }          
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                loginButton.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.securityQuestionTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
-                loginButton.Focus();
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.securityQuestionTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void LoginButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                createAccountSubmitButton.Focus();
+        private void SecurityQuestionTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.securityQuestionComboBox.Focus();
+                e.Handled = true;
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.createAccountSubmitButton.Focus();
+                e.Handled = true;
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.createAccountSubmitButton.Focus();
                 e.Handled = true;
             }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                loginButton.Focus();
+        }
+
+        private void CreateAccountSubmitButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.securityQuestionTextBox.Focus();
                 e.Handled = true;
-            }           
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.loginButton.Focus();
+                e.Handled = true;
+            } else if (e.Key == System.Windows.Input.Key.Down) {
+                this.loginButton.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void LoginButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
+                this.createAccountSubmitButton.Focus();
+                e.Handled = true;
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
+                this.loginButton.Focus();
+                e.Handled = true;
+            }
         }
         #endregion
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void LoginButton_Click(object sender, RoutedEventArgs e) {
             Window window = new LoginWindow();
             this.windowSettings.TransitionScreen(window, this);
         }

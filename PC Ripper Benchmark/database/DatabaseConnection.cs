@@ -75,7 +75,7 @@ namespace PC_Ripper_Benchmark.database {
                 return true;
             } catch (SqlException e) {
                 Clipboard.SetText(e.ToString());
-                MessageBox.Show($"An account with that email already exists! {e.ToString()}");
+                MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
         }
@@ -113,7 +113,7 @@ namespace PC_Ripper_Benchmark.database {
                     connection.Close();
                     return true;
                 } else {
-                    MessageBox.Show("Invalid login!");
+                    MessageBox.Show("Invalid login!", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                     connection.Close();
                     return false;
                 }
