@@ -209,5 +209,10 @@
   <ItemGroup>
     <Resource Include="resources\ram_referencedereference.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\preloader_urls.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

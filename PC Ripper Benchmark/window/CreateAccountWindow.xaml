@@ -33,7 +33,7 @@
             </ComboBox>
             <TextBox Name="securityQuestionTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyUp="SecurityQuestionTextBox_KeyUp" BorderThickness="3" ToolTip="Answer to your security question"/>
             <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 15" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" KeyUp="CreateAccountSubmitButton_KeyUp" Height="36"/>
-            <Button x:Name="loginButton" Content="Go Back" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" Click="loginButton_Click" Height="36" KeyUp="LoginButton_KeyUp"/>
+            <Button x:Name="loginButton" Content="Go Back" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click" Height="36" KeyUp="LoginButton_KeyUp"/>
         </StackPanel>
     </Border>
 </Window>
