@@ -3,7 +3,9 @@ using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -56,44 +58,91 @@ namespace PC_Ripper_Benchmark.window {
             switch (theTab) {
                 case Tab.WELCOME: {
                     this.tabComponents.SelectedIndex = (int)Tab.WELCOME;
-                    return;
+                    break;
                 }
 
                 case Tab.CPU: {
                     this.tabComponents.SelectedIndex = (int)Tab.CPU;
-                    return;
+                    break;
                 }
 
                 case Tab.DISK: {
                     this.tabComponents.SelectedIndex = (int)Tab.DISK;
-                    return;
+                    break;
                 }
 
                 case Tab.RAM: {
                     this.tabComponents.SelectedIndex = (int)Tab.RAM;
-                    return;
+                    break;
                 }
 
                 case Tab.GPU: {
                     this.tabComponents.SelectedIndex = (int)Tab.GPU;
-                    return;
+                    break;
                 }
 
                 case Tab.SETTINGS: {
                     this.tabComponents.SelectedIndex = (int)Tab.SETTINGS;
-                    return;
+                    break;
                 }
 
                 case Tab.RESULTS: {
                     this.tabComponents.SelectedIndex = (int)Tab.RESULTS;
-                    return;
+                    break;
                 }
 
                 case Tab.RUNNING_TEST: {
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
-                    return;
+                    break;
+                }
+
+                default: {
+                    break;
                 }
             }
+            Random rnd = new Random();
+
+            Uri uri = ChoosePreloader();
+
+            if (uri != null) {
+                this.browserPreloader.Source = uri;
+            }
+
+        }
+
+        /// <summary>
+        /// Chooses a random preloader from the
+        /// resources/preloader_urls.txt file.
+        /// Returns a <see cref="Nullable{T}"/> 
+        /// <see cref="Uri"/>.
+        /// </summary>
+        /// <returns></returns>
+
+        private Uri ChoosePreloader() {
+            string path = Path.Combine(Directory.GetCurrentDirectory(),
+                "resources","preloader_urls.txt");
+            Uri uri;      
+            
+            try {
+                List<string> urls = new List<string>();
+                StreamReader sr = new StreamReader(path);
+                Random rnd = new Random();
+
+                int index = 0;
+
+                while (!sr.EndOfStream) {
+                    urls.Add(sr.ReadLine());
+                    index++;
+                }
+
+                uri = new Uri(urls[rnd.Next(index)]);
+               
+
+                return uri;
+            } catch {
+                return null;
+            }
+            
         }
 
         private void ExportResults(ExportType type) {
@@ -369,14 +418,6 @@ namespace PC_Ripper_Benchmark.window {
         private void BtnDiskRunTest_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RUNNING_TEST);
             this.testToRun = Tab.DISK;
-        }
-
-        private void MenuResultsExprtCSV_Click(object sender, RoutedEventArgs e) {
-            ExportResults(ExportType.CSV);
-        }
-
-        private void MenuResultsExprtHtml_Click(object sender, RoutedEventArgs e) {
-            ExportResults(ExportType.HTML);
         }
 
         private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {

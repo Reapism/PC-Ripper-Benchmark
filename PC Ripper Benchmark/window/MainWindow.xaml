@@ -132,7 +132,7 @@
                                     <DropShadowEffect BlurRadius="15"/>
                                 </Image.Effect>
                             </Image>
-                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed. Its recommended you put this in a new folder you create on your desktop for easy accessibility." VerticalAlignment="Bottom" FontSize="16"/>
+                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed. Its recommended you put this in a new folder you create on your desktop for easy accessibility." VerticalAlignment="Bottom" FontSize="16" Foreground="#FFF98787"/>
                             <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Center" Margin="0,0,500,66" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="20" MinWidth="75" Click="BtnBrowseWorkingDir_Click"/>
                             <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,23" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="16"/>
                         </Grid>
@@ -236,7 +236,8 @@
                                 <GradientStop Color="#FFF3C291"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Left" Margin="260,122,0,0" VerticalAlignment="Top" Width="308" Height="107" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
+                        <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Bottom" Width="308" Height="51" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
+                        <WebBrowser x:Name="browserPreloader" Margin="150,100" AutomationProperties.HelpText="Running the test..." OpacityMask="Black" Source="https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif" ScrollViewer.VerticalScrollBarVisibility="Hidden" MinWidth="300" MinHeight="300" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
                     </Grid>
                 </TabItem>
             </TabControl>
