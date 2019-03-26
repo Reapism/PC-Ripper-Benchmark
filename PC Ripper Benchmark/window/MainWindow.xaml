@@ -87,12 +87,6 @@
                             </Image>
                         </Grid>
                         <Grid x:Name="grdCPUResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
-                            <Grid.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#7F000000" Offset="0"/>
-                                    <GradientStop Offset="1"/>
-                                </LinearGradientBrush>
-                            </Grid.Background>
                             <TextBlock x:Name="txtCPUChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
                             <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
