@@ -73,9 +73,9 @@ namespace PC_Ripper_Benchmark.database {
                 MessageBox.Show("Registration Successful");
 
                 return true;
-            } catch (SqlException) {
-
-                MessageBox.Show("An account with that email already exists!");
+            } catch (SqlException e) {
+                Clipboard.SetText(e.ToString());
+                MessageBox.Show($"An account with that email already exists! {e.ToString()}");
                 return false;
             }
         }

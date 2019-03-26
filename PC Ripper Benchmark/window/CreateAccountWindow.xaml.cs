@@ -128,25 +128,26 @@ namespace PC_Ripper_Benchmark.window {
                     PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
                     Password = encrypter.EncryptText(this.userPasswordBox.Password)                                     
                 };
-                
+
                 //SQL Connection String
-                SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder();
-                connectionString.DataSource = "tcp:bcsproject.database.windows.net,1433";
-                connectionString.UserID = "Konrad100";
-                connectionString.Password = "Coolguy100";
-                connectionString.PersistSecurityInfo = false;
-                connectionString.InitialCatalog = "CPURipper";
-                connectionString.MultipleActiveResultSets = false;
-                connectionString.Encrypt = true;
-                connectionString.TrustServerCertificate = false;
-                connectionString.ConnectTimeout = 30;
+                SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder {
+                    DataSource = "tcp:bcsproject.database.windows.net,1433",
+                    UserID = "Konrad100",
+                    Password = "Coolguy100",
+                    PersistSecurityInfo = false,
+                    InitialCatalog = "CPURipper",
+                    MultipleActiveResultSets = false,
+                    Encrypt = true,
+                    TrustServerCertificate = false,
+                    ConnectTimeout = 30
+                };
 
                 //Open database connection and send that data to the database hashed.
                 database.DatabaseConnection dbConnection= new database.DatabaseConnection(connectionString.ConnectionString);
 
                 if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser))
                 {
-                    window.LoginWindow loginWindow = new window.LoginWindow();
+                    LoginWindow loginWindow = new LoginWindow();
                     this.windowSettings.TransitionScreen(loginWindow, this);
                 }
             }
@@ -535,9 +536,9 @@ namespace PC_Ripper_Benchmark.window {
         }
         #endregion
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            Window window = new window.LoginWindow();
+            Window window = new LoginWindow();
             this.windowSettings.TransitionScreen(window, this);
         }
     }

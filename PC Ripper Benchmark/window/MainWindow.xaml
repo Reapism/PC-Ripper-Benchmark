@@ -112,6 +112,12 @@
                             <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <Grid x:Name="grdDiskTests" Margin="0,65,0,100" MinHeight="110" MinWidth="636">
+                            <Grid.Background>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#FFF6FDF5" Offset="0"/>
+                                    <GradientStop Color="#FFF1FBE7" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Grid.Background>
                             <Image x:Name="imgDiskFolderMatrix" Margin="-600,10,0,100" Source="/PC Ripper Benchmark;component/resources/disk_foldermatrix.png" ToolTip="The FolderMatrix algorithm generates folders in the working directory and reads them back." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
@@ -157,6 +163,12 @@
                             <TextBlock x:Name="txtRAMWelcome" TextWrapping="Wrap" Text="Welcome to the RAM benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636">
+                            <Grid.Background>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#FFFFDFDF" Offset="1"/>
+                                    <GradientStop Color="#FFFDF2F2"/>
+                                </RadialGradientBrush>
+                            </Grid.Background>
                             <Image x:Name="imgRamFolderMatrix" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The VirtualFolderMatrix algorithm creates (N) virtual directories in memory with about (N / 2) virtual files in them and reads them back into memory." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>

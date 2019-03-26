@@ -166,7 +166,7 @@ namespace PC_Ripper_Benchmark.function {
 
             GenerateConfigFile(this.WorkingDir, TestName.DISKBulkFile);
             BulkFileSnapshot(this.WorkingDir);
-            DeleteDirectories(this.WorkingDir);
+            DeleteFiles(this.WorkingDir);
             DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
             sw.Stop();
