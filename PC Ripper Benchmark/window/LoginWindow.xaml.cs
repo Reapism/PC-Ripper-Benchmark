@@ -1,10 +1,8 @@
 ﻿using PC_Ripper_Benchmark.function;
-using PC_Ripper_Benchmark.window;
 using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
-using System.Windows.Media.Animation;
+using System.Windows.Input;
 
 namespace PC_Ripper_Benchmark.window {
 
@@ -21,7 +19,7 @@ namespace PC_Ripper_Benchmark.window {
         /// <summary>
         /// Default constructor for <see cref="LoginWindow"/>.
         /// </summary>
-        
+
         public LoginWindow() {
             InitializeComponent();
             //Change the progressbar visibilty to not show on screen
@@ -34,34 +32,30 @@ namespace PC_Ripper_Benchmark.window {
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
 
-            SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder();
-            stringBuilder.DataSource = "tcp:bcsproject.database.windows.net,1433";
-            stringBuilder.UserID = "Konrad100";
-            stringBuilder.Password = "Coolguy100";
-            stringBuilder.PersistSecurityInfo = false;
-            stringBuilder.InitialCatalog = "CPURipper";
-            stringBuilder.MultipleActiveResultSets = false;
-            stringBuilder.Encrypt = true;
-            stringBuilder.TrustServerCertificate = false;
-            stringBuilder.ConnectTimeout = 30;
+            SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder {
+                DataSource = "tcp:bcsproject.database.windows.net,1433",
+                UserID = "Konrad100",
+                Password = "Coolguy100",
+                PersistSecurityInfo = false,
+                InitialCatalog = "CPURipper",
+                MultipleActiveResultSets = false,
+                Encrypt = true,
+                TrustServerCertificate = false,
+                ConnectTimeout = 30
+            };
 
             SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
 
-            try
-            {
-                if (!newConnection.CheckAccountExists(connection, emailTextBox.Text, passwordTextBox.Password))
-                {
+            try {
+                if (!newConnection.CheckAccountExists(connection, this.emailTextBox.Text, this.passwordTextBox.Password)) {
                     Console.WriteLine("Good credentials");
+                } else {
+                    Close();
                 }
-                else {
-                    this.Close();
-                }
-               
-            }
-            catch (SqlException a)
-            {
+
+            } catch (SqlException a) {
                 MessageBox.Show(a.Errors.ToString());
                 connection.Close();
                 throw;
@@ -82,6 +76,10 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnTemp_Click(object sender, RoutedEventArgs e) {
             new MainWindow().Show();
+        }
+
+        private void PasswordTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == Key.Enter) { LoginButton_Click(sender, e); }
         }
     }
 }

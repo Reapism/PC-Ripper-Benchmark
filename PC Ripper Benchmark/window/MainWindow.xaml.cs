@@ -26,6 +26,7 @@ namespace PC_Ripper_Benchmark.window {
         private RipperSettings rs;
         private Tab testToRun;
         private string workingDir;
+
         #endregion
 
         #region Constructor(s) and method(s).
@@ -39,10 +40,10 @@ namespace PC_Ripper_Benchmark.window {
             this.testToRun = Tab.WELCOME;
             this.rs = new RipperSettings();
 
-            //Style s = new Style();
-            //s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+            Style s = new Style();
+            s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
 
-            //this.tabComponents.ItemContainerStyle = s;
+            this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
         }
