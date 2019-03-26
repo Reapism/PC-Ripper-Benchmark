@@ -1,8 +1,8 @@
 ﻿<Window x:Name="windowCreateAccount" x:Class="PC_Ripper_Benchmark.window.CreateAccountWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PC Ripper Benchmark" Height="720" Width="400" FontSize="14" Background="#3E8DE6"
-        MinHeight="720" MinWidth="400" MaxWidth="400" ResizeMode="CanMinimize" MaxHeight="720">
+        Title="PC Ripper Benchmark" Height="750" Width="400" FontSize="14" Background="#17b79a"
+        MinHeight="750" MinWidth="400" MaxWidth="400" ResizeMode="CanMinimize" MaxHeight="750">
 
     <Border x:Name="brdrBackground" Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel x:Name="stkCreateAccount" Margin="20,20,27,10">
