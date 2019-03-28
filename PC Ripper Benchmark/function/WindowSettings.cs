@@ -69,9 +69,11 @@ namespace PC_Ripper_Benchmark.function {
         /// Call this method to expand and contract the
         /// navigation bar in the <see cref="MainWindow"/>.
         /// </summary>
-        /// <param name="main"></param>
+        /// <param name="main">The <see cref="MainWindow"/> instance.</param>
 
         public void NavigationMenu(MainWindow main) {
+            DoubleAnimation animation = new DoubleAnimation();
+            DoubleAnimation animationSize = new DoubleAnimation();
 
             if (main.grdNavigation.Width == expanded) {
                 main.grdNavigation.Width = contracted;
@@ -102,6 +104,10 @@ namespace PC_Ripper_Benchmark.function {
                 main.btnDisk.Height = btnHeightExpanded ;
             }
 
+            animation.From = .5;
+            animation.To = 1;
+            animation.Duration = new Duration(TimeSpan.FromSeconds(1));
+            main.grdNavigation.BeginAnimation(UIElement.OpacityProperty, animation);
 
         }
     }

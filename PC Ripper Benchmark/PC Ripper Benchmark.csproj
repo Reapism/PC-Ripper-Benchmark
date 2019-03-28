@@ -81,6 +81,7 @@
     <Compile Include="exception\RipperDatabaseException.cs" />
     <Compile Include="function\DiskFunctions.cs" />
     <Compile Include="function\RamFunctions.cs" />
+    <Compile Include="function\SystemSettings.cs" />
     <Compile Include="util\DiskResults.cs" />
     <Compile Include="util\Encryption.cs" />
     <Compile Include="util\RamResults.cs" />
