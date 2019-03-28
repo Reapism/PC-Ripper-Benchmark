@@ -24,9 +24,10 @@ namespace PC_Ripper_Benchmark.window {
         #region Instance member(s), and enum(s).        
 
         private RipperSettings rs;
+        private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
-
+        
         #endregion
 
         #region Constructor(s) and method(s).
@@ -39,6 +40,7 @@ namespace PC_Ripper_Benchmark.window {
             InitializeComponent();
             this.testToRun = Tab.WELCOME;
             this.rs = new RipperSettings();
+            this.ws = new WindowSettings();
 
             Style s = new Style();
             s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
@@ -137,8 +139,7 @@ namespace PC_Ripper_Benchmark.window {
                 }
 
                 uri = new Uri(urls[rnd.Next(index)]);
-               
-
+              
                 return uri;
             } catch {
                 return null;
@@ -454,7 +455,11 @@ namespace PC_Ripper_Benchmark.window {
                 Clipboard.SetText(this.txtResults.Selection.Text);
             }
         }
-
+        
         #endregion
+
+        private void BtnMenu_Click(object sender, RoutedEventArgs e) {
+            this.ws.NavigationMenu(this);
+        }
     }
 }
