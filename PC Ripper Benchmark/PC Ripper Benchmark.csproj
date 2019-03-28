@@ -210,6 +210,7 @@
     <Resource Include="resources\ram_referencedereference.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="resources\menu.png" />
     <Content Include="resources\preloader_urls.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
