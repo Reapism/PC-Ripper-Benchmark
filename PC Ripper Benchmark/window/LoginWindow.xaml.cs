@@ -81,5 +81,11 @@ namespace PC_Ripper_Benchmark.window {
         private void PasswordTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == Key.Enter) { LoginButton_Click(sender, e); }
         }
+
+        private void LoginButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e) {
+            // DEBUG PURPOSES.
+            new MainWindow().Show();
+            Close();
+        }
     }
 }
