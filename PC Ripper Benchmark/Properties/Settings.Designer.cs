@@ -169,7 +169,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public ulong iter_disk_foldermatrix {
             get {
                 return ((ulong)(this["iter_disk_foldermatrix"]));
@@ -181,7 +181,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public ulong iter_disk_bulkfile {
             get {
                 return ((ulong)(this["iter_disk_bulkfile"]));
@@ -205,7 +205,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public ulong iter_disk_diskripper {
             get {
                 return ((ulong)(this["iter_disk_diskripper"]));
