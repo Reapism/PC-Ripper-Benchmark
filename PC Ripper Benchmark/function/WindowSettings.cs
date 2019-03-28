@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PC_Ripper_Benchmark.window;
+using System;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -11,7 +12,23 @@ namespace PC_Ripper_Benchmark.function {
     /// <para>Author: David Hartglass (c), all rights reserved.</para>
     /// </summary>
 
-    public partial class WindowSettings {
+    public class WindowSettings {
+
+        private const double expanded = 150.0;
+        private const double contracted = 50.0;
+        private const double grdWindowTopThickness = 100.0;
+
+        private const double btnWidthExpanded = 130;
+        private const double btnWidthContracted = 30;
+
+        private const double btnHeightExpanded = 70;
+        private const double btnHeightContracted = 30;
+
+        private bool isNavigationShown;
+        public WindowSettings() {
+            this.isNavigationShown = false;
+        }
+
         /// <summary>
         /// Method in <see cref="WindowSettings"/>.
         /// <para>Centers the window on the screen</para>
@@ -46,6 +63,46 @@ namespace PC_Ripper_Benchmark.function {
             animation.Duration = new Duration(TimeSpan.FromSeconds(1));
             destinationWindow.BeginAnimation(UIElement.OpacityProperty, animation);
             currentWindow.Close();
+        }
+
+        /// <summary>
+        /// Call this method to expand and contract the
+        /// navigation bar in the <see cref="MainWindow"/>.
+        /// </summary>
+        /// <param name="main"></param>
+
+        public void NavigationMenu(MainWindow main) {
+
+            if (main.grdNavigation.Width == expanded) {
+                main.grdNavigation.Width = contracted;
+                main.grdTop.Margin = new Thickness(contracted, 0, 0, 0);
+                main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
+
+                main.btnCPU.Width = btnWidthContracted;
+                main.btnCPU.Height = btnHeightContracted;
+
+                main.btnRAM.Width = btnWidthContracted;
+                main.btnRAM.Height = btnHeightContracted;
+
+                main.btnDisk.Width = btnWidthContracted;
+                main.btnDisk.Height = btnHeightContracted;
+
+            } else {
+                main.grdNavigation.Width = expanded;
+                main.grdTop.Margin = new Thickness(expanded, 0, 0, 0);
+                main.grdWindow.Margin = new Thickness(expanded, grdWindowTopThickness, 0, 0);
+
+                main.btnCPU.Width = btnWidthExpanded;
+                main.btnCPU.Height = btnHeightExpanded;
+
+                main.btnRAM.Width = btnWidthExpanded;
+                main.btnRAM.Height = btnHeightExpanded;
+
+                main.btnDisk.Width = btnWidthExpanded;
+                main.btnDisk.Height = btnHeightExpanded ;
+            }
+
+
         }
     }
 }
