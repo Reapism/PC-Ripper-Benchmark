@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
-
+using System.Net;
 namespace PC_Ripper_Benchmark.database {
 
     /// <summary>
@@ -24,6 +24,8 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
 
         public SqlConnection Connection { get; set; }
+
+        function.Networkfuncs networkConnection = new function.Networkfuncs();
 
         /// <summary>
         /// Default constructor. Sets the connection string.
@@ -54,25 +56,36 @@ namespace PC_Ripper_Benchmark.database {
         /// insert into the database using a stored
         /// procedure
         /// </summary>
-
+        
         public bool AddUserToDatabase(SqlConnection connection, util.UserData user) {
+           
             try {
-                SqlCommand addUser = new SqlCommand("UserAdd", connection) {
-                    CommandType = CommandType.StoredProcedure
-                };
+                if (networkConnection.CheckInternetConnection() == true)
+                {
+                    SqlCommand addUser = new SqlCommand("UserAdd", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
-                connection.Open();
-                addUser.Parameters.AddWithValue("@FirstName", user.FirstName.Trim());
-                addUser.Parameters.AddWithValue("@LastName", user.LastName.Trim());
-                addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
-                addUser.Parameters.AddWithValue("@Email", user.Email.Trim());
-                addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
+                    connection.Open();
+                    addUser.Parameters.AddWithValue("@FirstName", user.FirstName.Trim());
+                    addUser.Parameters.AddWithValue("@LastName", user.LastName.Trim());
+                    addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
+                    addUser.Parameters.AddWithValue("@Email", user.Email.Trim());
+                    addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
 
-                addUser.ExecuteNonQuery();
-                connection.Close();
-                MessageBox.Show("Registration Successful");
+                    addUser.ExecuteNonQuery();
+                    connection.Close();
+                    MessageBox.Show("Registration Successful");
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("You are not connected to the internet!");
+                    return false;
+                }
+               
             } catch (SqlException e) {
                 Clipboard.SetText(e.ToString());
                 MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -89,38 +102,50 @@ namespace PC_Ripper_Benchmark.database {
 
         public bool CheckAccountExists(SqlConnection connection, string email, string password) {
             try {
-                connection.Open();
+                if (networkConnection.CheckInternetConnection() == true)
+                {
+                    connection.Open();
 
-                util.Encryption encrypter = new util.Encryption();
+                    util.Encryption encrypter = new util.Encryption();
 
-                SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
-                email = encrypter.EncryptText(email.ToUpper().Trim());
-                password = encrypter.EncryptText(password.ToUpper().Trim());
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
+                    email = encrypter.EncryptText(email.ToUpper().Trim());
+                    password = encrypter.EncryptText(password.ToUpper().Trim());
 
-                checkAccount.Parameters.AddWithValue("@Email", email);
-                checkAccount.Parameters.AddWithValue("@Password", password);
-                checkAccount.ExecuteNonQuery();
+                    checkAccount.Parameters.AddWithValue("@Email", email);
+                    checkAccount.Parameters.AddWithValue("@Password", password);
+                    checkAccount.ExecuteNonQuery();
 
-                SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
-                DataSet ds = new DataSet();
-                adapter.Fill(ds);
+                    SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds);
 
-                int count = ds.Tables[0].Rows.Count;
+                    int count = ds.Tables[0].Rows.Count;
 
-                if (count == 1) {
-                    window.MainWindow mainWindow = new window.MainWindow();
-                    mainWindow.Show();
-                    connection.Close();
-                    return true;
-                } else {
-                    MessageBox.Show("Invalid login!", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
-                    connection.Close();
+                    if (count == 1)
+                    {
+                        window.MainWindow mainWindow = new window.MainWindow();
+                        mainWindow.Show();
+                        connection.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid login!", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                        connection.Close();
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You are not connected to the internet!");
                     return false;
                 }
+                
             } catch (Exception e) {
                 MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
                 return false;
-            }
-        }
+            }           
+        }      
     }
 }
