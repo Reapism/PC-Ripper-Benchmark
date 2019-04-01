@@ -31,7 +31,8 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
-
+            database_progressbar.Opacity = 100;
+            database_progressbar.Value = 0;
             SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder {
                 DataSource = "tcp:bcsproject.database.windows.net,1433",
                 UserID = "Konrad100",
@@ -49,9 +50,12 @@ namespace PC_Ripper_Benchmark.window {
 
 
             try {
+                database_progressbar.Value = 50;
                 if (!newConnection.CheckAccountExists(connection, this.emailTextBox.Text, this.passwordTextBox.Password)) {
                     Console.WriteLine("Good credentials");
-                } else {
+                    database_progressbar.Value = 100;
+                }
+                else {
                     Close();
                 }
 
@@ -60,6 +64,7 @@ namespace PC_Ripper_Benchmark.window {
                 connection.Close();
                 throw;
             }
+            database_progressbar.Opacity = 0;
         }
 
         /// <summary>
