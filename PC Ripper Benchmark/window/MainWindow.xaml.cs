@@ -507,6 +507,53 @@ namespace PC_Ripper_Benchmark.window {
             LockDir();
         }
 
-        #endregion
+        //Got focus and lost focus events for buttons on stack panel
+        private void BtnCPU_GotFocus(object sender, RoutedEventArgs e)
+        {
+            btnCPU.BorderThickness = new Thickness(3);
+            btnCPU.BorderBrush = Brushes.ForestGreen;
+        }
+
+        private void BtnRAM_GotFocus(object sender, RoutedEventArgs e)
+        {
+            btnRAM.BorderThickness = new Thickness(3);
+            btnRAM.BorderBrush = Brushes.ForestGreen;
+        }
+
+        private void BtnDisk_GotFocus(object sender, RoutedEventArgs e)
+        {
+            btnDisk.BorderThickness = new Thickness(3);
+            btnDisk.BorderBrush = Brushes.ForestGreen;
+        }
+
+        private void BtnSettings_GotFocus(object sender, RoutedEventArgs e)
+        {
+            btnSettings.BorderThickness = new Thickness(3);
+            btnSettings.BorderBrush = Brushes.ForestGreen;
+        }
+
+        private void BtnCPU_LostFocus(object sender, RoutedEventArgs e)
+        {
+            btnCPU.BorderThickness = new Thickness(0);
+        }
+
+        private void BtnRAM_LostFocus(object sender, RoutedEventArgs e)
+        {
+            btnRAM.BorderThickness = new Thickness(0);
+
+        }
+
+        private void BtnDisk_LostFocus(object sender, RoutedEventArgs e)
+        {
+            btnDisk.BorderThickness = new Thickness(0);
+
+        }
+
+        private void BtnSettings_LostFocus(object sender, RoutedEventArgs e)
+        {
+            btnSettings.BorderThickness = new Thickness(0);
+        }
+
+        #endregion                
     }
 }

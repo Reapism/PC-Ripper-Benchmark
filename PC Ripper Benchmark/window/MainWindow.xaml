@@ -14,11 +14,11 @@
                     <Image x:Name="imgMenu" Height="30" Width="30" MaxWidth="30" MaxHeight="30" MinWidth="30" MinHeight="30" Source="/PC Ripper Benchmark;component/resources/menu.png"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnCPU" Content="CPU" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click"/>
-            <Button x:Name="btnRAM" Content="RAM" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click"/>
-            <Button x:Name="btnDisk" Content="DISK" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click"/>
-            <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Left" Margin="10,400,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click"/>
-            
+            <Button x:Name="btnCPU" Content="CPU" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click" GotFocus="BtnCPU_GotFocus" LostFocus="BtnCPU_LostFocus"/>
+            <Button x:Name="btnRAM" Content="RAM" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click" GotFocus="BtnRAM_GotFocus" LostFocus="BtnRAM_LostFocus"/>
+            <Button x:Name="btnDisk" Content="DISK" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click" GotFocus="BtnDisk_GotFocus" LostFocus="BtnDisk_LostFocus"/>
+            <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Left" Margin="10,400,0,0" VerticalAlignment="Top" Width="130" Height="74" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus"/>
+
         </Grid>
         <Grid x:Name="grdTop" Margin="0" VerticalAlignment="Top" Background="#FF4C5461" MinHeight="100" MinWidth="650" Grid.ColumnSpan="2"/>
         <Grid x:Name="grdWindow" Margin="150,100,0,0" Grid.ColumnSpan="2" MinWidth="640" MinHeight="320">
@@ -48,18 +48,22 @@
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabCPU" Header="CPU">
+                <TabItem x:Name="tabCPU" Header="CPU" Height="22" VerticalAlignment="Top">
                     <Grid x:Name="grdCPU">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="169*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.Background>
                             <RadialGradientBrush>
                                 <GradientStop Color="#FFBBBBBB" Offset="1"/>
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <StackPanel x:Name="stkCPU" Margin="0,6,0,453" MinHeight="60">
+                        <StackPanel x:Name="stkCPU" Margin="0,6,0,423" MinHeight="60" Grid.ColumnSpan="2">
                             <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdCPUTests" Margin="0,65,0,104" MinHeight="110" MinWidth="636">
+                        <Grid x:Name="grdCPUTests" Margin="0,65,0,104" MinHeight="110" MinWidth="636" Grid.ColumnSpan="2">
                             <Grid.Background>
                                 <RadialGradientBrush>
                                     <GradientStop Color="#7F000000" Offset="0"/>
@@ -92,7 +96,7 @@
                                 </Image.Effect>
                             </Image>
                         </Grid>
-                        <Grid x:Name="grdCPUResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
+                        <Grid x:Name="grdCPUResults" Height="100" Margin="100,0" Width="636" MinWidth="636" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
                             <TextBlock x:Name="txtCPUChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
                             <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
