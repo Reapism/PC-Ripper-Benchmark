@@ -1,6 +1,7 @@
 ﻿using PC_Ripper_Benchmark.window;
 using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace PC_Ripper_Benchmark.function {
@@ -25,6 +26,7 @@ namespace PC_Ripper_Benchmark.function {
         private const double btnHeightContracted = 30;
 
         private bool isNavigationShown;
+
         public WindowSettings() {
             this.isNavigationShown = false;
         }
@@ -77,7 +79,9 @@ namespace PC_Ripper_Benchmark.function {
 
             if (main.grdNavigation.Width == expanded) {
                 main.grdNavigation.Width = contracted;
-                main.grdTop.Margin = new Thickness(contracted, 0, 0, 0);
+                main.grdNavigation.Background = Brushes.MidnightBlue;
+
+                main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
 
                 main.btnCPU.Width = btnWidthContracted;
@@ -91,7 +95,9 @@ namespace PC_Ripper_Benchmark.function {
 
             } else {
                 main.grdNavigation.Width = expanded;
-                main.grdTop.Margin = new Thickness(expanded, 0, 0, 0);
+                main.grdNavigation.Background = Brushes.SkyBlue;
+
+                main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(expanded, grdWindowTopThickness, 0, 0);
 
                 main.btnCPU.Width = btnWidthExpanded;
@@ -104,7 +110,7 @@ namespace PC_Ripper_Benchmark.function {
                 main.btnDisk.Height = btnHeightExpanded ;
             }
 
-            animation.From = .5;
+            animation.From = .9;
             animation.To = 1;
             animation.Duration = new Duration(TimeSpan.FromSeconds(1));
             main.grdNavigation.BeginAnimation(UIElement.OpacityProperty, animation);
