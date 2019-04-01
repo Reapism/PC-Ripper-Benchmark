@@ -3,6 +3,7 @@ using PC_Ripper_Benchmark.util;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Security.AccessControl;
 using System.Windows.Forms;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
@@ -41,9 +42,16 @@ namespace PC_Ripper_Benchmark.function {
         private readonly string fileExt;
 
         /// <summary>
+        /// The <see cref="Random"/> instance.
+        /// </summary>
+        private readonly Random rnd;
+
+        /// <summary>
         /// The working directory of the test.
         /// </summary>
         public string WorkingDir { get; set; }
+
+
 
         #endregion
 
@@ -58,6 +66,7 @@ namespace PC_Ripper_Benchmark.function {
             this.fileExt = "ripperblk";
             this.charList = ("abcdefghijklmnopqrstuvwxyz" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").ToCharArray();
+            this.rnd = new Random();
 
             this.WorkingDir = string.Empty;
         }
@@ -116,6 +125,10 @@ namespace PC_Ripper_Benchmark.function {
         /// to add the <see cref="TimeSpan"/>(s).</param>
 
         private void RunTestsSingle(ref DiskResults results) {
+            if (LockDirectory(this.WorkingDir)) {
+
+            }
+
             for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
                 results.TestCollection.Add(RunFolderMatrix());
             }
@@ -138,7 +151,6 @@ namespace PC_Ripper_Benchmark.function {
         /// <para>Non-Intensive unit test.</para>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="UnauthorizedAccessException"></exception>
 
         private TimeSpan RunFolderMatrix() {
             var sw = Stopwatch.StartNew();
@@ -208,6 +220,8 @@ namespace PC_Ripper_Benchmark.function {
             DeleteFiles(this.WorkingDir);
             DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
+            UnlockDirectory(this.WorkingDir);
+
             sw.Stop();
             return sw.Elapsed;
         }
@@ -215,6 +229,65 @@ namespace PC_Ripper_Benchmark.function {
         #endregion
 
         #region Extraneous function(s) and helper function(s).
+
+        /// <summary>
+        /// Locks a directory located at path.
+        /// </summary>
+        /// <param name="path">The path of the directory to lock.</param>
+        /// <returns></returns>
+
+        public bool LockDirectory(string path) {
+            try {
+                DirectorySecurity ds = Directory.GetAccessControl(path);
+                FileSystemAccessRule accessRule = new FileSystemAccessRule(Environment.UserName,
+                    FileSystemRights.FullControl, AccessControlType.Deny);
+                ds.AddAccessRule(accessRule);
+                Directory.SetAccessControl(path, ds);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Unlocks a Directory given at the path.
+        /// </summary>
+        /// <param name="path">The path of the directory to unlock.</param>
+        /// <returns></returns>
+
+        public bool UnlockDirectory(string path) {
+            try {
+                DirectorySecurity ds = Directory.GetAccessControl(path);
+                FileSystemAccessRule accessRule = new FileSystemAccessRule(Environment.UserName,
+                    FileSystemRights.FullControl, AccessControlType.Deny);
+                ds.RemoveAccessRule(accessRule);
+                Directory.SetAccessControl(path, ds);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Unlock a plethora of directories.
+        /// </summary>
+        /// <param name="paths">The paths as <see langword="params"/>.</param>
+        /// <returns></returns>
+
+        public bool UnlockDirectory(params string[] paths) {
+            try {
+                foreach (string s in paths) {
+                    DirectorySecurity ds = Directory.GetAccessControl(s);
+                    FileSystemAccessRule accessRule = new FileSystemAccessRule(Environment.UserName,
+                        FileSystemRights.FullControl, AccessControlType.Deny);
+                    ds.RemoveAccessRule(accessRule);
+                    Directory.SetAccessControl(s, ds);
+                }
+                return true;
+            } catch {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Generates a random string that may contain
@@ -225,7 +298,6 @@ namespace PC_Ripper_Benchmark.function {
         /// <exception cref="ArgumentOutOfRangeException"></exception>
 
         private string GetRandomString(int length) {
-            Random rnd = new Random((int)DateTime.Now.Ticks);
             string rndStr = string.Empty;
 
             if (length < 1) {
@@ -233,7 +305,7 @@ namespace PC_Ripper_Benchmark.function {
             }
 
             for (int i = 0; i < length; i++) {
-                rndStr += this.charList[rnd.Next(this.charList.Length)];
+                rndStr += this.charList[this.rnd.Next(this.charList.Length)];
             }
 
             return rndStr;
@@ -277,7 +349,7 @@ namespace PC_Ripper_Benchmark.function {
 
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog {
                 Description = "Choose a directory!",
-                ShowNewFolderButton = true,
+                ShowNewFolderButton = true
             };
 
             if (folderBrowser.ShowDialog() == DialogResult.OK) {
@@ -341,8 +413,7 @@ namespace PC_Ripper_Benchmark.function {
                 writer = new StreamWriter(fileName, true);
                 writer.Write(GetBulkFileDesc());
                 writer.Close();
-            } catch (Exception e) {
-                MessageBox.Show($"Oh no, we couldn't generate this config file. {e.ToString()}");
+            } catch {
                 return false;
             }
 
@@ -405,8 +476,7 @@ namespace PC_Ripper_Benchmark.function {
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
                 try {
                     directoryInfo = Directory.CreateDirectory(Path.Combine(path, u.ToString()));
-                } catch (Exception e) {
-                    MessageBox.Show($"{u} failed. {e.ToString()}");
+                } catch {
                     continue;
                 }
             }
