@@ -63,6 +63,16 @@
         public string PhoneNumber { get; set; }
 
         /// <summary>
+        /// The security question for the account.
+        /// </summary>
+        public string SecurityQuestion { get; set; }
+
+        /// <summary>
+        /// The security question answer for the account.
+        /// </summary>
+        public string SecurityQuestionAnswer { get; set; }
+
+        /// <summary>
         /// Determines where the user is advanced
         /// or beginner.
         /// </summary>

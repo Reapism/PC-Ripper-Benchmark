@@ -73,6 +73,9 @@ namespace PC_Ripper_Benchmark.database {
                     addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
                     addUser.Parameters.AddWithValue("@Email", user.Email.Trim());
                     addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
+                    addUser.Parameters.AddWithValue("@SecurityQuestion", user.SecurityQuestion.Trim());
+                    addUser.Parameters.AddWithValue("@SecurityQuestionAnswer", user.SecurityQuestionAnswer.Trim());
+
 
                     addUser.ExecuteNonQuery();
                     connection.Close();

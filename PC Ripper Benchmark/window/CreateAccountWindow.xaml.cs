@@ -118,7 +118,9 @@ namespace PC_Ripper_Benchmark.window {
                     LastName = this.lastNameTextBox.Text,
                     Email = encrypter.EncryptText(this.emailTextBox.Text),
                     PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
-                    Password = encrypter.EncryptText(this.userPasswordBox.Password)
+                    Password = encrypter.EncryptText(this.userPasswordBox.Password),
+                    SecurityQuestion =this.securityQuestionComboBox.Text,
+                    SecurityQuestionAnswer = encrypter.EncryptText(this.securityQuestionTextBox.Text)
                 };
 
                 //SQL Connection String
