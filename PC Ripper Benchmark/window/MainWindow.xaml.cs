@@ -5,7 +5,6 @@ using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -27,7 +26,7 @@ namespace PC_Ripper_Benchmark.window {
         private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
-        
+
         #endregion
 
         #region Constructor(s) and method(s).
@@ -48,6 +47,10 @@ namespace PC_Ripper_Benchmark.window {
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
+
+            ComputerSpecs specs = new ComputerSpecs();
+            specs.GetProcessorInfo(out List<string> lst);
+
         }
 
         /// <summary>
@@ -123,9 +126,9 @@ namespace PC_Ripper_Benchmark.window {
 
         private Uri ChoosePreloader() {
             string path = Path.Combine(Directory.GetCurrentDirectory(),
-                "resources","preloader_urls.txt");
-            Uri uri;      
-            
+                "resources", "preloader_urls.txt");
+            Uri uri;
+
             try {
                 List<string> urls = new List<string>();
                 StreamReader sr = new StreamReader(path);
@@ -139,12 +142,12 @@ namespace PC_Ripper_Benchmark.window {
                 }
 
                 uri = new Uri(urls[rnd.Next(index)]);
-              
+
                 return uri;
             } catch {
                 return null;
             }
-            
+
         }
 
         private void ExportResults(ExportType type) {
@@ -363,6 +366,30 @@ namespace PC_Ripper_Benchmark.window {
             this.txtBlkWorkingDir.Foreground = Brushes.LightSalmon;
         }
 
+        private void UnlockDir() {
+            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
+                Description = "Choose a directory!",
+                ShowNewFolderButton = true
+            };
+
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                DiskFunctions diskFunctions = new DiskFunctions(ref this.rs);
+                diskFunctions.UnlockDirectory(folderBrowser.SelectedPath);
+            }
+        }
+
+        private void LockDir() {
+            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
+                Description = "Choose a directory!",
+                ShowNewFolderButton = true
+            };
+
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                DiskFunctions diskFunctions = new DiskFunctions(ref this.rs);
+                diskFunctions.LockDirectory(folderBrowser.SelectedPath);
+            }
+        }
+
         #endregion
 
         #region Event(s) and event handler(s).
@@ -422,6 +449,18 @@ namespace PC_Ripper_Benchmark.window {
             this.testToRun = Tab.DISK;
         }
 
+        private void BtnSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
+
+        }
+
+        private void BtnSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
+
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.SETTINGS);
+        }
+
         private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {
             ExportResults(ExportType.TEXTFILE);
         }
@@ -455,11 +494,19 @@ namespace PC_Ripper_Benchmark.window {
                 Clipboard.SetText(this.txtResults.Selection.Text);
             }
         }
-        
-        #endregion
 
         private void BtnMenu_Click(object sender, RoutedEventArgs e) {
             this.ws.NavigationMenu(this);
         }
+
+        private void BtnUnlockDirectory_Click(object sender, RoutedEventArgs e) {
+            UnlockDir();
+        }
+
+        private void BtnLockDirectory_Click(object sender, RoutedEventArgs e) {
+            LockDir();
+        }
+
+        #endregion
     }
 }
