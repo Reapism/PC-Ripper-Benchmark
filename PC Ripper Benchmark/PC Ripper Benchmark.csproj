@@ -80,6 +80,7 @@
     <Compile Include="database\DatabaseConnection.cs" />
     <Compile Include="exception\RipperDatabaseException.cs" />
     <Compile Include="function\DiskFunctions.cs" />
+    <Compile Include="function\NetworkFuncs.cs" />
     <Compile Include="function\RamFunctions.cs" />
     <Compile Include="util\DiskResults.cs" />
     <Compile Include="util\Encryption.cs" />

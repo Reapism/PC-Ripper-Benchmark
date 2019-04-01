@@ -101,7 +101,12 @@ namespace PC_Ripper_Benchmark.function {
                 main.btnDisk.Width = btnWidthExpanded;
                 main.btnDisk.Height = btnHeightExpanded ;
             }
+            DoubleAnimation animation = new DoubleAnimation();
 
+            animation.From = 1;
+            animation.To = .5;
+            animation.Duration = new Duration(TimeSpan.FromSeconds(1));
+            //main.BeginAnimation(UIElement.RenderTransformProperty, animation);
 
         }
     }
