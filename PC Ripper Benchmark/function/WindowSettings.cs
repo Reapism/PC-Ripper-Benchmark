@@ -1,6 +1,7 @@
 ﻿using PC_Ripper_Benchmark.window;
 using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace PC_Ripper_Benchmark.function {
@@ -25,6 +26,7 @@ namespace PC_Ripper_Benchmark.function {
         private const double btnHeightContracted = 30;
 
         private bool isNavigationShown;
+
         public WindowSettings() {
             this.isNavigationShown = false;
         }
@@ -69,13 +71,17 @@ namespace PC_Ripper_Benchmark.function {
         /// Call this method to expand and contract the
         /// navigation bar in the <see cref="MainWindow"/>.
         /// </summary>
-        /// <param name="main"></param>
+        /// <param name="main">The <see cref="MainWindow"/> instance.</param>
 
         public void NavigationMenu(MainWindow main) {
+            DoubleAnimation animation = new DoubleAnimation();
+            DoubleAnimation animationSize = new DoubleAnimation();
 
             if (main.grdNavigation.Width == expanded) {
                 main.grdNavigation.Width = contracted;
-                main.grdTop.Margin = new Thickness(contracted, 0, 0, 0);
+                main.grdNavigation.Background = Brushes.MidnightBlue;
+
+                main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
 
                 main.btnCPU.Width = btnWidthContracted;
@@ -89,7 +95,9 @@ namespace PC_Ripper_Benchmark.function {
 
             } else {
                 main.grdNavigation.Width = expanded;
-                main.grdTop.Margin = new Thickness(expanded, 0, 0, 0);
+                main.grdNavigation.Background = Brushes.SkyBlue;
+
+                main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(expanded, grdWindowTopThickness, 0, 0);
 
                 main.btnCPU.Width = btnWidthExpanded;
@@ -101,12 +109,11 @@ namespace PC_Ripper_Benchmark.function {
                 main.btnDisk.Width = btnWidthExpanded;
                 main.btnDisk.Height = btnHeightExpanded ;
             }
-            DoubleAnimation animation = new DoubleAnimation();
 
-            animation.From = 1;
-            animation.To = .5;
+            animation.From = .9;
+            animation.To = 1;
             animation.Duration = new Duration(TimeSpan.FromSeconds(1));
-            //main.BeginAnimation(UIElement.RenderTransformProperty, animation);
+            main.grdNavigation.BeginAnimation(UIElement.OpacityProperty, animation);
 
         }
     }
