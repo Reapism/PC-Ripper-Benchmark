@@ -25,7 +25,7 @@ namespace PC_Ripper_Benchmark.database {
 
         public SqlConnection Connection { get; set; }
 
-        function.Networkfuncs networkConnection = new function.Networkfuncs();
+        function.SystemSettings networkConnection = new function.SystemSettings();
 
         /// <summary>
         /// Default constructor. Sets the connection string.
@@ -60,7 +60,7 @@ namespace PC_Ripper_Benchmark.database {
         public bool AddUserToDatabase(SqlConnection connection, util.UserData user) {
            
             try {
-                if (networkConnection.CheckInternetConnection() == true)
+                if (networkConnection.IsInternetAvailable() == true)
                 {
                     SqlCommand addUser = new SqlCommand("UserAdd", connection)
                     {
@@ -105,7 +105,7 @@ namespace PC_Ripper_Benchmark.database {
 
         public bool CheckAccountExists(SqlConnection connection, string email, string password) {
             try {
-                if (networkConnection.CheckInternetConnection() == true)
+                if (networkConnection.IsInternetAvailable() == true)
                 {
                     connection.Open();
 
@@ -149,6 +149,63 @@ namespace PC_Ripper_Benchmark.database {
                 MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
                 return false;
             }           
-        }      
+        }
+
+
+        /// <summary>
+        /// Member function that checks if an 
+        /// email exists in the database.
+        /// The stored procedure will return 
+        /// a 0 or 1 to determine if it exists.
+        /// </summary>
+
+        public bool CheckEmailExists(SqlConnection connection, string email)
+        {
+            try
+            {
+                if (networkConnection.IsInternetAvailable() == true)
+                {
+                    connection.Open();
+
+                    util.Encryption encrypter = new util.Encryption();
+
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email", connection);
+                    email = encrypter.EncryptText(email.ToUpper().Trim());
+
+                    checkAccount.Parameters.AddWithValue("@Email", email);
+                    checkAccount.ExecuteNonQuery();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds);
+
+                    int count = ds.Tables[0].Rows.Count;
+
+                    if (count == 1)
+                    {
+                        MessageBox.Show("I am here");
+                        connection.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("An account with that email does not exist", "Invalid Email", MessageBoxButton.OK, MessageBoxImage.Error);
+                        connection.Close();
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You are not connected to the internet!");
+                    return false;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
+                return false;
+            }
+        }
     }
 }

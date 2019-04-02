@@ -33,6 +33,7 @@ namespace PC_Ripper_Benchmark.window {
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             database_progressbar.Opacity = 100;
             database_progressbar.Value = 0;
+
             SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder {
                 DataSource = "tcp:bcsproject.database.windows.net,1433",
                 UserID = "Konrad100",
@@ -47,7 +48,6 @@ namespace PC_Ripper_Benchmark.window {
 
             SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
-
 
             try {
                 database_progressbar.Value = 50;
@@ -91,6 +91,13 @@ namespace PC_Ripper_Benchmark.window {
             // DEBUG PURPOSES.
             new MainWindow().Show();
             Close();
+        }
+
+        private void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            PasswordResetWindow passwordResetWindow = new PasswordResetWindow();
+
+            this.settings.TransitionScreen(passwordResetWindow, this);
         }
     }
 }

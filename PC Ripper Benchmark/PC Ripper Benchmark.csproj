@@ -81,7 +81,6 @@
     <Compile Include="database\DatabaseConnection.cs" />
     <Compile Include="exception\RipperDatabaseException.cs" />
     <Compile Include="function\DiskFunctions.cs" />
-    <Compile Include="function\NetworkFuncs.cs" />
     <Compile Include="function\RamFunctions.cs" />
     <Compile Include="function\SystemSettings.cs" />
     <Compile Include="util\DiskResults.cs" />
@@ -98,6 +97,9 @@
     </Compile>
     <Compile Include="window\CreateAccountWindow.xaml.cs">
       <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="window\PasswordResetWindow.xaml.cs">
+      <DependentUpon>PasswordResetWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\QuestionaireWindow.xaml.cs">
       <DependentUpon>QuestionaireWindow.xaml</DependentUpon>
@@ -127,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="window\CreateAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\PasswordResetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

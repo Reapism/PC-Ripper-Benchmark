@@ -16,6 +16,7 @@
             <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 70"/>
             <Button x:Name="loginButton" Content="Login" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click" MouseRightButtonDown="LoginButton_MouseRightButtonDown"/>
             <Button x:Name="signUpButton" Click="SignUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18"/>
+            <Button x:Name="resetPasswordButton" Content="Reset Password" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="ResetPasswordButton_Click"/>
         </StackPanel>
     </Border>
 </Window>
