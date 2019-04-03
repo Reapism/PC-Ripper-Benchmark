@@ -54,7 +54,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkWelcome" Height="37" Margin="0,5,0,0" VerticalAlignment="Top" MinHeight="100" MinWidth="100">
-                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Text="Welcome &lt;user&gt; to the PC Ripper Benchmark. Below you can find your computer specifications." FontSize="18" Margin="36,0,0,0"/>
+                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Text="Welcome &lt;user&gt; to the PC Ripper Benchmark. Below you can find your computer specifications. You will be able to get information from " FontSize="18" Margin="36,0,0,0"/>
                         </StackPanel>
                         <Grid x:Name="grdSystemSpecs" Margin="0,100,0,0" MinHeight="100">
                             <Grid.Background>
@@ -70,7 +70,10 @@
                                         <GradientStop Color="#FF98E2DE"/>
                                     </RadialGradientBrush>
                                 </GroupBox.Background>
-                                <TextBlock x:Name="txtComputerSpecs" Margin="0,30,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications."/>
+                                <Grid x:Name="grdSpecs" Margin="0">
+                                    <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications."/>
+                                    <Image x:Name="imgSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
+                                </Grid>
                             </GroupBox>
                             <Grid x:Name="grdUserInfo" Margin="0" HorizontalAlignment="Left" Width="400" MinHeight="389" MinWidth="400">
                                 <Grid.Background>
@@ -79,6 +82,8 @@
                                         <GradientStop Color="#FFFFEBEB" Offset="1"/>
                                     </RadialGradientBrush>
                                 </Grid.Background>
+                                <Image x:Name="imgUser" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/verified.png"/>
+                                <TextBlock x:Name="txtBlkWelcomeText" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="Lorem ipsum poggers."/>
                             </Grid>
                         </Grid>
                     </Grid>

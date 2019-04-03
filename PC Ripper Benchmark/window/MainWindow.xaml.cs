@@ -48,8 +48,15 @@ namespace PC_Ripper_Benchmark.window {
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
+            this.txtBlkWelcomeText.Text = string.Empty;
+            this.txtBlkComputerSpecs.Text = string.Empty;
+            
 
             GetComputerSpecs();
+
+        }
+
+        private void GetWelcomeText() {
 
         }
 
@@ -62,17 +69,17 @@ namespace PC_Ripper_Benchmark.window {
             List<string> lst = new List<string>();
             ComputerSpecs specs = new ComputerSpecs();
 
-            txtComputerSpecs.Text += $"System specifications for {specs.UserName}." 
+            txtBlkComputerSpecs.Text += $"System specifications for {specs.UserName}." 
                 + Environment.NewLine + Environment.NewLine;
 
             specs.GetProcessorInfo(out lst);
-            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
             specs.GetMemoryInfo(out lst);
-            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
             specs.GetDiskInfo(out lst);
-            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
             specs.GetVideoCard(out lst);
-            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
         }
 
         /// <summary>
@@ -141,8 +148,7 @@ namespace PC_Ripper_Benchmark.window {
         /// <summary>
         /// Chooses a random preloader from the
         /// resources/preloader_urls.txt file.
-        /// Returns a <see cref="Nullable{T}"/> 
-        /// <see cref="Uri"/>.
+        /// Returns a <see cref="Uri"/>.
         /// </summary>
         /// <returns></returns>
 
