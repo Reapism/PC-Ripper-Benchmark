@@ -219,7 +219,19 @@
     <Resource Include="resources\ram_referencedereference.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="resources\running_test.png" />
+    <Resource Include="resources\results.png" />
+    <Resource Include="resources\specs.png" />
+    <Resource Include="resources\verified.png" />
+    <Resource Include="resources\settings.png" />
+    <Resource Include="resources\ram.png" />
     <Resource Include="resources\menu.png" />
+    <Resource Include="resources\github.png" />
+    <Resource Include="resources\disk.png" />
+    <Resource Include="resources\check.png" />
+    <Resource Include="resources\check_with_circle.png" />
+    <Resource Include="resources\announcement.png" />
+    <Resource Include="resources\cpu.png" />
     <Content Include="resources\preloader_urls.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
