@@ -75,14 +75,13 @@ namespace PC_Ripper_Benchmark.function {
         /// See http://www.flatuicolorpicker.com/purple-hex-color-code
 
         public void NavigationMenu(MainWindow main) {
-            DoubleAnimation animation = new DoubleAnimation();
-            DoubleAnimation animationSize = new DoubleAnimation();
-
+            DoubleAnimation slideAnimation;
+            main.grdTop.Margin = new Thickness(0, 0, 0, 0);
             if (main.grdNavigation.Width == expanded) {
                 main.grdNavigation.Width = contracted;
                 main.grdNavigation.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#f1e7fe"));
 
-                main.grdTop.Margin = new Thickness(0, 0, 0, 0);
+                //
                 main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
 
               
@@ -93,6 +92,8 @@ namespace PC_Ripper_Benchmark.function {
                 main.btnDisk.Visibility = Visibility.Hidden;
 
                 main.btnSettings.Visibility = Visibility.Hidden;
+
+                slideAnimation = new DoubleAnimation(150.0, 50.0, TimeSpan.FromMilliseconds(300));
 
             } else {              
                 main.grdNavigation.Width = expanded;
@@ -108,13 +109,11 @@ namespace PC_Ripper_Benchmark.function {
                 main.btnDisk.Visibility = Visibility.Visible;
 
                 main.btnSettings.Visibility = Visibility.Visible;
+
+                slideAnimation = new DoubleAnimation(50.0, 150.0, TimeSpan.FromMilliseconds(300));
             }
 
-            animation.From = .9;
-            animation.To = 1;
-            animation.Duration = new Duration(TimeSpan.FromSeconds(1));
-            main.grdNavigation.BeginAnimation(UIElement.OpacityProperty, animation);
-
+            main.grdNavigation.BeginAnimation(FrameworkElement.WidthProperty, slideAnimation);
         }
     }
 }
