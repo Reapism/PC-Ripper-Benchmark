@@ -72,6 +72,7 @@ namespace PC_Ripper_Benchmark.function {
         /// navigation bar in the <see cref="MainWindow"/>.
         /// </summary>
         /// <param name="main">The <see cref="MainWindow"/> instance.</param>
+        /// See http://www.flatuicolorpicker.com/purple-hex-color-code
 
         public void NavigationMenu(MainWindow main) {
             DoubleAnimation animation = new DoubleAnimation();
@@ -79,35 +80,34 @@ namespace PC_Ripper_Benchmark.function {
 
             if (main.grdNavigation.Width == expanded) {
                 main.grdNavigation.Width = contracted;
-                main.grdNavigation.Background = Brushes.MidnightBlue;
+                main.grdNavigation.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#f1e7fe"));
 
                 main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
 
-                main.btnCPU.Width = btnWidthContracted;
-                main.btnCPU.Height = btnHeightContracted;
+              
+                main.btnCPU.Visibility = Visibility.Hidden;
 
-                main.btnRAM.Width = btnWidthContracted;
-                main.btnRAM.Height = btnHeightContracted;
+                main.btnRAM.Visibility = Visibility.Hidden;
 
-                main.btnDisk.Width = btnWidthContracted;
-                main.btnDisk.Height = btnHeightContracted;
+                main.btnDisk.Visibility = Visibility.Hidden;
 
-            } else {
+                main.btnSettings.Visibility = Visibility.Hidden;
+
+            } else {              
                 main.grdNavigation.Width = expanded;
-                main.grdNavigation.Background = Brushes.SkyBlue;
+                main.grdNavigation.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#fff9de")); // Witch Haze
 
                 main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(expanded, grdWindowTopThickness, 0, 0);
 
-                main.btnCPU.Width = btnWidthExpanded;
-                main.btnCPU.Height = btnHeightExpanded;
+                main.btnCPU.Visibility = Visibility.Visible;
 
-                main.btnRAM.Width = btnWidthExpanded;
-                main.btnRAM.Height = btnHeightExpanded;
+                main.btnRAM.Visibility = Visibility.Visible;
 
-                main.btnDisk.Width = btnWidthExpanded;
-                main.btnDisk.Height = btnHeightExpanded ;
+                main.btnDisk.Visibility = Visibility.Visible;
+
+                main.btnSettings.Visibility = Visibility.Visible;
             }
 
             animation.From = .9;
