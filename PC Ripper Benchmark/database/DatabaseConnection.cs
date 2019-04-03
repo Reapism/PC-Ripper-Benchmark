@@ -183,13 +183,12 @@ namespace PC_Ripper_Benchmark.database {
 
                     if (count == 1)
                     {
-                        MessageBox.Show("I am here");
                         connection.Close();
                         return true;
                     }
                     else
                     {
-                        MessageBox.Show("An account with that email does not exist", "Invalid Email", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("An account with that email does not exist","Invalid Email", MessageBoxButton.OK, MessageBoxImage.Error);
                         connection.Close();
                         return false;
                     }

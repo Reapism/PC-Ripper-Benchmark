@@ -316,7 +316,6 @@ namespace PC_Ripper_Benchmark.window {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Red;
             }
-
         }
         #endregion
         #region Border Color Confirm Password
