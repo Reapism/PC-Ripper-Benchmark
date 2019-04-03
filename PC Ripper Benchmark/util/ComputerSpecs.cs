@@ -24,6 +24,12 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         /// <summary>
+        /// Get's the username of the system.
+        /// </summary>
+
+        public string UserName => Environment.UserName;
+
+        /// <summary>
         /// Gets the processor name.
         /// </summary>
         /// <returns></returns>
@@ -39,10 +45,23 @@ namespace PC_Ripper_Benchmark.util {
                 lst.Add("MaxClockSpeed: " + item.Properties["MaxClockSpeed"].Value.ToString());
                 lst.Add("Architecture: " + item.Properties["Architecture"].Value.ToString());
                 lst.Add("NumberOfCores: " + item.Properties["NumberOfCores"].Value.ToString());
-                lst.Add("ThreadCount: " + item.Properties["ThreadCount"].Value.ToString());
+                lst.Add("NumberOfLogicalProcessors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
                 lst.Add("L2CacheSize: " + item.Properties["L2CacheSize"].Value.ToString());
                 lst.Add("L3CacheSize: " + item.Properties["L3CacheSize"].Value.ToString());
-                lst.Add("NumberOfLogicalProcessors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
+               
+            }
+        }
+
+        public void GetDiskInfo(out List<string> lst) {
+            lst = new List<string>();
+
+            ManagementClass mgt = new ManagementClass("Win32_DiskPartition");
+            ManagementObjectCollection mgtCollection = mgt.GetInstances();
+
+            foreach (ManagementObject item in mgtCollection) {
+                lst.Add("Name: " + item.Properties["Name"].Value.ToString());
+                lst.Add("Size: " + item.Properties["Size"].Value.ToString());
+                lst.Add("Type: " + item.Properties["Type"].Value.ToString());
             }
         }
 
@@ -54,9 +73,8 @@ namespace PC_Ripper_Benchmark.util {
 
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add($"Capacity: {item.Properties["Capacity"].Value.ToString()}");
-                lst.Add("ConfiguredClockSpeed: " + item.Properties["ConfiguredClockSpeed"].Value.ToString());
-                lst.Add("Speed: " + item.Properties["Speed"].Value.ToString());
+                lst.Add($"Capacity: {item.Properties["Capacity"].Value.ToString()} bytes");
+                lst.Add("Speed: " + item.Properties["Speed"].Value.ToString() + "MHz");
             }
         }
 
@@ -69,9 +87,7 @@ namespace PC_Ripper_Benchmark.util {
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Name"].Value.ToString());
                 lst.Add("VideoMemoryType: " + item.Properties["VideoMemoryType"].Value.ToString());
-                lst.Add("VideoArchitecture: " + item.Properties["VideoArchitecture"].Value.ToString());
-                lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add("Name: " + item.Properties["Name"].Value.ToString());
+                lst.Add("VideoProcessor: " + item.Properties["VideoProcessor"].Value.ToString());
             }
         }
     }
