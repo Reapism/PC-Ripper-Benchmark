@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -48,9 +49,30 @@ namespace PC_Ripper_Benchmark.window {
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
 
-            ComputerSpecs specs = new ComputerSpecs();
-            specs.GetProcessorInfo(out List<string> lst);
+            GetComputerSpecs();
 
+        }
+
+        /// <summary>
+        /// Gets the computer specifications and places them inside the
+        /// <see cref="txtComputerSpecs"/> <see cref="TextBlock"/>.
+        /// </summary>
+
+        private void GetComputerSpecs() {
+            List<string> lst = new List<string>();
+            ComputerSpecs specs = new ComputerSpecs();
+
+            txtComputerSpecs.Text += $"System specifications for {specs.UserName}." 
+                + Environment.NewLine + Environment.NewLine;
+
+            specs.GetProcessorInfo(out lst);
+            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            specs.GetMemoryInfo(out lst);
+            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            specs.GetDiskInfo(out lst);
+            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
+            specs.GetVideoCard(out lst);
+            foreach (string s in lst) { txtComputerSpecs.Text += s + Environment.NewLine; }
         }
 
         /// <summary>
@@ -508,50 +530,42 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         //Got focus and lost focus events for buttons on stack panel
-        private void BtnCPU_GotFocus(object sender, RoutedEventArgs e)
-        {
-            btnCPU.BorderThickness = new Thickness(3);
-            btnCPU.BorderBrush = Brushes.ForestGreen;
+        private void BtnCPU_GotFocus(object sender, RoutedEventArgs e) {
+            this.btnCPU.BorderThickness = new Thickness(5);
+            this.btnCPU.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnRAM_GotFocus(object sender, RoutedEventArgs e)
-        {
-            btnRAM.BorderThickness = new Thickness(3);
-            btnRAM.BorderBrush = Brushes.ForestGreen;
+        private void BtnRAM_GotFocus(object sender, RoutedEventArgs e) {
+            this.btnRAM.BorderThickness = new Thickness(5);
+            this.btnRAM.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnDisk_GotFocus(object sender, RoutedEventArgs e)
-        {
-            btnDisk.BorderThickness = new Thickness(3);
-            btnDisk.BorderBrush = Brushes.ForestGreen;
+        private void BtnDisk_GotFocus(object sender, RoutedEventArgs e) {
+            this.btnDisk.BorderThickness = new Thickness(5);
+            this.btnDisk.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnSettings_GotFocus(object sender, RoutedEventArgs e)
-        {
-            btnSettings.BorderThickness = new Thickness(3);
-            btnSettings.BorderBrush = Brushes.ForestGreen;
+        private void BtnSettings_GotFocus(object sender, RoutedEventArgs e) {
+            this.btnSettings.BorderThickness = new Thickness(5);
+            this.btnSettings.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnCPU_LostFocus(object sender, RoutedEventArgs e)
-        {
-            btnCPU.BorderThickness = new Thickness(0);
+        private void BtnCPU_LostFocus(object sender, RoutedEventArgs e) {
+            this.btnCPU.BorderThickness = new Thickness(0);
         }
 
-        private void BtnRAM_LostFocus(object sender, RoutedEventArgs e)
-        {
-            btnRAM.BorderThickness = new Thickness(0);
+        private void BtnRAM_LostFocus(object sender, RoutedEventArgs e) {
+            this.btnRAM.BorderThickness = new Thickness(0);
 
         }
 
-        private void BtnDisk_LostFocus(object sender, RoutedEventArgs e)
-        {
-            btnDisk.BorderThickness = new Thickness(0);
+        private void BtnDisk_LostFocus(object sender, RoutedEventArgs e) {
+            this.btnDisk.BorderThickness = new Thickness(0);
 
         }
 
-        private void BtnSettings_LostFocus(object sender, RoutedEventArgs e)
-        {
-            btnSettings.BorderThickness = new Thickness(0);
+        private void BtnSettings_LostFocus(object sender, RoutedEventArgs e) {
+            this.btnSettings.BorderThickness = new Thickness(0);
         }
 
         #endregion                
