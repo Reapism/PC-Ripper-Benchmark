@@ -27,8 +27,7 @@ namespace PC_Ripper_Benchmark.window
         TextBlock popupContent = new TextBlock();
         function.SystemSettings networkConnection = new function.SystemSettings();
 
-        string connectionString  = Properties.Settings.Default.Connection_String;
-
+        string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
         public PasswordResetWindow()
         {
             InitializeComponent();
@@ -65,50 +64,58 @@ namespace PC_Ripper_Benchmark.window
             {
                 if (networkConnection.IsInternetAvailable() == true)
                 {
-                    //Open new database connection
-                    SqlConnection connection = new SqlConnection(connectionString);
-                    database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
-
-                    //If the email exists in the database
-                    if (newConnection.CheckEmailExists(connection, emailTextBox.Text))
+                    if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
                     {
-                        connection.Open();
+                        //Open new database connection
+                        SqlConnection connection = new SqlConnection(connectionString);
+                        database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
-                        //Show the security question labels and fields
-                        lblSecurityQuestion.Opacity = 100;
-                        lblSecurityQuestion.Visibility = Visibility.Visible;
-                        securityQuestionAnswerTextBox.Opacity = 100;
-                        securityQuestionAnswerTextBox.Visibility = Visibility.Visible;
-                        confirmSecurityAnswerButton.Visibility = Visibility.Visible;
+                        //If the email exists in the database
+                        if (newConnection.CheckEmailExists(connection, emailTextBox.Text))
+                        {
+                            connection.Open();
 
-                        //Command to get the actual answered security question
-                        SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM Customer where Email=@Email", connection);
-                        string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
-                        securityQuestionAnswerTextBox.Focus();
+                            //Show the security question labels and fields
+                            lblSecurityQuestion.Opacity = 100;
+                            lblSecurityQuestion.Visibility = Visibility.Visible;
+                            securityQuestionAnswerTextBox.Opacity = 100;
+                            securityQuestionAnswerTextBox.Visibility = Visibility.Visible;
+                            confirmSecurityAnswerButton.Visibility = Visibility.Visible;
 
-                        //Fill the parameter of the query
-                        getSecurityQuestion.Parameters.AddWithValue("@Email", email);
-                        lblSecurityQuestion.Content = (string)getSecurityQuestion.ExecuteScalar();
+                            //Command to get the actual answered security question
+                            SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM Customer where Email=@Email", connection);
+                            string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
+                            securityQuestionAnswerTextBox.Focus();
 
-                        confirmEmailButton.Visibility = Visibility.Collapsed;
+                            //Fill the parameter of the query
+                            getSecurityQuestion.Parameters.AddWithValue("@Email", email);
+                            lblSecurityQuestion.Content = (string)getSecurityQuestion.ExecuteScalar();
 
-                        //Command to get the security question answer for comparison
-                        SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
-                        string securityAnswer = encryption.EncryptText(securityQuestionAnswerTextBox.Text.ToUpper().Trim());
+                            confirmEmailButton.Visibility = Visibility.Collapsed;
 
-                        getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
+                            //Command to get the security question answer for comparison
+                            SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
+                            string securityAnswer = encryption.EncryptText(securityQuestionAnswerTextBox.Text.ToUpper().Trim());
 
-                        //Set the answer returned by the query to a variable for comparison
-                        string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
+                            getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
 
-                        confirmSecurityAnswerButton.Opacity = 100;
+                            //Set the answer returned by the query to a variable for comparison
+                            string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
 
-                        //Make the confirmed field read only
-                        emailTextBox.IsReadOnly = true;
-                        emailTextBox.Background = Brushes.SlateGray;
+                            confirmSecurityAnswerButton.Opacity = 100;
 
-                        connection.Close();
+                            //Make the confirmed field read only
+                            emailTextBox.IsReadOnly = true;
+                            emailTextBox.Background = Brushes.SlateGray;
+
+                            connection.Close();
+                        }                       
                     }
+                    else
+                    {
+                        MessageBox.Show("Invalid email", "Incorrect email format", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+
                 }
                 
             }
@@ -122,60 +129,68 @@ namespace PC_Ripper_Benchmark.window
         #region Confirm the security answer
         private void ConfirmSecurityAnswer_Click(object sender, RoutedEventArgs e)
         {
-            if (networkConnection.IsInternetAvailable() == true)
+            try
             {
-                //Open new database connection
-                SqlConnection connection = new SqlConnection(connectionString);
-                database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
-                connection.Open();
-
-                //Command to get the actual answered security question
-                string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
-
-                //Command to get the security question answer for comparison
-                SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
-                string securityAnswer = encryption.EncryptText(securityQuestionAnswerTextBox.Text);
-
-                getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
-
-                //Set the answer returned by the query to a variable for comparison
-                string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
-
-                if (encryption.EncryptText(securityQuestionAnswerTextBox.Text) == answer)
+                if (networkConnection.IsInternetAvailable() == true)
                 {
-                    newPasswordLabel.Opacity = 100;
-                    newPasswordLabel.Visibility = Visibility.Visible;
-                    newPasswordBox.Opacity = 100;
-                    newPasswordBox.Visibility = Visibility.Visible;
-                    confirmNewPasswordBox.Opacity = 100;
-                    confirmNewPasswordBox.Visibility = Visibility.Visible;
-                    confirmPasswordLabel.Opacity = 100;
-                    confirmPasswordLabel.Visibility = Visibility.Visible;
-                    newPasswordLabel.Focus();
+                    //Open new database connection
+                    SqlConnection connection = new SqlConnection(connectionString);
+                    database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
+                    connection.Open();
 
-                    securityQuestionAnswerTextBox.IsReadOnly = true;
-                    securityQuestionAnswerTextBox.Background = Brushes.SlateGray;
-                    confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
-                    doneButton.Opacity = 100;
-                    doneButton.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    count--;
-                    MessageBox.Show($"The answer entered is incorrect. You have {count} attempts left.", "Incorrect Answer", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    securityQuestionAnswerTextBox.Clear();
-                    securityQuestionAnswerTextBox.Focus();
-                }
+                    //Command to get the actual answered security question
+                    string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
 
-                if (count == 0)
-                {
-                    LoginWindow loginWindow = new LoginWindow();
-                    function.WindowSettings windowSettings = new function.WindowSettings();
+                    //Command to get the security question answer for comparison
+                    SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
+                    string securityAnswer = encryption.EncryptText(securityQuestionAnswerTextBox.Text);
 
-                    windowSettings.TransitionScreen(loginWindow, this);
+                    getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
+
+                    //Set the answer returned by the query to a variable for comparison
+                    string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
+
+                    if (encryption.EncryptText(securityQuestionAnswerTextBox.Text) == answer)
+                    {
+                        newPasswordLabel.Opacity = 100;
+                        newPasswordLabel.Visibility = Visibility.Visible;
+                        newPasswordBox.Opacity = 100;
+                        newPasswordBox.Visibility = Visibility.Visible;
+                        confirmNewPasswordBox.Opacity = 100;
+                        confirmNewPasswordBox.Visibility = Visibility.Visible;
+                        confirmPasswordLabel.Opacity = 100;
+                        confirmPasswordLabel.Visibility = Visibility.Visible;
+                        newPasswordLabel.Focus();
+
+                        securityQuestionAnswerTextBox.IsReadOnly = true;
+                        securityQuestionAnswerTextBox.Background = Brushes.SlateGray;
+                        confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
+                        doneButton.Opacity = 100;
+                        doneButton.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        count--;
+                        MessageBox.Show($"The answer entered is incorrect. You have {count} attempts left.", "Incorrect Answer", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        securityQuestionAnswerTextBox.Clear();
+                        securityQuestionAnswerTextBox.Focus();
+                    }
+
+                    if (count == 0)
+                    {
+                        LoginWindow loginWindow = new LoginWindow();
+                        function.WindowSettings windowSettings = new function.WindowSettings();
+
+                        windowSettings.TransitionScreen(loginWindow, this);
+                    }
+                    connection.Close();
                 }
-                connection.Close();
-            }            
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("An SQL Exception was caught!");
+            }
+            
         }
         #endregion
 
@@ -304,6 +319,11 @@ namespace PC_Ripper_Benchmark.window
             function.WindowSettings windowSettings = new function.WindowSettings();
 
             windowSettings.TransitionScreen(loginWindow, this);
+        }
+
+        private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

@@ -21,8 +21,7 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
 
         public static bool IsValidEmail(string email) {
-            if (string.IsNullOrWhiteSpace(email))
-                return false;
+            if (string.IsNullOrWhiteSpace(email)) { return false; }
 
             try {
                 // Normalize the domain
@@ -67,6 +66,8 @@ namespace PC_Ripper_Benchmark.util {
 
         public static bool IsValidPassword(string password) {
             try {
+                if (string.IsNullOrWhiteSpace(password)) { return false; }
+
                 return Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{6,15}$",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
@@ -87,6 +88,8 @@ namespace PC_Ripper_Benchmark.util {
 
         public static bool IsValidName(string name) {
             try {
+                if (string.IsNullOrWhiteSpace(name)) { return false; }
+
                 return Regex.IsMatch(name, "^[A-Za-z][a-zA-Z]*$",
                      RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
@@ -105,6 +108,8 @@ namespace PC_Ripper_Benchmark.util {
 
         public static bool IsValidPhoneNumber(string phoneNumber) {
             try {
+                if (string.IsNullOrWhiteSpace(phoneNumber)) { return false; }
+
                 return Regex.IsMatch(phoneNumber, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
