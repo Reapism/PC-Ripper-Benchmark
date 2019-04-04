@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace PC_Ripper_Benchmark.window
-{
+namespace PC_Ripper_Benchmark.window {
     /// <summary>
     /// Interaction logic for PasswordResetWindow.xaml
     /// </summary>
-    public partial class PasswordResetWindow : Window
-    {
+    public partial class PasswordResetWindow : Window {
         int count = 3;
         util.Encryption encryption = new util.Encryption();
         Popup codePopup = new Popup();
@@ -28,156 +18,139 @@ namespace PC_Ripper_Benchmark.window
         function.SystemSettings networkConnection = new function.SystemSettings();
 
         string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
-        public PasswordResetWindow()
-        {
+        public PasswordResetWindow() {
             InitializeComponent();
-            lblSecurityQuestion.Opacity = 0;
-            securityQuestionAnswerTextBox.Opacity = 0;
-            securityQuestionAnswerTextBox.Opacity = 0;
+            this.lblSecurityQuestion.Opacity = 0;
+            this.securityQuestionAnswerTextBox.Opacity = 0;
+            this.securityQuestionAnswerTextBox.Opacity = 0;
 
             //newPasswordLabel & Box defaults
-            newPasswordLabel.Opacity = 0;
-            newPasswordLabel.Visibility = Visibility.Collapsed;
-            newPasswordBox.Opacity = 0;
-            newPasswordBox.Visibility = Visibility.Collapsed;
+            this.newPasswordLabel.Opacity = 0;
+            this.newPasswordLabel.Visibility = Visibility.Collapsed;
+            this.newPasswordBox.Opacity = 0;
+            this.newPasswordBox.Visibility = Visibility.Collapsed;
 
             //confirmNewPasswordBox defaults
-            confirmNewPasswordBox.Opacity = 0;
-            confirmNewPasswordBox.Visibility = Visibility.Collapsed;
-            confirmPasswordLabel.Opacity = 0;
-            confirmPasswordLabel.Visibility = Visibility.Collapsed;
+            this.confirmNewPasswordBox.Opacity = 0;
+            this.confirmNewPasswordBox.Visibility = Visibility.Collapsed;
+            this.confirmPasswordLabel.Opacity = 0;
+            this.confirmPasswordLabel.Visibility = Visibility.Collapsed;
 
             //Security answer button
-            confirmSecurityAnswerButton.Opacity = 0;
-            confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
-            emailTextBox.Focus();
+            this.confirmSecurityAnswerButton.Opacity = 0;
+            this.confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
+            this.emailTextBox.Focus();
 
             //Done button
-            doneButton.Opacity = 0;
-            doneButton.Visibility = Visibility.Collapsed;
+            this.doneButton.Opacity = 0;
+            this.doneButton.Visibility = Visibility.Collapsed;
 
         }
 
-        private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e)
-        {           
-            try
-            {
-                if (networkConnection.IsInternetAvailable() == true)
-                {
-                    if (util.RegexUtilities.IsValidEmail(emailTextBox.Text))
-                    {
+        private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (this.networkConnection.IsInternetAvailable() == true) {
+                    if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                         //Open new database connection
-                        SqlConnection connection = new SqlConnection(connectionString);
+                        SqlConnection connection = new SqlConnection(this.connectionString);
                         database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
                         //If the email exists in the database
-                        if (newConnection.CheckEmailExists(connection, emailTextBox.Text))
-                        {
+                        if (newConnection.CheckEmailExists(connection, this.emailTextBox.Text)) {
                             connection.Open();
 
                             //Show the security question labels and fields
-                            lblSecurityQuestion.Opacity = 100;
-                            lblSecurityQuestion.Visibility = Visibility.Visible;
-                            securityQuestionAnswerTextBox.Opacity = 100;
-                            securityQuestionAnswerTextBox.Visibility = Visibility.Visible;
-                            confirmSecurityAnswerButton.Visibility = Visibility.Visible;
+                            this.lblSecurityQuestion.Opacity = 100;
+                            this.lblSecurityQuestion.Visibility = Visibility.Visible;
+                            this.securityQuestionAnswerTextBox.Opacity = 100;
+                            this.securityQuestionAnswerTextBox.Visibility = Visibility.Visible;
+                            this.confirmSecurityAnswerButton.Visibility = Visibility.Visible;
 
                             //Command to get the actual answered security question
                             SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM Customer where Email=@Email", connection);
-                            string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
-                            securityQuestionAnswerTextBox.Focus();
+                            string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
+                            this.securityQuestionAnswerTextBox.Focus();
 
                             //Fill the parameter of the query
                             getSecurityQuestion.Parameters.AddWithValue("@Email", email);
-                            lblSecurityQuestion.Content = (string)getSecurityQuestion.ExecuteScalar();
+                            this.lblSecurityQuestion.Content = (string)getSecurityQuestion.ExecuteScalar();
 
-                            confirmEmailButton.Visibility = Visibility.Collapsed;
+                            this.confirmEmailButton.Visibility = Visibility.Collapsed;
 
                             //Command to get the security question answer for comparison
                             SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
-                            string securityAnswer = encryption.EncryptText(securityQuestionAnswerTextBox.Text.ToUpper().Trim());
+                            string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text.ToUpper().Trim());
 
                             getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
 
                             //Set the answer returned by the query to a variable for comparison
                             string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
 
-                            confirmSecurityAnswerButton.Opacity = 100;
+                            this.confirmSecurityAnswerButton.Opacity = 100;
 
                             //Make the confirmed field read only
-                            emailTextBox.IsReadOnly = true;
-                            emailTextBox.Background = Brushes.SlateGray;
+                            this.emailTextBox.IsReadOnly = true;
+                            this.emailTextBox.Background = Brushes.SlateGray;
 
                             connection.Close();
-                        }                       
-                    }
-                    else
-                    {
+                        }
+                    } else {
                         MessageBox.Show("Invalid email", "Incorrect email format", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
 
                 }
-                
-            }
-            catch (SqlException)
-            {
+
+            } catch (SqlException) {
                 MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
+
         }
 
         #region Confirm the security answer
-        private void ConfirmSecurityAnswer_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (networkConnection.IsInternetAvailable() == true)
-                {
+        private void ConfirmSecurityAnswer_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (this.networkConnection.IsInternetAvailable() == true) {
                     //Open new database connection
-                    SqlConnection connection = new SqlConnection(connectionString);
+                    SqlConnection connection = new SqlConnection(this.connectionString);
                     database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
                     connection.Open();
 
                     //Command to get the actual answered security question
-                    string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
+                    string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
 
                     //Command to get the security question answer for comparison
                     SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
-                    string securityAnswer = encryption.EncryptText(securityQuestionAnswerTextBox.Text);
+                    string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text);
 
                     getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
 
                     //Set the answer returned by the query to a variable for comparison
                     string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
 
-                    if (encryption.EncryptText(securityQuestionAnswerTextBox.Text) == answer)
-                    {
-                        newPasswordLabel.Opacity = 100;
-                        newPasswordLabel.Visibility = Visibility.Visible;
-                        newPasswordBox.Opacity = 100;
-                        newPasswordBox.Visibility = Visibility.Visible;
-                        confirmNewPasswordBox.Opacity = 100;
-                        confirmNewPasswordBox.Visibility = Visibility.Visible;
-                        confirmPasswordLabel.Opacity = 100;
-                        confirmPasswordLabel.Visibility = Visibility.Visible;
-                        newPasswordLabel.Focus();
+                    if (this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text) == answer) {
+                        this.newPasswordLabel.Opacity = 100;
+                        this.newPasswordLabel.Visibility = Visibility.Visible;
+                        this.newPasswordBox.Opacity = 100;
+                        this.newPasswordBox.Visibility = Visibility.Visible;
+                        this.confirmNewPasswordBox.Opacity = 100;
+                        this.confirmNewPasswordBox.Visibility = Visibility.Visible;
+                        this.confirmPasswordLabel.Opacity = 100;
+                        this.confirmPasswordLabel.Visibility = Visibility.Visible;
+                        this.newPasswordLabel.Focus();
 
-                        securityQuestionAnswerTextBox.IsReadOnly = true;
-                        securityQuestionAnswerTextBox.Background = Brushes.SlateGray;
-                        confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
-                        doneButton.Opacity = 100;
-                        doneButton.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        count--;
-                        MessageBox.Show($"The answer entered is incorrect. You have {count} attempts left.", "Incorrect Answer", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        securityQuestionAnswerTextBox.Clear();
-                        securityQuestionAnswerTextBox.Focus();
+                        this.securityQuestionAnswerTextBox.IsReadOnly = true;
+                        this.securityQuestionAnswerTextBox.Background = Brushes.SlateGray;
+                        this.confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
+                        this.doneButton.Opacity = 100;
+                        this.doneButton.Visibility = Visibility.Visible;
+                    } else {
+                        this.count--;
+                        MessageBox.Show($"The answer entered is incorrect. You have {this.count} attempts left.", "Incorrect Answer", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        this.securityQuestionAnswerTextBox.Clear();
+                        this.securityQuestionAnswerTextBox.Focus();
                     }
 
-                    if (count == 0)
-                    {
+                    if (this.count == 0) {
                         LoginWindow loginWindow = new LoginWindow();
                         function.WindowSettings windowSettings = new function.WindowSettings();
 
@@ -185,33 +158,29 @@ namespace PC_Ripper_Benchmark.window
                     }
                     connection.Close();
                 }
-            }
-            catch (SqlException)
-            {
+            } catch (SqlException) {
                 MessageBox.Show("An SQL Exception was caught!");
             }
-            
+
         }
         #endregion
 
         #region Done Button
-        private void DoneButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void DoneButton_Click(object sender, RoutedEventArgs e) {
             //Open new database connection
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(this.connectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
             connection.Open();
 
             //Command to get the actual answered security question
-            string email = encryption.EncryptText(emailTextBox.Text.ToUpper().Trim());
+            string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
 
             if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password) &&
-                   this.newPasswordBox.Password == this.confirmNewPasswordBox.Password)
-            {
+                   this.newPasswordBox.Password == this.confirmNewPasswordBox.Password) {
                 SqlCommand changePassword = new SqlCommand("UPDATE Customer SET Password = @Password WHERE Email=@Email", connection);
                 //Fill the parameter of the query
                 changePassword.Parameters.AddWithValue("@Email", email);
-                changePassword.Parameters.AddWithValue("@Password", encryption.EncryptText(confirmNewPasswordBox.Password));
+                changePassword.Parameters.AddWithValue("@Password", this.encryption.EncryptText(this.confirmNewPasswordBox.Password));
                 changePassword.ExecuteNonQuery();
 
                 MessageBox.Show("Password Changed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -225,10 +194,8 @@ namespace PC_Ripper_Benchmark.window
         #endregion
 
         #region Passwords match indicator events
-        private void ConfirmNewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.newPasswordBox.Password == this.confirmNewPasswordBox.Password)
-            {
+        private void ConfirmNewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
+            if (this.newPasswordBox.Password == this.confirmNewPasswordBox.Password) {
 
                 //If the password matches, set passwords match label to green border and visible
                 this.lblPasswordsMatch.Content = "Passwords match";
@@ -238,9 +205,7 @@ namespace PC_Ripper_Benchmark.window
                 //Confirm password box turns green
                 this.confirmNewPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmNewPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
 
                 //If the password does not match, set passwords match label to visible;
                 this.lblPasswordsMatch.Content = "Passwords don't match";
@@ -251,11 +216,10 @@ namespace PC_Ripper_Benchmark.window
                 //Confirm password box turns red
                 this.confirmNewPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmNewPasswordBox.BorderBrush = Brushes.Red;
-            }            
+            }
         }
 
-        private void NewPasswordBox_GotFocus(object sender, RoutedEventArgs e)
-        {       
+        private void NewPasswordBox_GotFocus(object sender, RoutedEventArgs e) {
             //Sets the popup values, background property,
             this.popupContent.FontSize = 10;
             this.codePopup.PlacementTarget = this.newPasswordBox;
@@ -268,61 +232,48 @@ namespace PC_Ripper_Benchmark.window
 
             this.codePopup.IsOpen = true;
 
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password))
-            {
+            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
                 this.codePopup.IsOpen = false;
-            }
-            else
-            {
+            } else {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Red;
             }
         }
 
-        private void NewPasswordBox_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void NewPasswordBox_LostFocus(object sender, RoutedEventArgs e) {
             this.codePopup.IsOpen = false;
 
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password))
-            {
+            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Red;
             }
         }
 
-        private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password))
-            {
+        private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
                 this.codePopup.IsOpen = false;
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Red;
             }
         }
         #endregion
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void BackButton_Click(object sender, RoutedEventArgs e) {
             LoginWindow loginWindow = new LoginWindow();
             function.WindowSettings windowSettings = new function.WindowSettings();
 
             windowSettings.TransitionScreen(loginWindow, this);
         }
 
-        private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e)
-        {
+        private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e) {
 
         }
     }

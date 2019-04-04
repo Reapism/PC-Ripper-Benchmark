@@ -63,7 +63,7 @@
                                     <GradientStop Color="#FFE0F8F9" Offset="1"/>
                                 </RadialGradientBrush>
                             </Grid.Background>
-                            <GroupBox x:Name="grpSpecs" Header="Specifications:" Margin="0" Padding="1,0,0,0" HorizontalAlignment="Right" MinWidth="418" BorderBrush="#FFFFDC00">
+                            <GroupBox x:Name="grpSpecs" Header="Specifications:" Margin="420,0,0,0" Padding="1,0,0,0" MinWidth="420" BorderBrush="#FFFFDC00" Width="420">
                                 <GroupBox.Background>
                                     <RadialGradientBrush>
                                         <GradientStop Color="#FFCBF5F2" Offset="1"/>
@@ -71,11 +71,11 @@
                                     </RadialGradientBrush>
                                 </GroupBox.Background>
                                 <Grid x:Name="grdSpecs" Margin="0">
-                                    <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications." FontSize="14"/>
+                                    <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications." FontSize="14" ScrollViewer.CanContentScroll="True"/>
                                     <Image x:Name="imgSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
                                 </Grid>
                             </GroupBox>
-                            <Grid x:Name="grdUserInfo" Margin="0" HorizontalAlignment="Left" Width="400" MinHeight="389" MinWidth="400">
+                            <Grid x:Name="grdUserInfo" Margin="0,0,413,0" Width="413" MinHeight="389" MinWidth="413">
                                 <Grid.Background>
                                     <RadialGradientBrush>
                                         <GradientStop Color="Snow" Offset="0"/>

@@ -86,7 +86,7 @@ namespace PC_Ripper_Benchmark.util {
 
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add("VideoMemoryType: " + item.Properties["VideoMemoryType"].Value.ToString());
+                lst.Add("DriverVersion: " + item.Properties["DriverVersion"].Value.ToString());
             }
         }
     }

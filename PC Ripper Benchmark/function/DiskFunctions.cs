@@ -397,10 +397,9 @@ namespace PC_Ripper_Benchmark.function {
                 }
             }
 
-            string data = funcGenDescription();
-
             StreamWriter writer;
 
+            string data = funcGenDescription();
             string fileName; // the path of the file.
 
             // create a file config.ripperblk with a description in it.
@@ -445,15 +444,24 @@ namespace PC_Ripper_Benchmark.function {
         /// the config files.</param>
 
         private void DeleteConfigFiles(string path) {
-            DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] Files = d.GetFiles($"config*");
+            DirectoryInfo d;
+            FileInfo[] Files;
+
+            try {
+                d = new DirectoryInfo(path);
+                Files = d.GetFiles($"config*");
+            } catch {
+                return;
+            }
 
             foreach (FileInfo file in Files) {
+
                 try {
                     File.Delete(file.FullName);
                 } catch (Exception) {
                     continue;
                 }
+
             }
         }
 

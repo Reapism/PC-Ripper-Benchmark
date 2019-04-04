@@ -1,5 +1,6 @@
 ﻿using PC_Ripper_Benchmark.function;
 using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Input;
@@ -34,7 +35,7 @@ namespace PC_Ripper_Benchmark.window {
             database_progressbar.Opacity = 100;
             database_progressbar.Value = 0;
 
-            string connectionString = Properties.Settings.Default.Connection_String;
+            string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
 
 
             SqlConnection connection = new SqlConnection(connectionString);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using PC_Ripper_Benchmark.database;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
@@ -57,12 +58,12 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void GetWelcomeText() {
-
+            
         }
 
         /// <summary>
         /// Gets the computer specifications and places them inside the
-        /// <see cref="txtComputerSpecs"/> <see cref="TextBlock"/>.
+        /// <see cref="txtBlkComputerSpecs"/> <see cref="TextBlock"/>.
         /// </summary>
 
         private void GetComputerSpecs() {
