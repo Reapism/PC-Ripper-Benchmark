@@ -124,20 +124,11 @@ namespace PC_Ripper_Benchmark.window {
                 };
 
                 //SQL Connection String
-                SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder {
-                    DataSource = "tcp:bcsproject.database.windows.net,1433",
-                    UserID = "Konrad100",
-                    Password = "Coolguy100",
-                    PersistSecurityInfo = false,
-                    InitialCatalog = "CPURipper",
-                    MultipleActiveResultSets = false,
-                    Encrypt = true,
-                    TrustServerCertificate = false,
-                    ConnectTimeout = 30
-                };
+                string connectionString = Properties.Settings.Default.Connection_String;
+               
 
                 //Open database connection and send that data to the database hashed.
-                database.DatabaseConnection dbConnection = new database.DatabaseConnection(connectionString.ConnectionString);
+                database.DatabaseConnection dbConnection = new database.DatabaseConnection(connectionString);
 
                 if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser)) {
                     LoginWindow loginWindow = new LoginWindow();

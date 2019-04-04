@@ -214,5 +214,17 @@ namespace PC_Ripper_Benchmark.Properties {
                 this["iter_disk_diskripper"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:bcsproject.database.windows.net,1433;Initial Catalog=CPURipper;Persist" +
+            " Security Info=False;User ID=Konrad100;Password=Coolguy100;MultipleActiveResultS" +
+            "ets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")]
+        public string Connection_String {
+            get {
+                return ((string)(this["Connection_String"]));
+            }
+        }
     }
 }

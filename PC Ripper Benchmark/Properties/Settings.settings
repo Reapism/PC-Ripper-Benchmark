@@ -50,5 +50,12 @@
     <Setting Name="iter_disk_diskripper" Type="System.UInt64" Scope="User">
       <Value Profile="(Default)">2000</Value>
     </Setting>
+    <Setting Name="Connection_String" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Server=tcp:bcsproject.database.windows.net,1433;Initial Catalog=CPURipper;Persist Security Info=False;User ID=Konrad100;Password=Coolguy100;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Server=tcp:bcsproject.database.windows.net,1433;Initial Catalog=CPURipper;Persist Security Info=False;User ID=Konrad100;Password=Coolguy100;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

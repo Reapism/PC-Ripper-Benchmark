@@ -27,18 +27,7 @@ namespace PC_Ripper_Benchmark.window
         TextBlock popupContent = new TextBlock();
         function.SystemSettings networkConnection = new function.SystemSettings();
 
-        SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder
-        {
-            DataSource = "tcp:bcsproject.database.windows.net,1433",
-            UserID = "Konrad100",
-            Password = "Coolguy100",
-            PersistSecurityInfo = false,
-            InitialCatalog = "CPURipper",
-            MultipleActiveResultSets = false,
-            Encrypt = true,
-            TrustServerCertificate = false,
-            ConnectTimeout = 30
-        };
+        string connectionString  = Properties.Settings.Default.Connection_String;
 
         public PasswordResetWindow()
         {
@@ -77,7 +66,7 @@ namespace PC_Ripper_Benchmark.window
                 if (networkConnection.IsInternetAvailable() == true)
                 {
                     //Open new database connection
-                    SqlConnection connection = new SqlConnection(connectionString.ConnectionString);
+                    SqlConnection connection = new SqlConnection(connectionString);
                     database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
                     //If the email exists in the database
@@ -136,7 +125,7 @@ namespace PC_Ripper_Benchmark.window
             if (networkConnection.IsInternetAvailable() == true)
             {
                 //Open new database connection
-                SqlConnection connection = new SqlConnection(connectionString.ConnectionString);
+                SqlConnection connection = new SqlConnection(connectionString);
                 database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
                 connection.Open();
 
@@ -194,7 +183,7 @@ namespace PC_Ripper_Benchmark.window
         private void DoneButton_Click(object sender, RoutedEventArgs e)
         {
             //Open new database connection
-            SqlConnection connection = new SqlConnection(connectionString.ConnectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
             connection.Open();
 

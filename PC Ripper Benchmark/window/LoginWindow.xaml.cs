@@ -34,19 +34,10 @@ namespace PC_Ripper_Benchmark.window {
             database_progressbar.Opacity = 100;
             database_progressbar.Value = 0;
 
-            SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder {
-                DataSource = "tcp:bcsproject.database.windows.net,1433",
-                UserID = "Konrad100",
-                Password = "Coolguy100",
-                PersistSecurityInfo = false,
-                InitialCatalog = "CPURipper",
-                MultipleActiveResultSets = false,
-                Encrypt = true,
-                TrustServerCertificate = false,
-                ConnectTimeout = 30
-            };
+            string connectionString = Properties.Settings.Default.Connection_String;
 
-            SqlConnection connection = new SqlConnection(stringBuilder.ConnectionString);
+
+            SqlConnection connection = new SqlConnection(connectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
 
             try {
