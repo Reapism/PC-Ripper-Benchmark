@@ -97,9 +97,7 @@ namespace PC_Ripper_Benchmark.window {
                     } else {
                         MessageBox.Show("Invalid email", "Incorrect email format", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
-
                 }
-
             } catch (SqlException) {
                 MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -143,6 +141,7 @@ namespace PC_Ripper_Benchmark.window {
                         this.confirmSecurityAnswerButton.Visibility = Visibility.Collapsed;
                         this.doneButton.Opacity = 100;
                         this.doneButton.Visibility = Visibility.Visible;
+                        this.newPasswordBox.Focus();
                     } else {
                         this.count--;
                         MessageBox.Show($"The answer entered is incorrect. You have {this.count} attempts left.", "Incorrect Answer", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -273,8 +272,109 @@ namespace PC_Ripper_Benchmark.window {
             windowSettings.TransitionScreen(loginWindow, this);
         }
 
+        #region KeyDown Events
         private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e) {
+            
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.confirmNewPasswordBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                this.confirmNewPasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
 
+        private void DoneButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                this.confirmNewPasswordBox.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                this.backButton.Focus();
+                e.Handled = true;
+            }         
+         
+        }
+
+        private void BackButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                this.doneButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                this.newPasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+        #endregion
+
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.confirmEmailButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                this.confirmEmailButton.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void SecurityQuestionAnswerTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.confirmSecurityAnswerButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                this.confirmSecurityAnswerButton.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void ConfirmEmailButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                this.emailTextBox.Focus();
+                e.Handled = true;
+            }            
+        }
+
+        private void ConfirmSecurityAnswerButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                this.confirmSecurityAnswerButton.Focus();
+                e.Handled = true;
+            }            
+        }
+
+        private void ConfirmNewPasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.doneButton.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                this.doneButton.Focus();
+                e.Handled = true;
+            }
         }
     }
 }
