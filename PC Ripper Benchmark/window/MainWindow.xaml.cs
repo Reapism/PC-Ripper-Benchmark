@@ -72,12 +72,18 @@ namespace PC_Ripper_Benchmark.window {
             txtBlkComputerSpecs.Text += $"System specifications for {specs.UserName}." 
                 + Environment.NewLine + Environment.NewLine;
 
+           
+            txtBlkComputerSpecs.Text += "Processor (CPU) specs" + Environment.NewLine;
+
             specs.GetProcessorInfo(out lst);
             foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            txtBlkComputerSpecs.Text += Environment.NewLine + "RAM specs" + Environment.NewLine;
             specs.GetMemoryInfo(out lst);
             foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            txtBlkComputerSpecs.Text += Environment.NewLine + "Disks (HDD/SSD) specs" + Environment.NewLine;
             specs.GetDiskInfo(out lst);
             foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            txtBlkComputerSpecs.Text += Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine;
             specs.GetVideoCard(out lst);
             foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
         }

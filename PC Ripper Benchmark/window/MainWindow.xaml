@@ -71,7 +71,7 @@
                                     </RadialGradientBrush>
                                 </GroupBox.Background>
                                 <Grid x:Name="grdSpecs" Margin="0">
-                                    <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications."/>
+                                    <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications." FontSize="14"/>
                                     <Image x:Name="imgSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
                                 </Grid>
                             </GroupBox>

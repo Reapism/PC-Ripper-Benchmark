@@ -125,9 +125,6 @@ namespace PC_Ripper_Benchmark.function {
         /// to add the <see cref="TimeSpan"/>(s).</param>
 
         private void RunTestsSingle(ref DiskResults results) {
-            if (LockDirectory(this.WorkingDir)) {
-
-            }
 
             for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
                 results.TestCollection.Add(RunFolderMatrix());

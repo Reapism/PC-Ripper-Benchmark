@@ -93,7 +93,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 main.btnSettings.Visibility = Visibility.Hidden;
 
-                slideAnimation = new DoubleAnimation(150.0, 50.0, TimeSpan.FromMilliseconds(300));
+                slideAnimation = new DoubleAnimation(expanded, contracted, TimeSpan.FromMilliseconds(300));
 
             } else {              
                 main.grdNavigation.Width = expanded;
@@ -110,7 +110,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 main.btnSettings.Visibility = Visibility.Visible;
 
-                slideAnimation = new DoubleAnimation(50.0, 150.0, TimeSpan.FromMilliseconds(300));
+                slideAnimation = new DoubleAnimation(contracted, expanded, TimeSpan.FromMilliseconds(300));
             }
 
             main.grdNavigation.BeginAnimation(FrameworkElement.WidthProperty, slideAnimation);
