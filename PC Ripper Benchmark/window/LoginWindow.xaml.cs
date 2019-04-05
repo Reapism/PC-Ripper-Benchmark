@@ -44,7 +44,7 @@ namespace PC_Ripper_Benchmark.window {
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SystemSettings systemSettings = new SystemSettings();
-            if (systemSettings.IsInternetAvailable() == true) {
+            if (SystemSettings.IsInternetAvailable() == true) {
                 if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                     this.database_progressbar.Opacity = 100;
                     this.database_progressbar.Value = 0;

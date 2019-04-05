@@ -27,8 +27,6 @@ namespace PC_Ripper_Benchmark.database {
 
         public SqlConnection Connection { get; set; }
 
-        private SystemSettings networkConnection = new SystemSettings();
-
         /// <summary>
         /// Default constructor. Sets the connection string.
         /// </summary>
@@ -62,7 +60,7 @@ namespace PC_Ripper_Benchmark.database {
         public bool AddUserToDatabase(SqlConnection connection, UserData user) {
 
             try {
-                if (this.networkConnection.IsInternetAvailable() == true) {
+                if (SystemSettings.IsInternetAvailable() == true) {
                     SqlCommand addUser = new SqlCommand("UserAdd", connection) {
                         CommandType = CommandType.StoredProcedure
                     };
@@ -103,7 +101,7 @@ namespace PC_Ripper_Benchmark.database {
 
         public bool CheckAccountExists(SqlConnection connection, string email, string password) {
             try {
-                if (this.networkConnection.IsInternetAvailable() == true) {
+                if (SystemSettings.IsInternetAvailable() == true) {
                     connection.Open();
 
                     Encryption encrypter = new Encryption();
@@ -152,7 +150,7 @@ namespace PC_Ripper_Benchmark.database {
 
         public bool CheckEmailExists(SqlConnection connection, string email) {
             try {
-                if (this.networkConnection.IsInternetAvailable() == true) {
+                if (SystemSettings.IsInternetAvailable() == true) {
                     connection.Open();
 
                     Encryption encrypter = new Encryption();

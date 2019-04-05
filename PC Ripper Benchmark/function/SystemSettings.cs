@@ -18,8 +18,8 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <returns></returns>
 
-        public bool IsInternetAvailable() =>
+        public static bool IsInternetAvailable() =>
             NetworkInterface.GetIsNetworkAvailable();
-       
+
     }
 }

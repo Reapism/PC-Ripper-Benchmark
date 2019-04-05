@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using PC_Ripper_Benchmark.function;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,7 +60,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e) {
             try {
-                if (this.networkConnection.IsInternetAvailable() == true) {
+                if (SystemSettings.IsInternetAvailable() == true) {
                     if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                         //Open new database connection
                         SqlConnection connection = new SqlConnection(this.connectionString);
@@ -117,7 +118,7 @@ namespace PC_Ripper_Benchmark.window {
         #region Confirm the security answer
         private void ConfirmSecurityAnswer_Click(object sender, RoutedEventArgs e) {
             try {
-                if (this.networkConnection.IsInternetAvailable() == true) {
+                if (SystemSettings.IsInternetAvailable() == true) {
                     //Open new database connection
                     SqlConnection connection = new SqlConnection(this.connectionString);
                     database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
