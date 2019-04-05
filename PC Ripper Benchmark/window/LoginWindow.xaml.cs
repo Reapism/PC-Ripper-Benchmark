@@ -49,7 +49,7 @@ namespace PC_Ripper_Benchmark.window {
                     this.database_progressbar.Opacity = 100;
                     this.database_progressbar.Value = 0;
 
-                    string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
+                    string connectionString = DatabaseConnection.GetConnectionString();
 
                     SqlConnection connection = new SqlConnection(connectionString);
                     DatabaseConnection newConnection = new DatabaseConnection(connection.ConnectionString);

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using PC_Ripper_Benchmark.database;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
@@ -29,7 +28,7 @@ namespace PC_Ripper_Benchmark.window {
         private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
-        
+
         #endregion
 
         #region Constructor(s) and method(s).
@@ -52,18 +51,23 @@ namespace PC_Ripper_Benchmark.window {
             this.btnDiskRunTest.IsEnabled = false;
             this.txtBlkWelcomeText.Text = string.Empty;
             this.txtBlkComputerSpecs.Text = string.Empty;
-            
+
             GetComputerSpecs();
 
         }
 
         private void GetWelcomeText() {
-            try {
-                SqlConnection connection = new SqlConnection();
+            if (SystemSettings.IsInternetAvailable()) {
+                try {
 
-            } catch {
+                    SqlConnection connection = new SqlConnection();
 
+                    SqlCommand cmd = new SqlCommand();
+                } catch {
+
+                }
             }
+
         }
 
         /// <summary>
@@ -75,22 +79,22 @@ namespace PC_Ripper_Benchmark.window {
             List<string> lst = new List<string>();
             ComputerSpecs specs = new ComputerSpecs();
 
-            txtBlkComputerSpecs.Text += $"System specifications for {specs.UserName}." 
+            this.txtBlkComputerSpecs.Text += $"System specifications for {specs.UserName}."
                 + Environment.NewLine + Environment.NewLine;
-        
-            txtBlkComputerSpecs.Text += "Processor (CPU) specs" + Environment.NewLine;
+
+            this.txtBlkComputerSpecs.Text += "Processor (CPU) specs" + Environment.NewLine;
 
             specs.GetProcessorInfo(out lst);
-            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
-            txtBlkComputerSpecs.Text += Environment.NewLine + "RAM specs" + Environment.NewLine;
+            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            this.txtBlkComputerSpecs.Text += Environment.NewLine + "RAM specs" + Environment.NewLine;
             specs.GetMemoryInfo(out lst);
-            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
-            txtBlkComputerSpecs.Text += Environment.NewLine + "Disks (HDD/SSD) specs" + Environment.NewLine;
+            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            this.txtBlkComputerSpecs.Text += Environment.NewLine + "Disks (HDD/SSD) specs" + Environment.NewLine;
             specs.GetDiskInfo(out lst);
-            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
-            txtBlkComputerSpecs.Text += Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine;
+            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            this.txtBlkComputerSpecs.Text += Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine;
             specs.GetVideoCard(out lst);
-            foreach (string s in lst) { txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
         }
 
         /// <summary>

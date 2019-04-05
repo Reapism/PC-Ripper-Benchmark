@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Configuration;
+using PC_Ripper_Benchmark.database;
 
 namespace PC_Ripper_Benchmark.window {
     /// <summary>
@@ -131,7 +132,7 @@ namespace PC_Ripper_Benchmark.window {
                 };
 
                 //SQL Connection String
-                string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
+                string connectionString = DatabaseConnection.GetConnectionString();
                
 
                 //Open database connection and send that data to the database hashed.

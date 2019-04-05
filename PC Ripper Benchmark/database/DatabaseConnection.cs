@@ -3,6 +3,7 @@ using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
 using PC_Ripper_Benchmark.window;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
@@ -51,6 +52,13 @@ namespace PC_Ripper_Benchmark.database {
         }
 
         /// <summary>
+        /// Gets the connection string from <see langword="App.config"/>.
+        /// </summary>
+        /// <returns></returns>
+
+        public static string GetConnectionString() => DatabaseConnection.GetConnectionString();
+
+        /// <summary>
         /// Member function that adds a user to the database.
         /// Takes a connection, and the required fields to
         /// insert into the database using a stored
@@ -88,6 +96,7 @@ namespace PC_Ripper_Benchmark.database {
             } catch (SqlException e) {
                 Clipboard.SetText(e.ToString());
                 MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
+                connection.Close();
                 return false;
             }
         }
@@ -132,11 +141,13 @@ namespace PC_Ripper_Benchmark.database {
                     }
                 } else {
                     MessageBox.Show("You are not connected to the internet!");
+                    connection.Close();
                     return false;
                 }
 
             } catch (Exception e) {
                 MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
+                connection.Close();
                 return false;
             }
         }
@@ -177,11 +188,13 @@ namespace PC_Ripper_Benchmark.database {
                     }
                 } else {
                     MessageBox.Show("You are not connected to the internet!");
+                    connection.Close();
                     return false;
                 }
 
             } catch (Exception e) {
                 MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
+                connection.Close();
                 return false;
             }
         }
