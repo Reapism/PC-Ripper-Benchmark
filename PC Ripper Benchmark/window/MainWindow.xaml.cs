@@ -52,7 +52,6 @@ namespace PC_Ripper_Benchmark.window {
             this.txtBlkWelcomeText.Text = string.Empty;
             this.txtBlkComputerSpecs.Text = string.Empty;
             
-
             GetComputerSpecs();
 
         }
@@ -72,8 +71,7 @@ namespace PC_Ripper_Benchmark.window {
 
             txtBlkComputerSpecs.Text += $"System specifications for {specs.UserName}." 
                 + Environment.NewLine + Environment.NewLine;
-
-           
+        
             txtBlkComputerSpecs.Text += "Processor (CPU) specs" + Environment.NewLine;
 
             specs.GetProcessorInfo(out lst);
