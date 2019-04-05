@@ -56,7 +56,7 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
         /// <returns></returns>
 
-        public static string GetConnectionString() => DatabaseConnection.GetConnectionString();
+        public static string GetConnectionString() => ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
 
         /// <summary>
         /// Member function that adds a user to the database.
