@@ -397,17 +397,35 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
+        /// <summary>
+        /// Updates the color and text of the fields
+        /// that show the directory to be valid.
+        /// </summary>
+        /// <param name="path">The path to display
+        /// to the user.</param>
+
         private void ValidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = true;
             this.txtBlkWorkingDir.Text = $"Working Directory Path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.DarkOliveGreen;
         }
 
+        /// <summary>
+        /// Updates the color and text of the fields
+        /// that show the directory to be invalid.
+        /// </summary>
+        /// <param name="path">The path to display
+        /// to the user.</param>
+
         private void InvalidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = false;
             this.txtBlkWorkingDir.Text = $"Invalid path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.LightSalmon;
         }
+
+        /// <summary>
+        /// Unlocks a particular directory on the filesystem.
+        /// </summary>
 
         private void UnlockDir() {
             System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
@@ -420,6 +438,10 @@ namespace PC_Ripper_Benchmark.window {
                 diskFunctions.UnlockDirectory(folderBrowser.SelectedPath);
             }
         }
+
+        /// <summary>
+        /// Locks a particular directory on the filesystem.
+        /// </summary>
 
         private void LockDir() {
             System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
@@ -521,8 +543,19 @@ namespace PC_Ripper_Benchmark.window {
             var disk = new DiskFunctions(ref this.rs);
 
             if (disk.SetWorkingDirectory(out string path)) {
-                this.workingDir = path;
-                ValidDirectory(path);
+                
+                // promp again for verification.
+                if (MessageBox.Show("Are you sure you would like " +
+                    $"to perfom the test in this directory? {Environment.NewLine} {path}", "Confirmation",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question)
+                    == MessageBoxResult.Yes) {
+
+                    ValidDirectory(path);
+                    this.workingDir = path;
+                } else {
+                    InvalidDirectory(string.Empty);
+                }
+
             } else {
                 InvalidDirectory(path);
             }
