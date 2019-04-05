@@ -45,6 +45,16 @@ namespace PC_Ripper_Benchmark.window {
             this.doneButton.Opacity = 0;
             this.doneButton.Visibility = Visibility.Collapsed;
 
+            confirmEmailButton.BorderThickness = new Thickness(3);
+            confirmSecurityAnswerButton.BorderThickness = new Thickness(3);
+            doneButton.BorderThickness = new Thickness(3);
+            backButton.BorderThickness = new Thickness(3);
+
+            confirmEmailButton.BorderBrush = Brushes.White;
+            confirmSecurityAnswerButton.BorderBrush = Brushes.White;
+            doneButton.BorderBrush = Brushes.White;
+            backButton.BorderBrush = Brushes.White;
+
         }
 
         private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e) {
@@ -218,28 +228,7 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
-        private void NewPasswordBox_GotFocus(object sender, RoutedEventArgs e) {
-            //Sets the popup values, background property,
-            this.popupContent.FontSize = 10;
-            this.codePopup.PlacementTarget = this.newPasswordBox;
-            this.popupContent.Text = "Password must contain: \n-One uppercase letter" +
-                "\n-One special character\n-One number";
 
-            this.popupContent.Background = Brushes.PeachPuff;
-            this.popupContent.Foreground = Brushes.Red;
-            this.codePopup.Child = this.popupContent;
-
-            this.codePopup.IsOpen = true;
-
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
-                this.newPasswordBox.BorderThickness = new Thickness(3.0);
-                this.newPasswordBox.BorderBrush = Brushes.Green;
-                this.codePopup.IsOpen = false;
-            } else {
-                this.newPasswordBox.BorderThickness = new Thickness(3.0);
-                this.newPasswordBox.BorderBrush = Brushes.Red;
-            }
-        }
 
         private void NewPasswordBox_LostFocus(object sender, RoutedEventArgs e) {
             this.codePopup.IsOpen = false;
@@ -254,13 +243,27 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
+
+            //Sets the popup values, background property,
+            this.popupContent.FontSize = 10;
+            this.codePopup.PlacementTarget = this.newPasswordBox;
+            this.popupContent.Text = "Password must contain: \n-One uppercase letter" +
+                "\n-One special character\n-One number";
+
+            this.popupContent.Background = Brushes.PeachPuff;
+            this.popupContent.Foreground = Brushes.Red;
+            this.codePopup.Child = this.popupContent;
+
+            this.codePopup.IsOpen = true;
+            
             if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
-                this.codePopup.IsOpen = false;
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
+                this.codePopup.IsOpen = false;
             } else {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Red;
+                this.codePopup.IsOpen = true;
             }
         }
         #endregion
@@ -298,8 +301,11 @@ namespace PC_Ripper_Benchmark.window {
             {
                 this.backButton.Focus();
                 e.Handled = true;
-            }         
-         
+            }
+            else if (e.Key == Key.Enter)
+            {
+                DoneButton_Click(sender, e);
+            }
         }
 
         private void BackButton_KeyDown(object sender, KeyEventArgs e)
@@ -314,8 +320,16 @@ namespace PC_Ripper_Benchmark.window {
                 this.newPasswordBox.Focus();
                 e.Handled = true;
             }
+            else if (e.Key == Key.Enter)
+            {
+                BackButton_Click(sender, e);
+            }
+            else if (e.Key == Key.Up)
+            {
+                confirmEmailButton.Focus();
+            }
+
         }
-        #endregion
 
         private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -351,7 +365,11 @@ namespace PC_Ripper_Benchmark.window {
             {
                 this.emailTextBox.Focus();
                 e.Handled = true;
-            }            
+            }
+            else if (e.Key == Key.Enter)
+            {
+                ConfirmEmailButton_Click(sender, e);
+            }
         }
 
         private void ConfirmSecurityAnswerButton_KeyDown(object sender, KeyEventArgs e)
@@ -360,7 +378,11 @@ namespace PC_Ripper_Benchmark.window {
             {
                 this.confirmSecurityAnswerButton.Focus();
                 e.Handled = true;
-            }            
+            }
+            else if (e.Key == Key.Enter)
+            {
+                ConfirmSecurityAnswer_Click(sender, e);
+            }
         }
 
         private void ConfirmNewPasswordBox_KeyDown(object sender, KeyEventArgs e)
@@ -376,5 +398,61 @@ namespace PC_Ripper_Benchmark.window {
                 e.Handled = true;
             }
         }
+
+        #endregion
+        #region GotFocus Button Events
+        private void ConfirmEmailButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.confirmEmailButton.BorderThickness = new Thickness(3.0);
+            this.confirmEmailButton.BorderBrush = Brushes.ForestGreen;
+            this.confirmEmailButton.Foreground = Brushes.Black;
+        }
+
+        private void ConfirmSecurityAnswerButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.confirmSecurityAnswerButton.BorderThickness = new Thickness(3.0);
+            this.confirmSecurityAnswerButton.BorderBrush = Brushes.ForestGreen;
+            this.confirmSecurityAnswerButton.Foreground = Brushes.Black;
+        }
+
+        private void DoneButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.doneButton.BorderThickness = new Thickness(3.0);
+            this.doneButton.BorderBrush = Brushes.ForestGreen;
+            this.doneButton.Foreground = Brushes.Black;
+        }
+
+        private void BackButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.backButton.BorderThickness = new Thickness(3.0);
+            this.backButton.BorderBrush = Brushes.ForestGreen;
+            this.backButton.Foreground = Brushes.Black;
+        }
+        #endregion
+        #region LostFocus Button Events
+        private void ConfirmEmailButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.confirmEmailButton.BorderBrush = Brushes.White;
+            this.confirmEmailButton.Foreground = Brushes.White;
+        }
+
+        private void ConfirmSecurityAnswerButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.confirmSecurityAnswerButton.BorderBrush = Brushes.White;
+            this.confirmSecurityAnswerButton.Foreground = Brushes.White;
+        }
+
+        private void DoneButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.doneButton.BorderBrush = Brushes.White;
+            this.doneButton.Foreground = Brushes.White;
+        }
+
+        private void BackButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.backButton.BorderBrush = Brushes.White;
+            this.backButton.Foreground = Brushes.White;
+        }
+        #endregion
     }
 }
