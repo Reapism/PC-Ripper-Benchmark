@@ -4,7 +4,6 @@ using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,12 +21,21 @@ namespace PC_Ripper_Benchmark.window {
 
     public partial class MainWindow : Window {
 
-        #region Instance member(s), and enum(s).        
+        #region Instance member(s), and enum(s), and properties.        
+
+        /// <summary>
+        /// The first name associated with this
+        /// <see cref="MainWindow"/> instance.
+        /// </summary>
+
+        public string FirstName { get; set; }
 
         private RipperSettings rs;
         private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
+
+
 
         #endregion
 
@@ -49,24 +57,18 @@ namespace PC_Ripper_Benchmark.window {
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
-            this.txtBlkWelcomeText.Text = string.Empty;
-            this.txtBlkComputerSpecs.Text = string.Empty;
 
+            ws.NavigationMenu(this);
+
+            GetWelcomeText();
             GetComputerSpecs();
 
         }
 
         private void GetWelcomeText() {
-            if (SystemSettings.IsInternetAvailable()) {
-                try {
-
-                    SqlConnection connection = new SqlConnection();
-
-                    SqlCommand cmd = new SqlCommand();
-                } catch {
-
-                }
-            }
+            txtblkWelcome.Text = $"Welcome {FirstName} back.";
+            txtBlkWelcomeText.Text = $"Welcome {FirstName}! ";
+                
 
         }
 
@@ -543,7 +545,7 @@ namespace PC_Ripper_Benchmark.window {
             var disk = new DiskFunctions(ref this.rs);
 
             if (disk.SetWorkingDirectory(out string path)) {
-                
+
                 // promp again for verification.
                 if (MessageBox.Show("Are you sure you would like " +
                     $"to perfom the test in this directory? {Environment.NewLine} {path}", "Confirmation",

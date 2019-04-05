@@ -30,7 +30,16 @@
             </Button>
 
         </Grid>
-        <Grid x:Name="grdTop" Margin="0" VerticalAlignment="Top" Background="#FF4C5461" MinHeight="100" MinWidth="650" Grid.ColumnSpan="2"/>
+        <Grid x:Name="grdTop" Margin="0" VerticalAlignment="Top" Background="#FF13161D" MinHeight="100" MinWidth="650" Grid.ColumnSpan="2">
+            <Grid x:Name="grdTopInner" Margin="2">
+                <Grid.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Offset="0" Color="#3DFFFFFF"/>
+                        <GradientStop Color="#33DEDCDC" Offset="1"/>
+                    </RadialGradientBrush>
+                </Grid.Background>
+            </Grid>
+        </Grid>
         <Grid x:Name="grdWindow" Margin="150,100,0,0" Grid.ColumnSpan="2" MinWidth="640" MinHeight="320">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -46,15 +55,23 @@
                     </LinearGradientBrush>
                 </TabControl.BorderBrush>
                 <TabItem x:Name="tabWelcome" Header="Welcome &lt;name&gt;, Profile" BorderBrush="#FF7E2F2F">
-                    <Grid x:Name="grdWelcome">
-                        <Grid.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
-                            </RadialGradientBrush>
-                        </Grid.Background>
-                        <StackPanel x:Name="stkWelcome" Height="37" Margin="0,5,0,0" VerticalAlignment="Top" MinHeight="100" MinWidth="100">
-                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Text="Welcome &lt;user&gt; to the PC Ripper Benchmark. Below you can find your computer specifications. You will be able to get information from " FontSize="18" Margin="36,0,0,0"/>
+                    <Grid x:Name="grdWelcome" Background="#FF7786AD">
+                        <StackPanel x:Name="stkWelcomeTopBG" Margin="5" MinHeight="100" MinWidth="100" Height="85" MaxHeight="85" >
+                            <StackPanel.Background>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#33FFFFFF" Offset="0"/>
+                                    <GradientStop Color="#33CDDDFF" Offset="1"/>
+                                </RadialGradientBrush>
+                            </StackPanel.Background>
+                        </StackPanel>
+                        <StackPanel x:Name="stkWelcomeBG" Margin="6" MinHeight="85" MinWidth="85" Height="85" MaxHeight="85" VerticalAlignment="Top">
+                            <StackPanel.Background>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#3396A7D3" Offset="1"/>
+                                    <GradientStop Color="#33FFFFFF"/>
+                                </RadialGradientBrush>
+                            </StackPanel.Background>
+                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" FontSize="18" Margin="36,0,0,0" Foreground="White"/>
                         </StackPanel>
                         <Grid x:Name="grdSystemSpecs" Margin="0,100,0,0" MinHeight="100">
                             <Grid.Background>
@@ -63,19 +80,19 @@
                                     <GradientStop Color="#FFE0F8F9" Offset="1"/>
                                 </RadialGradientBrush>
                             </Grid.Background>
-                            <GroupBox x:Name="grpSpecs" Header="Specifications:" Margin="420,0,0,0" Padding="1,0,0,0" MinWidth="420" BorderBrush="#FFFFDC00" Width="420">
+                            <GroupBox x:Name="grpSpecs" Header="Specifications:" Margin="410,0,0,0" Padding="1,0,0,0" MinWidth="420" BorderBrush="#FFFFDC00" Width="420" HorizontalAlignment="Right">
                                 <GroupBox.Background>
                                     <RadialGradientBrush>
                                         <GradientStop Color="#FFCBF5F2" Offset="1"/>
                                         <GradientStop Color="#FF98E2DE"/>
                                     </RadialGradientBrush>
                                 </GroupBox.Background>
-                                <Grid x:Name="grdSpecs" Margin="0">
+                                <Grid x:Name="grdSpecs" Margin="5,0,0,0">
                                     <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications." FontSize="14" ScrollViewer.CanContentScroll="True"/>
                                     <Image x:Name="imgSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
                                 </Grid>
                             </GroupBox>
-                            <Grid x:Name="grdUserInfo" Margin="0,0,413,0" Width="413" MinHeight="389" MinWidth="413">
+                            <Grid x:Name="grdUserInfo" Margin="0,0,413,0" Width="413" MinHeight="389" MinWidth="413" HorizontalAlignment="Left">
                                 <Grid.Background>
                                     <RadialGradientBrush>
                                         <GradientStop Color="Snow" Offset="0"/>
@@ -251,12 +268,13 @@
                     <Grid x:Name="grdSettings">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
+                                <GradientStop Color="#bedbd7" Offset="1"/>
+                                <GradientStop Color="#DCDCDC"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <Button x:Name="btnUnlockDirectory" Content="Unlock directory" HorizontalAlignment="Left" Margin="64,184,0,0" VerticalAlignment="Top" Width="122" Click="BtnUnlockDirectory_Click"/>
-                        <Button x:Name="btnLockDirectory" Content="Lock directory" HorizontalAlignment="Left" Margin="64,224,0,0" VerticalAlignment="Top" Width="122" Click="BtnLockDirectory_Click"/>
+                        <Grid x:Name="grdSettingsLeft" HorizontalAlignment="Left" Margin="0" MinWidth="300" Background="#33FFFFFF"/>
+                        <Button x:Name="btnUnlockDirectory" Content="Unlock directory" HorizontalAlignment="Left" Margin="331,189,0,0" VerticalAlignment="Top" Width="122" Click="BtnUnlockDirectory_Click"/>
+                        <Button x:Name="btnLockDirectory" Content="Lock directory" HorizontalAlignment="Left" Margin="373,239,0,0" VerticalAlignment="Top" Width="122" Click="BtnLockDirectory_Click"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabTestResults" Header="Results">
@@ -295,7 +313,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Bottom" Width="308" Height="51" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
-                        <WebBrowser x:Name="browserPreloader" Margin="150,100" AutomationProperties.HelpText="Running the test..." OpacityMask="Black" Source="https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif" ScrollViewer.VerticalScrollBarVisibility="Hidden" MinWidth="300" MinHeight="300" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+                        <WebBrowser x:Name="browserPreloader" Margin="250,100" AutomationProperties.HelpText="Running the test..." OpacityMask="Black" Source="https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinWidth="100" MinHeight="100"/>
                     </Grid>
                 </TabItem>
             </TabControl>
