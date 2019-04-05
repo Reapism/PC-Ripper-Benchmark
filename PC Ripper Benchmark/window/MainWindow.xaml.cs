@@ -548,7 +548,11 @@ namespace PC_Ripper_Benchmark.window {
                 if (MessageBox.Show("Are you sure you would like " +
                     $"to perfom the test in this directory? {Environment.NewLine} {path}", "Confirmation",
                     MessageBoxButton.YesNo, MessageBoxImage.Question)
-                    == MessageBoxResult.Yes) {
+                    == MessageBoxResult.Yes && MessageBox.Show("While the test runs please do not " +
+                    $"power off the machine or open/access any of the files/folders in folder. Please " +
+                    "confirm.", "Confirmation",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Information)
+                    == MessageBoxResult.OK) {
 
                     ValidDirectory(path);
                     this.workingDir = path;
