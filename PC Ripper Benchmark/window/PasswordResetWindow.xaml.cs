@@ -1,5 +1,6 @@
-﻿using PC_Ripper_Benchmark.function;
-using System.Configuration;
+﻿using PC_Ripper_Benchmark.database;
+using PC_Ripper_Benchmark.function;
+using PC_Ripper_Benchmark.util;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,15 +13,23 @@ namespace PC_Ripper_Benchmark.window {
     /// Interaction logic for PasswordResetWindow.xaml
     /// </summary>
     public partial class PasswordResetWindow : Window {
-        int count = 3;
-        util.Encryption encryption = new util.Encryption();
-        Popup codePopup = new Popup();
-        TextBlock popupContent = new TextBlock();
-        function.SystemSettings networkConnection = new function.SystemSettings();
 
-        string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
+        #region Instance variables (fields).
+
+        private Encryption encryption;
+        private Popup codePopup;
+        private TextBlock popupContent;
+        private SystemSettings networkConnection;
+
+        private int count;
+        private string connectionString;
+
+        #endregion
+
         public PasswordResetWindow() {
+            Instantiate();
             InitializeComponent();
+
             this.lblSecurityQuestion.Opacity = 0;
             this.securityQuestionAnswerTextBox.Opacity = 0;
             this.securityQuestionAnswerTextBox.Opacity = 0;
@@ -46,16 +55,30 @@ namespace PC_Ripper_Benchmark.window {
             this.doneButton.Opacity = 0;
             this.doneButton.Visibility = Visibility.Collapsed;
 
-            confirmEmailButton.BorderThickness = new Thickness(3);
-            confirmSecurityAnswerButton.BorderThickness = new Thickness(3);
-            doneButton.BorderThickness = new Thickness(3);
-            backButton.BorderThickness = new Thickness(3);
+            this.confirmEmailButton.BorderThickness = new Thickness(3);
+            this.confirmSecurityAnswerButton.BorderThickness = new Thickness(3);
+            this.doneButton.BorderThickness = new Thickness(3);
+            this.backButton.BorderThickness = new Thickness(3);
 
-            confirmEmailButton.BorderBrush = Brushes.White;
-            confirmSecurityAnswerButton.BorderBrush = Brushes.White;
-            doneButton.BorderBrush = Brushes.White;
-            backButton.BorderBrush = Brushes.White;
+            this.confirmEmailButton.BorderBrush = Brushes.White;
+            this.confirmSecurityAnswerButton.BorderBrush = Brushes.White;
+            this.doneButton.BorderBrush = Brushes.White;
+            this.backButton.BorderBrush = Brushes.White;
 
+        }
+
+        /// <summary>
+        /// Instantiates the instance variables.
+        /// </summary>
+
+        private void Instantiate() {
+            this.count = 3;
+            this.encryption = new Encryption();
+            this.codePopup = new Popup();
+            this.popupContent = new TextBlock();
+            this.networkConnection = new SystemSettings();
+
+            this.connectionString = DatabaseConnection.GetConnectionString();
         }
 
         private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e) {
@@ -256,7 +279,7 @@ namespace PC_Ripper_Benchmark.window {
             this.codePopup.Child = this.popupContent;
 
             this.codePopup.IsOpen = true;
-            
+
             if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
@@ -278,123 +301,86 @@ namespace PC_Ripper_Benchmark.window {
 
         #region KeyDown Events
         private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e) {
-            
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 this.confirmNewPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmNewPasswordBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void DoneButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void DoneButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.confirmNewPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.backButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 DoneButton_Click(sender, e);
             }
         }
 
-        private void BackButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void BackButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.doneButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.newPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 BackButton_Click(sender, e);
-            }
-            else if (e.Key == Key.Up)
-            {
-                confirmEmailButton.Focus();
+            } else if (e.Key == Key.Up) {
+                this.confirmEmailButton.Focus();
             }
 
         }
 
-        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 this.confirmEmailButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmEmailButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void SecurityQuestionAnswerTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+        private void SecurityQuestionAnswerTextBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 this.confirmSecurityAnswerButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmSecurityAnswerButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void ConfirmEmailButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void ConfirmEmailButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.emailTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 ConfirmEmailButton_Click(sender, e);
             }
         }
 
-        private void ConfirmSecurityAnswerButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void ConfirmSecurityAnswerButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.confirmSecurityAnswerButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 ConfirmSecurityAnswer_Click(sender, e);
             }
         }
 
-        private void ConfirmNewPasswordBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+        private void ConfirmNewPasswordBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 this.doneButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.doneButton.Focus();
                 e.Handled = true;
             }
@@ -402,55 +388,47 @@ namespace PC_Ripper_Benchmark.window {
 
         #endregion
         #region GotFocus Button Events
-        private void ConfirmEmailButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmEmailButton_GotFocus(object sender, RoutedEventArgs e) {
             this.confirmEmailButton.BorderThickness = new Thickness(3.0);
             this.confirmEmailButton.BorderBrush = Brushes.ForestGreen;
             this.confirmEmailButton.Foreground = Brushes.Black;
         }
 
-        private void ConfirmSecurityAnswerButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmSecurityAnswerButton_GotFocus(object sender, RoutedEventArgs e) {
             this.confirmSecurityAnswerButton.BorderThickness = new Thickness(3.0);
             this.confirmSecurityAnswerButton.BorderBrush = Brushes.ForestGreen;
             this.confirmSecurityAnswerButton.Foreground = Brushes.Black;
         }
 
-        private void DoneButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void DoneButton_GotFocus(object sender, RoutedEventArgs e) {
             this.doneButton.BorderThickness = new Thickness(3.0);
             this.doneButton.BorderBrush = Brushes.ForestGreen;
             this.doneButton.Foreground = Brushes.Black;
         }
 
-        private void BackButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BackButton_GotFocus(object sender, RoutedEventArgs e) {
             this.backButton.BorderThickness = new Thickness(3.0);
             this.backButton.BorderBrush = Brushes.ForestGreen;
             this.backButton.Foreground = Brushes.Black;
         }
         #endregion
         #region LostFocus Button Events
-        private void ConfirmEmailButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmEmailButton_LostFocus(object sender, RoutedEventArgs e) {
             this.confirmEmailButton.BorderBrush = Brushes.White;
             this.confirmEmailButton.Foreground = Brushes.White;
         }
 
-        private void ConfirmSecurityAnswerButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmSecurityAnswerButton_LostFocus(object sender, RoutedEventArgs e) {
             this.confirmSecurityAnswerButton.BorderBrush = Brushes.White;
             this.confirmSecurityAnswerButton.Foreground = Brushes.White;
         }
 
-        private void DoneButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void DoneButton_LostFocus(object sender, RoutedEventArgs e) {
             this.doneButton.BorderBrush = Brushes.White;
             this.doneButton.Foreground = Brushes.White;
         }
 
-        private void BackButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BackButton_LostFocus(object sender, RoutedEventArgs e) {
             this.backButton.BorderBrush = Brushes.White;
             this.backButton.Foreground = Brushes.White;
         }
