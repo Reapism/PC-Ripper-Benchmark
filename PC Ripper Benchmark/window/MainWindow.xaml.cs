@@ -28,7 +28,7 @@ namespace PC_Ripper_Benchmark.window {
         private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
-
+        
         #endregion
 
         #region Constructor(s) and method(s).
@@ -57,7 +57,47 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void GetWelcomeText() {
-            
+            try {
+                SqlConnection connection = new SqlConnection();
+
+                if (this.networkConnection.IsInternetAvailable() == true) {
+                    connection.Open();
+
+                    Encryption encrypter = new Encryption();
+
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
+                    email = encrypter.EncryptText(email.ToUpper().Trim());
+                    password = encrypter.EncryptText(password.ToUpper().Trim());
+
+                    checkAccount.Parameters.AddWithValue("@Email", email);
+                    checkAccount.Parameters.AddWithValue("@Password", password);
+                    checkAccount.ExecuteNonQuery();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds);
+
+                    int count = ds.Tables[0].Rows.Count;
+
+                    if (count == 1) {
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        connection.Close();
+                        return true;
+                    } else {
+                        MessageBox.Show("Invalid login!", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                        connection.Close();
+                        return false;
+                    }
+                } else {
+                    MessageBox.Show("You are not connected to the internet!");
+                    return false;
+                }
+
+            } catch (Exception e) {
+                MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
+                return false;
+            }
         }
 
         /// <summary>

@@ -1,9 +1,11 @@
 ﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.function;
+using PC_Ripper_Benchmark.util;
+using PC_Ripper_Benchmark.window;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
-using System.Net;
 namespace PC_Ripper_Benchmark.database {
 
     /// <summary>
@@ -18,14 +20,14 @@ namespace PC_Ripper_Benchmark.database {
     public class DatabaseConnection {
 
         /// <summary>
-        /// A <see cref="DatabaseConnection"/> instance
+        /// A <see cref="SqlConnection"/> instance
         /// used to create a database connection.
         /// All user data must be passed as parameters. 
         /// </summary>
 
         public SqlConnection Connection { get; set; }
 
-        function.SystemSettings networkConnection = new function.SystemSettings();
+        private SystemSettings networkConnection = new SystemSettings();
 
         /// <summary>
         /// Default constructor. Sets the connection string.
@@ -56,14 +58,12 @@ namespace PC_Ripper_Benchmark.database {
         /// insert into the database using a stored
         /// procedure
         /// </summary>
-        
-        public bool AddUserToDatabase(SqlConnection connection, util.UserData user) {
-           
+
+        public bool AddUserToDatabase(SqlConnection connection, UserData user) {
+
             try {
-                if (networkConnection.IsInternetAvailable() == true)
-                {
-                    SqlCommand addUser = new SqlCommand("UserAdd", connection)
-                    {
+                if (this.networkConnection.IsInternetAvailable() == true) {
+                    SqlCommand addUser = new SqlCommand("UserAdd", connection) {
                         CommandType = CommandType.StoredProcedure
                     };
 
@@ -82,13 +82,11 @@ namespace PC_Ripper_Benchmark.database {
                     MessageBox.Show("Registration Successful");
 
                     return true;
-                }
-                else
-                {
+                } else {
                     MessageBox.Show("You are not connected to the internet!");
                     return false;
                 }
-               
+
             } catch (SqlException e) {
                 Clipboard.SetText(e.ToString());
                 MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -105,11 +103,10 @@ namespace PC_Ripper_Benchmark.database {
 
         public bool CheckAccountExists(SqlConnection connection, string email, string password) {
             try {
-                if (networkConnection.IsInternetAvailable() == true)
-                {
+                if (this.networkConnection.IsInternetAvailable() == true) {
                     connection.Open();
 
-                    util.Encryption encrypter = new util.Encryption();
+                    Encryption encrypter = new Encryption();
 
                     SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
                     email = encrypter.EncryptText(email.ToUpper().Trim());
@@ -125,32 +122,26 @@ namespace PC_Ripper_Benchmark.database {
 
                     int count = ds.Tables[0].Rows.Count;
 
-                    if (count == 1)
-                    {
-                        window.MainWindow mainWindow = new window.MainWindow();
+                    if (count == 1) {
+                        MainWindow mainWindow = new MainWindow();
                         mainWindow.Show();
                         connection.Close();
                         return true;
-                    }
-                    else
-                    {
+                    } else {
                         MessageBox.Show("Invalid login!", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                         connection.Close();
                         return false;
                     }
-                }
-                else
-                {
+                } else {
                     MessageBox.Show("You are not connected to the internet!");
                     return false;
                 }
-                
+
             } catch (Exception e) {
                 MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
                 return false;
-            }           
+            }
         }
-
 
         /// <summary>
         /// Member function that checks if an 
@@ -159,15 +150,12 @@ namespace PC_Ripper_Benchmark.database {
         /// a 0 or 1 to determine if it exists.
         /// </summary>
 
-        public bool CheckEmailExists(SqlConnection connection, string email)
-        {
-            try
-            {
-                if (networkConnection.IsInternetAvailable() == true)
-                {
+        public bool CheckEmailExists(SqlConnection connection, string email) {
+            try {
+                if (this.networkConnection.IsInternetAvailable() == true) {
                     connection.Open();
 
-                    util.Encryption encrypter = new util.Encryption();
+                    Encryption encrypter = new Encryption();
 
                     SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email", connection);
                     email = encrypter.EncryptText(email.ToUpper().Trim());
@@ -181,27 +169,20 @@ namespace PC_Ripper_Benchmark.database {
 
                     int count = ds.Tables[0].Rows.Count;
 
-                    if (count == 1)
-                    {
+                    if (count == 1) {
                         connection.Close();
                         return true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("An account with that email does not exist","Invalid Email", MessageBoxButton.OK, MessageBoxImage.Error);
+                    } else {
+                        MessageBox.Show("An account with that email does not exist", "Invalid Email", MessageBoxButton.OK, MessageBoxImage.Error);
                         connection.Close();
                         return false;
                     }
-                }
-                else
-                {
+                } else {
                     MessageBox.Show("You are not connected to the internet!");
                     return false;
                 }
 
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
                 return false;
             }

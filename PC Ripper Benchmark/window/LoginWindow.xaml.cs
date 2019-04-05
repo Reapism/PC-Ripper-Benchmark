@@ -1,4 +1,6 @@
-﻿using PC_Ripper_Benchmark.function;
+﻿using PC_Ripper_Benchmark.database;
+using PC_Ripper_Benchmark.function;
+using PC_Ripper_Benchmark.util;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -41,16 +43,16 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
-            function.SystemSettings systemSettings = new function.SystemSettings();
+            SystemSettings systemSettings = new SystemSettings();
             if (systemSettings.IsInternetAvailable() == true) {
-                if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
+                if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                     this.database_progressbar.Opacity = 100;
                     this.database_progressbar.Value = 0;
 
                     string connectionString = ConfigurationManager.ConnectionStrings["Connection_String"].ConnectionString;
 
                     SqlConnection connection = new SqlConnection(connectionString);
-                    database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
+                    DatabaseConnection newConnection = new DatabaseConnection(connection.ConnectionString);
 
                     try {
                         this.database_progressbar.Value = 50;
