@@ -33,6 +33,12 @@ namespace PC_Ripper_Benchmark.window {
             InitializeComponent();
             this.settings.CenterWindowOnScreen(this.windowCreateAccount);
             this.firstNameTextBox.Focus();
+
+            createAccountSubmitButton.BorderThickness = new Thickness(3);
+            goBackButton.BorderThickness = new Thickness(3);
+
+            createAccountSubmitButton.BorderBrush = Brushes.White;
+            goBackButton.BorderBrush = Brushes.White;
         }
 
         /// <summary>
@@ -439,33 +445,59 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
-        private void CreateAccountSubmitButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+        private void CreateAccountSubmitButton_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Up) {
                 this.securityQuestionTextBox.Focus();
                 e.Handled = true;
             } else if (e.Key == System.Windows.Input.Key.Enter) {
-                this.loginButton.Focus();
+                this.goBackButton.Focus();
                 e.Handled = true;
             } else if (e.Key == System.Windows.Input.Key.Down) {
-                this.loginButton.Focus();
+                this.goBackButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void LoginButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+        private void GoBackButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Up) {
                 this.createAccountSubmitButton.Focus();
                 e.Handled = true;
             } else if (e.Key == System.Windows.Input.Key.Enter) {
-                this.loginButton.Focus();
+                this.goBackButton.Focus();
                 e.Handled = true;
             }
         }
         #endregion
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e) {
+        private void GoBackButton_Click(object sender, RoutedEventArgs e) {
             Window window = new LoginWindow();
             this.windowSettings.TransitionScreen(window, this);
         }
+
+        #region Got/Lost Focus Events Buttons
+        private void CreateAccountSubmitButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.createAccountSubmitButton.BorderBrush = Brushes.ForestGreen;
+            this.createAccountSubmitButton.Foreground = Brushes.Black;
+        }
+
+        private void GoBackButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.goBackButton.BorderBrush = Brushes.ForestGreen;
+            this.goBackButton.Foreground = Brushes.Black;
+        }
+
+        private void CreateAccountSubmitButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.createAccountSubmitButton.BorderBrush = Brushes.White;
+            this.createAccountSubmitButton.Foreground = Brushes.Black;
+        }
+
+        private void GoBackButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.goBackButton.BorderBrush = Brushes.White;
+            this.goBackButton.Foreground = Brushes.Black;
+        }
+        #endregion
     }
 }
