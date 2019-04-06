@@ -35,7 +35,7 @@ namespace PC_Ripper_Benchmark.window {
             this.lblWelcome2.Content = $"Please finish the questionnaire " +
                 $"to personalize your experience.";
         }
-       
+
         #endregion
 
         private void SliderUserSkill_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
@@ -157,8 +157,10 @@ namespace PC_Ripper_Benchmark.window {
 
             if (!AddUserData()) { // unsuccessful run of userdata, make userData a null user.
                 this.userData = UserData.GetNullUser();
+                this.DialogResult = false;
             }
 
+            this.DialogResult = true;
             Close();
         }
 

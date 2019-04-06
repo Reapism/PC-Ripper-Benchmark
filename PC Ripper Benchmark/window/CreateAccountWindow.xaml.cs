@@ -16,11 +16,10 @@ namespace PC_Ripper_Benchmark.window {
     public partial class CreateAccountWindow : Window {
 
         //Global window settings class object
-        function.WindowSettings settings = new function.WindowSettings();
-
-        Popup codePopup = new Popup();
-        TextBlock popupContent = new TextBlock();
-        function.WindowSettings windowSettings = new function.WindowSettings();
+        private function.WindowSettings settings = new function.WindowSettings();
+        private Popup codePopup = new Popup();
+        private TextBlock popupContent = new TextBlock();
+        private function.WindowSettings windowSettings = new function.WindowSettings();
 
         /// <summary>
         /// Default constructor in <see cref="CreateAccountWindow"/>.
@@ -134,10 +133,19 @@ namespace PC_Ripper_Benchmark.window {
 
 
                 // Open database connection and send that data to the database hashed.
-                database.DatabaseConnection dbConnection = new database.DatabaseConnection(connectionString);
+                DatabaseConnection dbConnection = new DatabaseConnection(connectionString);
+
+                // sets questionaire info.
+                var questionnaire = new QuestionaireWindow(ref newUser);
 
                 
-                var questionnaire = new QuestionaireWindow(ref newUser);
+
+                if (questionnaire.ShowDialog() == true) {
+                    MessageBox.Show("Finished was press.");
+
+                } else {
+                    MessageBox.Show("cancled");
+                }
 
                 if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser)) {
                     LoginWindow loginWindow = new LoginWindow();
@@ -624,5 +632,17 @@ namespace PC_Ripper_Benchmark.window {
             this.goBackButton.BorderBrush = Brushes.White;
         }
         #endregion
+
+        // TEMPORARY
+        private void CreateAccountSubmitButton_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            firstNameTextBox.Text = "Anthony";
+            lastNameTextBox.Text = "Jaghab";
+            emailTextBox.Text = "reap@gmail.com";
+            phoneTextBox.Text = "516-605-5552";
+            userPasswordBox.Password = "Anthony1!";
+            confirmUserPasswordBox.Password = "Anthony1!";
+            securityQuestionComboBox.SelectedIndex = 0;
+            securityQuestionTextBox.Text = "poggers";
+        }
     }
 }

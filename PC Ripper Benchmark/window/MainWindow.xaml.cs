@@ -63,7 +63,6 @@ namespace PC_Ripper_Benchmark.window {
 
             this.ws.NavigationMenu(this);
 
-            GetWelcomeText();
             GetComputerSpecs();
 
         }
@@ -73,8 +72,11 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// <param name="userData"></param>
 
-        public MainWindow(UserData userData) : base() {
+        public MainWindow(UserData userData) : this() {
             this.userData = userData;
+            WindowSettings ws = new WindowSettings();
+            ws.CenterWindowOnScreen(this);
+            GetWelcomeText();
         }
 
         private void GetWelcomeText() {

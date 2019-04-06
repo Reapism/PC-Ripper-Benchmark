@@ -109,7 +109,7 @@ namespace PC_Ripper_Benchmark.window
                             this.confirmSecurityAnswerButton.Visibility = Visibility.Visible;
 
                             //Command to get the actual answered security question
-                            SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM Customer where Email=@Email", connection);
+                            SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM [USER] where Email=@Email", connection);
                             string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
                             this.securityQuestionAnswerTextBox.Focus();
 
@@ -120,7 +120,7 @@ namespace PC_Ripper_Benchmark.window
                             this.confirmEmailButton.Visibility = Visibility.Collapsed;
 
                             //Command to get the security question answer for comparison
-                            SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
+                            SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
                             string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text.ToUpper().Trim());
 
                             getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
@@ -172,7 +172,7 @@ namespace PC_Ripper_Benchmark.window
                     string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
 
                     //Command to get the security question answer for comparison
-                    SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM Customer where Email=@Email", connection);
+                    SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
                     string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text);
 
                     getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
@@ -238,7 +238,7 @@ namespace PC_Ripper_Benchmark.window
             if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password) &&
                    this.newPasswordBox.Password == this.confirmNewPasswordBox.Password)
             {
-                SqlCommand changePassword = new SqlCommand("UPDATE Customer SET Password = @Password WHERE Email=@Email", connection);
+                SqlCommand changePassword = new SqlCommand("UPDATE [USER] SET Password = @Password WHERE Email=@Email", connection);
                 //Fill the parameter of the query
                 changePassword.Parameters.AddWithValue("@Email", email);
                 changePassword.Parameters.AddWithValue("@Password", this.encryption.EncryptText(this.confirmNewPasswordBox.Password));

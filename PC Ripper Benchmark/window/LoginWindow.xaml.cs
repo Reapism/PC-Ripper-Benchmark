@@ -104,11 +104,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void LoginButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e) {
             // DEBUG PURPOSES.
-            var wind = new MainWindow {
-                FirstName = "Guest"
-            };
-
-            wind.Show();
+            new MainWindow(UserData.GetGuestUser()).Show();
 
             Close();
         }

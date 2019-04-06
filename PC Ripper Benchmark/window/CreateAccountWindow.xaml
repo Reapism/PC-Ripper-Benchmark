@@ -32,7 +32,7 @@
                 <ComboBoxItem Content="What is your fathers middle name?" HorizontalAlignment="Center"/>
             </ComboBox>
             <TextBox Name="securityQuestionTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyUp="SecurityQuestionTextBox_KeyUp" BorderThickness="3" ToolTip="Answer to your security question"/>
-            <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 15" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" Height="36" GotFocus="CreateAccountSubmitButton_GotFocus" LostFocus="CreateAccountSubmitButton_LostFocus" KeyDown="CreateAccountSubmitButton_KeyDown" MouseEnter="CreateAccountSubmitButton_MouseEnter" MouseLeave="CreateAccountSubmitButton_MouseLeave"/>
+            <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 15" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" Height="36" GotFocus="CreateAccountSubmitButton_GotFocus" LostFocus="CreateAccountSubmitButton_LostFocus" KeyDown="CreateAccountSubmitButton_KeyDown" MouseEnter="CreateAccountSubmitButton_MouseEnter" MouseLeave="CreateAccountSubmitButton_MouseLeave" MouseRightButtonDown="CreateAccountSubmitButton_MouseRightButtonDown"/>
             <Button x:Name="goBackButton" Content="Go Back" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" Click="GoBackButton_Click" Height="36" KeyUp="GoBackButton_KeyUp" GotFocus="GoBackButton_GotFocus" LostFocus="GoBackButton_LostFocus" MouseEnter="GoBackButton_MouseEnter" MouseLeave="GoBackButton_MouseLeave"/>
         </StackPanel>
     </Border>

@@ -8,15 +8,15 @@
         Title="Questionaire" Height="450" Width="800" MinWidth="850" MinHeight="450">
     <Grid x:Name="grdMain">
         <StackPanel x:Name="stkMain" Margin="0" MinWidth="300" MinHeight="300">
-            <Label x:Name="lblWelcome" Content="Welcome brother!" FontSize="24" HorizontalAlignment="Center" Background="#00000000" Foreground="#FF5997E2" FontWeight="Bold"/>
+            <Label x:Name="lblWelcome" Content="Welcome brother!" FontSize="24" HorizontalAlignment="Center" Background="#00000000" Foreground="Black" FontWeight="Bold"/>
             <Label x:Name="lblWelcome2" Content="Please fill me out!" FontSize="20" HorizontalAlignment="Center" Background="#00000000" Foreground="#FF71A671"/>
-            <Label x:Name="lblUserSkill" Content="How would you describe yourself?" FontSize="16" Margin="0,40,0,0"/>
+            <Label x:Name="lblUserSkill" Content="How would you describe yourself?" FontSize="16" Margin="5,40,0,0"/>
             <Slider x:Name="sliderUserSkill" Margin="20,5,740,5" Height="26" Maximum="2" SmallChange="1" TickFrequency="2" ValueChanged="SliderUserSkill_ValueChanged" TickPlacement="Both" Minimum="1"/>
-            <Label x:Name="lblUserType" Content="How do you use your computer?" FontSize="16"/>
+            <Label x:Name="lblUserType" Content="How do you use your computer?" FontSize="16" Margin="5,0,0,0"/>
             <Slider x:Name="sliderUserSkill_Copy" Margin="20,5,325,5" Height="26" Maximum="4" Minimum="1" SmallChange="1" TickFrequency="4" TickPlacement="Both" ValueChanged="SliderUserSkill_Copy_ValueChanged"/>
-            <Label x:Name="lblTheme" Content="Choose a theme!" FontSize="16"/>
+            <Label x:Name="lblTheme" Content="Choose a theme!" FontSize="16" Margin="5,0,0,0"/>
             <Slider x:Name="sliderTheme" Margin="20,5,740,5" Height="26" Maximum="2" SmallChange="1" TickFrequency="2" TickPlacement="Both" Minimum="1" ValueChanged="SliderTheme_ValueChanged"/>
-            <Button x:Name="btnFinish" Content="Finish!" Margin="0,130,0,0" Height="30" Click="BtnFinish_Click"/>
+            <Button x:Name="btnFinish" Content="Finish!" Margin="10,59,10,0" Height="30" Click="BtnFinish_Click"/>
         </StackPanel>
 
     </Grid>
