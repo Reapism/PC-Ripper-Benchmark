@@ -162,5 +162,44 @@ namespace PC_Ripper_Benchmark.window {
             this.resetPasswordButton.BorderBrush = Brushes.White;
         }
         #endregion
+
+        #region MouseEnter Events
+        private void LoginButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.loginButton.Foreground = Brushes.Black;
+            this.loginButton.BorderBrush = Brushes.Black;
+        }
+
+        private void SignUpButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.signUpButton.Foreground = Brushes.Black;
+            this.signUpButton.BorderBrush = Brushes.Black;
+        }
+
+        private void ResetPasswordButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.resetPasswordButton.Foreground = Brushes.Black;
+            this.resetPasswordButton.BorderBrush = Brushes.Black;
+        }
+        #endregion
+        #region MouseLeave Events
+        private void LoginButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.loginButton.Foreground = Brushes.White;
+            this.loginButton.BorderBrush = Brushes.White;
+        }
+
+        private void SignUpButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.signUpButton.Foreground = Brushes.White;
+            this.signUpButton.BorderBrush = Brushes.White;
+        }
+
+        private void ResetPasswordButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.resetPasswordButton.Foreground = Brushes.White;
+            this.resetPasswordButton.BorderBrush = Brushes.White;
+        }
+        #endregion
     }
 }

@@ -14,9 +14,9 @@
             <Label x:Name="lblPassword" Content="Password" Foreground="White"/>
             <PasswordBox x:Name="passwordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" KeyDown="PasswordTextBox_KeyDown"/>
             <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 70"/>
-            <Button x:Name="loginButton" Content="Login" Margin="50,-38,50,10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click" MouseRightButtonDown="LoginButton_MouseRightButtonDown" GotFocus="LoginButton_GotFocus" LostFocus="LoginButton_LostFocus"/>
-            <Button x:Name="signUpButton" Click="SignUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" GotFocus="SignUpButton_GotFocus" LostFocus="SignUpButton_LostFocus"/>
-            <Button x:Name="resetPasswordButton" Content="Reset Password" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="ResetPasswordButton_Click" GotFocus="ResetPasswordButton_GotFocus" LostFocus="ResetPasswordButton_LostFocus"/>
+            <Button x:Name="loginButton" Content="Login" Margin="50,-38,50,10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click" MouseRightButtonDown="LoginButton_MouseRightButtonDown" GotFocus="LoginButton_GotFocus" LostFocus="LoginButton_LostFocus" MouseEnter="LoginButton_MouseEnter" MouseLeave="LoginButton_MouseLeave"/>
+            <Button x:Name="signUpButton" Click="SignUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" GotFocus="SignUpButton_GotFocus" LostFocus="SignUpButton_LostFocus" MouseEnter="SignUpButton_MouseEnter" MouseLeave="SignUpButton_MouseLeave"/>
+            <Button x:Name="resetPasswordButton" Content="Reset Password" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="ResetPasswordButton_Click" GotFocus="ResetPasswordButton_GotFocus" LostFocus="ResetPasswordButton_LostFocus" MouseEnter="ResetPasswordButton_MouseEnter" MouseLeave="ResetPasswordButton_MouseLeave"/>
         </StackPanel>
     </Border>
 </Window>
