@@ -7,6 +7,52 @@
 
     public class UserData {
 
+        /// <summary>
+        /// Represents a guest <see cref="UserData"/>.
+        /// </summary>
+        /// <returns></returns>
+
+        public static UserData GetGuestUser() {
+            UserData u = new UserData {
+                Email = "GuestEmail",
+                FirstName = "Guest",
+                LastName = "Guest",
+                IsAdvanced = UserSkill.Advanced,
+                IsLight = true,
+                Password = "guest",
+                PhoneNumber = "guest number",
+                SecurityQuestion = "guest security question",
+                SecurityQuestionAnswer = "guest",
+                UserType = TypeOfUser.HighPerformance
+            };
+
+            return u;
+        }
+
+        /// <summary>
+        /// Represents a <see langword="null"/> <see cref="UserData"/>.
+        /// <para>Used to check if an error was made
+        /// connecting to the DB.</para>
+        /// </summary>
+        /// <returns></returns>
+
+        public static UserData GetNullUser() {
+            UserData u = new UserData {
+                Email = "NULL",
+                FirstName = "NULL",
+                LastName = "NULL",
+                IsAdvanced = UserSkill.Advanced,
+                IsLight = true,
+                Password = "NULL",
+                PhoneNumber = "NULL",
+                SecurityQuestion = "NULL",
+                SecurityQuestionAnswer = "NULL",
+                UserType = TypeOfUser.HighPerformance
+            };
+
+            return u;
+        }
+
         public enum UserSkill {
 
             Beginner = 1024,
