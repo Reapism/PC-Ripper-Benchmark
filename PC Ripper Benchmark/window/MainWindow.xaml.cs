@@ -5,10 +5,14 @@ using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using XamlAnimatedGif;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.window {
@@ -58,7 +62,7 @@ namespace PC_Ripper_Benchmark.window {
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
 
-            ws.NavigationMenu(this);
+            this.ws.NavigationMenu(this);
 
             GetWelcomeText();
             GetComputerSpecs();
@@ -66,9 +70,9 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void GetWelcomeText() {
-            txtblkWelcome.Text = $"Welcome {FirstName} back.";
-            txtBlkWelcomeText.Text = $"Welcome {FirstName}! ";
-                
+            this.txtblkWelcome.Text = $"Welcome {this.FirstName} back.";
+            this.txtBlkWelcomeText.Text = $"Welcome {this.FirstName}! ";
+
 
         }
 
@@ -144,6 +148,22 @@ namespace PC_Ripper_Benchmark.window {
                 }
 
                 case Tab.RUNNING_TEST: {
+
+                    Random rnd = new Random();
+                    Uri uri = ChoosePreloader();
+
+                    if (uri != null) {
+                        Task t = new Task(() => {
+                            var image = new BitmapImage();
+                            image.BeginInit();
+                            image.UriSource = uri;
+                            image.EndInit();
+                            AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
+                        });
+
+                        t.Start();
+                    }
+
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
                     break;
                 }
@@ -152,13 +172,7 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
             }
-            Random rnd = new Random();
 
-            Uri uri = ChoosePreloader();
-
-            if (uri != null) {
-                this.browserPreloader.Source = uri;
-            }
 
         }
 
@@ -186,7 +200,8 @@ namespace PC_Ripper_Benchmark.window {
                     index++;
                 }
 
-                uri = new Uri(urls[rnd.Next(index)]);
+                int rndIndex = rnd.Next(index);
+                uri = new Uri(urls[rndIndex]);
 
                 return uri;
             } catch {

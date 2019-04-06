@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
         Title="PC Ripper Benchmark Tool" Height="650" Width="1000" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="997" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico">
@@ -312,8 +313,8 @@
                                 <GradientStop Color="#FFF3C291"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Bottom" Width="308" Height="51" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
-                        <WebBrowser x:Name="browserPreloader" Margin="250,100" AutomationProperties.HelpText="Running the test..." OpacityMask="Black" Source="https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinWidth="100" MinHeight="100"/>
+                        <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="275" Height="50" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
+                        <Image x:Name="imgPreloader" gif:AnimationBehavior.SourceUri="https://d33wubrfki0l68.cloudfront.net/2f8503a5389c85187dc2b5f87ee04eca0870246f/33370/uploads/rubiks-loader.gif" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0,0,0,60"/>
                     </Grid>
                 </TabItem>
             </TabControl>
