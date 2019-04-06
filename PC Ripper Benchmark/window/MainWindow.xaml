@@ -102,6 +102,17 @@
                                 </Grid.Background>
                                 <Image x:Name="imgUser" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/verified.png"/>
                                 <TextBlock x:Name="txtBlkWelcomeText" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="Lorem ipsum poggers."/>
+                                <StackPanel x:Name="stkUserData" Margin="5,75,5,0">
+                                    <StackPanel.Background>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="#7FFFF6F6" Offset="0"/>
+                                            <GradientStop Color="#7FFFD8D8" Offset="1"/>
+                                        </RadialGradientBrush>
+                                    </StackPanel.Background>
+                                    <Label x:Name="lblName" Content="Name"/>
+                                    <Label x:Name="lblTypeOfUser" Content="Typeofuser:"/>
+                                    <Label x:Name="lblUserSkill" Content="Userskill:"/>
+                                </StackPanel>
                             </Grid>
                         </Grid>
                     </Grid>

@@ -64,7 +64,6 @@ namespace PC_Ripper_Benchmark.window {
             this.ws.NavigationMenu(this);
 
             GetComputerSpecs();
-
         }
 
         /// <summary>
@@ -80,8 +79,14 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void GetWelcomeText() {
-            this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} back.";
-            this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}! ";
+            this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} to the PC Ripper Benchmark.";
+            this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}, check out your account information below! ";
+            
+            this.lblName.Content = $"Profile: {userData.LastName}, {userData.FirstName}.";
+            
+            this.lblTypeOfUser.Content = $"You're using your computer mainly for {userData.GetTypeOfUserString()}.";
+            this.lblUserSkill.Content = $"You've decided you're an {userData.GetUserSkillString()} user.";
+
         }
 
         /// <summary>
