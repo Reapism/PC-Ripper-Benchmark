@@ -57,7 +57,6 @@ namespace PC_Ripper_Benchmark.window {
                     try {
                         this.database_progressbar.Value = 50;
                         if (!newConnection.CheckAccountExists(connection, this.emailTextBox.Text, this.passwordBox.Password)) {
-                            Console.WriteLine("Good credentials");
                             this.database_progressbar.Value = 100;
                         } else {
                             Close();
@@ -103,7 +102,12 @@ namespace PC_Ripper_Benchmark.window {
 
         private void LoginButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e) {
             // DEBUG PURPOSES.
-            new MainWindow().Show();
+            var wind = new MainWindow {
+                FirstName = "Guest"
+            };
+
+            wind.Show();
+
             Close();
         }
 

@@ -480,7 +480,7 @@ namespace PC_Ripper_Benchmark.function {
 
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
                 try {
-                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, u.ToString()));
+                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, GetRandomString(15) + u.ToString()));
                 } catch {
                     continue;
                 }
@@ -503,7 +503,7 @@ namespace PC_Ripper_Benchmark.function {
 
             // Write each file.
             for (ulong u = 0; u < this.rs.IterationsDiskBulkFile; u++) {
-                fileName = Path.Combine(path, $"{u.ToString()}.{this.fileExt}");
+                fileName = Path.Combine(path, $"{GetRandomString(15) + u.ToString()}.{this.fileExt}");
 
                 try {
                     fileStream = File.Create(fileName);
@@ -521,6 +521,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 writer.Flush();
                 writer.Close();
+                fileStream.Close();
             }
         }
 
@@ -559,6 +560,7 @@ namespace PC_Ripper_Benchmark.function {
                 }
 
                 sr.Close();
+                fileStream.Close();
             } catch {
 
             }
@@ -578,12 +580,13 @@ namespace PC_Ripper_Benchmark.function {
             DirectoryInfo[] directories = d.GetDirectories($"*");
 
             ulong u = 0;
+
             foreach (DirectoryInfo dir in directories) {
                 try {
                     // creates a DiskRipper file in every directory from
                     // FolderMatrix algorithm.
                     FileStream fs = File.Create(Path.Combine(path, u.ToString(),
-                        $"DiskRipper{u.ToString()}.{this.fileExt}"));
+                        $"DiskRipper{GetRandomString(6) + u.ToString()}.{this.fileExt}"));
                     u++;
                 } catch (Exception e) {
                     MessageBox.Show($"Error deleting the directory!" + e.ToString());

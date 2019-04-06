@@ -130,7 +130,10 @@ namespace PC_Ripper_Benchmark.database {
                     int count = ds.Tables[0].Rows.Count;
 
                     if (count == 1) {
-                        MainWindow mainWindow = new MainWindow();
+                        MainWindow mainWindow = new MainWindow {
+                            FirstName = "LOOK FOR ME"
+                        };
+
                         mainWindow.Show();
                         connection.Close();
                         return true;

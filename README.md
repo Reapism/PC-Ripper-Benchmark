@@ -24,3 +24,8 @@ in this repository.
 
 # Is there more documentation for this project?
 YES. Please check the WIP [Wiki](https://github.com/Reapism/PC-Ripper-Benchmark/wiki) tab!
+
+# Packages used
+`WpfAnimatedGif` `1.4.18`
+https://github.com/XamlAnimatedGif/WpfAnimatedGif
+Loaded in using NuGet.

@@ -4,12 +4,15 @@ using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using XamlAnimatedGif;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.window {
@@ -22,12 +25,21 @@ namespace PC_Ripper_Benchmark.window {
 
     public partial class MainWindow : Window {
 
-        #region Instance member(s), and enum(s).        
+        #region Instance member(s), and enum(s), and properties.        
+
+        /// <summary>
+        /// The first name associated with this
+        /// <see cref="MainWindow"/> instance.
+        /// </summary>
+
+        public string FirstName { get; set; }
 
         private RipperSettings rs;
         private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
+
+
 
         #endregion
 
@@ -49,24 +61,18 @@ namespace PC_Ripper_Benchmark.window {
             this.tabComponents.ItemContainerStyle = s;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
-            this.txtBlkWelcomeText.Text = string.Empty;
-            this.txtBlkComputerSpecs.Text = string.Empty;
 
+            this.ws.NavigationMenu(this);
+
+            GetWelcomeText();
             GetComputerSpecs();
 
         }
 
         private void GetWelcomeText() {
-            if (SystemSettings.IsInternetAvailable()) {
-                try {
+            this.txtblkWelcome.Text = $"Welcome {this.FirstName} back.";
+            this.txtBlkWelcomeText.Text = $"Welcome {this.FirstName}! ";
 
-                    SqlConnection connection = new SqlConnection();
-
-                    SqlCommand cmd = new SqlCommand();
-                } catch {
-
-                }
-            }
 
         }
 
@@ -142,6 +148,22 @@ namespace PC_Ripper_Benchmark.window {
                 }
 
                 case Tab.RUNNING_TEST: {
+
+                    Random rnd = new Random();
+                    Uri uri = ChoosePreloader();
+
+                    if (uri != null) {
+                        Task t = new Task(() => {
+                            var image = new BitmapImage();
+                            image.BeginInit();
+                            image.UriSource = uri;
+                            image.EndInit();
+                            AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
+                        });
+
+                        t.Start();
+                    }
+
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
                     break;
                 }
@@ -150,13 +172,7 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
             }
-            Random rnd = new Random();
 
-            Uri uri = ChoosePreloader();
-
-            if (uri != null) {
-                this.browserPreloader.Source = uri;
-            }
 
         }
 
@@ -184,7 +200,8 @@ namespace PC_Ripper_Benchmark.window {
                     index++;
                 }
 
-                uri = new Uri(urls[rnd.Next(index)]);
+                int rndIndex = rnd.Next(index);
+                uri = new Uri(urls[rndIndex]);
 
                 return uri;
             } catch {
@@ -397,17 +414,35 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
+        /// <summary>
+        /// Updates the color and text of the fields
+        /// that show the directory to be valid.
+        /// </summary>
+        /// <param name="path">The path to display
+        /// to the user.</param>
+
         private void ValidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = true;
             this.txtBlkWorkingDir.Text = $"Working Directory Path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.DarkOliveGreen;
         }
 
+        /// <summary>
+        /// Updates the color and text of the fields
+        /// that show the directory to be invalid.
+        /// </summary>
+        /// <param name="path">The path to display
+        /// to the user.</param>
+
         private void InvalidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = false;
             this.txtBlkWorkingDir.Text = $"Invalid path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.LightSalmon;
         }
+
+        /// <summary>
+        /// Unlocks a particular directory on the filesystem.
+        /// </summary>
 
         private void UnlockDir() {
             System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
@@ -420,6 +455,10 @@ namespace PC_Ripper_Benchmark.window {
                 diskFunctions.UnlockDirectory(folderBrowser.SelectedPath);
             }
         }
+
+        /// <summary>
+        /// Locks a particular directory on the filesystem.
+        /// </summary>
 
         private void LockDir() {
             System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
@@ -521,8 +560,23 @@ namespace PC_Ripper_Benchmark.window {
             var disk = new DiskFunctions(ref this.rs);
 
             if (disk.SetWorkingDirectory(out string path)) {
-                this.workingDir = path;
-                ValidDirectory(path);
+
+                // promp again for verification.
+                if (MessageBox.Show("Are you sure you would like " +
+                    $"to perfom the test in this directory? {Environment.NewLine} {path}", "Confirmation",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question)
+                    == MessageBoxResult.Yes && MessageBox.Show("While the test runs please do not " +
+                    $"power off the machine or open/access any of the files/folders in folder. Please " +
+                    "confirm.", "Confirmation",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Information)
+                    == MessageBoxResult.OK) {
+
+                    ValidDirectory(path);
+                    this.workingDir = path;
+                } else {
+                    InvalidDirectory(string.Empty);
+                }
+
             } else {
                 InvalidDirectory(path);
             }
