@@ -42,6 +42,10 @@ namespace PC_Ripper_Benchmark.util {
 
         private ApplyAllThemes applyAllThemes;
 
+        public ThemeManager(Theme themeType, QuestionaireWindow w) {
+            //applyAllThemes = new ApplyAllThemes(ApplyTheme);
+        }
+
         /// <summary>
         /// Applies the theme to the <see cref="QuestionaireWindow"/>
         /// window.
@@ -49,7 +53,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <param name="themeType"></param>
         /// <param name="w"></param>
 
-        public ThemeManager(Theme themeType, QuestionaireWindow w) {
+        public void ApplyTheme(Theme themeType, QuestionaireWindow w) {
             switch (themeType) {
                 case Theme.Light: {
                     w.grdMain.Background = Brushes.White;
