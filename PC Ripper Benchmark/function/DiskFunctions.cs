@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
+using System.Text;
 using System.Windows.Forms;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
@@ -480,7 +481,7 @@ namespace PC_Ripper_Benchmark.function {
 
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
                 try {
-                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, GetRandomString(15) + u.ToString()));
+                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, u.ToString()));
                 } catch {
                     continue;
                 }
@@ -502,27 +503,39 @@ namespace PC_Ripper_Benchmark.function {
             string fileName; // the path of the file.
 
             // Write each file.
+
+            fileName = Path.Combine(path, $"BULK{GetRandomString(15)}.{this.fileExt}");
+            fileStream = File.Create(fileName);        
+            sr = new StreamReader(fileStream, true);
+
+            writer = new StreamWriter(fileStream, Encoding.UTF8) {
+                AutoFlush = true
+            };
+
+            writer.Write(GenerateBulkData());
+
+            writer.Flush();
+            writer.Close();
+            fileStream.Close();
+        }
+
+
+        /// <summary>
+        /// Generates bulk data and returns it as 
+        /// type <see langword="string"/>.
+        /// <para>Uses a <see cref="StringBuilder"/> internally
+        /// for performance.</para>
+        /// </summary>
+        /// <returns></returns>
+
+        private string GenerateBulkData() {
+            StringBuilder data = new StringBuilder(string.Empty);
+
             for (ulong u = 0; u < this.rs.IterationsDiskBulkFile; u++) {
-                fileName = Path.Combine(path, $"{GetRandomString(15) + u.ToString()}.{this.fileExt}");
-
-                try {
-                    fileStream = File.Create(fileName);
-                    sr = new StreamReader(fileStream, true);
-
-                    writer = new StreamWriter(fileStream, System.Text.Encoding.UTF8) {
-                        AutoFlush = true
-                    };
-
-                    writer.Write(rnd.Next().ToString());
-
-                } catch (Exception e) {
-                    throw new Exception("Oh no. We don't have jurisdiction in this directory.", e);
-                }
-
-                writer.Flush();
-                writer.Close();
-                fileStream.Close();
+                data.Append(this.rnd.Next().ToString());
             }
+
+            return data.ToString();
         }
 
         /// <summary>
@@ -578,6 +591,8 @@ namespace PC_Ripper_Benchmark.function {
 
             DirectoryInfo d = new DirectoryInfo(path);
             DirectoryInfo[] directories = d.GetDirectories($"*");
+            FileStream fs;
+
 
             ulong u = 0;
 
@@ -585,11 +600,12 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     // creates a DiskRipper file in every directory from
                     // FolderMatrix algorithm.
-                    FileStream fs = File.Create(Path.Combine(path, u.ToString(),
+                    fs = File.Create(Path.Combine(path, u.ToString(),
                         $"DiskRipper{GetRandomString(6) + u.ToString()}.{this.fileExt}"));
+                    StreamWriter sw = new StreamWriter(fs);
+                    sw.WriteLine(GenerateBulkData());
                     u++;
                 } catch (Exception e) {
-                    MessageBox.Show($"Error deleting the directory!" + e.ToString());
                     continue;
                 }
             }
@@ -611,7 +627,7 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     Directory.Delete(dir.FullName, recursiveDelete);
                 } catch (Exception e) {
-                    MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                    //MessageBox.Show($"Error deleting the directory!" + e.ToString());
                     continue;
                 }
             }
