@@ -479,10 +479,6 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Event(s) and event handler(s).
 
-        private void BtnTemp_Click(object sender, RoutedEventArgs e) {
-            new QuestionaireWindow().Show();
-        }
-
         private void BtnCPU_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnCPU.Foreground = Brushes.Salmon;
         }

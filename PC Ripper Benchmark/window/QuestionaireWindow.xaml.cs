@@ -1,6 +1,7 @@
 ﻿using PC_Ripper_Benchmark.util;
 using System.Windows;
 using System.Windows.Controls;
+using static PC_Ripper_Benchmark.util.UserData;
 
 namespace PC_Ripper_Benchmark.window {
 
@@ -10,10 +11,32 @@ namespace PC_Ripper_Benchmark.window {
 
     public partial class QuestionaireWindow : Window {
 
+        #region Instance member(s) and Properties.
 
-        public QuestionaireWindow() {
+        private UserData userData;
+
+        private TypeOfUser UserType { get; set; }
+        private UserSkill Skill { get; set; }
+        private int isLight;
+
+        #endregion
+
+        #region Constructor(s)
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="userData"></param>
+
+        public QuestionaireWindow(ref UserData userData) {
             InitializeComponent();
+            this.userData = userData;
+            this.lblWelcome.Content = $"Hey, {userData.FirstName}.";
+            this.lblWelcome2.Content = $"Please finish the questionnaire " +
+                $"to personalize your experience.";
         }
+       
+        #endregion
 
         private void SliderUserSkill_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
 
@@ -26,6 +49,7 @@ namespace PC_Ripper_Benchmark.window {
                     userSkill = "Beginner";
                     s.ToolTip = userSkill;
                     this.lblUserSkill.Content = $"How would you describe your knowledge of computers? {userSkill}";
+                    this.Skill = UserSkill.Beginner;
                     break;
                 }
 
@@ -34,6 +58,7 @@ namespace PC_Ripper_Benchmark.window {
                     userSkill = "Advanced";
                     s.ToolTip = userSkill;
                     this.lblUserSkill.Content = $"How would you describe your knowledge of computers? {userSkill}";
+                    this.Skill = UserSkill.Advanced;
                     break;
                 }
             }
@@ -50,6 +75,7 @@ namespace PC_Ripper_Benchmark.window {
                     userType = "Casual";
                     s.ToolTip = userType;
                     this.lblUserType.Content = $"How do you use your computer? {userType}";
+                    this.UserType = TypeOfUser.Casual;
                     break;
                 }
 
@@ -58,6 +84,7 @@ namespace PC_Ripper_Benchmark.window {
                     userType = "Web surfer";
                     s.ToolTip = userType;
                     this.lblUserType.Content = $"How do you use your computer? {userType}";
+                    this.UserType = TypeOfUser.Websurfer;
                     break;
                 }
 
@@ -66,6 +93,7 @@ namespace PC_Ripper_Benchmark.window {
                     userType = "High performance";
                     s.ToolTip = userType;
                     this.lblUserType.Content = $"How do you use your computer? {userType}";
+                    this.UserType = TypeOfUser.HighPerformance;
                     break;
                 }
 
@@ -74,6 +102,7 @@ namespace PC_Ripper_Benchmark.window {
                     userType = "Video editor";
                     s.ToolTip = userType;
                     this.lblUserType.Content = $"How do you use your computer? {userType}";
+                    this.UserType = TypeOfUser.Video;
                     break;
                 }
             }
@@ -91,6 +120,7 @@ namespace PC_Ripper_Benchmark.window {
                     userTheme = "Light";
                     s.ToolTip = userTheme;
                     this.lblTheme.Content = $"Choose a theme! {userTheme}";
+                    this.isLight = 1;
 
                     tm = new ThemeManager(ThemeManager.Theme.Light, this);
 
@@ -102,6 +132,7 @@ namespace PC_Ripper_Benchmark.window {
                     userTheme = "Dark";
                     s.ToolTip = userTheme;
                     this.lblTheme.Content = $"Choose a theme! { userTheme}";
+                    this.isLight = 0;
 
                     tm = new ThemeManager(ThemeManager.Theme.Dark, this);
 
@@ -110,8 +141,26 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
+        private bool AddUserData() {
+            try {
+                this.userData.IsLight = (this.isLight == 0 ? false : true);
+                this.userData.IsAdvanced = this.Skill;
+                this.userData.UserType = this.UserType;
+                return true;
+            } catch {
+                return false;
+            }
+
+        }
+
         private void BtnFinish_Click(object sender, RoutedEventArgs e) {
+
+            if (!AddUserData()) { // unsuccessful run of userdata, make userData a null user.
+                this.userData = UserData.GetNullUser();
+            }
+
             Close();
         }
+
     }
 }
