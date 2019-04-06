@@ -1,6 +1,8 @@
-﻿using PC_Ripper_Benchmark.util;
+﻿using PC_Ripper_Benchmark.function;
+using PC_Ripper_Benchmark.util;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static PC_Ripper_Benchmark.util.UserData;
 
 namespace PC_Ripper_Benchmark.window {
@@ -24,16 +26,27 @@ namespace PC_Ripper_Benchmark.window {
         #region Constructor(s)
 
         /// <summary>
-        /// Default constructor.
+        /// Default constructor. Optionally can change the 
         /// </summary>
         /// <param name="userData"></param>
+        /// <param name="subtile"></param>
 
-        public QuestionaireWindow(ref UserData userData) {
+        public QuestionaireWindow(ref UserData userData, string subtile = "") {
             InitializeComponent();
             this.userData = userData;
             this.lblWelcome.Content = $"Hey, {userData.FirstName}.";
-            this.lblWelcome2.Content = $"Please finish the questionnaire " +
-                $"to personalize your experience.";
+            if (subtile == string.Empty) {
+                this.lblWelcome2.Content = $"Please finish the questionnaire " +
+                    $"to personalize your experience.";
+                this.lblWelcome2.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF7DA671");
+            } else {
+                this.lblWelcome2.Content = $"{subtile}";
+                this.lblWelcome2.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFDE7575");
+            }
+
+
+            WindowSettings ws = new WindowSettings();
+            ws.CenterWindowOnScreen(this);
         }
 
         #endregion

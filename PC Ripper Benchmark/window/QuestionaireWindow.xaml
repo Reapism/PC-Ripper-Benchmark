@@ -9,7 +9,7 @@
     <Grid x:Name="grdMain">
         <StackPanel x:Name="stkMain" Margin="0" MinWidth="300" MinHeight="300">
             <Label x:Name="lblWelcome" Content="Welcome brother!" FontSize="24" HorizontalAlignment="Center" Background="#00000000" Foreground="Black" FontWeight="Bold"/>
-            <Label x:Name="lblWelcome2" Content="Please fill me out!" FontSize="20" HorizontalAlignment="Center" Background="#00000000" Foreground="#FF71A671"/>
+            <Label x:Name="lblWelcome2" Content="Please fill me out!" FontSize="20" HorizontalAlignment="Center" Background="#00000000" Foreground="#FF7DA671"/>
             <Label x:Name="lblUserSkill" Content="How would you describe yourself?" FontSize="16" Margin="5,40,0,0"/>
             <Slider x:Name="sliderUserSkill" Margin="20,5,740,5" Height="26" Maximum="2" SmallChange="1" TickFrequency="2" ValueChanged="SliderUserSkill_ValueChanged" TickPlacement="Both" Minimum="1"/>
             <Label x:Name="lblUserType" Content="How do you use your computer?" FontSize="16" Margin="5,0,0,0"/>
