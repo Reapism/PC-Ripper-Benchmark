@@ -7,6 +7,64 @@
 
     public class UserData {
 
+        #region Instance member(s), enum(s)
+
+        /// <summary>
+        /// The <see cref="UserSkill"/> type.
+        /// <para>Beginner or advanced?</para>
+        /// </summary>
+
+        public enum UserSkill {
+
+            /// <summary>
+            /// Represents a beginner
+            /// user.
+            /// </summary>
+            Beginner = 1024,
+
+            /// <summary>
+            /// Represents an advanced
+            /// user.
+            /// </summary>
+            Advanced = 2048
+        }
+
+        /// <summary>
+        /// The <see cref="TypeOfUser"/> type.
+        /// <para>Casual, etc.</para>
+        /// </summary>
+
+        public enum TypeOfUser {
+            /// <summary>
+            /// Represents a casual user.
+            /// </summary>
+            Casual = 16,
+
+            /// <summary>
+            /// Represents a websurfing user.
+            /// </summary>
+            Websurfer = 32,
+
+            /// <summary>
+            /// Represents a user who games or use high performance task.
+            /// </summary>
+            HighPerformance = 64,
+
+            /// <summary>
+            /// Represents a user who does a lot of video editing, also
+            /// requires decent performance.
+            /// </summary>
+            Video = 128
+        }
+
+        #endregion
+
+        #region Constructor(s)
+
+        #endregion
+
+        #region Static Function(s)
+
         /// <summary>
         /// Represents a guest <see cref="UserData"/>.
         /// </summary>
@@ -53,35 +111,139 @@
             return u;
         }
 
-        public enum UserSkill {
+        #endregion
 
-            Beginner = 1024,
+        #region Member function(s)
 
-            Advanced = 2048
+        /// <summary>
+        /// Represents the number that equals
+        /// your <see cref="UserSkill"/> + <see cref="TypeOfUser"/>
+        /// evaluated into the <see langword="uint"/> they represent.
+        /// </summary>
+        /// <returns></returns>
+
+        private uint GetTotalNumber() =>
+             GetUserSkillInt() + GetTypeOfUserInt();
+
+        /// <summary>
+        /// Returns the <see langword="uint"/> representation of
+        /// a <see cref="UserSkill"/>.
+        /// </summary>
+        /// <returns></returns>
+
+        private uint GetUserSkillInt() {
+            uint num = 0;
+
+            switch (IsAdvanced) {
+                case UserSkill.Beginner: {
+                    num += (int)UserSkill.Beginner;
+                    break;
+                }
+
+                case UserSkill.Advanced: {
+                    num += (int)UserSkill.Advanced;
+                    break;
+                }
+            }
+
+            return num;
         }
 
-        public enum TypeOfUser {
-            /// <summary>
-            /// Represents a casual user.
-            /// </summary>
-            Casual = 16,
+        /// <summary>
+        /// Returns the string representation of
+        /// a <see cref="UserSkill"/>.
+        /// </summary>
+        /// <returns></returns>
 
-            /// <summary>
-            /// Represents a websurfing user.
-            /// </summary>
-            Websurfer = 32,
+        public string GetUserSkillString() {
+            string name = string.Empty;
 
-            /// <summary>
-            /// Represents a user who games or use high performance task.
-            /// </summary>
-            HighPerformance = 64,
+            switch (IsAdvanced) {
+                case UserSkill.Beginner: {
+                    name = "Beginner";
+                    break;
+                }
 
-            /// <summary>
-            /// Represents a user who does a lot of video editing, also
-            /// requires decent performance.
-            /// </summary>
-            Video = 128
+                case UserSkill.Advanced: {
+                    name = "Advanced";
+                    break;
+                }
+            }
+
+            return name;
         }
+
+        /// <summary>
+        /// Returns the <see langword="uint"/> representation of
+        /// a <see cref="TypeOfUser"/>.
+        /// </summary>
+        /// <returns></returns>
+
+        private uint GetTypeOfUserInt() {
+            uint num = 0;
+
+            switch (UserType) {
+                case TypeOfUser.Casual: {
+                    num += (int)TypeOfUser.Casual;
+                    break;
+                }
+
+                case TypeOfUser.Websurfer: {
+                    num += (int)TypeOfUser.Websurfer;
+                    break;
+                }
+
+                case TypeOfUser.HighPerformance: {
+                    num += (int)TypeOfUser.HighPerformance;
+                    break;
+                }
+
+                case TypeOfUser.Video: {
+                    num += (int)TypeOfUser.Video;
+                    break;
+                }
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Returns the string representation of
+        /// a <see cref="TypeOfUser"/>.
+        /// </summary>
+        /// <returns></returns>
+
+        public string GetTypeOfUserString() {
+            string name = string.Empty;
+
+            switch (UserType) {
+                case TypeOfUser.Casual: {
+                    name = "Casual";
+                    break;
+                }
+
+                case TypeOfUser.Websurfer: {
+                    name = "Web Surfer";
+                    break;
+                }
+
+                case TypeOfUser.HighPerformance: {
+                    name = "High Performance";
+                    break;
+                }
+
+                case TypeOfUser.Video: {
+                    name = "Video Editing";
+                    break;
+                }
+            }
+
+            return name;
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// The firstname for the users account.
@@ -101,7 +263,7 @@
         /// <summary>
         /// The password for the account.
         /// </summary>
-        public string Password {  get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// The phone number for the account.
@@ -122,7 +284,7 @@
         /// Determines where the user is advanced
         /// or beginner.
         /// </summary>
-        public UserSkill IsAdvanced { get; set; } 
+        public UserSkill IsAdvanced { get; set; }
 
         /// <summary>
         /// Represents the type of use the user
@@ -135,5 +297,7 @@
         /// light mode or dark mode.
         /// </summary>
         public bool IsLight { get; set; }
+
+        #endregion
     }
 }
