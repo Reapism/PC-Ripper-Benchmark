@@ -389,26 +389,22 @@ namespace PC_Ripper_Benchmark.window {
         #endregion
         #region GotFocus Button Events
         private void ConfirmEmailButton_GotFocus(object sender, RoutedEventArgs e) {
-            this.confirmEmailButton.BorderThickness = new Thickness(3.0);
-            this.confirmEmailButton.BorderBrush = Brushes.ForestGreen;
+            this.confirmEmailButton.BorderBrush = Brushes.Black;
             this.confirmEmailButton.Foreground = Brushes.Black;
         }
 
         private void ConfirmSecurityAnswerButton_GotFocus(object sender, RoutedEventArgs e) {
-            this.confirmSecurityAnswerButton.BorderThickness = new Thickness(3.0);
-            this.confirmSecurityAnswerButton.BorderBrush = Brushes.ForestGreen;
+            this.confirmSecurityAnswerButton.BorderBrush = Brushes.Black;
             this.confirmSecurityAnswerButton.Foreground = Brushes.Black;
         }
 
         private void DoneButton_GotFocus(object sender, RoutedEventArgs e) {
-            this.doneButton.BorderThickness = new Thickness(3.0);
-            this.doneButton.BorderBrush = Brushes.ForestGreen;
+            this.doneButton.BorderBrush = Brushes.Black;
             this.doneButton.Foreground = Brushes.Black;
         }
 
         private void BackButton_GotFocus(object sender, RoutedEventArgs e) {
-            this.backButton.BorderThickness = new Thickness(3.0);
-            this.backButton.BorderBrush = Brushes.ForestGreen;
+            this.backButton.BorderBrush = Brushes.Black;
             this.backButton.Foreground = Brushes.Black;
         }
         #endregion

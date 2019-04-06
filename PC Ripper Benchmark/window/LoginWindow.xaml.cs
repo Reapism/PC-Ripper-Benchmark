@@ -129,17 +129,17 @@ namespace PC_Ripper_Benchmark.window {
         #region Button GotFocus Methods
         private void LoginButton_GotFocus(object sender, RoutedEventArgs e) {
             this.loginButton.Foreground = Brushes.Black;
-            this.loginButton.BorderBrush = Brushes.ForestGreen;
+            this.loginButton.BorderBrush = Brushes.Black;
         }
 
         private void SignUpButton_GotFocus(object sender, RoutedEventArgs e) {
             this.signUpButton.Foreground = Brushes.Black;
-            this.signUpButton.BorderBrush = Brushes.ForestGreen;
+            this.signUpButton.BorderBrush = Brushes.Black;
         }
 
         private void ResetPasswordButton_GotFocus(object sender, RoutedEventArgs e) {
             this.resetPasswordButton.Foreground = Brushes.Black;
-            this.resetPasswordButton.BorderBrush = Brushes.ForestGreen;
+            this.resetPasswordButton.BorderBrush = Brushes.Black;
         }
         #endregion
         #region Button LostFocus Methods

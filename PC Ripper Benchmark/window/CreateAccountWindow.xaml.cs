@@ -478,26 +478,26 @@ namespace PC_Ripper_Benchmark.window {
         #region Got/Lost Focus Events Buttons
         private void CreateAccountSubmitButton_GotFocus(object sender, RoutedEventArgs e)
         {
-            this.createAccountSubmitButton.BorderBrush = Brushes.ForestGreen;
+            this.createAccountSubmitButton.BorderBrush = Brushes.Black;
             this.createAccountSubmitButton.Foreground = Brushes.Black;
         }
 
         private void GoBackButton_GotFocus(object sender, RoutedEventArgs e)
         {
-            this.goBackButton.BorderBrush = Brushes.ForestGreen;
+            this.goBackButton.BorderBrush = Brushes.Black;
             this.goBackButton.Foreground = Brushes.Black;
         }
 
         private void CreateAccountSubmitButton_LostFocus(object sender, RoutedEventArgs e)
         {
             this.createAccountSubmitButton.BorderBrush = Brushes.White;
-            this.createAccountSubmitButton.Foreground = Brushes.Black;
+            this.createAccountSubmitButton.Foreground = Brushes.White;
         }
 
         private void GoBackButton_LostFocus(object sender, RoutedEventArgs e)
         {
             this.goBackButton.BorderBrush = Brushes.White;
-            this.goBackButton.Foreground = Brushes.Black;
+            this.goBackButton.Foreground = Brushes.White;
         }
         #endregion
     }
