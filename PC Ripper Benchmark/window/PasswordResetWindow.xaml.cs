@@ -391,7 +391,7 @@ namespace PC_Ripper_Benchmark.window
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                this.confirmEmailButton.Focus();
+                ConfirmEmailButton_Click(sender, e);
                 e.Handled = true;
             }
             else if (e.Key == System.Windows.Input.Key.Down)
@@ -405,7 +405,7 @@ namespace PC_Ripper_Benchmark.window
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                this.confirmSecurityAnswerButton.Focus();
+                ConfirmSecurityAnswer_Click(sender, e);
                 e.Handled = true;
             }
             else if (e.Key == System.Windows.Input.Key.Down)
@@ -445,7 +445,7 @@ namespace PC_Ripper_Benchmark.window
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                this.doneButton.Focus();
+                DoneButton_Click(sender, e);
                 e.Handled = true;
             }
             else if (e.Key == System.Windows.Input.Key.Down)
