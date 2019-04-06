@@ -138,13 +138,11 @@ namespace PC_Ripper_Benchmark.window {
                 // sets questionaire info.
                 var questionnaire = new QuestionaireWindow(ref newUser);
 
-                
 
-                if (questionnaire.ShowDialog() == true) {
-                    MessageBox.Show("Finished was press.");
-
-                } else {
-                    MessageBox.Show("cancled");
+                // If you do not press finish, show the dialog again.
+                while (questionnaire.ShowDialog() == false) {
+                    questionnaire = new QuestionaireWindow(ref newUser, 
+                        "Please press finish to confirm your account.");
                 }
 
                 if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser)) {
