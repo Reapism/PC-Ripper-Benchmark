@@ -83,7 +83,9 @@ namespace PC_Ripper_Benchmark.database {
                     addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
                     addUser.Parameters.AddWithValue("@SecurityQuestion", user.SecurityQuestion.Trim());
                     addUser.Parameters.AddWithValue("@SecurityQuestionAnswer", user.SecurityQuestionAnswer.Trim());
-
+                    addUser.Parameters.AddWithValue("@IsLight",user.IsLight);
+                    addUser.Parameters.AddWithValue("@UserSkill", (int)user.IsAdvanced);
+                    addUser.Parameters.AddWithValue("@TypeOfUser", (int)user.UserType);
 
                     addUser.ExecuteNonQuery();
                     connection.Close();
@@ -115,34 +117,37 @@ namespace PC_Ripper_Benchmark.database {
            userData = new UserData();
 
             try {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM CUSTOMER WHERE Email=@Email", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email", conn);
                 cmd.Parameters.AddWithValue("@Email", email);
-                //email = cmd.ExecuteScalar().ToString();
+                
                 cmd.ExecuteScalar();
 
                 using (SqlDataReader reader = cmd.ExecuteReader()) {
-                    userData.FirstName = reader[0].ToString(); // it should be an int
-                    userData.LastName = reader[1].ToString();
-                    userData.PhoneNumber = reader[2].ToString();
-                    userData.Email = reader[3].ToString();
-                    userData.Password = reader[4].ToString();
-                    userData.SecurityQuestion = reader[5].ToString();
-                    userData.SecurityQuestionAnswer = reader[6].ToString();
-
-                    if (int.TryParse(reader[7].ToString(), out int i)) {
-                        bool b = (i == 1) ? true: false;
-                        userData.IsLight = b;
-                    }
-
-                    UserSkill skill = (UserSkill)int.Parse(reader[8].ToString());
-                    TypeOfUser type = (TypeOfUser)int.Parse(reader[9].ToString());
-                    
-                    userData.IsAdvanced = skill;
-                    userData.UserType = type;
-
-                    // if it reads another comma.
                     if (reader.Read()) {
-                        return false;
+
+                        userData.FirstName = reader.GetString(0);
+                        userData.LastName = reader.GetString(1);
+                        userData.PhoneNumber = reader.GetString(2);
+                        userData.Email = reader.GetString(3);
+                        userData.Password = reader.GetString(4);
+                        userData.SecurityQuestion = reader.GetString(5);
+                        userData.SecurityQuestionAnswer = reader.GetString(6);
+
+                        if (int.TryParse(reader.GetString(7), out int i)) {
+                            bool b = (i == 1) ? true : false;
+                            userData.IsLight = b;
+                        }
+
+                        UserSkill skill = (UserSkill)int.Parse(reader.GetString(8));
+                        TypeOfUser type = (TypeOfUser)int.Parse(reader.GetString(9));
+
+                        userData.IsAdvanced = skill;
+                        userData.UserType = type;
+
+                        // if it reads another comma.
+                        if (reader.Read()) {
+                            return false;
+                        }
                     }
                 }
             } catch {
@@ -166,7 +171,7 @@ namespace PC_Ripper_Benchmark.database {
 
                     Encryption encrypter = new Encryption();
 
-                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email and Password=@Password", connection);
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email AND Password=@Password", connection);
                     email = encrypter.EncryptText(email.ToUpper().Trim());
                     password = encrypter.EncryptText(password.ToUpper().Trim());
 
@@ -177,6 +182,7 @@ namespace PC_Ripper_Benchmark.database {
                     SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
                     DataSet ds = new DataSet();
                     adapter.Fill(ds);
+                    
 
                     int count = ds.Tables[0].Rows.Count;
 
@@ -231,7 +237,7 @@ namespace PC_Ripper_Benchmark.database {
 
                     Encryption encrypter = new Encryption();
 
-                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM Customer where Email=@Email", connection);
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] where Email=@Email", connection);
                     email = encrypter.EncryptText(email.ToUpper().Trim());
 
                     checkAccount.Parameters.AddWithValue("@Email", email);
