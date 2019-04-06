@@ -96,7 +96,6 @@ namespace PC_Ripper_Benchmark.database {
                 }
 
             } catch (SqlException e) {
-                Clipboard.SetText(e.ToString());
                 MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
                 connection.Close();
                 return false;
