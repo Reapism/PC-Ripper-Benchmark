@@ -314,7 +314,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="275" Height="50" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
-                        <Image x:Name="imgPreloader" gif:AnimationBehavior.SourceUri="https://d33wubrfki0l68.cloudfront.net/2f8503a5389c85187dc2b5f87ee04eca0870246f/33370/uploads/rubiks-loader.gif" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0,0,0,60"/>
+                        <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0,0,0,60"/>
                     </Grid>
                 </TabItem>
             </TabControl>

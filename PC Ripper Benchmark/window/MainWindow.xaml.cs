@@ -5,7 +5,6 @@ using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -39,7 +38,7 @@ namespace PC_Ripper_Benchmark.window {
         private Tab testToRun;
         private string workingDir;
 
-
+        private UserData userData;
 
         #endregion
 
@@ -67,6 +66,15 @@ namespace PC_Ripper_Benchmark.window {
             GetWelcomeText();
             GetComputerSpecs();
 
+        }
+
+        /// <summary>
+        /// Parameterized const
+        /// </summary>
+        /// <param name="userData"></param>
+
+        public MainWindow(UserData userData) : base() {
+            this.userData = userData;
         }
 
         private void GetWelcomeText() {
@@ -153,15 +161,12 @@ namespace PC_Ripper_Benchmark.window {
                     Uri uri = ChoosePreloader();
 
                     if (uri != null) {
-                        Task t = new Task(() => {
-                            var image = new BitmapImage();
-                            image.BeginInit();
-                            image.UriSource = uri;
-                            image.EndInit();
-                            AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
-                        });
-
-                        t.Start();
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.UriSource = uri;
+                        image.EndInit();
+                        AnimationBehavior.SetSourceUri(this.imgPreloader, uri);
+                        AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
                     }
 
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;

@@ -102,6 +102,27 @@ namespace PC_Ripper_Benchmark.database {
         }
 
         /// <summary>
+        /// Populates a <see cref="UserData"/> using email
+        /// as the key.
+        /// </summary>
+        /// <param name="userData"></param>
+        /// <returns></returns>
+
+        public bool GetUserData(out UserData userData, string email) {
+           userData = new UserData();
+
+            try {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM CUSTOMER WHERE Email = @Email", Connection);
+                cmd.Parameters.AddWithValue("@Email", email);
+                //email = cmd.ExecuteScalar().ToString();
+                MessageBox.Show(cmd.ExecuteScalar().ToString());
+            } catch {
+
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Member function that checks if an 
         /// email exists in the database.
         /// The stored procedure will return 
@@ -130,9 +151,11 @@ namespace PC_Ripper_Benchmark.database {
                     int count = ds.Tables[0].Rows.Count;
 
                     if (count == 1) {
-                        MainWindow mainWindow = new MainWindow {
+                        GetUserData(out UserData u, email);
+                        MessageBox.Show(u.FirstName);
+                        MainWindow mainWindow = new MainWindow() {
                             FirstName = "LOOK FOR ME"
-                        };
+                        };                   
 
                         mainWindow.Show();
                         connection.Close();
