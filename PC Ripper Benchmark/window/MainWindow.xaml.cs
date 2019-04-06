@@ -78,10 +78,8 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void GetWelcomeText() {
-            this.txtblkWelcome.Text = $"Welcome {this.FirstName} back.";
-            this.txtBlkWelcomeText.Text = $"Welcome {this.FirstName}! ";
-
-
+            this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} back.";
+            this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}! ";
         }
 
         /// <summary>
