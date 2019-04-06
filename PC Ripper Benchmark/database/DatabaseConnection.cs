@@ -190,17 +190,11 @@ namespace PC_Ripper_Benchmark.database {
                         MainWindow mainWindow;
                         if (GetUserData(connection, out UserData u, email)) {
                             // returns the user with that email.
-                            mainWindow = new MainWindow(u) {
-                                FirstName = "LOOK FOR ME"
-                            };
+                            mainWindow = new MainWindow(u);
                         } else {
                             // returns a null user.
-                            mainWindow = new MainWindow(GetNullUser()) {
-                                FirstName = "LOOK FOR ME"
-                            };
-                        }
-                        
-                                 
+                            mainWindow = new MainWindow(GetNullUser());
+                        }                            
 
                         mainWindow.Show();
                         connection.Close();
