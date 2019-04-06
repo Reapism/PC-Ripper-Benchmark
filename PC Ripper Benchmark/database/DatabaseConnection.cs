@@ -7,6 +7,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
+using static PC_Ripper_Benchmark.util.UserData;
+
 namespace PC_Ripper_Benchmark.database {
 
     /// <summary>
@@ -105,20 +107,49 @@ namespace PC_Ripper_Benchmark.database {
         /// Populates a <see cref="UserData"/> using email
         /// as the key.
         /// </summary>
-        /// <param name="userData"></param>
+        /// <param name="conn">The <see cref="SqlConnection"/> to connect with.</param>
+        /// <param name="userData">A <see cref="UserData"/> to populate and return.</param>
+        /// <param name="email">The email used to find the particular user.</param>
         /// <returns></returns>
 
-        public bool GetUserData(out UserData userData, string email) {
+        public bool GetUserData(SqlConnection conn, out UserData userData, string email) {
            userData = new UserData();
 
             try {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM CUSTOMER WHERE Email = @Email", Connection);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM CUSTOMER WHERE Email=@Email", conn);
                 cmd.Parameters.AddWithValue("@Email", email);
                 //email = cmd.ExecuteScalar().ToString();
-                MessageBox.Show(cmd.ExecuteScalar().ToString());
-            } catch {
+                cmd.ExecuteScalar();
 
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    userData.FirstName = reader[0].ToString(); // it should be an int
+                    userData.LastName = reader[1].ToString();
+                    userData.PhoneNumber = reader[2].ToString();
+                    userData.Email = reader[3].ToString();
+                    userData.Password = reader[4].ToString();
+                    userData.SecurityQuestion = reader[5].ToString();
+                    userData.SecurityQuestionAnswer = reader[6].ToString();
+
+                    if (int.TryParse(reader[7].ToString(), out int i)) {
+                        bool b = (i == 1) ? true: false;
+                        userData.IsLight = b;
+                    }
+
+                    UserSkill skill = (UserSkill)int.Parse(reader[8].ToString());
+                    TypeOfUser type = (TypeOfUser)int.Parse(reader[9].ToString());
+                    
+                    userData.IsAdvanced = skill;
+                    userData.UserType = type;
+
+                    // if it reads another comma.
+                    if (reader.Read()) {
+                        return false;
+                    }
+                }
+            } catch {
+                return false;
             }
+
             return true;
         }
 
@@ -151,11 +182,20 @@ namespace PC_Ripper_Benchmark.database {
                     int count = ds.Tables[0].Rows.Count;
 
                     if (count == 1) {
-                        GetUserData(out UserData u, email);
-                        MessageBox.Show(u.FirstName);
-                        MainWindow mainWindow = new MainWindow() {
-                            FirstName = "LOOK FOR ME"
-                        };                   
+                        MainWindow mainWindow;
+                        if (GetUserData(connection, out UserData u, email)) {
+                            // returns the user with that email.
+                            mainWindow = new MainWindow(u) {
+                                FirstName = "LOOK FOR ME"
+                            };
+                        } else {
+                            // returns a null user.
+                            mainWindow = new MainWindow(GetNullUser()) {
+                                FirstName = "LOOK FOR ME"
+                            };
+                        }
+                        
+                                 
 
                         mainWindow.Show();
                         connection.Close();
