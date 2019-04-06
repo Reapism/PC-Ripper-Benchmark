@@ -8,7 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace PC_Ripper_Benchmark.window {
+namespace PC_Ripper_Benchmark.window
+{
 
     /// <summary>
     /// Interaction logic for <see cref="LoginWindow"/>
@@ -16,7 +17,8 @@ namespace PC_Ripper_Benchmark.window {
     /// <para>Author: David Hartglass</para>
     /// </summary>
 
-    public partial class LoginWindow : Window {
+    public partial class LoginWindow : Window
+    {
 
         private WindowSettings settings = new WindowSettings();
 
@@ -24,7 +26,8 @@ namespace PC_Ripper_Benchmark.window {
         /// Default constructor for <see cref="LoginWindow"/>.
         /// </summary>
 
-        public LoginWindow() {
+        public LoginWindow()
+        {
             InitializeComponent();
             //Change the progressbar visibilty to not show on screen
             this.database_progressbar.Opacity = 0;
@@ -42,10 +45,13 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         #region Event Handlers
-        private void LoginButton_Click(object sender, RoutedEventArgs e) {
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
             SystemSettings systemSettings = new SystemSettings();
-            if (SystemSettings.IsInternetAvailable() == true) {
-                if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
+            if (SystemSettings.IsInternetAvailable() == true)
+            {
+                if (RegexUtilities.IsValidEmail(this.emailTextBox.Text))
+                {
                     this.database_progressbar.Opacity = 100;
                     this.database_progressbar.Value = 0;
 
@@ -54,24 +60,34 @@ namespace PC_Ripper_Benchmark.window {
                     SqlConnection connection = new SqlConnection(connectionString);
                     DatabaseConnection newConnection = new DatabaseConnection(connection.ConnectionString);
 
-                    try {
+                    try
+                    {
                         this.database_progressbar.Value = 50;
-                        if (!newConnection.CheckAccountExists(connection, this.emailTextBox.Text, this.passwordBox.Password)) {
+                        if (!newConnection.CheckAccountExists(connection, this.emailTextBox.Text, this.passwordBox.Password))
+                        {
                             this.database_progressbar.Value = 100;
-                        } else {
+                        }
+                        else
+                        {
                             Close();
                         }
 
-                    } catch (SqlException a) {
+                    }
+                    catch (SqlException a)
+                    {
                         MessageBox.Show(a.Errors.ToString());
                         connection.Close();
                         throw;
                     }
                     this.database_progressbar.Opacity = 0;
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("Invalid Email", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
-            } else {
+            }
+            else
+            {
                 MessageBox.Show("No internet connection!", "No Internet", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
@@ -81,7 +97,8 @@ namespace PC_Ripper_Benchmark.window {
         /// <para>When signUpButton is clicked,the window changes to a window of type <see cref="CreateAccountWindow"/></para>
         /// </summary>
 
-        private void SignUpButton_Click(object sender, RoutedEventArgs e) {
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
             CreateAccountWindow createAccountWindow = new CreateAccountWindow();
 
             this.settings.TransitionScreen(createAccountWindow, this);
@@ -92,17 +109,23 @@ namespace PC_Ripper_Benchmark.window {
 
         //DEBUG
 
-        private void PasswordTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
-            if (e.Key == Key.Enter) {
-                this.loginButton.Focus();
-            } else if (e.Key == Key.Down) {
+        private void PasswordTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoginButton_Click(sender, e);
+            }
+            else if (e.Key == Key.Down)
+            {
                 this.loginButton.Focus();
             }
         }
 
-        private void LoginButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e) {
+        private void LoginButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
             // DEBUG PURPOSES.
-            var wind = new MainWindow {
+            var wind = new MainWindow
+            {
                 FirstName = "Guest"
             };
 
@@ -111,53 +134,65 @@ namespace PC_Ripper_Benchmark.window {
             Close();
         }
 
-        private void ResetPasswordButton_Click(object sender, RoutedEventArgs e) {
+        private void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
             PasswordResetWindow passwordResetWindow = new PasswordResetWindow();
 
             this.settings.TransitionScreen(passwordResetWindow, this);
         }
 
-        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Enter) {
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
                 this.passwordBox.Focus();
-            } else if (e.Key == Key.Down) {
+            }
+            else if (e.Key == Key.Down)
+            {
                 this.passwordBox.Focus();
             }
         }
         #endregion
 
-        private void BtnTemp_Click(object sender, RoutedEventArgs e) {
+        private void BtnTemp_Click(object sender, RoutedEventArgs e)
+        {
             new MainWindow().Show();
         }
 
         #region Button GotFocus Methods
-        private void LoginButton_GotFocus(object sender, RoutedEventArgs e) {
+        private void LoginButton_GotFocus(object sender, RoutedEventArgs e)
+        {
             this.loginButton.Foreground = Brushes.Black;
             this.loginButton.BorderBrush = Brushes.Black;
         }
 
-        private void SignUpButton_GotFocus(object sender, RoutedEventArgs e) {
+        private void SignUpButton_GotFocus(object sender, RoutedEventArgs e)
+        {
             this.signUpButton.Foreground = Brushes.Black;
             this.signUpButton.BorderBrush = Brushes.Black;
         }
 
-        private void ResetPasswordButton_GotFocus(object sender, RoutedEventArgs e) {
+        private void ResetPasswordButton_GotFocus(object sender, RoutedEventArgs e)
+        {
             this.resetPasswordButton.Foreground = Brushes.Black;
             this.resetPasswordButton.BorderBrush = Brushes.Black;
         }
         #endregion
         #region Button LostFocus Methods
-        private void LoginButton_LostFocus(object sender, RoutedEventArgs e) {
+        private void LoginButton_LostFocus(object sender, RoutedEventArgs e)
+        {
             this.loginButton.Foreground = Brushes.White;
             this.loginButton.BorderBrush = Brushes.White;
         }
 
-        private void SignUpButton_LostFocus(object sender, RoutedEventArgs e) {
+        private void SignUpButton_LostFocus(object sender, RoutedEventArgs e)
+        {
             this.signUpButton.Foreground = Brushes.White;
             this.signUpButton.BorderBrush = Brushes.White;
         }
 
-        private void ResetPasswordButton_LostFocus(object sender, RoutedEventArgs e) {
+        private void ResetPasswordButton_LostFocus(object sender, RoutedEventArgs e)
+        {
             this.resetPasswordButton.Foreground = Brushes.White;
             this.resetPasswordButton.BorderBrush = Brushes.White;
         }
