@@ -156,7 +156,6 @@ namespace PC_Ripper_Benchmark.function {
             GenerateConfigFile(this.WorkingDir, TestName.DISKFolderMatrix);
             FolderMatrixSnapshot(this.WorkingDir);
             DeleteDirectories(this.WorkingDir);
-            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
             sw.Stop();
             return sw.Elapsed;
@@ -177,7 +176,6 @@ namespace PC_Ripper_Benchmark.function {
             GenerateConfigFile(this.WorkingDir, TestName.DISKBulkFile);
             BulkFileSnapshot(this.WorkingDir);
             DeleteFiles(this.WorkingDir);
-            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
             sw.Stop();
             return sw.Elapsed;
@@ -194,9 +192,7 @@ namespace PC_Ripper_Benchmark.function {
 
             GenerateConfigFile(this.WorkingDir, TestName.DISKReadWriteParse);
             ReadWriteSnapshot(this.WorkingDir);
-            DeleteDirectories(this.WorkingDir, true);
             DeleteFiles(this.WorkingDir);
-            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
 
             sw.Stop();
             return sw.Elapsed;
@@ -215,10 +211,6 @@ namespace PC_Ripper_Benchmark.function {
             GenerateConfigFile(this.WorkingDir, TestName.DISKRipper);
             DiskRipperSnapshot(this.WorkingDir);
             DeleteDirectories(this.WorkingDir, true);
-            DeleteFiles(this.WorkingDir);
-            DeleteConfigFile(Path.Combine(this.WorkingDir, "config" + this.fileExt));
-
-            UnlockDirectory(this.WorkingDir);
 
             sw.Stop();
             return sw.Elapsed;
@@ -408,7 +400,7 @@ namespace PC_Ripper_Benchmark.function {
                 fileName = Path.Combine(path, "config." + this.fileExt);
 
                 writer = new StreamWriter(fileName, true);
-                writer.Write(GetBulkFileDesc());
+                writer.Write(data);
                 writer.Close();
             } catch {
                 return false;
@@ -505,7 +497,7 @@ namespace PC_Ripper_Benchmark.function {
             // Write each file.
 
             fileName = Path.Combine(path, $"BULK{GetRandomString(15)}.{this.fileExt}");
-            fileStream = File.Create(fileName);        
+            fileStream = File.Create(fileName);
             sr = new StreamReader(fileStream, true);
 
             writer = new StreamWriter(fileStream, Encoding.UTF8) {
@@ -601,9 +593,10 @@ namespace PC_Ripper_Benchmark.function {
                     // creates a DiskRipper file in every directory from
                     // FolderMatrix algorithm.
                     fs = File.Create(Path.Combine(path, u.ToString(),
-                        $"DiskRipper{GetRandomString(6) + u.ToString()}.{this.fileExt}"));
+                        $"DiskRipper{u.ToString() + GetRandomString(6)}.{this.fileExt}"));
                     StreamWriter sw = new StreamWriter(fs);
                     sw.WriteLine(GenerateBulkData());
+                    sw.Flush();
                     u++;
                 } catch (Exception e) {
                     continue;
@@ -621,7 +614,7 @@ namespace PC_Ripper_Benchmark.function {
 
         private void DeleteDirectories(string path, bool recursiveDelete = false) {
             DirectoryInfo d = new DirectoryInfo(path);
-            DirectoryInfo[] directories = d.GetDirectories($"*");
+            DirectoryInfo[] directories = d.GetDirectories($"*", SearchOption.TopDirectoryOnly);
 
             foreach (DirectoryInfo dir in directories) {
                 try {
@@ -635,7 +628,7 @@ namespace PC_Ripper_Benchmark.function {
 
         /// <summary>
         /// Delete files in a directory used for 
-        /// cleaning up the disk afterthe tests.
+        /// cleaning up the disk after the tests.
         /// </summary>
         /// <param name="path">The path to delete 
         /// files within.</param>
@@ -648,7 +641,7 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     File.Delete(dir.FullName);
                 } catch (Exception e) {
-                    MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                    //MessageBox.Show($"Error deleting the directory!" + e.ToString());
                     continue;
                 }
             }
