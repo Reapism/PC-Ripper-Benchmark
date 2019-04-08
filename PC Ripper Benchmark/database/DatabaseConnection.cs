@@ -93,7 +93,6 @@ namespace PC_Ripper_Benchmark.database {
 
                     return true;
                 } else {
-                    MessageBox.Show("You are not connected to the internet!");
                     return false;
                 }
 

@@ -44,6 +44,7 @@ namespace PC_Ripper_Benchmark.window {
         #region Event Handlers
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SystemSettings systemSettings = new SystemSettings();
+
             if (SystemSettings.IsInternetAvailable() == true) {
                 if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                     this.database_progressbar.Opacity = 100;
@@ -71,9 +72,7 @@ namespace PC_Ripper_Benchmark.window {
                 } else {
                     MessageBox.Show("Invalid Email", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
-            } else {
-                MessageBox.Show("No internet connection!", "No Internet", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            } 
         }
 
         /// <summary>
