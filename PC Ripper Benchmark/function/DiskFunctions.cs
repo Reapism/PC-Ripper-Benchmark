@@ -585,7 +585,6 @@ namespace PC_Ripper_Benchmark.function {
             DirectoryInfo[] directories = d.GetDirectories($"*");
             FileStream fs;
 
-
             ulong u = 0;
 
             foreach (DirectoryInfo dir in directories) {
@@ -598,7 +597,7 @@ namespace PC_Ripper_Benchmark.function {
                     sw.WriteLine(GenerateBulkData());
                     sw.Flush();
                     u++;
-                } catch (Exception e) {
+                } catch {
                     continue;
                 }
             }

@@ -81,11 +81,11 @@ namespace PC_Ripper_Benchmark.window {
         private void GetWelcomeText() {
             this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} to the PC Ripper Benchmark.";
             this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}, check out your account information below! ";
-            
-            this.lblName.Content = $"Profile: {userData.LastName}, {userData.FirstName}.";
-            
-            this.lblTypeOfUser.Content = $"You're using your computer mainly for {userData.GetTypeOfUserString()}.";
-            this.lblUserSkill.Content = $"You've decided you're an {userData.GetUserSkillString()} user.";
+
+            this.lblName.Content = $"Profile: {this.userData.LastName}, {this.userData.FirstName}.";
+
+            this.lblTypeOfUser.Content = $"You're using your computer mainly for {this.userData.GetTypeOfUserString()}.";
+            this.lblUserSkill.Content = $"You've decided you're an {this.userData.GetUserSkillString()} user.";
 
         }
 
@@ -104,15 +104,17 @@ namespace PC_Ripper_Benchmark.window {
                 + Environment.NewLine + Environment.NewLine);
 
             this.txtComputerSpecs.AppendText("Processor (CPU) specs" + Environment.NewLine);
-
             specs.GetProcessorInfo(out lst);
             foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
-            this.txtComputerSpecs.AppendText( Environment.NewLine + "RAM specs" + Environment.NewLine);
+
+            this.txtComputerSpecs.AppendText(Environment.NewLine + "RAM specs" + Environment.NewLine);
             specs.GetMemoryInfo(out lst);
             foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
+
             this.txtComputerSpecs.AppendText(Environment.NewLine + "Disks (HDD/SSD) specs" + Environment.NewLine);
             specs.GetDiskInfo(out lst);
             foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
+
             this.txtComputerSpecs.AppendText(Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine);
             specs.GetVideoCard(out lst);
             foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
@@ -250,23 +252,24 @@ namespace PC_Ripper_Benchmark.window {
             }
 
             try {
+                if (saveFile.ShowDialog() == true) {
 
-                if (saveFile.ShowDialog() != true) { throw new FileFormatException(); }
+                    range = new TextRange(this.txtResults.Document.ContentStart,
+                        this.txtResults.Document.ContentEnd);
+                    fStream = new FileStream(saveFile.FileName, FileMode.Create);
 
-                range = new TextRange(this.txtResults.Document.ContentStart,
-                    this.txtResults.Document.ContentEnd);
-                fStream = new FileStream(saveFile.FileName, FileMode.Create);
-
-                range.Save(fStream, format);
-                fStream.Close();
+                    range.Save(fStream, format);
+                    fStream.Close();
+                    MessageBox.Show($"The {saveFile.SafeFileName} was exported to " +
+                         $"{saveFile.FileName} successfully.", "Success",
+                         MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             } catch (Exception e) {
                 MessageBox.Show($"An exception has occured in generating the file. {e.ToString()}", "SaveFileException",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            MessageBox.Show($"The {saveFile.SafeFileName} was exported to " +
-                $"{saveFile.FileName} successfully.", "Success",
-                MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
 
         }
 
@@ -639,12 +642,10 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnRAM_LostFocus(object sender, RoutedEventArgs e) {
             this.btnRAM.BorderThickness = new Thickness(0);
-
         }
 
         private void BtnDisk_LostFocus(object sender, RoutedEventArgs e) {
             this.btnDisk.BorderThickness = new Thickness(0);
-
         }
 
         private void BtnSettings_LostFocus(object sender, RoutedEventArgs e) {
