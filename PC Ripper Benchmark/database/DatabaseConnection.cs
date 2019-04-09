@@ -257,5 +257,14 @@ namespace PC_Ripper_Benchmark.database {
             getSecurityQuestion.Parameters.AddWithValue("@Email", email);
             return (string)getSecurityQuestion.ExecuteScalar();
         }
+
+        public string GetSecurityQuestionAnswer(string email, SqlConnection connection)
+        {
+            SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
+            getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
+
+            //Set the answer returned by the query to a variable for comparison
+            return (string)getSecurityQuestionAnswer.ExecuteScalar();
+        }
     }
 }

@@ -100,21 +100,16 @@ namespace PC_Ripper_Benchmark.window {
                             this.confirmSecurityAnswerButton.Visibility = Visibility.Visible;
 
                             //Command to get the actual answered security question
-                            string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
+                            string email = this.encryption.EncryptText(this.emailTextBox.Text);
                             this.securityQuestionAnswerTextBox.Focus();
 
-                            
+                            lblSecurityQuestion.Content = newConnection.GetSecurityQuestion(email, connection);
                             this.confirmEmailButton.Visibility = Visibility.Collapsed;
 
                             //Command to get the security question answer for comparison
                             SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
                             string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text.ToUpper().Trim());
-
-                            getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
-
-                            //Set the answer returned by the query to a variable for comparison
-                            string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
-
+                                                        
                             this.confirmSecurityAnswerButton.Opacity = 100;
 
                             //Make the confirmed field read only
@@ -144,21 +139,13 @@ namespace PC_Ripper_Benchmark.window {
                 if (SystemSettings.IsInternetAvailable() == true) {
                     //Open new database connection
                     SqlConnection connection = new SqlConnection(this.connectionString);
-                    database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
+                    DatabaseConnection newConnection = new DatabaseConnection(connection.ConnectionString);
                     connection.Open();
 
-                    //Command to get the actual answered security question
-                    string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
-                    newConnection.GetSecurityQuestion(email, connection);
-
-                    //Command to get the security question answer for comparison
-                    SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
-                    string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text);
-
-                    getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
+                    string email = this.encryption.EncryptText(this.emailTextBox.Text);
 
                     //Set the answer returned by the query to a variable for comparison
-                    string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
+                    string answer = newConnection.GetSecurityQuestionAnswer(email, connection);
 
                     if (this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text) == answer) {
                         this.newPasswordLabel.Opacity = 100;
