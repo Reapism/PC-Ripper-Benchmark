@@ -35,7 +35,8 @@ namespace PC_Ripper_Benchmark.database {
 
         public DatabaseConnection(string connectionString) {
             if (connectionString == "" || connectionString == null) {
-                MessageBox.Show("Empty connection string!", "Null Connection", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Empty connection string!", "Null Connection", 
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
             } else {
                 this.Connection = new SqlConnection {
                     ConnectionString = connectionString
