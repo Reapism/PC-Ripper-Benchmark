@@ -84,7 +84,8 @@ namespace PC_Ripper_Benchmark.function {
                 //
                 main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
 
-              
+                main.btnWelcome.Visibility = Visibility.Hidden;
+
                 main.btnCPU.Visibility = Visibility.Hidden;
 
                 main.btnRAM.Visibility = Visibility.Hidden;
@@ -101,6 +102,8 @@ namespace PC_Ripper_Benchmark.function {
 
                 main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(expanded, grdWindowTopThickness, 0, 0);
+
+                main.btnWelcome.Visibility = Visibility.Visible;
 
                 main.btnCPU.Visibility = Visibility.Visible;
 
