@@ -88,9 +88,21 @@
                                         <GradientStop Color="#FF98E2DE"/>
                                     </RadialGradientBrush>
                                 </GroupBox.Background>
-                                <Grid x:Name="grdSpecs" Margin="5,0,0,0">
-                                    <TextBlock x:Name="txtBlkComputerSpecs" Margin="0,70,0,0" TextWrapping="Wrap" ToolTip="Your computer specifications." FontSize="14" ScrollViewer.CanContentScroll="True"/>
-                                    <Image x:Name="imgSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
+                                <Grid x:Name="grdSpecsInner" Margin="0">
+                                    <Image x:Name="imgComputerSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
+                                    <RichTextBox x:Name="txtComputerSpecs" Margin="10,70,10,10" BorderBrush="#FF80DEE8" VerticalScrollBarVisibility="Auto">
+                                        <RichTextBox.Background>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#33FFFFFF" Offset="0"/>
+                                                <GradientStop Color="#33E8E8E8" Offset="1"/>
+                                            </RadialGradientBrush>
+                                        </RichTextBox.Background>
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="RichTextBox"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
                                 </Grid>
                             </GroupBox>
                             <Grid x:Name="grdUserInfo" Margin="0,0,413,0" Width="413" MinHeight="389" MinWidth="413" HorizontalAlignment="Left">

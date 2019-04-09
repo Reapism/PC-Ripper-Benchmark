@@ -91,29 +91,31 @@ namespace PC_Ripper_Benchmark.window {
 
         /// <summary>
         /// Gets the computer specifications and places them inside the
-        /// <see cref="txtBlkComputerSpecs"/> <see cref="TextBlock"/>.
+        /// <see cref="txtComputerSpecs"/> <see cref="RichTextBox"/>.
         /// </summary>
 
         private void GetComputerSpecs() {
             List<string> lst = new List<string>();
             ComputerSpecs specs = new ComputerSpecs();
 
-            this.txtBlkComputerSpecs.Text += $"System specifications for {specs.UserName}."
-                + Environment.NewLine + Environment.NewLine;
+            this.txtComputerSpecs.Document.Blocks.Clear();
 
-            this.txtBlkComputerSpecs.Text += "Processor (CPU) specs" + Environment.NewLine;
+            this.txtComputerSpecs.AppendText($"System specifications for {specs.UserName}."
+                + Environment.NewLine + Environment.NewLine);
+
+            this.txtComputerSpecs.AppendText("Processor (CPU) specs" + Environment.NewLine);
 
             specs.GetProcessorInfo(out lst);
-            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
-            this.txtBlkComputerSpecs.Text += Environment.NewLine + "RAM specs" + Environment.NewLine;
+            foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
+            this.txtComputerSpecs.AppendText( Environment.NewLine + "RAM specs" + Environment.NewLine);
             specs.GetMemoryInfo(out lst);
-            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
-            this.txtBlkComputerSpecs.Text += Environment.NewLine + "Disks (HDD/SSD) specs" + Environment.NewLine;
+            foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
+            this.txtComputerSpecs.AppendText(Environment.NewLine + "Disks (HDD/SSD) specs" + Environment.NewLine);
             specs.GetDiskInfo(out lst);
-            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
-            this.txtBlkComputerSpecs.Text += Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine;
+            foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
+            this.txtComputerSpecs.AppendText(Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine);
             specs.GetVideoCard(out lst);
-            foreach (string s in lst) { this.txtBlkComputerSpecs.Text += s + Environment.NewLine; }
+            foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
         }
 
         /// <summary>
