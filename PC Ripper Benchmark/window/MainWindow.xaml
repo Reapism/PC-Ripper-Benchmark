@@ -296,9 +296,10 @@
                                 <GradientStop Color="#DCDCDC"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <Grid x:Name="grdSettingsLeft" HorizontalAlignment="Left" Margin="0" MinWidth="300" Background="#33FFFFFF"/>
-                        <Button x:Name="btnUnlockDirectory" Content="Unlock directory" HorizontalAlignment="Left" Margin="331,189,0,0" VerticalAlignment="Top" Width="122" Click="BtnUnlockDirectory_Click"/>
-                        <Button x:Name="btnLockDirectory" Content="Lock directory" HorizontalAlignment="Left" Margin="373,239,0,0" VerticalAlignment="Top" Width="122" Click="BtnLockDirectory_Click"/>
+                        <Grid x:Name="grdSettingsLeft" HorizontalAlignment="Left" Margin="0" MinWidth="300" Background="#33FFFFFF">
+                            <Button x:Name="btnLockDirectory" Content="Lock directory" HorizontalAlignment="Left" Margin="178,264,0,0" VerticalAlignment="Top" Width="122" Click="BtnLockDirectory_Click"/>
+                            <Button x:Name="btnUnlockDirectory" Content="Unlock directory" HorizontalAlignment="Left" Margin="140,200,0,0" VerticalAlignment="Top" Width="122" Click="BtnUnlockDirectory_Click"/>
+                        </Grid>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabTestResults" Header="Results">
