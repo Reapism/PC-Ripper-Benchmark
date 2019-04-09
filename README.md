@@ -2,6 +2,10 @@
 The PC-Ripper-Benchmark application is for Senior project BCS 430W. 
 The is an extension of my original work located here: https://github.com/Reapism/CPU-Ripper
 
+# Running the setup
+At the moment, the application installs to
+`C:\Users\Reapism\AppData\Local\Apps\2.0`
+
 # What is the PC-Ripper Benchmark application?
 Let's call it Ripper for short. The Ripper is an app designed
 to benchmark many components on your computer. It also has the
