@@ -59,6 +59,7 @@ namespace PC_Ripper_Benchmark.window {
                         this.database_progressbar.Value = 50;
                         if (newConnection.CheckAccountExists(this.emailTextBox.Text, this.passwordBox.Password)) {
                             this.database_progressbar.Value = 100;
+                            this.Close();
                         } else
                         {
                             MessageBox.Show("Invalid email or password combination.", "Invalid Email/password", MessageBoxButton.OK, MessageBoxImage.Asterisk);
