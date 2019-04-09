@@ -100,14 +100,10 @@ namespace PC_Ripper_Benchmark.window {
                             this.confirmSecurityAnswerButton.Visibility = Visibility.Visible;
 
                             //Command to get the actual answered security question
-                            SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM [USER] where Email=@Email", connection);
                             string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
                             this.securityQuestionAnswerTextBox.Focus();
 
-                            //Fill the parameter of the query
-                            getSecurityQuestion.Parameters.AddWithValue("@Email", email);
-                            this.lblSecurityQuestion.Content = (string)getSecurityQuestion.ExecuteScalar();
-
+                            
                             this.confirmEmailButton.Visibility = Visibility.Collapsed;
 
                             //Command to get the security question answer for comparison
@@ -153,6 +149,7 @@ namespace PC_Ripper_Benchmark.window {
 
                     //Command to get the actual answered security question
                     string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
+                    newConnection.GetSecurityQuestion(email, connection);
 
                     //Command to get the security question answer for comparison
                     SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
