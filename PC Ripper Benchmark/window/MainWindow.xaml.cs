@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using XamlAnimatedGif;
 using static PC_Ripper_Benchmark.function.RipperTypes;
+using static PC_Ripper_Benchmark.util.UserData;
 
 namespace PC_Ripper_Benchmark.window {
 
@@ -58,6 +59,11 @@ namespace PC_Ripper_Benchmark.window {
             s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
 
             this.tabComponents.ItemContainerStyle = s;
+
+            Style s2 = new Style();
+            s2.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+
+            this.tabSettingsInner.ItemContainerStyle = s2;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
 
@@ -552,6 +558,10 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.SETTINGS);
+
+            if (userData.IsAdvanced == UserSkill.Advanced) {
+                tabSettingsInner.SelectedIndex = 1;                
+            } else { tabSettingsInner.SelectedIndex = 0; }
         }
 
         private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {
@@ -652,6 +662,39 @@ namespace PC_Ripper_Benchmark.window {
             this.btnSettings.BorderThickness = new Thickness(0);
         }
 
-        #endregion                
+        private void BtnWelcome_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.WELCOME);
+        }
+
+        private void BtnWelcome_GotFocus(object sender, RoutedEventArgs e) {
+            this.btnWelcome.BorderThickness = new Thickness(5);
+            this.btnWelcome.BorderBrush = Brushes.ForestGreen;
+        }
+
+        private void BtnWelcome_LostFocus(object sender, RoutedEventArgs e) {
+            this.btnWelcome.BorderThickness = new Thickness(0);
+        }
+
+        private void BtnWelcome_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
+
+        }
+
+        private void BtnWelcome_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
+
+        }
+
+        #endregion
+
+        private void BtnLockDir_Click(object sender, RoutedEventArgs e) {
+            LockDir();
+        }
+
+        private void BtnUnlockDir_Click(object sender, RoutedEventArgs e) {
+            UnlockDir();
+        }
+
+        private void BtnShowAdvanced_Click(object sender, RoutedEventArgs e) {
+            tabSettingsInner.SelectedIndex = 1;
+        }
     }
 }

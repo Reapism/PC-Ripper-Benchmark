@@ -15,19 +15,20 @@
                     <Image x:Name="imgMenu" Height="29" MaxWidth="30" MaxHeight="30" MinWidth="30" MinHeight="30" Source="/PC Ripper Benchmark;component/resources/menu.png" Margin="0,-2,5,0" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnCPU" HorizontalAlignment="Left" Margin="35,100,0,0" VerticalAlignment="Top" Width="75" Height="75" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click" GotFocus="BtnCPU_GotFocus" LostFocus="BtnCPU_LostFocus">
-                <StackPanel x:Name="stkBtnCPU" Height="75" Width="75">
-                    <Image x:Name="imgBtnCPU" Height="75" Width="75" Source="/PC Ripper Benchmark;component/resources/cpu.png" ToolTip="Navigate to the CPU benchmarking tab."/>
-                </StackPanel>
+            <Button x:Name="btnWelcome" HorizontalAlignment="Left" Margin="35,50,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnWelcome_MouseEnter" MouseLeave="BtnWelcome_MouseLeave" Click="BtnWelcome_Click" GotFocus="BtnWelcome_GotFocus" LostFocus="BtnWelcome_LostFocus">
+                <Image x:Name="imgBtnWelcome" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/specs.png" ToolTip="Navigate to the home tab."/>
             </Button>
-            <Button x:Name="btnRAM" HorizontalAlignment="Left" Margin="35,200,0,0" VerticalAlignment="Top" Width="75" Height="75" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click" GotFocus="BtnRAM_GotFocus" LostFocus="BtnRAM_LostFocus">
-                <Image x:Name="imgBtnRam" Height="75" Width="75" Source="/PC Ripper Benchmark;component/resources/ram.png" ToolTip="Navigate to the RAM benchmarking tab."/>
+            <Button x:Name="btnCPU" HorizontalAlignment="Left" Margin="35,150,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click" GotFocus="BtnCPU_GotFocus" LostFocus="BtnCPU_LostFocus">
+                <Image x:Name="imgBtnCPU" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/cpu.png" ToolTip="Navigate to the CPU benchmarking tab."/>
             </Button>
-            <Button x:Name="btnDisk" HorizontalAlignment="Left" Margin="35,300,0,0" VerticalAlignment="Top" Width="75" Height="75" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click" GotFocus="BtnDisk_GotFocus" LostFocus="BtnDisk_LostFocus">
-                <Image x:Name="imgBtnDisk" Height="75" Width="75" Source="/PC Ripper Benchmark;component/resources/disk.png" ToolTip="Navigate to the DISK benchmarking tab."/>
+            <Button x:Name="btnRAM" HorizontalAlignment="Left" Margin="35,250,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click" GotFocus="BtnRAM_GotFocus" LostFocus="BtnRAM_LostFocus">
+                <Image x:Name="imgBtnRam" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/ram.png" ToolTip="Navigate to the RAM benchmarking tab."/>
             </Button>
-            <Button x:Name="btnSettings" HorizontalAlignment="Left" Margin="35,400,0,0" VerticalAlignment="Top" Width="75" Height="75" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus">
-                <Image x:Name="imgBtnSettings" Height="75" Width="75" Source="/PC Ripper Benchmark;component/resources/settings.png" ToolTip="Navigate to the application settings."/>
+            <Button x:Name="btnDisk" HorizontalAlignment="Left" Margin="35,350,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click" GotFocus="BtnDisk_GotFocus" LostFocus="BtnDisk_LostFocus">
+                <Image x:Name="imgBtnDisk" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/disk.png" ToolTip="Navigate to the DISK benchmarking tab."/>
+            </Button>
+            <Button x:Name="btnSettings" HorizontalAlignment="Left" Margin="35,450,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus">
+                <Image x:Name="imgBtnSettings" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/settings.png" ToolTip="Navigate to the application settings."/>
             </Button>
 
         </Grid>
@@ -193,8 +194,8 @@
                                 <GradientStop Color="White"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <StackPanel x:Name="stkDisk" Margin="0,6,0,465" MinHeight="60">
-                            <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
+                        <StackPanel x:Name="stkDisk" Margin="0,6,0,450" MinHeight="60">
+                            <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center" Height="30" Margin="44,0"/>
                         </StackPanel>
                         <Grid x:Name="grdDiskTests" Margin="0,65,0,100" MinHeight="110" MinWidth="636">
                             <Grid.Background>
@@ -296,9 +297,66 @@
                                 <GradientStop Color="#DCDCDC"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <Grid x:Name="grdSettingsLeft" HorizontalAlignment="Left" Margin="0" MinWidth="300" Background="#33FFFFFF">
-                            <Button x:Name="btnLockDirectory" Content="Lock directory" HorizontalAlignment="Left" Margin="178,264,0,0" VerticalAlignment="Top" Width="122" Click="BtnLockDirectory_Click"/>
-                            <Button x:Name="btnUnlockDirectory" Content="Unlock directory" HorizontalAlignment="Left" Margin="140,200,0,0" VerticalAlignment="Top" Width="122" Click="BtnUnlockDirectory_Click"/>
+                        <Grid x:Name="grdSettingsLeft" Margin="25" MinWidth="300" Background="#33FFFFFF">
+
+                            <TabControl x:Name="tabSettingsInner" Margin="0" Background="Transparent">
+                                <TabItem x:Name="tabSettingsBeginner" Header="Beginner">
+                                    <Grid x:Name="grdSettingsBeginner">
+                                        <Grid.Background>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#4CD9FFDD" Offset="1"/>
+                                                <GradientStop Color="#4CFFFFFF"/>
+                                            </RadialGradientBrush>
+                                        </Grid.Background>
+                                        <StackPanel x:Name="stkBeginner" Margin="0" VerticalAlignment="Top" Height="100">
+                                            <StackPanel.Background>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="#4CFFFCEC"/>
+                                                    <GradientStop Color="#4CFFF8B2" Offset="1"/>
+                                                </RadialGradientBrush>
+                                            </StackPanel.Background>
+                                            <TextBlock x:Name="txtBlkBeginner" TextWrapping="Wrap" Text="Here are some settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
+                                            <Button x:Name="btnShowAdvanced" Content="Advanced Settings" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Foreground="#FF7F2A8D" Click="BtnShowAdvanced_Click" Margin="100,10,100,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem x:Name="tabSettingsAdvanced" Header="Advanced" Background="#00000000">
+                                    <Grid x:Name="grdSettingsAdvanced">
+                                        <Grid.Background>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#4CB0CDFF" Offset="1"/>
+                                                <GradientStop Color="#4CDCDCDC" Offset="0"/>
+                                            </RadialGradientBrush>
+                                        </Grid.Background>
+                                        <StackPanel x:Name="stkAdvanced" Margin="0" VerticalAlignment="Top" Height="100">
+                                            <StackPanel.Background>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="#4CFFFFFF"/>
+                                                    <GradientStop Color="#4CCBB2FF" Offset="1"/>
+                                                </RadialGradientBrush>
+                                            </StackPanel.Background>
+                                            <TextBlock x:Name="txtBlkAdvanced" TextWrapping="Wrap" Text="Here are the advanced settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
+                                            <Button x:Name="btnLockDir" Content="Lock a Directory" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Margin="100,10,100,0" Click="BtnLockDir_Click"/>
+                                            <Button x:Name="btnUnlockDir" Content="Unlock a Directory" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,10,100,0" VerticalAlignment="Center" Click="BtnUnlockDir_Click"/>
+                                        </StackPanel>
+                                        <StackPanel x:Name="stkSettings" Margin="0,120,0,0">
+                                            <StackPanel.Background>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="#19FFFFFF" Offset="0"/>
+                                                    <GradientStop Color="#19CDA4FF" Offset="1"/>
+                                                </RadialGradientBrush>
+                                            </StackPanel.Background>
+                                            <ListView x:Name="lstViewSettings" BorderBrush="#FF005BFF" Background="#34FFFFFF">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </StackPanel>
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
                         </Grid>
                     </Grid>
                 </TabItem>
