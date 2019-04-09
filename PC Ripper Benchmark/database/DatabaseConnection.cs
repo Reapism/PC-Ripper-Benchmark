@@ -35,9 +35,17 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
 
         public DatabaseConnection(string connectionString) {
-            this.Connection = new SqlConnection {
-                ConnectionString = connectionString
-            };
+            if (connectionString == "" || connectionString == null)
+            {
+                MessageBox.Show("Empty connection string!", "Null Connection", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                this.Connection = new SqlConnection
+                {
+                    ConnectionString = connectionString
+                };
+            }       
         }
 
         /// <summary>
@@ -70,7 +78,7 @@ namespace PC_Ripper_Benchmark.database {
         public bool AddUserToDatabase(SqlConnection connection, UserData user) {
 
             try {
-                if (SystemSettings.IsInternetAvailable() == true) {
+                if (SystemSettings.IsInternetAvailable() == true && connection.ConnectionString != "" && connection.ConnectionString != null) {
                     SqlCommand addUser = new SqlCommand("UserAdd", connection) {
                         CommandType = CommandType.StoredProcedure
                     };
