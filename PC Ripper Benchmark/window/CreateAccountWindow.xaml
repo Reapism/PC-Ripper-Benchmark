@@ -29,7 +29,9 @@
             <ComboBox x:Name="securityQuestionComboBox" KeyUp="SecurityQuestionComboBox_KeyUp" SelectedIndex="1" Margin="0 0 0 10" Height="26" BorderThickness="3">
                 <ComboBoxItem Content="What is your mothers maiden name?" HorizontalAlignment="Center"/>
                 <ComboBoxItem Content="What is the name of the town you grew up in?" HorizontalAlignment="Center"/>
-                <ComboBoxItem Content="What is your fathers middle name?" HorizontalAlignment="Center"/>
+                <ComboBoxItem Content="What was the name of your first pet?" HorizontalAlignment="Center"/>
+                <ComboBoxItem Content="What was the model of your first?" HorizontalAlignment="Center"/>
+                <ComboBoxItem Content="Who was your favorite professor at Farmingdale?" HorizontalAlignment="Center"/>
             </ComboBox>
             <TextBox Name="securityQuestionTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyUp="SecurityQuestionTextBox_KeyUp" BorderThickness="3" ToolTip="Answer to your security question"/>
             <Button x:Name="createAccountSubmitButton" Content="Submit" Margin="50 15" Background="#545d6a" Foreground="White" FontSize="18" Click="CreateAccountSubmitButton_Click" Height="36" GotFocus="CreateAccountSubmitButton_GotFocus" LostFocus="CreateAccountSubmitButton_LostFocus" KeyDown="CreateAccountSubmitButton_KeyDown" MouseEnter="CreateAccountSubmitButton_MouseEnter" MouseLeave="CreateAccountSubmitButton_MouseLeave" MouseRightButtonDown="CreateAccountSubmitButton_MouseRightButtonDown"/>
