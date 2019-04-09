@@ -32,10 +32,12 @@ namespace PC_Ripper_Benchmark.window {
             this.loginButton.BorderThickness = new Thickness(3);
             this.signUpButton.BorderThickness = new Thickness(3);
             this.resetPasswordButton.BorderThickness = new Thickness(3);
+            this.loginGuestButton.BorderThickness = new Thickness(3);
 
             this.loginButton.BorderBrush = Brushes.White;
             this.signUpButton.BorderBrush = Brushes.White;
             this.resetPasswordButton.BorderBrush = Brushes.White;
+            this.loginGuestButton.BorderBrush = Brushes.White;
             this.emailTextBox.Focus();
 
             this.passwordBox.PreviewKeyDown += PasswordBox_PreviewKeyDown;
@@ -98,8 +100,7 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
-        private void LoginButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e) {
-            // DEBUG PURPOSES.
+        private void LoginGuestButton_Click(object sender, RoutedEventArgs e) {
             new MainWindow(UserData.GetGuestUser()).Show();
 
             Close();
