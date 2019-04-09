@@ -103,7 +103,7 @@ namespace PC_Ripper_Benchmark.window {
                             string email = this.encryption.EncryptText(this.emailTextBox.Text);
                             this.securityQuestionAnswerTextBox.Focus();
 
-                            lblSecurityQuestion.Content = newConnection.GetSecurityQuestion(email, connection);
+                            lblSecurityQuestion.Content = newConnection.GetSecurityQuestion(email);
                             this.confirmEmailButton.Visibility = Visibility.Collapsed;
 
                             //Command to get the security question answer for comparison
@@ -145,7 +145,7 @@ namespace PC_Ripper_Benchmark.window {
                     string email = this.encryption.EncryptText(this.emailTextBox.Text);
 
                     //Set the answer returned by the query to a variable for comparison
-                    string answer = newConnection.GetSecurityQuestionAnswer(email, connection);
+                    string answer = newConnection.GetSecurityQuestionAnswer(email);
 
                     if (this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text) == answer) {
                         this.newPasswordLabel.Opacity = 100;
