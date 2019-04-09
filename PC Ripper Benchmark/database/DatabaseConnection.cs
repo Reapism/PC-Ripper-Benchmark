@@ -2,7 +2,6 @@
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
 using PC_Ripper_Benchmark.window;
-using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -35,17 +34,13 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
 
         public DatabaseConnection(string connectionString) {
-            if (connectionString == "" || connectionString == null)
-            {
+            if (connectionString == "" || connectionString == null) {
                 MessageBox.Show("Empty connection string!", "Null Connection", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else
-            {
-                this.Connection = new SqlConnection
-                {
+            } else {
+                this.Connection = new SqlConnection {
                     ConnectionString = connectionString
                 };
-            }       
+            }
         }
 
         /// <summary>
@@ -75,15 +70,15 @@ namespace PC_Ripper_Benchmark.database {
         /// procedure
         /// </summary>
 
-        public bool AddUserToDatabase(SqlConnection connection, UserData user) {
+        public bool AddUserToDatabase(UserData user) {
 
             try {
-                if (SystemSettings.IsInternetAvailable() == true && connection.ConnectionString != "" && connection.ConnectionString != null) {
-                    SqlCommand addUser = new SqlCommand("UserAdd", connection) {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
+                    SqlCommand addUser = new SqlCommand("UserAdd", this.Connection) {
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    connection.Open();
+                    //this.Connection.Open();
                     addUser.Parameters.AddWithValue("@FirstName", user.FirstName.Trim());
                     addUser.Parameters.AddWithValue("@LastName", user.LastName.Trim());
                     addUser.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber.Trim());
@@ -91,12 +86,12 @@ namespace PC_Ripper_Benchmark.database {
                     addUser.Parameters.AddWithValue("@Password", user.Password.Trim());
                     addUser.Parameters.AddWithValue("@SecurityQuestion", user.SecurityQuestion.Trim());
                     addUser.Parameters.AddWithValue("@SecurityQuestionAnswer", user.SecurityQuestionAnswer.Trim());
-                    addUser.Parameters.AddWithValue("@IsLight",user.IsLight);
+                    addUser.Parameters.AddWithValue("@IsLight", user.IsLight);
                     addUser.Parameters.AddWithValue("@UserSkill", (int)user.IsAdvanced);
                     addUser.Parameters.AddWithValue("@TypeOfUser", (int)user.UserType);
 
                     addUser.ExecuteNonQuery();
-                    connection.Close();
+                    this.Connection.Close();
                     MessageBox.Show("Registration Successful");
 
                     return true;
@@ -106,7 +101,7 @@ namespace PC_Ripper_Benchmark.database {
 
             } catch (SqlException e) {
                 MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
-                connection.Close();
+                this.Connection.Close();
                 return false;
             }
         }
@@ -115,18 +110,17 @@ namespace PC_Ripper_Benchmark.database {
         /// Populates a <see cref="UserData"/> using email
         /// as the key.
         /// </summary>
-        /// <param name="conn">The <see cref="SqlConnection"/> to connect with.</param>
         /// <param name="userData">A <see cref="UserData"/> to populate and return.</param>
         /// <param name="email">The email used to find the particular user.</param>
         /// <returns></returns>
 
-        public bool GetUserData(SqlConnection conn, out UserData userData, string email) {
-           userData = new UserData();
+        public bool GetUserData(out UserData userData, string email) {
+            userData = new UserData();
 
             try {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email", this.Connection);
                 cmd.Parameters.AddWithValue("@Email", email);
-                
+
                 cmd.ExecuteScalar();
 
                 using (SqlDataReader reader = cmd.ExecuteReader()) {
@@ -171,14 +165,15 @@ namespace PC_Ripper_Benchmark.database {
         /// a 0 or 1 to determine if it exists.
         /// </summary>
 
-        public bool CheckAccountExists(SqlConnection connection, string email, string password) {
+        public bool CheckAccountExists(string email, string password) {
+
             try {
                 if (SystemSettings.IsInternetAvailable() == true) {
-                    connection.Open();
+                    this.Connection.Open();
 
                     Encryption encrypter = new Encryption();
 
-                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email AND Password=@Password", connection);
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email AND Password=@Password", this.Connection);
                     email = encrypter.EncryptText(email.ToUpper().Trim());
                     password = encrypter.EncryptText(password.ToUpper().Trim());
 
@@ -189,38 +184,29 @@ namespace PC_Ripper_Benchmark.database {
                     SqlDataAdapter adapter = new SqlDataAdapter(checkAccount);
                     DataSet ds = new DataSet();
                     adapter.Fill(ds);
-                    
+
 
                     int count = ds.Tables[0].Rows.Count;
 
                     if (count == 1) {
                         MainWindow mainWindow;
-                        if (GetUserData(connection, out UserData u, email)) {
+
+                        if (GetUserData(out UserData u, email)) {
                             // returns the user with that email.
                             mainWindow = new MainWindow(u);
                         } else {
                             // returns a null user.
                             mainWindow = new MainWindow(GetNullUser());
-                        }                            
+                        }
 
                         mainWindow.Show();
-                        connection.Close();
+                        this.Connection.Close();
                         return true;
-                    } else {
-                        connection.Close();
-                        return false;
                     }
-                } else {
-                    MessageBox.Show("You are not connected to the internet!");
-                    connection.Close();
-                    return false;
                 }
+            } catch { }
 
-            } catch (Exception e) {
-                MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
-                connection.Close();
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
@@ -230,14 +216,14 @@ namespace PC_Ripper_Benchmark.database {
         /// a 0 or 1 to determine if it exists.
         /// </summary>
 
-        public bool CheckEmailExists(SqlConnection connection, string email) {
+        public bool CheckEmailExists(string email) {
             try {
                 if (SystemSettings.IsInternetAvailable() == true) {
-                    connection.Open();
+                    this.Connection.Open();
 
                     Encryption encrypter = new Encryption();
 
-                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] where Email=@Email", connection);
+                    SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] where Email=@Email", this.Connection);
                     email = encrypter.EncryptText(email.ToUpper().Trim());
 
                     checkAccount.Parameters.AddWithValue("@Email", email);
@@ -250,24 +236,15 @@ namespace PC_Ripper_Benchmark.database {
                     int count = ds.Tables[0].Rows.Count;
 
                     if (count == 1) {
-                        connection.Close();
+                        this.Connection.Close();
                         return true;
-                    } else {
-                        MessageBox.Show("An account with that email does not exist", "Invalid Email", MessageBoxButton.OK, MessageBoxImage.Error);
-                        connection.Close();
-                        return false;
-                    }
-                } else {
-                    MessageBox.Show("You are not connected to the internet!");
-                    connection.Close();
-                    return false;
-                }
 
-            } catch (Exception e) {
-                MessageBox.Show($"Oh no. A RipperDatabaseException occured. {e.ToString()}");
-                connection.Close();
-                return false;
-            }
+                    }
+                }
+            } catch { }
+
+            this.Connection.Close();
+            return false;
         }
     }
 }

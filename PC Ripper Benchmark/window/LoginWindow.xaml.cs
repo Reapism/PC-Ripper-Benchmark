@@ -45,19 +45,17 @@ namespace PC_Ripper_Benchmark.window {
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SystemSettings systemSettings = new SystemSettings();
 
-            if (SystemSettings.IsInternetAvailable() == true) {
+            if (SystemSettings.IsInternetAvailable()) {
                 if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                     this.database_progressbar.Opacity = 100;
                     this.database_progressbar.Value = 0;
 
-                    string connectionString = DatabaseConnection.GetConnectionString();
-
-                    SqlConnection connection = new SqlConnection(connectionString);
-                    DatabaseConnection newConnection = new DatabaseConnection(connection.ConnectionString);
+                    DatabaseConnection newConnection = new 
+                        DatabaseConnection(DatabaseConnection.GetConnectionString());
 
                     try {
                         this.database_progressbar.Value = 50;
-                        if (!newConnection.CheckAccountExists(connection, this.emailTextBox.Text, this.passwordBox.Password)) {
+                        if (newConnection.CheckAccountExists(this.emailTextBox.Text, this.passwordBox.Password)) {
                             this.database_progressbar.Value = 100;
                         } else {
                             Close();
@@ -65,7 +63,6 @@ namespace PC_Ripper_Benchmark.window {
 
                     } catch (SqlException a) {
                         MessageBox.Show(a.Errors.ToString());
-                        connection.Close();
                         throw;
                     }
                     this.database_progressbar.Opacity = 0;

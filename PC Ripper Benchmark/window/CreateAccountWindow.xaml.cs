@@ -6,8 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace PC_Ripper_Benchmark.window
-{
+namespace PC_Ripper_Benchmark.window {
     /// <summary>
     /// The <see cref="CreateAccountWindow"/> class.
     /// <para></para>
@@ -15,8 +14,7 @@ namespace PC_Ripper_Benchmark.window
     /// the Create Account Window.
     /// <para>Author: David Hartglass (c), all rights reserved.</para>
     /// </summary>
-    public partial class CreateAccountWindow : Window
-    {
+    public partial class CreateAccountWindow : Window {
 
         //Global window settings class object
         private function.WindowSettings settings = new function.WindowSettings();
@@ -30,8 +28,7 @@ namespace PC_Ripper_Benchmark.window
         /// and calls CenterWindowOnScreen to center the window</para>
         /// </summary>
         /// 
-        public CreateAccountWindow()
-        {
+        public CreateAccountWindow() {
             InitializeComponent();
             this.settings.CenterWindowOnScreen(this.windowCreateAccount);
             this.firstNameTextBox.Focus();
@@ -49,76 +46,61 @@ namespace PC_Ripper_Benchmark.window
         /// using regular expressions in <see cref="util.RegexUtilities"/></para>
         /// </summary>
         /// 
-        private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void CreateAccountSubmitButton_Click(object sender, RoutedEventArgs e) {
             #region TextField Error Checking
             String errorMessage = null;
-            if (string.IsNullOrWhiteSpace(this.firstNameTextBox.Text))
-            {
+            if (string.IsNullOrWhiteSpace(this.firstNameTextBox.Text)) {
                 errorMessage += " \"First Name\" ";
             }
 
-            if (string.IsNullOrWhiteSpace(this.lastNameTextBox.Text))
-            {
+            if (string.IsNullOrWhiteSpace(this.lastNameTextBox.Text)) {
                 errorMessage += " \"Last Name\" ";
             }
 
-            if (string.IsNullOrWhiteSpace(this.emailTextBox.Text))
-            {
+            if (string.IsNullOrWhiteSpace(this.emailTextBox.Text)) {
                 errorMessage += " \"Email\" ";
             }
 
-            if (string.IsNullOrWhiteSpace(this.userPasswordBox.Password))
-            {
+            if (string.IsNullOrWhiteSpace(this.userPasswordBox.Password)) {
                 errorMessage += " \"Password\" ";
             }
 
-            if (string.IsNullOrWhiteSpace(this.confirmUserPasswordBox.Password))
-            {
+            if (string.IsNullOrWhiteSpace(this.confirmUserPasswordBox.Password)) {
                 errorMessage += " \"Password\" ";
-            }
-            else if (this.confirmUserPasswordBox.Password != this.userPasswordBox.Password)
-            {
+            } else if (this.confirmUserPasswordBox.Password != this.userPasswordBox.Password) {
                 MessageBox.Show("Password do not match. Please try again.", "Invalid Password", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            if (!(errorMessage == null))
-            {
+            if (!(errorMessage == null)) {
                 MessageBox.Show($"{errorMessage} field(s) missing value", "Invalid Fields", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             #endregion
             #region Regular Expression Checks
 
-            if (!util.RegexUtilities.IsValidEmail(this.emailTextBox.Text))
-            {
+            if (!util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.Focus();
             }
 
 
-            if (!util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text))
-            {
+            if (!util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
                 this.phoneTextBox.Focus();
             }
 
-            if (!util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password))
-            {
+            if (!util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password)) {
                 this.userPasswordBox.Focus();
 
             }
 
-            if (this.userPasswordBox.Password != this.confirmUserPasswordBox.Password)
-            {
+            if (this.userPasswordBox.Password != this.confirmUserPasswordBox.Password) {
                 this.lblConfirmPassword.Visibility = Visibility.Visible;
                 this.confirmUserPasswordBox.Focus();
             }
 
-            if (!util.RegexUtilities.IsValidName(this.firstNameTextBox.Text))
-            {
+            if (!util.RegexUtilities.IsValidName(this.firstNameTextBox.Text)) {
                 this.firstNameTextBox.Focus();
             }
 
-            if (!util.RegexUtilities.IsValidName(this.lastNameTextBox.Text))
-            {
+            if (!util.RegexUtilities.IsValidName(this.lastNameTextBox.Text)) {
                 this.lastNameTextBox.Focus();
             }
 
@@ -131,14 +113,12 @@ namespace PC_Ripper_Benchmark.window
                util.RegexUtilities.IsValidEmail(this.emailTextBox.Text) &&
                util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text) &&
                util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password) &&
-               this.userPasswordBox.Password == this.confirmUserPasswordBox.Password)
-            {
+               this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
 
                 //New instance of encryption class
                 util.Encryption encrypter = new util.Encryption();
 
-                util.UserData newUser = new util.UserData
-                {
+                util.UserData newUser = new util.UserData {
                     //Encrypt user data and set to newUser object
                     FirstName = this.firstNameTextBox.Text,
                     LastName = this.lastNameTextBox.Text,
@@ -155,35 +135,29 @@ namespace PC_Ripper_Benchmark.window
 
                 // Open database connection and send that data to the database hashed.
                 DatabaseConnection dbConnection = new DatabaseConnection(connectionString);
-                SqlConnection connection = new SqlConnection(connectionString);
 
-                // sets questionaire info.
-                if (!dbConnection.CheckAccountExists(connection, newUser.Email, newUser.Password))
-                {
-                    Console.WriteLine("Account already exists with this email");
-                }
-                else
-                {
+                // checks if account exists.
+                if (dbConnection.CheckAccountExists(newUser.Email, newUser.Password)) {
+                    MessageBox.Show("Account already exists with this email", "Account Exists",
+                        MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    return;
+                } else {
                     var questionnaire = new QuestionaireWindow(ref newUser);
                     // If you do not press finish, show the dialog again.
-                    while (questionnaire.ShowDialog() == false)
-                    {
+                    while (questionnaire.ShowDialog() == false) {
                         questionnaire = new QuestionaireWindow(ref newUser,
                             "Please press finish to confirm your account.");
                     }
                 }
 
-                try
-                {
-                    if (dbConnection.AddUserToDatabase(dbConnection.Connection, newUser))
-                    {
+                try {
+                    if (dbConnection.AddUserToDatabase(newUser)) {
                         LoginWindow loginWindow = new LoginWindow();
                         this.windowSettings.TransitionScreen(loginWindow, this);
+                        
                     }
-                }
-                catch (SqlException)
-                {
-
+                } catch (SqlException) {
+                    throw new Exception();
                 }
             }
             #endregion
@@ -196,8 +170,7 @@ namespace PC_Ripper_Benchmark.window
         /// login screen <see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void GoBackButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void GoBackButton_Click(object sender, RoutedEventArgs e) {
             Window window = new LoginWindow();
             this.windowSettings.TransitionScreen(window, this);
         }
@@ -209,15 +182,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidName(this.firstNameTextBox.Text))
-            {
+        private void FirstNameTextBox_GotFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidName(this.firstNameTextBox.Text)) {
                 this.firstNameTextBox.BorderThickness = new Thickness(3.0);
                 this.firstNameTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.firstNameTextBox.BorderThickness = new Thickness(3.0);
                 this.firstNameTextBox.BorderBrush = Brushes.Red;
             }
@@ -229,15 +198,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidName(this.firstNameTextBox.Text))
-            {
+        private void FirstNameTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidName(this.firstNameTextBox.Text)) {
                 this.firstNameTextBox.BorderThickness = new Thickness(3.0);
                 this.firstNameTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.firstNameTextBox.BorderThickness = new Thickness(3.0);
                 this.firstNameTextBox.BorderBrush = Brushes.Red;
             }
@@ -249,15 +214,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidName(this.firstNameTextBox.Text))
-            {
+        private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (util.RegexUtilities.IsValidName(this.firstNameTextBox.Text)) {
                 this.firstNameTextBox.BorderThickness = new Thickness(3.0);
                 this.firstNameTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.firstNameTextBox.BorderThickness = new Thickness(3.0);
                 this.firstNameTextBox.BorderBrush = Brushes.Red;
             }
@@ -270,15 +231,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidName(this.lastNameTextBox.Text))
-            {
+        private void LastNameTextBox_GotFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidName(this.lastNameTextBox.Text)) {
                 this.lastNameTextBox.BorderThickness = new Thickness(3.0);
                 this.lastNameTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.lastNameTextBox.BorderThickness = new Thickness(3.0);
                 this.lastNameTextBox.BorderBrush = Brushes.Red;
             }
@@ -290,15 +247,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidName(this.lastNameTextBox.Text))
-            {
+        private void LastNameTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidName(this.lastNameTextBox.Text)) {
                 this.lastNameTextBox.BorderThickness = new Thickness(3.0);
                 this.lastNameTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.lastNameTextBox.BorderThickness = new Thickness(3.0);
                 this.lastNameTextBox.BorderBrush = Brushes.Red;
             }
@@ -310,15 +263,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidName(this.lastNameTextBox.Text))
-            {
+        private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (util.RegexUtilities.IsValidName(this.lastNameTextBox.Text)) {
                 this.lastNameTextBox.BorderThickness = new Thickness(3.0);
                 this.lastNameTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.lastNameTextBox.BorderThickness = new Thickness(3.0);
                 this.lastNameTextBox.BorderBrush = Brushes.Red;
             }
@@ -331,15 +280,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text))
-            {
+        private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Red;
             }
@@ -351,15 +296,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void EmailTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text))
-            {
+        private void EmailTextBox_GotFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Red;
             }
@@ -371,15 +312,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text))
-            {
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Red;
             }
@@ -392,15 +329,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void PhoneTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text))
-            {
+        private void PhoneTextBox_GotFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Red;
             }
@@ -412,15 +345,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void PhoneTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text))
-            {
+        private void PhoneTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Red;
             }
@@ -433,15 +362,11 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void PhoneTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text))
-            {
+        private void PhoneTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Red;
             }
@@ -455,8 +380,7 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void UserPasswordBox_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void UserPasswordBox_GotFocus(object sender, RoutedEventArgs e) {
             //Sets the popup values, background property,
             this.popupContent.FontSize = 10;
             this.codePopup.PlacementTarget = this.userPasswordBox;
@@ -469,14 +393,11 @@ namespace PC_Ripper_Benchmark.window
 
             this.codePopup.IsOpen = true;
 
-            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password))
-            {
+            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password)) {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Green;
                 this.codePopup.IsOpen = false;
-            }
-            else
-            {
+            } else {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Red;
             }
@@ -489,17 +410,13 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void UserPasswordBox_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void UserPasswordBox_LostFocus(object sender, RoutedEventArgs e) {
             this.codePopup.IsOpen = false;
 
-            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password))
-            {
+            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password)) {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Red;
             }
@@ -511,16 +428,12 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void UserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password))
-            {
+        private void UserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
+            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password)) {
                 this.codePopup.IsOpen = false;
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Red;
             }
@@ -533,10 +446,8 @@ namespace PC_Ripper_Benchmark.window
         /// change<see cref="window.CreateAccountWindow"/></para>
         /// </summary>
         /// 
-        private void ConfirmUserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.userPasswordBox.Password == this.confirmUserPasswordBox.Password)
-            {
+        private void ConfirmUserPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
+            if (this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
 
                 //If the password matches, set passwords match label to green border and visible
                 this.lblPasswordsMatch.Content = "Passwords match";
@@ -546,9 +457,7 @@ namespace PC_Ripper_Benchmark.window
                 //Confirm password box turns green
                 this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmUserPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
 
                 //If the password does not match, set passwords match label to visible;
                 this.lblPasswordsMatch.Content = "Passwords don't match";
@@ -564,181 +473,125 @@ namespace PC_Ripper_Benchmark.window
         #endregion
 
         #region KeyUp Events
-        private void FirstNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Down)
-            {
+        private void FirstNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Down) {
                 this.lastNameTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.lastNameTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void LastNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void LastNameTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.firstNameTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.emailTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.emailTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void EmailTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void EmailTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.lastNameTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.phoneTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.phoneTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void PhoneTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void PhoneTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.emailTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.userPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.userPasswordBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void UserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void UserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.phoneTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.confirmUserPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmUserPasswordBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void ConfirmUserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void ConfirmUserPasswordBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.userPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.securityQuestionComboBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.securityQuestionComboBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void SecurityQuestionComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void SecurityQuestionComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.confirmUserPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.securityQuestionTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.securityQuestionTextBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void SecurityQuestionTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void SecurityQuestionTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.securityQuestionComboBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.createAccountSubmitButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.createAccountSubmitButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void CreateAccountSubmitButton_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void CreateAccountSubmitButton_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.securityQuestionTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.goBackButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.goBackButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void GoBackButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void GoBackButton_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.createAccountSubmitButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Enter) {
                 this.goBackButton.Focus();
                 e.Handled = true;
             }
@@ -746,67 +599,58 @@ namespace PC_Ripper_Benchmark.window
         #endregion
 
         #region Got/Lost Focus Events Buttons
-        private void CreateAccountSubmitButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void CreateAccountSubmitButton_GotFocus(object sender, RoutedEventArgs e) {
             this.createAccountSubmitButton.BorderBrush = Brushes.Black;
             this.createAccountSubmitButton.Foreground = Brushes.Black;
         }
 
-        private void GoBackButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void GoBackButton_GotFocus(object sender, RoutedEventArgs e) {
             this.goBackButton.BorderBrush = Brushes.Black;
             this.goBackButton.Foreground = Brushes.Black;
         }
 
-        private void CreateAccountSubmitButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void CreateAccountSubmitButton_LostFocus(object sender, RoutedEventArgs e) {
             this.createAccountSubmitButton.BorderBrush = Brushes.White;
             this.createAccountSubmitButton.Foreground = Brushes.White;
         }
 
-        private void GoBackButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void GoBackButton_LostFocus(object sender, RoutedEventArgs e) {
             this.goBackButton.BorderBrush = Brushes.White;
             this.goBackButton.Foreground = Brushes.White;
         }
         #endregion
         #region Mouse Enter/Leave Events
-        private void CreateAccountSubmitButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void CreateAccountSubmitButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
             this.createAccountSubmitButton.Foreground = Brushes.Black;
             this.createAccountSubmitButton.BorderBrush = Brushes.Black;
         }
 
-        private void GoBackButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void GoBackButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
             this.goBackButton.Foreground = Brushes.Black;
             this.goBackButton.BorderBrush = Brushes.Black;
         }
 
-        private void CreateAccountSubmitButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void CreateAccountSubmitButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
             this.goBackButton.Foreground = Brushes.White;
             this.goBackButton.BorderBrush = Brushes.White;
         }
 
-        private void GoBackButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void GoBackButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
             this.goBackButton.Foreground = Brushes.White;
             this.goBackButton.BorderBrush = Brushes.White;
         }
         #endregion
 
         // TEMPORARY
-        private void CreateAccountSubmitButton_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            firstNameTextBox.Text = "Anthony";
-            lastNameTextBox.Text = "Jaghab";
-            emailTextBox.Text = "reap@gmail.com";
-            phoneTextBox.Text = "516-605-5552";
-            userPasswordBox.Password = "Anthony1!";
-            confirmUserPasswordBox.Password = "Anthony1!";
-            securityQuestionComboBox.SelectedIndex = 0;
-            securityQuestionTextBox.Text = "poggers";
+        private void CreateAccountSubmitButton_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            this.firstNameTextBox.Text = "Anthony";
+            this.lastNameTextBox.Text = "Jaghab";
+            this.emailTextBox.Text = "reap@gmail.com";
+            this.phoneTextBox.Text = "516-605-5552";
+            this.userPasswordBox.Password = "Anthony1!";
+            this.confirmUserPasswordBox.Password = "Anthony1!";
+            this.securityQuestionComboBox.SelectedIndex = 0;
+            this.securityQuestionTextBox.Text = "poggers";
         }
     }
 }

@@ -8,13 +8,11 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace PC_Ripper_Benchmark.window
-{
+namespace PC_Ripper_Benchmark.window {
     /// <summary>
     /// Interaction logic for PasswordResetWindow.xaml
     /// </summary>
-    public partial class PasswordResetWindow : Window
-    {
+    public partial class PasswordResetWindow : Window {
 
         #region Instance variables (fields).
 
@@ -28,8 +26,7 @@ namespace PC_Ripper_Benchmark.window
 
         #endregion
 
-        public PasswordResetWindow()
-        {
+        public PasswordResetWindow() {
             Instantiate();
             InitializeComponent();
 
@@ -74,8 +71,7 @@ namespace PC_Ripper_Benchmark.window
         /// Instantiates the instance variables.
         /// </summary>
 
-        private void Instantiate()
-        {
+        private void Instantiate() {
             this.count = 3;
             this.encryption = new Encryption();
             this.codePopup = new Popup();
@@ -84,21 +80,16 @@ namespace PC_Ripper_Benchmark.window
             this.connectionString = DatabaseConnection.GetConnectionString();
         }
 
-        private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (SystemSettings.IsInternetAvailable() == true)
-                {
-                    if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text))
-                    {
+        private void ConfirmEmailButton_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (SystemSettings.IsInternetAvailable() == true) {
+                    if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                         //Open new database connection
                         SqlConnection connection = new SqlConnection(this.connectionString);
-                        database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
+                        DatabaseConnection newConnection = new DatabaseConnection(this.connectionString);
 
                         //If the email exists in the database
-                        if (newConnection.CheckEmailExists(connection, this.emailTextBox.Text))
-                        {
+                        if (newConnection.CheckEmailExists(this.emailTextBox.Text)) {
                             connection.Open();
 
                             //Show the security question labels and fields
@@ -136,33 +127,25 @@ namespace PC_Ripper_Benchmark.window
 
                             connection.Close();
                         }
-                    }
-                    else
-                    {
+                    } else {
                         MessageBox.Show("Invalid email", "Incorrect email format", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
-            }
-            catch (SqlException)
-            {
+            } catch (SqlException) {
                 MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void BackButton_Click(object sender, RoutedEventArgs e) {
             LoginWindow loginWindow = new LoginWindow();
             function.WindowSettings windowSettings = new function.WindowSettings();
 
             windowSettings.TransitionScreen(loginWindow, this);
         }
         #region Confirm the security answer
-        private void ConfirmSecurityAnswer_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (SystemSettings.IsInternetAvailable() == true)
-                {
+        private void ConfirmSecurityAnswer_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (SystemSettings.IsInternetAvailable() == true) {
                     //Open new database connection
                     SqlConnection connection = new SqlConnection(this.connectionString);
                     database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
@@ -180,8 +163,7 @@ namespace PC_Ripper_Benchmark.window
                     //Set the answer returned by the query to a variable for comparison
                     string answer = (string)getSecurityQuestionAnswer.ExecuteScalar();
 
-                    if (this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text) == answer)
-                    {
+                    if (this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text) == answer) {
                         this.newPasswordLabel.Opacity = 100;
                         this.newPasswordLabel.Visibility = Visibility.Visible;
                         this.newPasswordBox.Opacity = 100;
@@ -198,17 +180,14 @@ namespace PC_Ripper_Benchmark.window
                         this.doneButton.Opacity = 100;
                         this.doneButton.Visibility = Visibility.Visible;
                         this.newPasswordBox.Focus();
-                    }
-                    else
-                    {
+                    } else {
                         this.count--;
                         MessageBox.Show($"The answer entered is incorrect. You have {this.count} attempts left.", "Incorrect Answer", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         this.securityQuestionAnswerTextBox.Clear();
                         this.securityQuestionAnswerTextBox.Focus();
                     }
 
-                    if (this.count == 0)
-                    {
+                    if (this.count == 0) {
                         LoginWindow loginWindow = new LoginWindow();
                         function.WindowSettings windowSettings = new function.WindowSettings();
 
@@ -216,17 +195,14 @@ namespace PC_Ripper_Benchmark.window
                     }
                     connection.Close();
                 }
-            }
-            catch (SqlException)
-            {
+            } catch (SqlException) {
                 MessageBox.Show("An SQL Exception was caught!");
             }
 
         }
         #endregion
         #region Done Button
-        private void DoneButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void DoneButton_Click(object sender, RoutedEventArgs e) {
             //Open new database connection
             SqlConnection connection = new SqlConnection(this.connectionString);
             database.DatabaseConnection newConnection = new database.DatabaseConnection(connection.ConnectionString);
@@ -236,8 +212,7 @@ namespace PC_Ripper_Benchmark.window
             string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
 
             if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password) &&
-                   this.newPasswordBox.Password == this.confirmNewPasswordBox.Password)
-            {
+                   this.newPasswordBox.Password == this.confirmNewPasswordBox.Password) {
                 SqlCommand changePassword = new SqlCommand("UPDATE [USER] SET Password = @Password WHERE Email=@Email", connection);
                 //Fill the parameter of the query
                 changePassword.Parameters.AddWithValue("@Email", email);
@@ -254,10 +229,8 @@ namespace PC_Ripper_Benchmark.window
         }
         #endregion
         #region Passwords match indicator events
-        private void ConfirmNewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.newPasswordBox.Password == this.confirmNewPasswordBox.Password)
-            {
+        private void ConfirmNewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
+            if (this.newPasswordBox.Password == this.confirmNewPasswordBox.Password) {
 
                 //If the password matches, set passwords match label to green border and visible
                 this.lblPasswordsMatch.Content = "Passwords match";
@@ -267,9 +240,7 @@ namespace PC_Ripper_Benchmark.window
                 //Confirm password box turns green
                 this.confirmNewPasswordBox.BorderThickness = new Thickness(3.0);
                 this.confirmNewPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
 
                 //If the password does not match, set passwords match label to visible;
                 this.lblPasswordsMatch.Content = "Passwords don't match";
@@ -285,24 +256,19 @@ namespace PC_Ripper_Benchmark.window
 
 
 
-        private void NewPasswordBox_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void NewPasswordBox_LostFocus(object sender, RoutedEventArgs e) {
             this.codePopup.IsOpen = false;
 
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password))
-            {
+            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
-            }
-            else
-            {
+            } else {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Red;
             }
         }
 
-        private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
+        private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e) {
 
             //Sets the popup values, background property,
             this.popupContent.FontSize = 10;
@@ -316,14 +282,11 @@ namespace PC_Ripper_Benchmark.window
 
             this.codePopup.IsOpen = true;
 
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password))
-            {
+            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Green;
                 this.codePopup.IsOpen = false;
-            }
-            else
-            {
+            } else {
                 this.newPasswordBox.BorderThickness = new Thickness(3.0);
                 this.newPasswordBox.BorderBrush = Brushes.Red;
                 this.codePopup.IsOpen = true;
@@ -331,125 +294,87 @@ namespace PC_Ripper_Benchmark.window
         }
         #endregion
         #region KeyDown Events
-        private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e)
-        {
+        private void NewPasswordBox_KeyDown(object sender, KeyEventArgs e) {
 
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 this.confirmNewPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmNewPasswordBox.Focus();
                 e.Handled = true;
             }
         }
 
-        private void DoneButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void DoneButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.confirmNewPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.backButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 DoneButton_Click(sender, e);
             }
         }
 
-        private void BackButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void BackButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.doneButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.newPasswordBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 BackButton_Click(sender, e);
-            }
-            else if (e.Key == Key.Up)
-            {
+            } else if (e.Key == Key.Up) {
                 this.confirmEmailButton.Focus();
             }
 
         }
 
-        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 ConfirmEmailButton_Click(sender, e);
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmEmailButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void SecurityQuestionAnswerTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+        private void SecurityQuestionAnswerTextBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 ConfirmSecurityAnswer_Click(sender, e);
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.confirmSecurityAnswerButton.Focus();
                 e.Handled = true;
             }
         }
 
-        private void ConfirmEmailButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void ConfirmEmailButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.emailTextBox.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 ConfirmEmailButton_Click(sender, e);
             }
         }
 
-        private void ConfirmSecurityAnswerButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
+        private void ConfirmSecurityAnswerButton_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Up) {
                 this.confirmSecurityAnswerButton.Focus();
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Enter)
-            {
+            } else if (e.Key == Key.Enter) {
                 ConfirmSecurityAnswer_Click(sender, e);
             }
         }
 
-        private void ConfirmNewPasswordBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
+        private void ConfirmNewPasswordBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == System.Windows.Input.Key.Enter) {
                 DoneButton_Click(sender, e);
                 e.Handled = true;
-            }
-            else if (e.Key == System.Windows.Input.Key.Down)
-            {
+            } else if (e.Key == System.Windows.Input.Key.Down) {
                 this.doneButton.Focus();
                 e.Handled = true;
             }
@@ -457,101 +382,85 @@ namespace PC_Ripper_Benchmark.window
 
         #endregion
         #region GotFocus Button Events
-        private void ConfirmEmailButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmEmailButton_GotFocus(object sender, RoutedEventArgs e) {
             this.confirmEmailButton.BorderBrush = Brushes.Black;
             this.confirmEmailButton.Foreground = Brushes.Black;
         }
 
-        private void ConfirmSecurityAnswerButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmSecurityAnswerButton_GotFocus(object sender, RoutedEventArgs e) {
             this.confirmSecurityAnswerButton.BorderBrush = Brushes.Black;
             this.confirmSecurityAnswerButton.Foreground = Brushes.Black;
         }
 
-        private void DoneButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void DoneButton_GotFocus(object sender, RoutedEventArgs e) {
             this.doneButton.BorderBrush = Brushes.Black;
             this.doneButton.Foreground = Brushes.Black;
         }
 
-        private void BackButton_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BackButton_GotFocus(object sender, RoutedEventArgs e) {
             this.backButton.BorderBrush = Brushes.Black;
             this.backButton.Foreground = Brushes.Black;
         }
         #endregion
         #region LostFocus Button Events
-        private void ConfirmEmailButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmEmailButton_LostFocus(object sender, RoutedEventArgs e) {
             this.confirmEmailButton.BorderBrush = Brushes.White;
             this.confirmEmailButton.Foreground = Brushes.White;
         }
 
-        private void ConfirmSecurityAnswerButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmSecurityAnswerButton_LostFocus(object sender, RoutedEventArgs e) {
             this.confirmSecurityAnswerButton.BorderBrush = Brushes.White;
             this.confirmSecurityAnswerButton.Foreground = Brushes.White;
         }
 
-        private void DoneButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void DoneButton_LostFocus(object sender, RoutedEventArgs e) {
             this.doneButton.BorderBrush = Brushes.White;
             this.doneButton.Foreground = Brushes.White;
         }
 
-        private void BackButton_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BackButton_LostFocus(object sender, RoutedEventArgs e) {
             this.backButton.BorderBrush = Brushes.White;
             this.backButton.Foreground = Brushes.White;
         }
         #endregion
         #region Mouse Enter Events
-        private void ConfirmEmailButton_MouseEnter(object sender, MouseEventArgs e)
-        {
+        private void ConfirmEmailButton_MouseEnter(object sender, MouseEventArgs e) {
             this.confirmEmailButton.Foreground = Brushes.Black;
             this.confirmEmailButton.BorderBrush = Brushes.Black;
         }
 
-        private void ConfirmSecurityAnswerButton_MouseEnter(object sender, MouseEventArgs e)
-        {
+        private void ConfirmSecurityAnswerButton_MouseEnter(object sender, MouseEventArgs e) {
             this.confirmSecurityAnswerButton.Foreground = Brushes.Black;
             this.confirmSecurityAnswerButton.BorderBrush = Brushes.Black;
         }
 
-        private void DoneButton_MouseEnter(object sender, MouseEventArgs e)
-        {
+        private void DoneButton_MouseEnter(object sender, MouseEventArgs e) {
             this.doneButton.Foreground = Brushes.Black;
             this.doneButton.BorderBrush = Brushes.Black;
         }
 
-        private void BackButton_MouseEnter(object sender, MouseEventArgs e)
-        {
+        private void BackButton_MouseEnter(object sender, MouseEventArgs e) {
             this.backButton.Foreground = Brushes.Black;
             this.backButton.BorderBrush = Brushes.Black;
         }
         #endregion
         #region Mouse Leave Events
-        private void ConfirmEmailButton_MouseLeave(object sender, MouseEventArgs e)
-        {
+        private void ConfirmEmailButton_MouseLeave(object sender, MouseEventArgs e) {
             this.confirmEmailButton.Foreground = Brushes.White;
             this.confirmEmailButton.BorderBrush = Brushes.White;
         }
 
-        private void ConfirmSecurityAnswerButton_MouseLeave(object sender, MouseEventArgs e)
-        {
+        private void ConfirmSecurityAnswerButton_MouseLeave(object sender, MouseEventArgs e) {
             this.confirmSecurityAnswerButton.Foreground = Brushes.White;
             this.confirmSecurityAnswerButton.BorderBrush = Brushes.White;
         }
 
-        private void DoneButton_MouseLeave(object sender, MouseEventArgs e)
-        {
+        private void DoneButton_MouseLeave(object sender, MouseEventArgs e) {
             this.doneButton.Foreground = Brushes.White;
             this.doneButton.BorderBrush = Brushes.White;
         }
 
-        private void BackButton_MouseLeave(object sender, MouseEventArgs e)
-        {
+        private void BackButton_MouseLeave(object sender, MouseEventArgs e) {
             this.backButton.Foreground = Brushes.White;
             this.backButton.BorderBrush = Brushes.White;
         }
