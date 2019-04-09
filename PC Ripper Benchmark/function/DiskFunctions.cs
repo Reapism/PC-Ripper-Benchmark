@@ -52,8 +52,6 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         public string WorkingDir { get; set; }
 
-
-
         #endregion
 
         #region Constructor(s)
