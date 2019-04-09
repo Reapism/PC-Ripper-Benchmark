@@ -155,16 +155,22 @@ namespace PC_Ripper_Benchmark.window
 
                 // Open database connection and send that data to the database hashed.
                 DatabaseConnection dbConnection = new DatabaseConnection(connectionString);
+                SqlConnection connection = new SqlConnection(connectionString);
 
                 // sets questionaire info.
-                var questionnaire = new QuestionaireWindow(ref newUser);
-
-
-                // If you do not press finish, show the dialog again.
-                while (questionnaire.ShowDialog() == false)
+                if (!dbConnection.CheckAccountExists(connection, newUser.Email, newUser.Password))
                 {
-                    questionnaire = new QuestionaireWindow(ref newUser,
-                        "Please press finish to confirm your account.");
+                    Console.WriteLine("Account already exists with this email");
+                }
+                else
+                {
+                    var questionnaire = new QuestionaireWindow(ref newUser);
+                    // If you do not press finish, show the dialog again.
+                    while (questionnaire.ShowDialog() == false)
+                    {
+                        questionnaire = new QuestionaireWindow(ref newUser,
+                            "Please press finish to confirm your account.");
+                    }
                 }
 
                 try
@@ -177,7 +183,7 @@ namespace PC_Ripper_Benchmark.window
                 }
                 catch (SqlException)
                 {
-                   
+
                 }
             }
             #endregion

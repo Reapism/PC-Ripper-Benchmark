@@ -207,7 +207,6 @@ namespace PC_Ripper_Benchmark.database {
                         connection.Close();
                         return true;
                     } else {
-                        MessageBox.Show("Invalid login!", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                         connection.Close();
                         return false;
                     }
