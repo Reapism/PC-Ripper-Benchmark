@@ -291,6 +291,7 @@ namespace PC_Ripper_Benchmark.database
         public string GetSecurityQuestion(string email)
         {
             //Command to get the actual answered security question
+            this.Connection.Open();
             SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM [USER] where Email=@Email", this.Connection);
 
             //Fill the parameter of the query
@@ -300,6 +301,7 @@ namespace PC_Ripper_Benchmark.database
 
         public string GetSecurityQuestionAnswer(string email)
         {
+            this.Connection.Open();
             SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", this.Connection);
             getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
 
