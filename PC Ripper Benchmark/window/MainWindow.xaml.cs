@@ -230,7 +230,7 @@ namespace PC_Ripper_Benchmark.window {
 
         }
 
-        private void ExportResults(ExportType type) {
+        private void ExportResults(ExportType type, TextBlock textBlock) {
             SaveFileDialog saveFile = new SaveFileDialog {
                 Title = "Export file to...",
                 InitialDirectory = Path.GetDirectoryName(Environment.GetFolderPath(
@@ -260,8 +260,8 @@ namespace PC_Ripper_Benchmark.window {
             try {
                 if (saveFile.ShowDialog() == true) {
 
-                    range = new TextRange(this.txtResults.Document.ContentStart,
-                        this.txtResults.Document.ContentEnd);
+                    range = new TextRange(textBlock.ContentStart,
+                        textBlock.ContentEnd);
                     fStream = new FileStream(saveFile.FileName, FileMode.Create);
 
                     range.Save(fStream, format);
@@ -274,8 +274,52 @@ namespace PC_Ripper_Benchmark.window {
                 MessageBox.Show($"An exception has occured in generating the file. {e.ToString()}", "SaveFileException",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+        private void ExportResults(ExportType type, RichTextBox richTextBox) {
+            SaveFileDialog saveFile = new SaveFileDialog {
+                Title = "Export file to...",
+                InitialDirectory = Path.GetDirectoryName(Environment.GetFolderPath(
+                    Environment.SpecialFolder.DesktopDirectory)),
+            };
 
+            TextRange range;
+            FileStream fStream;
+
+            string format = string.Empty;
+
+            switch (type) {
+
+                case ExportType.TEXTFILE: {
+                    saveFile.Filter = "Textfile|*.txt";
+                    format = DataFormats.Text;
+                    break;
+                }
+
+                case ExportType.XAML: {
+                    saveFile.Filter = "XAML|*.xaml";
+                    format = DataFormats.Xaml;
+                    break;
+                }
+            }
+
+            try {
+                if (saveFile.ShowDialog() == true) {
+
+                    range = new TextRange(richTextBox.Document.ContentStart,
+                        richTextBox.Document.ContentEnd);
+                    fStream = new FileStream(saveFile.FileName, FileMode.Create);
+
+                    range.Save(fStream, format);
+                    fStream.Close();
+                    MessageBox.Show($"The {saveFile.SafeFileName} was exported to " +
+                         $"{saveFile.FileName} successfully.", "Success",
+                         MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            } catch (Exception e) {
+                MessageBox.Show($"An exception has occured in generating the file. {e.ToString()}", "SaveFileException",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -565,11 +609,11 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {
-            ExportResults(ExportType.TEXTFILE);
+            ExportResults(ExportType.TEXTFILE,this.txtResults);
         }
 
         private void MenuResultsExprtXaml_Click(object sender, RoutedEventArgs e) {
-            ExportResults(ExportType.XAML);
+            ExportResults(ExportType.XAML, this.txtResults);
         }
 
         private void BtnRunTheTest_Click(object sender, RoutedEventArgs e) {
@@ -695,6 +739,10 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnShowAdvanced_Click(object sender, RoutedEventArgs e) {
             tabSettingsInner.SelectedIndex = 1;
+        }
+
+        private void BtnExportSpecTxt_Click(object sender, RoutedEventArgs e) {
+            ExportResults(ExportType.TEXTFILE, txtComputerSpecs);
         }
     }
 }

@@ -92,6 +92,13 @@
                                 <Grid x:Name="grdSpecsInner" Margin="0">
                                     <Image x:Name="imgComputerSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
                                     <RichTextBox x:Name="txtComputerSpecs" Margin="10,70,10,10" BorderBrush="#FF80DEE8" VerticalScrollBarVisibility="Auto">
+                                        <RichTextBox.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem x:Name="btnExportSpecs" Header="Export...">
+                                                    <MenuItem x:Name="btnExportSpecTxt" Header="Text-File" Click="BtnExportSpecTxt_Click"/>
+                                                </MenuItem>
+                                            </ContextMenu>
+                                        </RichTextBox.ContextMenu>
                                         <RichTextBox.Background>
                                             <RadialGradientBrush>
                                                 <GradientStop Color="#33FFFFFF" Offset="0"/>
