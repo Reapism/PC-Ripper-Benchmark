@@ -209,6 +209,7 @@ namespace PC_Ripper_Benchmark.function {
             GenerateConfigFile(this.WorkingDir, TestName.DISKRipper);
             DiskRipperSnapshot(this.WorkingDir);
             DeleteDirectories(this.WorkingDir, true);
+            DeleteConfigFiles(this.WorkingDir);
 
             sw.Stop();
             return sw.Elapsed;
@@ -487,7 +488,6 @@ namespace PC_Ripper_Benchmark.function {
         private void BulkFileSnapshot(string path) {
             FileStream fileStream;
             Random rnd = new Random();
-            StreamReader sr;
             StreamWriter writer;
 
             string fileName; // the path of the file.
@@ -496,7 +496,6 @@ namespace PC_Ripper_Benchmark.function {
 
             fileName = Path.Combine(path, $"BULK{GetRandomString(15)}.{this.fileExt}");
             fileStream = File.Create(fileName);
-            sr = new StreamReader(fileStream, true);
 
             writer = new StreamWriter(fileStream, Encoding.UTF8) {
                 AutoFlush = true
@@ -537,7 +536,6 @@ namespace PC_Ripper_Benchmark.function {
 
         private void ReadWriteSnapshot(string path) {
             FileStream fileStream;
-            Random rnd = new Random();
             StreamReader sr;
             StreamWriter writer;
 
@@ -551,7 +549,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 // Write each file.
                 for (ulong i = 0; i < this.rs.IterationsDiskReadWriteParse; i++) {
-                    writer.Write(rnd.Next());
+                    writer.Write(this.rnd.Next());
                 }
 
                 writer.Close();
@@ -594,6 +592,7 @@ namespace PC_Ripper_Benchmark.function {
                     StreamWriter sw = new StreamWriter(fs);
                     sw.WriteLine(GenerateBulkData());
                     sw.Flush();
+                    sw.Close(); // critical part. 
                     u++;
                 } catch {
                     continue;
@@ -617,7 +616,7 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     Directory.Delete(dir.FullName, recursiveDelete);
                 } catch (Exception e) {
-                    //MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                    //File.AppendAllText(Path.Combine(this.WorkingDir, "config.ripperblk"), e.ToString());
                     continue;
                 }
             }
@@ -638,7 +637,7 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     File.Delete(dir.FullName);
                 } catch (Exception e) {
-                    //MessageBox.Show($"Error deleting the directory!" + e.ToString());
+                   // File.AppendAllText(Path.Combine(this.WorkingDir, "config.ripperblk"), e.ToString());
                     continue;
                 }
             }
