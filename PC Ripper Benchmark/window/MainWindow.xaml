@@ -318,6 +318,15 @@
                                             <TextBlock x:Name="txtBlkBeginner" TextWrapping="Wrap" Text="Here are some settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
                                             <Button x:Name="btnShowAdvanced" Content="Advanced Settings" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Foreground="#FF7F2A8D" Click="BtnShowAdvanced_Click" Margin="100,10,100,0"/>
                                         </StackPanel>
+                                        <ListView x:Name="lstViewBeginnerSettings" BorderBrush="#FF005BFF" Background="#34FFFFFF" Margin="0,120,0,0">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn/>
+                                                </GridView>
+                                            </ListView.View>
+                                            <MenuItem x:Name="menu" Header="Yolo"/>
+                                            <MenuItem/>
+                                        </ListView>
                                     </Grid>
                                 </TabItem>
                                 <TabItem x:Name="tabSettingsAdvanced" Header="Advanced" Background="#00000000">
@@ -339,21 +348,13 @@
                                             <Button x:Name="btnLockDir" Content="Lock a Directory" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Margin="100,10,100,0" Click="BtnLockDir_Click"/>
                                             <Button x:Name="btnUnlockDir" Content="Unlock a Directory" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,10,100,0" VerticalAlignment="Center" Click="BtnUnlockDir_Click"/>
                                         </StackPanel>
-                                        <StackPanel x:Name="stkSettings" Margin="0,120,0,0">
-                                            <StackPanel.Background>
-                                                <RadialGradientBrush>
-                                                    <GradientStop Color="#19FFFFFF" Offset="0"/>
-                                                    <GradientStop Color="#19CDA4FF" Offset="1"/>
-                                                </RadialGradientBrush>
-                                            </StackPanel.Background>
-                                            <ListView x:Name="lstViewSettings" BorderBrush="#FF005BFF" Background="#34FFFFFF">
-                                                <ListView.View>
-                                                    <GridView>
-                                                        <GridViewColumn/>
-                                                    </GridView>
-                                                </ListView.View>
-                                            </ListView>
-                                        </StackPanel>
+                                        <ListView x:Name="lstViewSettings" BorderBrush="#FF005BFF" Background="#34FFFFFF" Margin="0,118,0,0">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
                                     </Grid>
                                 </TabItem>
                             </TabControl>

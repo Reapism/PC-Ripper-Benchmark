@@ -582,7 +582,7 @@ namespace PC_Ripper_Benchmark.window {
 
             if (disk.SetWorkingDirectory(out string path)) {
 
-                // promp again for verification.
+                // prompt again for verification.
                 if (MessageBox.Show("Are you sure you would like " +
                     $"to perfom the test in this directory? {Environment.NewLine} {path}", "Confirmation",
                     MessageBoxButton.YesNo, MessageBoxImage.Question)
