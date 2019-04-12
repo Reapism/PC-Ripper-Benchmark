@@ -52,7 +52,7 @@ namespace PC_Ripper_Benchmark.window {
         #endregion
 
         private void SliderUserSkill_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-
+            //Code for the slider
             Slider s = (Slider)sender;
             string userSkill;
 
