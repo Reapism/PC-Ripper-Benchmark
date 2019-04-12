@@ -44,7 +44,10 @@ namespace PC_Ripper_Benchmark.util {
 
         #region Properties for fields.
 
-
+        /// <summary>
+        /// The number of iterations to do per disk
+        /// test to average them.
+        /// </summary>
         [DataMember(Name = "iter_per_disk_test")]
         public byte IterationsPerDiskTest {
             get => this.iter_per_disk_test;
@@ -54,7 +57,9 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
 
-
+        /// <summary>
+        /// The number of DiskRipper iterations.
+        /// </summary>
         [DataMember(Name = "iter_disk_diskripper")]
         public ulong IterationsDiskRipper {
             get => this.iter_disk_diskripper;
@@ -64,7 +69,9 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
 
-
+        /// <summary>
+        /// The number of read/write iterations.
+        /// </summary>
         [DataMember(Name = "iter_disk_readwrite")]
         public ulong IterationsDiskReadWriteParse {
             get => this.iter_disk_readwriteparse;
@@ -74,7 +81,10 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
 
-
+        /// <summary>
+        /// The number of iterations for creating
+        /// a bulk file.
+        /// </summary>
         [DataMember(Name = "iter_disk_bulkfile")]
         public ulong IterationsDiskBulkFile {
             get => this.iter_disk_bulkfile;
