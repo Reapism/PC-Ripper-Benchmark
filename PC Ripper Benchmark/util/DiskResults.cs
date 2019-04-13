@@ -76,13 +76,13 @@ namespace PC_Ripper_Benchmark.util {
             desc += "Each test runs with a specific number of iterations";
             desc += Environment.NewLine;
             desc += $"\tThe {GetTestName(TestName.DISKFolderMatrix)} ran " +
-                $"{this.rs.IterationsSuccessorship.ToString("n0")} iterations per test" + Environment.NewLine;
+                $"{this.rs.IterationsDISKFolderMatrix.ToString("n0")} iterations per test" + Environment.NewLine;
             desc += $"\tThe {GetTestName(TestName.DISKBulkFile)} ran " +
-                $"{this.rs.IterationsBoolean.ToString("n0")} iterations per test" + Environment.NewLine;
+                $"{this.rs.IterationsDiskBulkFile.ToString("n0")} iterations per test" + Environment.NewLine;
             desc += $"\tThe {GetTestName(TestName.DISKReadWriteParse)} ran " +
-                $"{this.rs.IterationsQueue.ToString("n0")} iterations per test" + Environment.NewLine;
+                $"{this.rs.IterationsDiskReadWriteParse.ToString("n0")} iterations per test" + Environment.NewLine;
             desc += $"\tThe {GetTestName(TestName.DISKRipper)} ran " +
-                $"{this.rs.IterationsLinkedList.ToString("n0")} iterations per test" + Environment.NewLine;  
+                $"{this.rs.IterationsDiskRipper.ToString("n0")} iterations per test" + Environment.NewLine;  
 
             // each duration printed.
             // Should later put in another function.

@@ -25,7 +25,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150000")]
         public ulong iter_cpu_successorship {
             get {
                 return ((ulong)(this["iter_cpu_successorship"]));
@@ -37,7 +37,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150000")]
         public ulong iter_cpu_boolean {
             get {
                 return ((ulong)(this["iter_cpu_boolean"]));
@@ -49,7 +49,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150000")]
         public ulong iter_cpu_queue {
             get {
                 return ((ulong)(this["iter_cpu_queue"]));
@@ -61,7 +61,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150000")]
         public ulong iter_cpu_linkedlist {
             get {
                 return ((ulong)(this["iter_cpu_linkedlist"]));
@@ -73,7 +73,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150000")]
         public ulong iter_cpu_tree {
             get {
                 return ((ulong)(this["iter_cpu_tree"]));
@@ -169,7 +169,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
         public ulong iter_disk_foldermatrix {
             get {
                 return ((ulong)(this["iter_disk_foldermatrix"]));
@@ -181,7 +181,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
         public ulong iter_disk_bulkfile {
             get {
                 return ((ulong)(this["iter_disk_bulkfile"]));
@@ -193,7 +193,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
         public ulong iter_disk_readwrite {
             get {
                 return ((ulong)(this["iter_disk_readwrite"]));
@@ -205,7 +205,7 @@ namespace PC_Ripper_Benchmark.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
         public ulong iter_disk_diskripper {
             get {
                 return ((ulong)(this["iter_disk_diskripper"]));
