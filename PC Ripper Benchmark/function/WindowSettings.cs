@@ -79,7 +79,7 @@ namespace PC_Ripper_Benchmark.function {
             main.grdTop.Margin = new Thickness(0, 0, 0, 0);
             if (main.grdNavigation.Width == expanded) {
                 main.grdNavigation.Width = contracted;
-                main.grdNavigation.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#f1e7fe"));
+                main.grdNavigation.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#f1e7fe");
 
                 //
                 main.grdWindow.Margin = new Thickness(contracted, grdWindowTopThickness, 0, 0);
@@ -96,10 +96,12 @@ namespace PC_Ripper_Benchmark.function {
 
                 slideAnimation = new DoubleAnimation(expanded, contracted, TimeSpan.FromMilliseconds(300));
 
-            } else {              
-                main.grdNavigation.Width = expanded;
-                main.grdNavigation.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#fff9de")); // Witch Haze
+            } else {
+                LinearGradientBrush gradientBrush = new LinearGradientBrush(Color.FromRgb(209, 227, 250), Color.FromRgb(170, 199, 238), new Point(0.5, 0), new Point(0.5, 1));
 
+                main.grdNavigation.Width = expanded;
+               
+                main.grdNavigation.Background = gradientBrush;
                 main.grdTop.Margin = new Thickness(0, 0, 0, 0);
                 main.grdWindow.Margin = new Thickness(expanded, grdWindowTopThickness, 0, 0);
 
