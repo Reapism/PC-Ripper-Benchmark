@@ -258,6 +258,8 @@
     <Resource Include="resources\check_with_circle.png" />
     <Resource Include="resources\announcement.png" />
     <Resource Include="resources\cpu.png" />
+    <Resource Include="resources\main_background_10.png" />
+    <Resource Include="resources\main_background.png" />
     <Content Include="resources\preloader_urls.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

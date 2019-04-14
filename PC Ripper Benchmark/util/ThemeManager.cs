@@ -44,19 +44,20 @@ namespace PC_Ripper_Benchmark.util {
         public ThemeManager(Theme themeType) {
             this.themeType = themeType;
         }
+
         /// <summary>
         /// Applies the theme to a specific object.
         /// </summary>
-        /// <param name="o">An object.</param>
+        /// <param name="windows">A list of windows.</param>
 
-        public void ApplyTheme(object o) {
-            
-            if (o is QuestionaireWindow q) {
-                ApplyThemeHelper(q);
-            } else if (o is MainWindow w) {
-                ApplyThemeHelper(w);
+        public void ApplyTheme(params object[] windows) {
+            foreach (object o in windows) {
+                if (o is QuestionaireWindow q) {
+                    ApplyThemeHelper(q);
+                } else if (o is MainWindow w) {
+                    ApplyThemeHelper(w);
+                }
             }
-
         }
 
         public void ApplyThemeHelper(MainWindow w) {
