@@ -121,7 +121,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void InstantiateAdvancedSettings() {
 
-            foreach (MenuItem m in this.lstViewSettings.Items) {
+            foreach (MenuItem m in this.lstAdvancedSettings.Items) {
                 m.Tag = m.Header;
             }
 
@@ -244,6 +244,12 @@ namespace PC_Ripper_Benchmark.window {
 
 
         }
+        
+        /// <summary>
+        /// Save the application settings.
+        /// </summary>
+
+        private void SaveSettings() => Properties.Settings.Default.Save();
 
         /// <summary>
         /// Chooses a random preloader from the
@@ -794,12 +800,5 @@ namespace PC_Ripper_Benchmark.window {
             ExportResults(ExportType.TEXTFILE, this.txtComputerSpecs);
         }
 
-        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        private void Menu_cpu_successorship_Click(object sender, RoutedEventArgs e) {
-
-        }
     }
 }

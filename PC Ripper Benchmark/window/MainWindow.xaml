@@ -6,28 +6,34 @@
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
-        Title="PC Ripper Benchmark Tool" Height="650" Width="1000" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="997" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico">
+        Title="PC Ripper Benchmark Tool" Height="650" Width="1495" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="997" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" FontFamily="Nirmala UI">
     <Grid x:Name="grdMain" Margin="0" MinHeight="420" MinWidth="790">
-        <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="50" Background="#BF84B8E4" MinHeight="400" VerticalAlignment="Stretch" Width="150" Margin="0,100,0,0">
+        <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="50" MinHeight="400" VerticalAlignment="Stretch" Width="150" Margin="0,100,0,0">
+            <Grid.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF6883AC" Offset="1"/>
+                    <GradientStop Color="#FFB7D2F7"/>
+                </RadialGradientBrush>
+            </Grid.Background>
             <StackPanel x:Name="stkNavigation" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" MinWidth="150" MinHeight="420" Height="322"/>
-            <Button x:Name="btnMenu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="30" Height="30" MinWidth="30" MinHeight="30" MaxWidth="50" MaxHeight="50" Click="BtnMenu_Click" Padding="1">
+            <Button x:Name="btnMenu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="30" Height="30" MinWidth="30" MinHeight="30" MaxWidth="50" MaxHeight="50" Click="BtnMenu_Click" Padding="1" Background="#00000000" BorderBrush="White">
                 <StackPanel x:Name="stkMenuImage" Height="30" Width="30" MinWidth="30" MinHeight="30" MaxWidth="30" MaxHeight="30">
                     <Image x:Name="imgMenu" Height="29" MaxWidth="30" MaxHeight="30" MinWidth="30" MinHeight="30" Source="/PC Ripper Benchmark;component/resources/menu.png" Margin="0,-2,5,0" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnWelcome" HorizontalAlignment="Left" Margin="35,50,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnWelcome_MouseEnter" MouseLeave="BtnWelcome_MouseLeave" Click="BtnWelcome_Click" GotFocus="BtnWelcome_GotFocus" LostFocus="BtnWelcome_LostFocus">
+            <Button x:Name="btnWelcome" HorizontalAlignment="Left" Margin="35,50,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnWelcome_MouseEnter" MouseLeave="BtnWelcome_MouseLeave" Click="BtnWelcome_Click" GotFocus="BtnWelcome_GotFocus" LostFocus="BtnWelcome_LostFocus" Background="#00DDDDDD" BorderBrush="White">
                 <Image x:Name="imgBtnWelcome" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/specs.png" ToolTip="Navigate to the home tab."/>
             </Button>
-            <Button x:Name="btnCPU" HorizontalAlignment="Left" Margin="35,150,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click" GotFocus="BtnCPU_GotFocus" LostFocus="BtnCPU_LostFocus">
+            <Button x:Name="btnCPU" HorizontalAlignment="Left" Margin="35,150,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click" GotFocus="BtnCPU_GotFocus" LostFocus="BtnCPU_LostFocus" BorderBrush="White" Background="#00DDDDDD">
                 <Image x:Name="imgBtnCPU" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/cpu.png" ToolTip="Navigate to the CPU benchmarking tab."/>
             </Button>
-            <Button x:Name="btnRAM" HorizontalAlignment="Left" Margin="35,250,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click" GotFocus="BtnRAM_GotFocus" LostFocus="BtnRAM_LostFocus">
+            <Button x:Name="btnRAM" HorizontalAlignment="Left" Margin="35,250,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnRAM_MouseEnter" MouseLeave="BtnRAM_MouseLeave" Click="BtnRAM_Click" GotFocus="BtnRAM_GotFocus" LostFocus="BtnRAM_LostFocus" Background="#00000000" BorderBrush="White">
                 <Image x:Name="imgBtnRam" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/ram.png" ToolTip="Navigate to the RAM benchmarking tab."/>
             </Button>
-            <Button x:Name="btnDisk" HorizontalAlignment="Left" Margin="35,350,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click" GotFocus="BtnDisk_GotFocus" LostFocus="BtnDisk_LostFocus">
+            <Button x:Name="btnDisk" HorizontalAlignment="Left" Margin="35,350,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click" GotFocus="BtnDisk_GotFocus" LostFocus="BtnDisk_LostFocus" Background="#00DDDDDD" BorderBrush="White">
                 <Image x:Name="imgBtnDisk" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/disk.png" ToolTip="Navigate to the DISK benchmarking tab."/>
             </Button>
-            <Button x:Name="btnSettings" HorizontalAlignment="Left" Margin="35,450,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus">
+            <Button x:Name="btnSettings" HorizontalAlignment="Left" Margin="35,450,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus" Background="#00DDDDDD" BorderBrush="White">
                 <Image x:Name="imgBtnSettings" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/settings.png" ToolTip="Navigate to the application settings."/>
             </Button>
 
@@ -49,40 +55,24 @@
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <TabControl x:Name="tabComponents" Margin="0" MinWidth="640" MinHeight="320" Foreground="Black" Background="#FFB9B8B8">
-                <TabControl.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF0E3619" Offset="0.196"/>
-                        <GradientStop Color="#FF31B054" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabControl.BorderBrush>
+            <TabControl x:Name="tabComponents" Margin="0" MinWidth="640" MinHeight="320" Foreground="Black" Background="#FFAFB800" BorderBrush="#FFFFE800">
                 <TabItem x:Name="tabWelcome" Header="Welcome &lt;name&gt;, Profile" BorderBrush="#FF7E2F2F">
-                    <Grid x:Name="grdWelcome" Background="#FF7786AD">
-                        <StackPanel x:Name="stkWelcomeTopBG" Margin="5" MinHeight="100" MinWidth="100" Height="85" MaxHeight="85" >
-                            <StackPanel.Background>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#33FFFFFF" Offset="0"/>
-                                    <GradientStop Color="#33CDDDFF" Offset="1"/>
-                                </RadialGradientBrush>
-                            </StackPanel.Background>
-                        </StackPanel>
-                        <StackPanel x:Name="stkWelcomeBG" Margin="6" MinHeight="85" MinWidth="85" Height="85" MaxHeight="85" VerticalAlignment="Top">
+                    <Grid x:Name="grdWelcome">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/PC Ripper Benchmark;component/resources/main_background.png"/>
+                        </Grid.Background>
+                        <StackPanel x:Name="stkWelcomeTopBG" Margin="0" MinHeight="100" MinWidth="100" Height="107" MaxHeight="85" Background="#FF426E93" VerticalAlignment="Top" />
+                        <StackPanel x:Name="stkWelcomeBG" Margin="6" MinHeight="90" MinWidth="90" Height="90" MaxHeight="85" VerticalAlignment="Top">
                             <StackPanel.Background>
                                 <RadialGradientBrush>
                                     <GradientStop Color="#3396A7D3" Offset="1"/>
                                     <GradientStop Color="#33FFFFFF"/>
                                 </RadialGradientBrush>
                             </StackPanel.Background>
-                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" FontSize="18" Margin="36,0,0,0" Foreground="White"/>
+                            <TextBlock x:Name="txtblkWelcome" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" FontSize="18" Margin="36,30,0,0" Foreground="White" Text="Example text"/>
                         </StackPanel>
                         <Grid x:Name="grdSystemSpecs" Margin="0,100,0,0" MinHeight="100">
-                            <Grid.Background>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#FFCEF2F3" Offset="0"/>
-                                    <GradientStop Color="#FFE0F8F9" Offset="1"/>
-                                </RadialGradientBrush>
-                            </Grid.Background>
-                            <GroupBox x:Name="grpSpecs" Header="Specifications:" Margin="410,0,0,0" Padding="1,0,0,0" MinWidth="420" BorderBrush="#FFFFDC00" Width="420" HorizontalAlignment="Right">
+                            <GroupBox x:Name="grpSpecs" Header="......................................" Margin="410,-10,0,0" Padding="1,0,0,0" MinWidth="420" BorderBrush="#FFFFDC00" Width="420" HorizontalAlignment="Right" Foreground="White">
                                 <GroupBox.Background>
                                     <RadialGradientBrush>
                                         <GradientStop Color="#FFCBF5F2" Offset="1"/>
@@ -91,7 +81,7 @@
                                 </GroupBox.Background>
                                 <Grid x:Name="grdSpecsInner" Margin="0">
                                     <Image x:Name="imgComputerSpecs" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/specs.png"/>
-                                    <RichTextBox x:Name="txtComputerSpecs" Margin="10,70,10,10" BorderBrush="#FF80DEE8" VerticalScrollBarVisibility="Auto">
+                                    <RichTextBox x:Name="txtComputerSpecs" Margin="10,70,10,10" BorderBrush="#FF80DEE8" VerticalScrollBarVisibility="Auto" FontSize="14">
                                         <RichTextBox.ContextMenu>
                                             <ContextMenu>
                                                 <MenuItem x:Name="btnExportSpecs" Header="Export...">
@@ -116,22 +106,16 @@
                             <Grid x:Name="grdUserInfo" Margin="0,0,413,0" Width="413" MinHeight="389" MinWidth="413" HorizontalAlignment="Left">
                                 <Grid.Background>
                                     <RadialGradientBrush>
-                                        <GradientStop Color="Snow" Offset="0"/>
-                                        <GradientStop Color="#FFFFEBEB" Offset="1"/>
+                                        <GradientStop Color="#FF5A9ABF" Offset="1"/>
+                                        <GradientStop Color="#FF537EB2"/>
                                     </RadialGradientBrush>
                                 </Grid.Background>
                                 <Image x:Name="imgUser" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" MinWidth="50" MinHeight="50" Source="/PC Ripper Benchmark;component/resources/verified.png"/>
-                                <TextBlock x:Name="txtBlkWelcomeText" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="Lorem ipsum poggers."/>
-                                <StackPanel x:Name="stkUserData" Margin="5,75,5,0">
-                                    <StackPanel.Background>
-                                        <RadialGradientBrush>
-                                            <GradientStop Color="#7FFFF6F6" Offset="0"/>
-                                            <GradientStop Color="#7FFFD8D8" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </StackPanel.Background>
-                                    <Label x:Name="lblName" Content="Name"/>
-                                    <Label x:Name="lblTypeOfUser" Content="Typeofuser:"/>
-                                    <Label x:Name="lblUserSkill" Content="Userskill:"/>
+                                <TextBlock x:Name="txtBlkWelcomeText" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="Lorem ipsum poggers." Foreground="White"/>
+                                <StackPanel x:Name="stkUserData" Margin="5,75,5,0" Background="#4CFFFFFF">
+                                    <Label x:Name="lblName" Content="Name" Foreground="White" FontSize="18"/>
+                                    <Label x:Name="lblTypeOfUser" Content="Typeofuser:" Foreground="White" FontSize="18"/>
+                                    <Label x:Name="lblUserSkill" Content="Userskill:" Foreground="White" FontSize="18"/>
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -145,18 +129,18 @@
                         </Grid.ColumnDefinitions>
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FF96A7E0" Offset="1"/>
+                                <GradientStop Color="#FFD0D8F5"/>
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkCPU" Margin="0,6,0,423" MinHeight="60" Grid.ColumnSpan="2">
-                            <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="txtCPUWelcome" TextWrapping="Wrap" Text="Welcome to the CPU benchmarking tab! Hover over each icon to learn more about how the test works. " FontSize="18" HorizontalAlignment="Center" Foreground="Black"/>
                         </StackPanel>
                         <Grid x:Name="grdCPUTests" Margin="0,65,0,104" MinHeight="110" MinWidth="636" Grid.ColumnSpan="2">
                             <Grid.Background>
                                 <RadialGradientBrush>
                                     <GradientStop Color="#7F000000" Offset="0"/>
-                                    <GradientStop Color="#33FFFFFF" Offset="1"/>
+                                    <GradientStop Color="#4CFFFFFF" Offset="1"/>
                                 </RadialGradientBrush>
                             </Grid.Background>
                             <Image x:Name="imgCPUSuccessorship" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/cpu_successorship.png" ToolTip="The successorship algorithm runs a loop counting 1 to (n)." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
@@ -187,9 +171,9 @@
                         </Grid>
                         <Grid x:Name="grdCPUResults" Height="100" Margin="100,0" Width="636" MinWidth="636" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
                             <TextBlock x:Name="txtCPUChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Button x:Name="btnCPURunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnCPURunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
+                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False" BorderBrush="White" Foreground="#FF131313"/>
+                            <Button x:Name="btnCPURunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnCPURunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" Foreground="White" BorderBrush="White" FontSize="14"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -197,20 +181,14 @@
                     <Grid x:Name="grdDisk">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FF6593D6" Offset="1"/>
+                                <GradientStop Color="#FF6493D6"/>
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkDisk" Margin="0,6,0,450" MinHeight="60">
                             <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center" Height="30" Margin="44,0"/>
                         </StackPanel>
-                        <Grid x:Name="grdDiskTests" Margin="0,65,0,100" MinHeight="110" MinWidth="636">
-                            <Grid.Background>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#3FF6FDF5" Offset="0"/>
-                                    <GradientStop Color="#7FF1FBE7" Offset="1"/>
-                                </RadialGradientBrush>
-                            </Grid.Background>
+                        <Grid x:Name="grdDiskTests" Margin="0,65,0,100" MinHeight="110" MinWidth="636" Background="#4CFFFFFF">
                             <Image x:Name="imgDiskFolderMatrix" Margin="-600,10,0,100" Source="/PC Ripper Benchmark;component/resources/disk_foldermatrix.png" ToolTip="The FolderMatrix algorithm generates folders in the working directory and reads them back." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
@@ -231,15 +209,15 @@
                                     <DropShadowEffect BlurRadius="15"/>
                                 </Image.Effect>
                             </Image>
-                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed. Its recommended you put this in a new folder you create on your desktop for easy accessibility." VerticalAlignment="Bottom" FontSize="16" Foreground="#FFF98787"/>
-                            <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Center" Margin="0,0,500,66" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="20" MinWidth="75" Click="BtnBrowseWorkingDir_Click"/>
+                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires a directory. Please browse for a directory for the test to be performed. Its recommended you put this in a new folder you create on your desktop for easy accessibility." VerticalAlignment="Bottom" FontSize="16" Foreground="White"/>
+                            <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Right" Margin="0,0,586,66" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="20" MinWidth="75" Click="BtnBrowseWorkingDir_Click" Foreground="White" Background="#00DDDDDD" BorderBrush="#FF104918"/>
                             <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,23" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="16"/>
                         </Grid>
                         <Grid x:Name="grdDiskResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtDiskChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top" Background="White"/>
                             <RadioButton x:Name="radDiskMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Button x:Name="btnDiskRunTest" Content="Run the DISK test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnDiskRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                            <Button x:Name="btnDiskRunTest" Content="Run the DISK test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnDiskRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" BorderBrush="White" FontSize="14" Foreground="White"/>
                         </Grid>
 
                     </Grid>
@@ -355,14 +333,15 @@
                                             <Button x:Name="btnLockDir" Content="Lock a Directory" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Margin="100,10,100,0" Click="BtnLockDir_Click"/>
                                             <Button x:Name="btnUnlockDir" Content="Unlock a Directory" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,10,100,0" VerticalAlignment="Center" Click="BtnUnlockDir_Click"/>
                                         </StackPanel>
-                                        <ListView x:Name="lstViewSettings" BorderBrush="#FF005BFF" Background="#34FFFFFF" Margin="0,118,0,0">
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn/>
-                                                </GridView>
-                                            </ListView.View>
-                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)" Tag="" Click="Menu_cpu_iter_per_test_Click"/>
-                                            <MenuItem x:Name="menu_cpu_successorship" Header="Successorship: " ToolTip="Change the number of successorship iterations" Tag="" Click="Menu_cpu_successorship_Click"/>
+                                        <ListBox x:Name="lstAdvancedSettings" Margin="5,120,5,5" BorderBrush="White" FontSize="18" FontFamily="Nirmala UI" Foreground="#FF741997">
+                                            <ListBox.Background>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="#4CE4FBFF" Offset="0"/>
+                                                    <GradientStop Color="#4C5BD0E2" Offset="1"/>
+                                                </RadialGradientBrush>
+                                            </ListBox.Background>
+                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)"/>
+                                            <MenuItem x:Name="menu_cpu_successorship" Header="Successorship: " ToolTip="Change the number of successorship iterations"/>
                                             <MenuItem x:Name="menu_cpu_boolean" Header="Boolean: " ToolTip="Change the number of boolean iterations"/>
                                             <MenuItem x:Name="menu_cpu_queue" Header="Queue: " ToolTip="Change the number of queue iterations"/>
                                             <MenuItem x:Name="menu_cpu_linkedlist" Header="Linked list: " ToolTip="Change the number of linked list iterations"/>
@@ -376,7 +355,7 @@
                                             <MenuItem x:Name="menu_disk_bulkfile" Header="Bulk File: " ToolTip="Change the number of bulk file iterations"/>
                                             <MenuItem x:Name="menu_disk_readwriteparse" Header="Read/Write Parse: " ToolTip="Change the number of read/write parse iterations"/>
                                             <MenuItem x:Name="menu_disk_ripper" Header="Disk Ripper: " ToolTip="Change the number of disk ripper iterations"/>
-                                        </ListView>
+                                        </ListBox>
                                     </Grid>
                                 </TabItem>
                             </TabControl>
@@ -414,11 +393,11 @@
                     <Grid x:Name="grdRunningTest">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFEAE584" Offset="1"/>
-                                <GradientStop Color="#FFF3C291"/>
+                                <GradientStop Color="#FF10A684" Offset="1"/>
+                                <GradientStop Color="#FF11CBBA"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="275" Height="50" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click"/>
+                        <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="275" Height="50" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click" Background="#00DDDDDD" BorderBrush="White" Foreground="White"/>
                         <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0,0,0,60"/>
                     </Grid>
                 </TabItem>

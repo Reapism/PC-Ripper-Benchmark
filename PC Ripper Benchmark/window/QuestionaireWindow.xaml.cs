@@ -135,7 +135,7 @@ namespace PC_Ripper_Benchmark.window {
                     this.lblTheme.Content = $"Choose a theme! {userTheme}";
                     this.isLight = 1;
 
-                    tm = new ThemeManager(ThemeManager.Theme.Light, this);
+                    tm = new ThemeManager(ThemeManager.Theme.Light);
 
                     break;
                 }
@@ -147,11 +147,18 @@ namespace PC_Ripper_Benchmark.window {
                     this.lblTheme.Content = $"Choose a theme! { userTheme}";
                     this.isLight = 0;
 
-                    tm = new ThemeManager(ThemeManager.Theme.Dark, this);
+                    tm = new ThemeManager(ThemeManager.Theme.Dark);
 
                     break;
                 }
+
+                default: {
+                    tm = new ThemeManager(ThemeManager.Theme.Light);
+                    break;
+                }
             }
+
+            tm.ApplyTheme(this);
         }
 
         private bool AddUserData() {
