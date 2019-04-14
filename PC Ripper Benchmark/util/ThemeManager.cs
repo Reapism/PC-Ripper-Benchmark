@@ -1,5 +1,7 @@
 ﻿using PC_Ripper_Benchmark.window;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace PC_Ripper_Benchmark.util {
@@ -32,45 +34,63 @@ namespace PC_Ripper_Benchmark.util {
             Dark
         }
 
+        private Theme themeType;
+
         /// <summary>
-        /// ApplyAllThemes delegate. us
+        /// Default constructor.
         /// </summary>
-        /// <param name="themeType"></param>
-        /// <param name="w"></param>
+        /// <param name="themeType">The the</param>
 
-        public delegate void ApplyAllThemes(Theme themeType, Window w);
+        public ThemeManager(Theme themeType) {
+            this.themeType = themeType;
+        }
+        /// <summary>
+        /// Applies the theme to a specific object.
+        /// </summary>
+        /// <param name="o">An object.</param>
 
-        private ApplyAllThemes applyAllThemes;
+        public void ApplyTheme(object o) {
+            
+            if (o is QuestionaireWindow q) {
+                ApplyThemeHelper(q);
+            } else if (o is MainWindow w) {
+                ApplyThemeHelper(w);
+            }
 
-        public ThemeManager(Theme themeType, QuestionaireWindow w) {
-            //applyAllThemes = new ApplyAllThemes(ApplyTheme);
         }
 
-        /// <summary>
-        /// Applies the theme to the <see cref="QuestionaireWindow"/>
-        /// window.
-        /// </summary>
-        /// <param name="themeType"></param>
-        /// <param name="w"></param>
-
-        public void ApplyTheme(Theme themeType, QuestionaireWindow w) {
+        public void ApplyThemeHelper(MainWindow w) {
             switch (themeType) {
                 case Theme.Light: {
-                    w.grdMain.Background = Brushes.White;
-                    w.lblTheme.Foreground = Brushes.Black;
-                    w.lblUserSkill.Foreground = Brushes.Black;
-                    w.lblUserType.Foreground = Brushes.Black;
-                    w.lblWelcome.Foreground = Brushes.Black;
+
+                    break;
+                }
+
+                case Theme.Dark: {
+
+                    break;
+                }
+            }
+        }
+
+        public void ApplyThemeHelper(QuestionaireWindow q) {
+            switch (themeType) {
+                case Theme.Light: {
+                    q.grdMain.Background = Brushes.White;
+                    q.lblTheme.Foreground = Brushes.Black;
+                    q.lblUserSkill.Foreground = Brushes.Black;
+                    q.lblUserType.Foreground = Brushes.Black;
+                    q.lblWelcome.Foreground = Brushes.Black;
                     break;
 
                 }
 
                 case Theme.Dark: {
-                    w.grdMain.Background = Brushes.DarkSlateGray;
-                    w.lblTheme.Foreground = Brushes.White;
-                    w.lblUserSkill.Foreground = Brushes.White;
-                    w.lblUserType.Foreground = Brushes.White;
-                    w.lblWelcome.Foreground = Brushes.White;
+                    q.grdMain.Background = Brushes.DarkSlateGray;
+                    q.lblTheme.Foreground = Brushes.White;
+                    q.lblUserSkill.Foreground = Brushes.White;
+                    q.lblUserType.Foreground = Brushes.White;
+                    q.lblWelcome.Foreground = Brushes.White;
                     break;
                 }
             }

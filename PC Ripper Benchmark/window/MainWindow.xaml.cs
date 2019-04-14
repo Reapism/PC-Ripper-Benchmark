@@ -70,6 +70,8 @@ namespace PC_Ripper_Benchmark.window {
             this.ws.NavigationMenu(this);
 
             GetComputerSpecs();
+
+            InstantiateAdvancedSettings();
         }
 
         /// <summary>
@@ -83,6 +85,53 @@ namespace PC_Ripper_Benchmark.window {
             ws.CenterWindowOnScreen(this);
             GetWelcomeText();
         }
+
+        /// <summary>
+        /// Loads all the data in each settings in the
+        /// advanced settings list view.
+        /// </summary>
+
+        private void LoadAdvancedSettings() {
+            this.menu_cpu_iter_per_test.Header = this.menu_cpu_iter_per_test.Tag.ToString() + this.rs.IterationsPerCPUTest.ToString("n0");
+
+            this.menu_cpu_successorship.Header = this.menu_cpu_successorship.Tag.ToString() + this.rs.IterationsSuccessorship.ToString("n0");
+            this.menu_cpu_boolean.Header = this.menu_cpu_boolean.Tag.ToString() + this.rs.IterationsBoolean.ToString("n0");
+            this.menu_cpu_queue.Header = this.menu_cpu_queue.Tag.ToString() + this.rs.IterationsQueue.ToString("n0");
+            this.menu_cpu_linkedlist.Header = this.menu_cpu_linkedlist.Tag.ToString() + this.rs.IterationsLinkedList.ToString("n0");
+            this.menu_cpu_tree.Header = this.menu_cpu_tree.Tag.ToString() + this.rs.IterationsTree.ToString("n0");
+
+            this.menu_ram_per_test.Header = this.menu_cpu_iter_per_test.Tag.ToString() + this.rs.IterationsPerRAMTest.ToString("n0");
+
+            this.menu_ram_foldermatrix.Header = this.menu_ram_foldermatrix.Tag.ToString() + this.rs.IterationsRAMFolderMatrix.ToString("n0");
+            this.menu_ram_bulkfile.Header = this.menu_ram_bulkfile.Tag.ToString() + this.rs.IterationsRAMVirtualBulkFile.ToString("n0");
+            this.menu_ram_readwriteparse.Header = this.menu_ram_readwriteparse.Tag.ToString() + this.rs.IterationsRAMReferenceDereference.ToString("n0");
+
+            this.menu_disk_per_test.Header = this.menu_disk_per_test.Tag.ToString() + this.rs.IterationsPerDiskTest.ToString("n0");
+
+            this.menu_disk_foldermatrix.Header = this.menu_disk_foldermatrix.Tag.ToString() + this.rs.IterationsDISKFolderMatrix.ToString("n0");
+            this.menu_disk_bulkfile.Header = this.menu_disk_bulkfile.Tag.ToString() + this.rs.IterationsDiskBulkFile.ToString("n0");
+            this.menu_disk_readwriteparse.Header = this.menu_disk_readwriteparse.Tag.ToString() + this.rs.IterationsDiskReadWriteParse.ToString("n0");
+            this.menu_disk_ripper.Header = this.menu_disk_ripper.Tag.ToString() + this.rs.IterationsDiskRipper.ToString("n0");
+        }
+
+        /// <summary>
+        /// Instantiates the advanced settings
+        /// tags with their proper names.
+        /// </summary>
+
+        private void InstantiateAdvancedSettings() {
+
+            foreach (MenuItem m in this.lstViewSettings.Items) {
+                m.Tag = m.Header;
+            }
+
+            LoadAdvancedSettings();
+        }
+
+        /// <summary>
+        /// Sets the welcome text on different labels and
+        /// text blocks.
+        /// </summary>
 
         private void GetWelcomeText() {
             this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} to the PC Ripper Benchmark.";
@@ -603,13 +652,13 @@ namespace PC_Ripper_Benchmark.window {
         private void BtnSettings_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.SETTINGS);
 
-            if (userData.IsAdvanced == UserSkill.Advanced) {
-                tabSettingsInner.SelectedIndex = 1;                
-            } else { tabSettingsInner.SelectedIndex = 0; }
+            if (this.userData.IsAdvanced == UserSkill.Advanced) {
+                this.tabSettingsInner.SelectedIndex = 1;
+            } else { this.tabSettingsInner.SelectedIndex = 0; }
         }
 
         private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {
-            ExportResults(ExportType.TEXTFILE,this.txtResults);
+            ExportResults(ExportType.TEXTFILE, this.txtResults);
         }
 
         private void MenuResultsExprtXaml_Click(object sender, RoutedEventArgs e) {
@@ -738,11 +787,19 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void BtnShowAdvanced_Click(object sender, RoutedEventArgs e) {
-            tabSettingsInner.SelectedIndex = 1;
+            this.tabSettingsInner.SelectedIndex = 1;
         }
 
         private void BtnExportSpecTxt_Click(object sender, RoutedEventArgs e) {
-            ExportResults(ExportType.TEXTFILE, txtComputerSpecs);
+            ExportResults(ExportType.TEXTFILE, this.txtComputerSpecs);
+        }
+
+        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void Menu_cpu_successorship_Click(object sender, RoutedEventArgs e) {
+
         }
     }
 }

@@ -361,6 +361,21 @@
                                                     <GridViewColumn/>
                                                 </GridView>
                                             </ListView.View>
+                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)" Tag="" Click="Menu_cpu_iter_per_test_Click"/>
+                                            <MenuItem x:Name="menu_cpu_successorship" Header="Successorship: " ToolTip="Change the number of successorship iterations" Tag="" Click="Menu_cpu_successorship_Click"/>
+                                            <MenuItem x:Name="menu_cpu_boolean" Header="Boolean: " ToolTip="Change the number of boolean iterations"/>
+                                            <MenuItem x:Name="menu_cpu_queue" Header="Queue: " ToolTip="Change the number of queue iterations"/>
+                                            <MenuItem x:Name="menu_cpu_linkedlist" Header="Linked list: " ToolTip="Change the number of linked list iterations"/>
+                                            <MenuItem x:Name="menu_cpu_tree" Header="Tree: " ToolTip="Change the number of tree iterations"/>
+                                            <MenuItem x:Name="menu_ram_per_test" Header="Iterations per RAM test: " ToolTip="Change the number of times each RAM test gets ran for averaging (higher, more accurate)"/>
+                                            <MenuItem x:Name="menu_ram_foldermatrix" Header="Virtual Folder Matrix: " ToolTip="Change the number of virtual folder matrix iterations"/>
+                                            <MenuItem x:Name="menu_ram_bulkfile" Header="Virtual Bulk File: " ToolTip="Change the number of virtual bulk file iterations"/>
+                                            <MenuItem x:Name="menu_ram_readwriteparse" Header="Virtual Read/Write Parse: " ToolTip="Change the number of virtual read/write parse iterations"/>
+                                            <MenuItem x:Name="menu_disk_per_test" Header="Iterations per DISK test: " ToolTip="Change the number of times each DISK test gets ran for averaging (higher, more accurate)"/>
+                                            <MenuItem x:Name="menu_disk_foldermatrix" Header="Folder Matrix: " ToolTip="Change the number of folder matrix iterations"/>
+                                            <MenuItem x:Name="menu_disk_bulkfile" Header="Bulk File: " ToolTip="Change the number of bulk file iterations"/>
+                                            <MenuItem x:Name="menu_disk_readwriteparse" Header="Read/Write Parse: " ToolTip="Change the number of read/write parse iterations"/>
+                                            <MenuItem x:Name="menu_disk_ripper" Header="Disk Ripper: " ToolTip="Change the number of disk ripper iterations"/>
                                         </ListView>
                                     </Grid>
                                 </TabItem>
