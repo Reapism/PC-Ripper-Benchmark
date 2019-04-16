@@ -55,11 +55,14 @@
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <TabControl x:Name="tabComponents" Margin="0" MinWidth="640" MinHeight="320" Foreground="Black" Background="#FFAFB800" BorderBrush="#FFFFE800">
+            <TabControl x:Name="tabComponents" Margin="0" MinWidth="640" MinHeight="320" Foreground="Black" Background="#FFA9BDCF" BorderBrush="#FFFFE800">
                 <TabItem x:Name="tabWelcome" Header="Welcome &lt;name&gt;, Profile" BorderBrush="#FF7E2F2F">
                     <Grid x:Name="grdWelcome">
                         <Grid.Background>
-                            <ImageBrush ImageSource="/PC Ripper Benchmark;component/resources/main_background.png"/>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF5EABC1" Offset="0"/>
+                                <GradientStop Color="#FF2D4951" Offset="1"/>
+                            </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkWelcomeTopBG" Margin="0" MinHeight="100" MinWidth="100" Height="107" MaxHeight="85" Background="#FF426E93" VerticalAlignment="Top" />
                         <StackPanel x:Name="stkWelcomeBG" Margin="6" MinHeight="90" MinWidth="90" Height="90" MaxHeight="85" VerticalAlignment="Top">
@@ -333,7 +336,7 @@
                                             <Button x:Name="btnLockDir" Content="Lock a Directory" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Margin="100,10,100,0" Click="BtnLockDir_Click"/>
                                             <Button x:Name="btnUnlockDir" Content="Unlock a Directory" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,10,100,0" VerticalAlignment="Center" Click="BtnUnlockDir_Click"/>
                                         </StackPanel>
-                                        <ListBox x:Name="lstAdvancedSettings" Margin="5,120,5,5" BorderBrush="White" FontSize="18" FontFamily="Nirmala UI" Foreground="#FF741997">
+                                        <ListBox x:Name="lstAdvancedSettings" Margin="5,120,5,5" BorderBrush="#FFA17EEC" FontSize="18" FontFamily="Nirmala UI" Foreground="#FF741997" BorderThickness="3">
                                             <ListBox.Background>
                                                 <RadialGradientBrush>
                                                     <GradientStop Color="#4CE4FBFF" Offset="0"/>
