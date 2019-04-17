@@ -49,7 +49,15 @@ namespace PC_Ripper_Benchmark.util {
         /// average of the tests, and the score.
         /// </summary>
 
-        protected abstract string GenerateDescription();
+        protected abstract string GenerateAdvancedDescription();
+
+        /// <summary>
+        /// Generates a particular description based on a
+        /// given component test. Contains information
+        /// total duration, and the score.
+        /// </summary>
+
+        protected abstract string GenerateBeginnerDescription();
 
         /// <summary>
         /// Generates a score for a particular component.
@@ -69,7 +77,9 @@ namespace PC_Ripper_Benchmark.util {
 
         #endregion
 
-        #region Virtual function(s).       
+        #region Virtual function(s). Not meant to be overridden, base functionality is enough.       
+
+
 
         /// <summary>
         /// Takes in a <see cref="TestName"/> and
