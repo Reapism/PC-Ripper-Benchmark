@@ -181,7 +181,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// <param name="theTab">The <see cref="Tab"/> type.</param>
 
-        private void ShowTabWindow(Tab theTab) {
+        public void ShowTabWindow(Tab theTab) {
 
             switch (theTab) {
                 case Tab.WELCOME: {
@@ -244,7 +244,7 @@ namespace PC_Ripper_Benchmark.window {
 
 
         }
-        
+
         /// <summary>
         /// Save the application settings.
         /// </summary>
@@ -380,12 +380,13 @@ namespace PC_Ripper_Benchmark.window {
 
         private void RunCPUTest() {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
-            CPUResults results = new CPUResults(this.rs);
 
             ThreadType threadType;
 
             if (this.radCPUSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
+            } else if (this.radCPUSingleUI.IsChecked == true) {
+                threadType = ThreadType.SingleUI;
             } else if (this.radCPUMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {
@@ -397,39 +398,27 @@ namespace PC_Ripper_Benchmark.window {
                 return;
             }
 
-            // SingleUI is going to cause problems because it is
-            // threaded and it doesn't call constructor yet.
-            // before we use the contents of that object.
-            // we need to wait for it.
-
             this.txtResults.Document.Blocks.Clear();
 
             try {
                 this.Dispatcher.Invoke(() => {
-                    results = cpu.RunCPUBenchmark(threadType);
+                    cpu.RunCPUBenchmark(threadType, ref this.userData, this);
                 });
+
             } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
-
-            this.txtResults.AppendText($"Successfully ran the CPU test! Below is the " +
-                $"results of the test.\n\n" +
-                $"{results.Description}\n\n" +
-                $"\n\n");
-
-            this.txtBlkResults.Text = "Results for the CPU test:";
-
-            ShowTabWindow(Tab.RESULTS);
         }
 
         private void RunRAMTest() {
             RamFunctions ram = new RamFunctions(ref this.rs);
-            RamResults results = new RamResults(this.rs);
 
             ThreadType threadType;
 
             if (this.radRamSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
+            } else if (this.radRamSingleUI.IsChecked == true) {
+                threadType = ThreadType.SingleUI;
             } else if (this.radRamMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {
@@ -441,42 +430,30 @@ namespace PC_Ripper_Benchmark.window {
                 return;
             }
 
-            // SingleUI is going to cause problems because it is
-            // threaded and it doesn't call constructor yet.
-            // before we use the contents of that object.
-            // we need to wait for it.
-
             this.txtResults.Document.Blocks.Clear();
 
             try {
                 this.Dispatcher.Invoke(() => {
-                    results = ram.RunRAMBenchmark(threadType);
+                   ram.RunRAMBenchmark(threadType, ref this.userData, this);
                 });
 
             } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
 
-            this.txtResults.AppendText($"Successfully ran the RAM test! Below is the " +
-                $"results of the test.\n\n" +
-                $"{results.Description}\n\n" +
-                $"\n\n");
-
-            this.txtBlkResults.Text = "Results for the RAM test:";
-
-            ShowTabWindow(Tab.RESULTS);
         }
 
         private void RunDISKTest() {
             DiskFunctions disk = new DiskFunctions(ref this.rs) {
                 WorkingDir = this.workingDir
             };
-            DiskResults results = new DiskResults(this.rs);
 
             ThreadType threadType;
 
             if (this.radDiskSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
+            } else if (this.radDiskSingleUI.IsChecked == true) {
+                threadType = ThreadType.SingleUI;
             } else if (this.radDiskMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
             } else {
@@ -488,29 +465,15 @@ namespace PC_Ripper_Benchmark.window {
                 return;
             }
 
-            // SingleUI is going to cause problems because it is
-            // threaded and it doesn't call constructor yet.
-            // before we use the contents of that object.
-            // we need to wait for it.
-
             this.txtResults.Document.Blocks.Clear();
 
             try {
-                this.Dispatcher.Invoke(() => {
-                    results = disk.RunDiskBenchmark(threadType);
+                this.Dispatcher.InvokeAsync(() => {
+                    disk.RunDiskBenchmark(threadType, ref this.userData, this);
                 });
             } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
-
-            this.txtResults.AppendText($"Successfully ran the DISK test! Below is the " +
-                $"results of the test.\n\n" +
-                $"{results.Description}\n\n" +
-                $"\n\n");
-
-            this.txtBlkResults.Text = "Results for the DISK test:";
-
-            ShowTabWindow(Tab.RESULTS);
         }
 
         private void RunTest() {

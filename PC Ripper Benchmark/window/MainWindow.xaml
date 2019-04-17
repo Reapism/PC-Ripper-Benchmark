@@ -6,7 +6,7 @@
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
-        Title="PC Ripper Benchmark Tool" Height="650" Width="1495" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="997" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" FontFamily="Nirmala UI">
+        Title="PC Ripper Benchmark Tool" Height="650" Width="1025" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="1000" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" FontFamily="Nirmala UI">
     <Grid x:Name="grdMain" Margin="0" MinHeight="420" MinWidth="790">
         <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="50" MinHeight="400" VerticalAlignment="Stretch" Width="150" Margin="0,100,0,0">
             <Grid.Background>
@@ -174,8 +174,9 @@
                         </Grid>
                         <Grid x:Name="grdCPUResults" Height="100" Margin="100,0" Width="636" MinWidth="636" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
                             <TextBlock x:Name="txtCPUChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
-                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False" BorderBrush="White" Foreground="#FF131313"/>
+                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
+                            <RadioButton x:Name="radCPUSingleUI" Content="SingleUI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
+                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False" BorderBrush="White" Foreground="#FF131313"/>
                             <Button x:Name="btnCPURunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnCPURunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" Foreground="White" BorderBrush="White" FontSize="14"/>
                         </Grid>
                     </Grid>
@@ -218,8 +219,9 @@
                         </Grid>
                         <Grid x:Name="grdDiskResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtDiskChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top" Background="White"/>
-                            <RadioButton x:Name="radDiskMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top" Background="White"/>
+                            <RadioButton x:Name="radDiskSingleUI" Content="Single threaded UI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
+                            <RadioButton x:Name="radDiskMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
                             <Button x:Name="btnDiskRunTest" Content="Run the DISK test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnDiskRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" BorderBrush="White" FontSize="14" Foreground="White"/>
                         </Grid>
 
@@ -261,8 +263,9 @@
                         </Grid>
                         <Grid x:Name="grdRamResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtRamChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radRamSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-200,34,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="radRamMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="200,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <RadioButton x:Name="radRamSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="radRamSingleUI" Content="Single threadedUI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
+                            <RadioButton x:Name="radRamMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
                             <Button x:Name="btnRamRunTest" Content="Run the RAM test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRamRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
                         </Grid>
                     </Grid>
