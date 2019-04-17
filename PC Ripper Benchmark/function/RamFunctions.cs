@@ -1,9 +1,9 @@
 ﻿using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
+using PC_Ripper_Benchmark.window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -53,24 +53,43 @@ namespace PC_Ripper_Benchmark.function {
         /// containing the result.</returns>
         /// <exception cref="RipperThreadException"></exception>
 
-        public RamResults RunRAMBenchmark(ThreadType threadType) {
-            var results = new RamResults(this.rs);
-
+        public void RunRAMBenchmark(ThreadType threadType, ref UserData userData, MainWindow ui) {
+            var results = new RamResults(this.rs, ref userData);
             switch (threadType) {
 
                 case ThreadType.Single: {
                     // runs task on main thread.
                     RunTestsSingle(ref results);
+
+                    string desc = results.Description;
+
+                    ui.Dispatcher.InvokeAsync(() => {
+                        ui.txtResults.AppendText($"Successfully ran the RAM test! Below is the " +
+                            $"results of the test.\n\n" +
+                            $"{desc}\n\n" +
+                            $"\n\n");
+                    });
+
+                    ui.Dispatcher.Invoke(() => {
+                        ui.txtBlkResults.Text = "Results for the RAM test:";
+                    });
+
+
+                    ui.Dispatcher.Invoke(() => {
+                        ui.ShowTabWindow(Tab.RESULTS);
+                    });
+
                     break;
                 }
 
                 case ThreadType.SingleUI: {
                     // runs task, but doesn't wait for result.
-                    Dispatcher.CurrentDispatcher.Invoke(() => {
-                        Task.Run(() => {
-                            RunTestsSingle(ref results);
-                        });
-                    });
+
+                    void a() { RunTestsSingleUI(ref results, ui); }
+
+                    Task task = new Task(a);
+
+                    task.Start();
 
                     break;
                 }
@@ -87,7 +106,6 @@ namespace PC_Ripper_Benchmark.function {
                 }
             }
 
-            return results;
         }
 
         /// <summary>
@@ -111,6 +129,51 @@ namespace PC_Ripper_Benchmark.function {
             for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
                 results.TestCollection.Add(RunReferenceDereference());
             }
+        }
+
+        /// <summary>
+        /// Runs each test <see cref="RipperSettings.IterationsPerRAMTest"/> times.
+        /// <para>Should be (<see cref="RamResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerRAMTest"/>)
+        /// timespans in <see cref="RamResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="RamResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingleUI(ref RamResults results, MainWindow ui) {
+            for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
+                results.TestCollection.Add(RunVirtualFolderMatrix());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
+                results.TestCollection.Add(RunVirtualBulkFile());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {
+                results.TestCollection.Add(RunReferenceDereference());
+            }
+
+            string desc = results.Description;
+
+            ui.Dispatcher.InvokeAsync(() => {
+                ui.txtResults.AppendText($"Successfully ran the RAM test! Below is the " +
+                    $"results of the test.\n\n" +
+                    $"{desc}\n\n" +
+                    $"\n\n");
+            });
+
+            ui.Dispatcher.Invoke(() => {
+                ui.txtBlkResults.Text = "Results for the RAM test:";
+            });
+
+
+            ui.Dispatcher.Invoke(() => {
+                ui.ShowTabWindow(Tab.RESULTS);
+            });
+        }
+
+        private async Task<CPUResults> RunTestsMultithreaded() {
+            return null;
         }
 
         /// <summary>

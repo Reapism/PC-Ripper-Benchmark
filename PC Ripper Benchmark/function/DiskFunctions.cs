@@ -1,10 +1,12 @@
 ﻿using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
+using PC_Ripper_Benchmark.window;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
@@ -84,19 +86,45 @@ namespace PC_Ripper_Benchmark.function {
         /// containing the result.</returns>
         /// <exception cref="RipperThreadException"></exception>
 
-        public DiskResults RunDiskBenchmark(ThreadType threadType) {
-            var results = new DiskResults(this.rs);
+        public void RunDiskBenchmark(ThreadType threadType, ref UserData userData, MainWindow ui) {
+            var results = new DiskResults(this.rs, ref userData);
 
             switch (threadType) {
 
                 case ThreadType.Single: {
                     // runs task on main thread.
                     RunTestsSingle(ref results);
+
+                    string desc = results.Description;
+
+                    ui.Dispatcher.InvokeAsync(() => {
+                        ui.txtResults.AppendText($"Successfully ran the DISK test! Below is the " +
+                            $"results of the test.\n\n" +
+                            $"{desc}\n\n" +
+                            $"\n\n");
+                    });
+
+                    ui.Dispatcher.Invoke(() => {
+                        ui.txtBlkResults.Text = "Results for the DISK test:";
+                    });
+
+
+                    ui.Dispatcher.Invoke(() => {
+                        ui.ShowTabWindow(Tab.RESULTS);
+                    });
+
                     break;
                 }
 
                 case ThreadType.SingleUI: {
                     // runs task, but doesn't wait for result.
+
+                    void a() { RunTestsSingleUI(ref results, ui); }
+
+                    Task task = new Task(a);
+
+                    task.Start();
+
                     break;
                 }
 
@@ -111,7 +139,6 @@ namespace PC_Ripper_Benchmark.function {
                 }
             }
 
-            return results;
         }
 
         /// <summary>
@@ -140,6 +167,56 @@ namespace PC_Ripper_Benchmark.function {
             for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
                 results.TestCollection.Add(RunDiskRipper());
             }
+        }
+
+        /// <summary>
+        /// Runs each test <see cref="RipperSettings.IterationsPerDiskTest"/> times.
+        /// <para>Should be (<see cref="DiskResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerDiskTest"/>)
+        /// timespans in <see cref="DiskResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="DiskResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingleUI(ref DiskResults results, MainWindow ui) {
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunFolderMatrix());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunBulkFile());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunReadWriteParse());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                results.TestCollection.Add(RunDiskRipper());
+            }
+
+            string desc = results.Description;
+
+            ui.Dispatcher.InvokeAsync(() => {
+                ui.txtResults.AppendText($"Successfully ran the DISK test! Below is the " +
+                    $"results of the test.\n\n" +
+                    $"{desc}\n\n" +
+                    $"\n\n");
+            });
+
+            ui.Dispatcher.Invoke(() => {
+                ui.txtBlkResults.Text = "Results for the DISK test:";
+            });
+
+
+            ui.Dispatcher.Invoke(() => {
+                ui.ShowTabWindow(Tab.RESULTS);
+            });
+        }
+
+        private async Task<CPUResults> RunTestsMultithreaded() {
+            return null;
         }
 
         /// <summary>
@@ -637,7 +714,7 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     File.Delete(dir.FullName);
                 } catch (Exception e) {
-                   // File.AppendAllText(Path.Combine(this.WorkingDir, "config.ripperblk"), e.ToString());
+                    // File.AppendAllText(Path.Combine(this.WorkingDir, "config.ripperblk"), e.ToString());
                     continue;
                 }
             }

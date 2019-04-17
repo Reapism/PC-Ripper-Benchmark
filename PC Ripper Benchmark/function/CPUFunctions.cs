@@ -1,5 +1,6 @@
 ﻿using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.util;
+using PC_Ripper_Benchmark.window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -60,14 +61,33 @@ namespace PC_Ripper_Benchmark.function {
         /// containing the result.</returns>
         /// <exception cref="RipperThreadException"></exception>
 
-        public CPUResults RunCPUBenchmark(ThreadType threadType) {
-            var results = new CPUResults(this.rs);
+        public void RunCPUBenchmark(ThreadType threadType, ref UserData userData, MainWindow ui) {
+            var results = new CPUResults(this.rs, ref userData);
 
             switch (threadType) {
 
                 case ThreadType.Single: {
                     // runs task on main thread.
                     RunTestsSingle(ref results);
+
+                    string desc = results.Description;
+
+                    ui.Dispatcher.InvokeAsync(() => {
+                        ui.txtResults.AppendText($"Successfully ran the CPU test! Below is the " +
+                            $"results of the test.\n\n" +
+                            $"{desc}\n\n" +
+                            $"\n\n");
+                    });
+
+                    ui.Dispatcher.Invoke(() => {
+                        ui.txtBlkResults.Text = "Results for the CPU test:";
+                    });
+
+
+                    ui.Dispatcher.Invoke(() => {
+                        ui.ShowTabWindow(Tab.RESULTS);
+                    });
+
                     break;
                 }
 
@@ -76,7 +96,7 @@ namespace PC_Ripper_Benchmark.function {
 
                     // local function instead of action, very similar to
                     // Action a = delegate () { RunTestsSingle(ref results); }; 
-                    void a() { RunTestsSingle(ref results); }
+                    void a() { RunTestsSingleUI(ref results,ui); }
 
                     Task task = new Task(a);
 
@@ -96,9 +116,8 @@ namespace PC_Ripper_Benchmark.function {
                         "public CPUResults RunCPUBenchmark(ThreadType threadType) " +
                         "in function.CPUFunctions ");
                 }
-            }
+            }   
 
-            return results;
         }
 
         /// <summary>
@@ -130,6 +149,55 @@ namespace PC_Ripper_Benchmark.function {
             for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
                 results.TestCollection.Add(RunTree());
             }
+        }
+
+        /// <summary>
+        /// Runs each test <see cref="RipperSettings.IterationsPerCPUTest"/> times.
+        /// <para>Should be (<see cref="CPUResults.UniqueTestCount"/> * 
+        /// <see cref="RipperSettings.IterationsPerCPUTest"/>)
+        /// timespans in <see cref="CPUResults.TestCollection"/>.</para>
+        /// </summary>
+        /// <param name="results">The <see cref="CPUResults"/> by reference 
+        /// to add the <see cref="TimeSpan"/>(s).</param>
+
+        private void RunTestsSingleUI(ref CPUResults results, MainWindow ui) {
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunSuccessorship());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunBoolean());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunQueue());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunLinkedList());
+            }
+
+            for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
+                results.TestCollection.Add(RunTree());
+            }
+
+            string desc = results.Description;
+
+            ui.Dispatcher.InvokeAsync(() => {
+                ui.txtResults.AppendText($"Successfully ran the CPU test! Below is the " +
+                    $"results of the test.\n\n" +
+                    $"{desc}\n\n" +
+                    $"\n\n");
+            });
+
+            ui.Dispatcher.Invoke(() => {
+                ui.txtBlkResults.Text = "Results for the CPU test:";
+            });
+
+
+            ui.Dispatcher.Invoke(() => {
+                ui.ShowTabWindow(Tab.RESULTS);
+            });
         }
 
         private async Task<CPUResults> RunTestsMultithreaded() {
