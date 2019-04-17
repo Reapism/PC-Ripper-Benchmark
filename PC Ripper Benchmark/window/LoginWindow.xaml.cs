@@ -47,6 +47,12 @@ namespace PC_Ripper_Benchmark.window {
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
             SystemSettings systemSettings = new SystemSettings();
 
+            if (emailTextBox.Text.Length < 1 || passwordBox.Password.Length < 1) {
+                MessageBox.Show("Please enter both a email and password!",
+                    "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return;
+            }
+
             if (SystemSettings.IsInternetAvailable()) {
                 if (RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
                     this.database_progressbar.Opacity = 100;
