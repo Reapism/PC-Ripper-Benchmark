@@ -1,4 +1,5 @@
 ﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.window;
 using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -17,7 +18,8 @@ namespace PC_Ripper_Benchmark.util {
     public class CPUResults : Results {
 
         private readonly RipperSettings rs;
-        private const byte uniqueTestCount = 5;
+        private readonly UserData userData;
+        private const byte uniqueTestCount = 5;      
 
         /// <summary>
         /// Constructs <see cref="CPUResults"/> with
@@ -25,10 +27,14 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <param name="rs">Takes in an initial <see cref="RipperSettings"/>
         /// but is marked <see langword="readonly"/> internally.</param>
+        /// <param name="ui">The main UI to changed the UI.</param>
+        /// <param name="userData">The <see cref="UserData"/> to get the
+        /// UserType from.</param>
 
-        public CPUResults(RipperSettings rs) {
+        public CPUResults(RipperSettings rs, ref UserData userData) {
             this.TestCollection = new List<TimeSpan>();
             this.rs = rs;
+            this.userData = userData;
         }
 
         /// <summary>
@@ -47,8 +53,9 @@ namespace PC_Ripper_Benchmark.util {
         /// Represents the description for test.
         /// </summary>
 
-        public override string Description => GenerateDescription();
-
+        public override string Description => userData.IsAdvanced == UserData.UserSkill.Advanced ?
+            GenerateAdvancedDescription() : GenerateBeginnerDescription();
+        
         /// <summary>
         /// The number of different tests for the CPU component.
         /// </summary>
@@ -145,7 +152,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <returns></returns>
         /// <exception cref="UnknownTestException"></exception>
         
-        protected override string GenerateDescription() {
+        protected override string GenerateAdvancedDescription() {
 
             // Checking the worst case scenario. if these dont equal, something bad happened.
             if (this.UniqueTestCount * this.rs.IterationsPerCPUTest != this.TestCollection.Count) {
@@ -207,9 +214,6 @@ namespace PC_Ripper_Benchmark.util {
                 index++;
             }
 
-            // total time of all tests. 
-            desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
 
             // average per test.
             desc += Environment.NewLine;
@@ -238,8 +242,12 @@ namespace PC_Ripper_Benchmark.util {
                 GenerateAverageTest(this.TestCollection, TestName.CPUTree);
             desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
 
+            // total time of all tests. 
+            desc += "Total duration of the test:";
+            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+
             // score for the test.
-            desc += Environment.NewLine + Environment.NewLine;
+            desc += Environment.NewLine;
 
             desc += $"The score for this test is {this.Score}.";
 
@@ -247,6 +255,22 @@ namespace PC_Ripper_Benchmark.util {
             desc += "(Algorithm not implemented for generating a score)";
             return desc;
 
+        }
+
+        protected override string GenerateBeginnerDescription() {
+            string desc = string.Empty;
+
+            desc += "Total duration of the test:";
+            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+
+            // score for the test.
+            desc += Environment.NewLine;
+
+            desc += $"The score for this test is {this.Score}.";
+
+            desc += Environment.NewLine + Environment.NewLine;
+            desc += "(Algorithm not implemented for generating a score)";
+            return desc;
         }
 
         /// <summary>
@@ -261,5 +285,7 @@ namespace PC_Ripper_Benchmark.util {
         protected override byte GenerateScore() {
             return 0;
         }
+
+
     }
 }
