@@ -83,7 +83,6 @@ namespace PC_Ripper_Benchmark.function {
                         ui.txtBlkResults.Text = "Results for the CPU test:";
                     });
 
-
                     ui.Dispatcher.Invoke(() => {
                         ui.ShowTabWindow(Tab.RESULTS);
                     });
@@ -193,7 +192,6 @@ namespace PC_Ripper_Benchmark.function {
             ui.Dispatcher.Invoke(() => {
                 ui.txtBlkResults.Text = "Results for the CPU test:";
             });
-
 
             ui.Dispatcher.Invoke(() => {
                 ui.ShowTabWindow(Tab.RESULTS);
