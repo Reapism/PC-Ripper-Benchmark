@@ -39,16 +39,16 @@
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="iter_disk_foldermatrix" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">5000</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="iter_disk_bulkfile" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">5000</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="iter_disk_readwrite" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">5000</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="iter_disk_diskripper" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">5000</Value>
+      <Value Profile="(Default)">25</Value>
     </Setting>
     <Setting Name="Connection_String" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
