@@ -308,5 +308,77 @@ namespace PC_Ripper_Benchmark.database
             //Set the answer returned by the query to a variable for comparison
             return (string)getSecurityQuestionAnswer.ExecuteScalar();
         }
-    }
+
+
+        public bool ChangeUserSettings(UserData.UserSkill skill, UserData.TypeOfUser type, string email)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
+                {
+                    SqlCommand changeUserSettings = new SqlCommand("ChangeUserSettings", this.Connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    //this.Connection.Open();
+                    changeUserSettings.Parameters.AddWithValue("@UserSkill", skill);
+                    changeUserSettings.Parameters.AddWithValue("@TypeOfUser", type);
+                    changeUserSettings.Parameters.AddWithValue("@Email", email);
+
+                    changeUserSettings.ExecuteNonQuery();
+                    this.Connection.Close();
+                    MessageBox.Show("Account Settings Changed");
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("Error changing settings", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.Connection.Close();
+                return false;
+            }
+        }
+
+        public bool addUserResults(string email, string results)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
+                {
+                    SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    //this.Connection.Open();
+                    changeUserSettings.Parameters.AddWithValue("@Email", email);
+                    changeUserSettings.Parameters.AddWithValue("@Results", results);
+
+                    changeUserSettings.ExecuteNonQuery();
+                    this.Connection.Close();
+                    MessageBox.Show("Results Added");
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("Computer results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.Connection.Close();
+                return false;
+            }
+        }
+    }  
 }
