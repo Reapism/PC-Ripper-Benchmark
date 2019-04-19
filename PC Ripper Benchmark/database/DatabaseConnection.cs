@@ -205,8 +205,8 @@ namespace PC_Ripper_Benchmark.database
                     HashManager encrypter = new HashManager();
 
                     SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email AND Password=@Password", this.Connection);
-                    email = encrypter.HashTextSHA256(email.ToUpper().Trim());
-                    password = encrypter.HashTextSHA256(password.ToUpper().Trim());
+                    email = encrypter.HashTextSHA256(email.Trim());
+                    password = encrypter.HashUniqueTextSHA256(password.Trim());
 
                     checkAccount.Parameters.AddWithValue("@Email", email);
                     checkAccount.Parameters.AddWithValue("@Password", password);

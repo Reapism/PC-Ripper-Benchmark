@@ -124,7 +124,7 @@ namespace PC_Ripper_Benchmark.window {
                     LastName = this.lastNameTextBox.Text,
                     Email = encrypter.HashTextSHA256(this.emailTextBox.Text),
                     PhoneNumber = encrypter.HashTextSHA256(this.phoneTextBox.Text),
-                    Password = encrypter.HashTextSHA256(this.userPasswordBox.Password),
+                    Password = encrypter.HashUniqueTextSHA256(this.userPasswordBox.Password),
                     SecurityQuestion = this.securityQuestionComboBox.Text,
                     SecurityQuestionAnswer = encrypter.HashTextSHA256(this.securityQuestionTextBox.Text)
                 };
