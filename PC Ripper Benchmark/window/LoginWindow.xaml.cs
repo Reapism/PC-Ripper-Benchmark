@@ -48,8 +48,8 @@ namespace PC_Ripper_Benchmark.window {
             SystemSettings systemSettings = new SystemSettings();
 
             if (emailTextBox.Text.Length < 1 || passwordBox.Password.Length < 1) {
-                MessageBox.Show("Please enter both a email and password!",
-                    "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("Please enter both an email and password!",
+                    "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

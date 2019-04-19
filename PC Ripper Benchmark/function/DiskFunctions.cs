@@ -64,7 +64,7 @@ namespace PC_Ripper_Benchmark.function {
 
         public DiskFunctions(ref RipperSettings rs) {
             this.rs = rs;
-            this.fileExt = "ripperblk";
+            this.fileExt = ".ripperblk";
             this.charList = ("abcdefghijklmnopqrstuvwxyz" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").ToCharArray();
             this.rnd = new Random();
@@ -231,6 +231,7 @@ namespace PC_Ripper_Benchmark.function {
             GenerateConfigFile(this.WorkingDir, TestName.DISKFolderMatrix);
             FolderMatrixSnapshot(this.WorkingDir);
             DeleteDirectories(this.WorkingDir);
+            DeleteConfigFile(this.WorkingDir);
 
             sw.Stop();
             return sw.Elapsed;
@@ -395,6 +396,12 @@ namespace PC_Ripper_Benchmark.function {
             };
 
             if (folderBrowser.ShowDialog() == DialogResult.OK) {
+                if (!IsDirectoryEmpty(folderBrowser.SelectedPath + "\\")) {
+                    MessageBox.Show($"The following path is not empty. " +
+                    $"Please specify an empty directory.", "NonEmptyDirectory"
+                    , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
                 path = folderBrowser.SelectedPath + "\\";
                 this.WorkingDir = path;
             }
@@ -419,12 +426,29 @@ namespace PC_Ripper_Benchmark.function {
             };
 
             if (folderBrowser.ShowDialog() == DialogResult.OK) {
+                if (!IsDirectoryEmpty(folderBrowser.SelectedPath + "\\")) {
+                    MessageBox.Show($"The following path is not empty. " +
+                        $"Please specify an empty directory.", "NonEmptyDirectory"
+                        , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
                 path = folderBrowser.SelectedPath + "\\";
                 this.WorkingDir = path;
             }
 
             return Directory.Exists(path);
         }
+
+        /// <summary>
+        /// Returns whether a given directory in
+        /// a path is empty or not.
+        /// </summary>
+        /// <param name="path">The path to check.</param>
+        /// <returns></returns>
+
+        private bool IsDirectoryEmpty(string path) =>
+            Directory.GetFileSystemEntries(path).Length == 0;
 
         /// <summary>
         /// Attempts to generate a configuration file
@@ -473,10 +497,11 @@ namespace PC_Ripper_Benchmark.function {
 
             // create a file config.ripperblk with a description in it.
             try {
-                fileName = Path.Combine(path, "config." + this.fileExt);
+                fileName = Path.Combine(path, "config" + this.fileExt);
 
                 writer = new StreamWriter(fileName, true);
                 writer.Write(data);
+                writer.Flush();
                 writer.Close();
             } catch {
                 return false;
@@ -518,7 +543,7 @@ namespace PC_Ripper_Benchmark.function {
 
             try {
                 d = new DirectoryInfo(path);
-                Files = d.GetFiles($"config*");
+                Files = d.GetFiles($"config{this.fileExt}");
             } catch {
                 return;
             }
@@ -549,7 +574,7 @@ namespace PC_Ripper_Benchmark.function {
 
             for (ulong u = 0; u < this.rs.IterationsDISKFolderMatrix; u++) {
                 try {
-                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, u.ToString()));
+                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, "FolderMatrix" + u.ToString()));
                 } catch {
                     continue;
                 }
@@ -557,7 +582,31 @@ namespace PC_Ripper_Benchmark.function {
         }
 
         /// <summary>
-        /// Creates .ripperblk files in a directory.
+        /// Creates the folder structure 
+        /// for the FolderMatrix algorithm.
+        /// <para>Internally catches exceptions,
+        /// and reports them as a <see cref="MessageBox"/>
+        /// to the caller.</para>
+        /// </summary>
+        /// <param name="path">The path to create 
+        /// subdirectories within.</param>
+        /// <param name="iterations">Optionally pass the number
+        /// of folders to create.</param>
+
+        private void FolderMatrixSnapshot(string path, ulong iterations) {
+            DirectoryInfo directoryInfo;
+
+            for (ulong u = 0; u < iterations; u++) {
+                try {
+                    directoryInfo = Directory.CreateDirectory(Path.Combine(path, "FolderMatrix" + u.ToString()));
+                } catch {
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates N .ripperblk files in a directory.
         /// </summary>
         /// <param name="path">The path to create 
         /// files within.</param>
@@ -571,18 +620,26 @@ namespace PC_Ripper_Benchmark.function {
 
             // Write each file.
 
-            fileName = Path.Combine(path, $"BULK{GetRandomString(15)}.{this.fileExt}");
-            fileStream = File.Create(fileName);
+            for (ulong u = 0; u < this.rs.IterationsDiskBulkFile; u++) {
 
-            writer = new StreamWriter(fileStream, Encoding.UTF8) {
-                AutoFlush = true
-            };
+                try {
+                    fileName = Path.Combine(path, $"BULK{GetRandomString(15)}{this.fileExt}");
+                    fileStream = File.Create(fileName);
 
-            writer.Write(GenerateBulkData());
+                    writer = new StreamWriter(fileStream, Encoding.UTF8) {
+                        AutoFlush = true
+                    };
 
-            writer.Flush();
-            writer.Close();
-            fileStream.Close();
+                    writer.Write(GenerateBulkData());
+
+                    writer.Flush();
+                    writer.Close();
+                    fileStream.Close();
+                } catch {
+                    continue;
+                }
+            }
+
         }
 
 
@@ -607,16 +664,19 @@ namespace PC_Ripper_Benchmark.function {
         /// <summary>
         /// Creates a large file with
         /// N random number iterations inside.
+        /// <para></para>(sizeof(int) * N = bytes)
         /// </summary>
         /// <param name="path">The directory to 
         /// create the file in.</param>
+        /// <param name="name">The name of the
+        /// file to generate. (No extension)</param>
 
-        private void ReadWriteSnapshot(string path) {
+        private void ReadWriteSnapshot(string path, string name = "READWRITE") {
             FileStream fileStream;
             StreamReader sr;
             StreamWriter writer;
 
-            string filePath = Path.Combine(path, $"BULK.{this.fileExt}");
+            string filePath = Path.Combine(path, $"{name}{this.fileExt}");
 
             try {
                 fileStream = File.Create(filePath);
@@ -626,7 +686,7 @@ namespace PC_Ripper_Benchmark.function {
 
                 // Write each file.
                 for (ulong i = 0; i < this.rs.IterationsDiskReadWriteParse; i++) {
-                    writer.Write(this.rnd.Next());
+                    writer.Write(GenerateBulkData());
                 }
 
                 writer.Close();
@@ -652,11 +712,11 @@ namespace PC_Ripper_Benchmark.function {
         /// create directories and files within.</param>
 
         private void DiskRipperSnapshot(string path) {
-            FolderMatrixSnapshot(path);
+            // create DiskRipper iteration number of folders.
+            FolderMatrixSnapshot(path, this.rs.IterationsDiskRipper);
 
             DirectoryInfo d = new DirectoryInfo(path);
-            DirectoryInfo[] directories = d.GetDirectories($"*");
-            FileStream fs;
+            DirectoryInfo[] directories = d.GetDirectories($"FolderMatrix*");
 
             ulong u = 0;
 
@@ -664,12 +724,11 @@ namespace PC_Ripper_Benchmark.function {
                 try {
                     // creates a DiskRipper file in every directory from
                     // FolderMatrix algorithm.
-                    fs = File.Create(Path.Combine(path, u.ToString(),
-                        $"DiskRipper{u.ToString() + GetRandomString(6)}.{this.fileExt}"));
-                    StreamWriter sw = new StreamWriter(fs);
-                    sw.WriteLine(GenerateBulkData());
-                    sw.Flush();
-                    sw.Close(); // critical part. 
+                    // FolderMatrix0/DiskRipper.ripperblk
+                    string new_path = Path.Combine(this.WorkingDir, dir.Name);
+                    ReadWriteSnapshot(new_path, "DiskRipper");
+                    DeleteDirectory(this.WorkingDir, "FolderMatrix" + u.ToString()); // delete folder and sub folder
+                    
                     u++;
                 } catch {
                     continue;
@@ -687,13 +746,33 @@ namespace PC_Ripper_Benchmark.function {
 
         private void DeleteDirectories(string path, bool recursiveDelete = false) {
             DirectoryInfo d = new DirectoryInfo(path);
-            DirectoryInfo[] directories = d.GetDirectories($"*", SearchOption.TopDirectoryOnly);
+            DirectoryInfo[] directories = d.GetDirectories($"FolderMatrix*", SearchOption.TopDirectoryOnly);
 
             foreach (DirectoryInfo dir in directories) {
                 try {
                     Directory.Delete(dir.FullName, recursiveDelete);
                 } catch (Exception e) {
-                    //File.AppendAllText(Path.Combine(this.WorkingDir, "config.ripperblk"), e.ToString());
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete a directory within a directory.
+        /// Used for cleaning up an individual folder named
+        /// name.
+        /// </summary>
+        /// <param name="path">The parent path to delete the directory in.</param>
+        /// <param name="name">The name of the folder to delete.</param>
+
+        private void DeleteDirectory(string path, string name) {
+            DirectoryInfo d = new DirectoryInfo(path);
+            DirectoryInfo[] directories = d.GetDirectories(name, SearchOption.TopDirectoryOnly);
+
+            foreach (DirectoryInfo dir in directories) {
+                try {
+                    Directory.Delete(dir.FullName, true);
+                } catch {
                     continue;
                 }
             }
@@ -702,21 +781,36 @@ namespace PC_Ripper_Benchmark.function {
         /// <summary>
         /// Delete files in a directory used for 
         /// cleaning up the disk after the tests.
+        /// <para>Deletes files with .ripperblk extension</para>
         /// </summary>
         /// <param name="path">The path to delete 
         /// files within.</param>
 
         private void DeleteFiles(string path) {
             DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] Files = d.GetFiles($"*");
+            FileInfo[] Files = d.GetFiles($"*{this.fileExt}");
 
             foreach (FileInfo dir in Files) {
                 try {
                     File.Delete(dir.FullName);
                 } catch (Exception e) {
-                    // File.AppendAllText(Path.Combine(this.WorkingDir, "config.ripperblk"), e.ToString());
                     continue;
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes a single file from a given path.
+        /// </summary>
+        /// <param name="path">The path to delete 
+        /// files within.</param>
+
+        private void DeleteFile(string path) {
+            try {
+                File.Delete(path);
+            } catch {
+                return;
             }
         }
 

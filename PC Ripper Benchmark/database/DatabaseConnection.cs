@@ -202,11 +202,11 @@ namespace PC_Ripper_Benchmark.database
                 {
                     this.Connection.Open();
 
-                    Encryption encrypter = new Encryption();
+                    HashManager encrypter = new HashManager();
 
                     SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email AND Password=@Password", this.Connection);
-                    email = encrypter.EncryptText(email.ToUpper().Trim());
-                    password = encrypter.EncryptText(password.ToUpper().Trim());
+                    email = encrypter.HashTextSHA256(email.ToUpper().Trim());
+                    password = encrypter.HashTextSHA256(password.ToUpper().Trim());
 
                     checkAccount.Parameters.AddWithValue("@Email", email);
                     checkAccount.Parameters.AddWithValue("@Password", password);
@@ -260,10 +260,10 @@ namespace PC_Ripper_Benchmark.database
                 {
                     this.Connection.Open();
 
-                    Encryption encrypter = new Encryption();
+                    HashManager encrypter = new HashManager();
 
                     SqlCommand checkAccount = new SqlCommand("SELECT * FROM [USER] where Email=@Email", this.Connection);
-                    email = encrypter.EncryptText(email.ToUpper().Trim());
+                    email = encrypter.HashTextSHA256(email.ToUpper().Trim());
 
                     checkAccount.Parameters.AddWithValue("@Email", email);
                     checkAccount.ExecuteNonQuery();

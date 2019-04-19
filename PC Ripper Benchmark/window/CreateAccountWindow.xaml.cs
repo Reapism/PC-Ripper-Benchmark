@@ -116,17 +116,17 @@ namespace PC_Ripper_Benchmark.window {
                this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
 
                 //New instance of encryption class
-                util.Encryption encrypter = new util.Encryption();
+                util.HashManager encrypter = new util.HashManager();
 
                 util.UserData newUser = new util.UserData {
                     //Encrypt user data and set to newUser object
                     FirstName = this.firstNameTextBox.Text,
                     LastName = this.lastNameTextBox.Text,
-                    Email = encrypter.EncryptText(this.emailTextBox.Text),
-                    PhoneNumber = encrypter.EncryptText(this.phoneTextBox.Text),
-                    Password = encrypter.EncryptText(this.userPasswordBox.Password),
+                    Email = encrypter.HashTextSHA256(this.emailTextBox.Text),
+                    PhoneNumber = encrypter.HashTextSHA256(this.phoneTextBox.Text),
+                    Password = encrypter.HashTextSHA256(this.userPasswordBox.Password),
                     SecurityQuestion = this.securityQuestionComboBox.Text,
-                    SecurityQuestionAnswer = encrypter.EncryptText(this.securityQuestionTextBox.Text)
+                    SecurityQuestionAnswer = encrypter.HashTextSHA256(this.securityQuestionTextBox.Text)
                 };
 
                 // SQL Connection String

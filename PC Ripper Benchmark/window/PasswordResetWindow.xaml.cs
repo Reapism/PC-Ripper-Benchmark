@@ -16,7 +16,7 @@ namespace PC_Ripper_Benchmark.window {
 
         #region Instance variables (fields).
 
-        private Encryption encryption;
+        private HashManager encryption;
         private Popup codePopup;
         private TextBlock popupContent;
         private SystemSettings networkConnection;
@@ -73,7 +73,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void Instantiate() {
             this.count = 3;
-            this.encryption = new Encryption();
+            this.encryption = new HashManager();
             this.codePopup = new Popup();
             this.popupContent = new TextBlock();
             this.networkConnection = new SystemSettings();
@@ -100,7 +100,7 @@ namespace PC_Ripper_Benchmark.window {
                             this.confirmSecurityAnswerButton.Visibility = Visibility.Visible;
 
                             //Command to get the actual answered security question
-                            string email = this.encryption.EncryptText(this.emailTextBox.Text);
+                            string email = this.encryption.HashTextSHA256(this.emailTextBox.Text);
                             this.securityQuestionAnswerTextBox.Focus();
 
                             lblSecurityQuestion.Content = newConnection.GetSecurityQuestion(email);
@@ -108,7 +108,7 @@ namespace PC_Ripper_Benchmark.window {
 
                             //Command to get the security question answer for comparison
                             SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", connection);
-                            string securityAnswer = this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text.ToUpper().Trim());
+                            string securityAnswer = this.encryption.HashTextSHA256(this.securityQuestionAnswerTextBox.Text.ToUpper().Trim());
                                                         
                             this.confirmSecurityAnswerButton.Opacity = 100;
 
@@ -142,12 +142,12 @@ namespace PC_Ripper_Benchmark.window {
                     DatabaseConnection newConnection = new DatabaseConnection(connection.ConnectionString);
                     connection.Open();
 
-                    string email = this.encryption.EncryptText(this.emailTextBox.Text);
+                    string email = this.encryption.HashTextSHA256(this.emailTextBox.Text);
 
                     //Set the answer returned by the query to a variable for comparison
                     string answer = newConnection.GetSecurityQuestionAnswer(email);
 
-                    if (this.encryption.EncryptText(this.securityQuestionAnswerTextBox.Text) == answer) {
+                    if (this.encryption.HashTextSHA256(this.securityQuestionAnswerTextBox.Text) == answer) {
                         this.newPasswordLabel.Opacity = 100;
                         this.newPasswordLabel.Visibility = Visibility.Visible;
                         this.newPasswordBox.Opacity = 100;
@@ -193,14 +193,14 @@ namespace PC_Ripper_Benchmark.window {
             connection.Open();
 
             //Command to get the actual answered security question
-            string email = this.encryption.EncryptText(this.emailTextBox.Text.ToUpper().Trim());
+            string email = this.encryption.HashTextSHA256(this.emailTextBox.Text.ToUpper().Trim());
 
             if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password) &&
                    this.newPasswordBox.Password == this.confirmNewPasswordBox.Password) {
                 SqlCommand changePassword = new SqlCommand("UPDATE [USER] SET Password = @Password WHERE Email=@Email", connection);
                 //Fill the parameter of the query
                 changePassword.Parameters.AddWithValue("@Email", email);
-                changePassword.Parameters.AddWithValue("@Password", this.encryption.EncryptText(this.confirmNewPasswordBox.Password));
+                changePassword.Parameters.AddWithValue("@Password", this.encryption.HashTextSHA256(this.confirmNewPasswordBox.Password));
                 changePassword.ExecuteNonQuery();
 
                 MessageBox.Show("Password Changed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

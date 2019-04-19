@@ -434,7 +434,7 @@ namespace PC_Ripper_Benchmark.window {
 
             try {
                 this.Dispatcher.Invoke(() => {
-                   ram.RunRAMBenchmark(threadType, ref this.userData, this);
+                    ram.RunRAMBenchmark(threadType, ref this.userData, this);
                 });
 
             } catch (RipperThreadException ex) {
@@ -507,7 +507,8 @@ namespace PC_Ripper_Benchmark.window {
         private void ValidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = true;
             this.txtBlkWorkingDir.Text = $"Working Directory Path: {path}";
-            this.txtBlkWorkingDir.Foreground = Brushes.DarkOliveGreen;
+            this.txtBlkWorkingDir.Foreground = Brushes.GreenYellow;
+            this.btnBrowseWorkingDir.BorderBrush = Brushes.GreenYellow;
         }
 
         /// <summary>
@@ -521,6 +522,7 @@ namespace PC_Ripper_Benchmark.window {
             this.btnDiskRunTest.IsEnabled = false;
             this.txtBlkWorkingDir.Text = $"Invalid path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.LightSalmon;
+            this.btnBrowseWorkingDir.BorderBrush = Brushes.Gold;
         }
 
         /// <summary>
