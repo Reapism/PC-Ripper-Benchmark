@@ -95,7 +95,7 @@ namespace PC_Ripper_Benchmark.util {
             desc += Environment.NewLine;
 
             byte index = 0;
-
+            
             for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
                 desc += $"\t{GetTestName(TestName.DISKFolderMatrix)}[{b + 1}] - " +
                     $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
