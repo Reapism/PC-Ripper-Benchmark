@@ -120,8 +120,8 @@ namespace PC_Ripper_Benchmark.window {
 
                 util.UserData newUser = new util.UserData {
                     //Encrypt user data and set to newUser object
-                    FirstName = this.firstNameTextBox.Text,
-                    LastName = this.lastNameTextBox.Text,
+                    FirstName = this.firstNameTextBox.Text.ToUpper(),
+                    LastName = this.lastNameTextBox.Text.ToUpper(),
                     Email = encrypter.HashTextSHA256(this.emailTextBox.Text),
                     PhoneNumber = encrypter.HashTextSHA256(this.phoneTextBox.Text),
                     Password = encrypter.HashUniqueTextSHA256(this.userPasswordBox.Password),
