@@ -765,5 +765,8 @@ namespace PC_Ripper_Benchmark.window {
             ExportResults(ExportType.TEXTFILE, this.txtComputerSpecs);
         }
 
+        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

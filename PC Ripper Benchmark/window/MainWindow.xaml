@@ -185,8 +185,8 @@
                     <Grid x:Name="grdDisk">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FF6593D6" Offset="1"/>
-                                <GradientStop Color="#FF6493D6"/>
+                                <GradientStop Color="#FFA3C0EA" Offset="1"/>
+                                <GradientStop Color="#FFD7E4F5"/>
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkDisk" Margin="0,6,0,450" MinHeight="60">
@@ -213,7 +213,7 @@
                                     <DropShadowEffect BlurRadius="15"/>
                                 </Image.Effect>
                             </Image>
-                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires an empty directory. Please browse for a directory for the test to be performed. Its recommended to put this file in a new folder on the desktop for accessibility." VerticalAlignment="Bottom" FontSize="16" Foreground="White"/>
+                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires an empty directory. Please browse for a directory for the test to be performed. Its recommended to put this file in a new folder on the desktop for accessibility." VerticalAlignment="Bottom" FontSize="16" Foreground="Red"/>
                             <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Center" Margin="0,0,0,50" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="40" MinWidth="100" Click="BtnBrowseWorkingDir_Click" Foreground="White" Background="#00DDDDDD" BorderBrush="#FFF3FF00"/>
                             <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,23" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="16" Foreground="White"/>
                         </Grid>
@@ -231,20 +231,14 @@
                     <Grid x:Name="grdRAM">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FFB5F1D3" Offset="1"/>
+                                <GradientStop Color="#FFF1F1F1"/>
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkRAM" Margin="0,6,0,464" MinHeight="60">
                             <TextBlock x:Name="txtRAMWelcome" TextWrapping="Wrap" Text="Welcome to the RAM benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636">
-                            <Grid.Background>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#7FFFDFDF" Offset="1"/>
-                                    <GradientStop Color="#3FFDF2F2"/>
-                                </RadialGradientBrush>
-                            </Grid.Background>
+                        <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636" Background="#33FFFFFF">
                             <Image x:Name="imgRamFolderMatrix" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The VirtualFolderMatrix algorithm creates (N) virtual directories in memory with about (N / 2) virtual files in them and reads them back into memory." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
@@ -266,7 +260,7 @@
                             <RadioButton x:Name="radRamSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top"/>
                             <RadioButton x:Name="radRamSingleUI" Content="Single threadedUI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
                             <RadioButton x:Name="radRamMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Button x:Name="btnRamRunTest" Content="Run the RAM test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRamRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                            <Button x:Name="btnRamRunTest" Content="Run the RAM test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRamRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" BorderBrush="White" Foreground="White"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -332,7 +326,7 @@
                                             <StackPanel.Background>
                                                 <RadialGradientBrush>
                                                     <GradientStop Color="#4CFFFFFF"/>
-                                                    <GradientStop Color="#4CCBB2FF" Offset="1"/>
+                                                    <GradientStop Color="#4CC0ADE8" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </StackPanel.Background>
                                             <TextBlock x:Name="txtBlkAdvanced" TextWrapping="Wrap" Text="Here are the advanced settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
@@ -346,7 +340,7 @@
                                                     <GradientStop Color="#4C5BD0E2" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </ListBox.Background>
-                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)"/>
+                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)" Click="Menu_cpu_iter_per_test_Click"/>
                                             <MenuItem x:Name="menu_cpu_successorship" Header="Successorship: " ToolTip="Change the number of successorship iterations"/>
                                             <MenuItem x:Name="menu_cpu_boolean" Header="Boolean: " ToolTip="Change the number of boolean iterations"/>
                                             <MenuItem x:Name="menu_cpu_queue" Header="Queue: " ToolTip="Change the number of queue iterations"/>
@@ -377,7 +371,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Results the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
-                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="#FF2C742C" VerticalScrollBarVisibility="Auto">
+                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="White" VerticalScrollBarVisibility="Auto" Foreground="#FF2E6C25">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="menuResultsSelectAll" Header="Select All" Click="MenuResultsSelectAll_Click"/>
@@ -407,6 +401,7 @@
                         <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0,0,0,60"/>
                     </Grid>
                 </TabItem>
+                <TabItem Header="ResultsParts"/>
             </TabControl>
         </Grid>
     </Grid>
