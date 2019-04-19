@@ -109,7 +109,7 @@
     <Compile Include="function\RamFunctions.cs" />
     <Compile Include="function\SystemSettings.cs" />
     <Compile Include="util\DiskResults.cs" />
-    <Compile Include="util\Encryption.cs" />
+    <Compile Include="util\HashManager.cs" />
     <Compile Include="util\RamResults.cs" />
     <Compile Include="util\RegexUtilities.cs" />
     <Compile Include="function\WindowSettings.cs" />
