@@ -57,6 +57,11 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <param name="threadType">The type of threading 
         /// for the test.</param>
+        /// <param name="userData">The <see cref="UserData"/> thats passed
+        /// into the instance for user information but is marked 
+        /// <see langword="readonly"/> internally.</param>
+        /// <param name="ui">The <see cref="MainWindow"/> instance thats passed
+        /// into for UI related tasks for updating components in it.</param>
         /// <returns>A new <see cref="CPUResults"/> instance
         /// containing the result.</returns>
         /// <exception cref="RipperThreadException"></exception>
@@ -85,6 +90,7 @@ namespace PC_Ripper_Benchmark.function {
 
                     ui.Dispatcher.Invoke(() => {
                         ui.ShowTabWindow(Tab.RESULTS);
+                        ui.btnRunTheTest.IsEnabled = true;
                     });
 
                     break;
@@ -158,6 +164,8 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <param name="results">The <see cref="CPUResults"/> by reference 
         /// to add the <see cref="TimeSpan"/>(s).</param>
+        /// <param name="ui">The <see cref="MainWindow"/> instance thats passed
+        /// into for UI related tasks for updating components in it.</param>
 
         private void RunTestsSingleUI(ref CPUResults results, MainWindow ui) {
             for (byte b = 0; b < this.rs.IterationsPerCPUTest; b++) {
@@ -195,6 +203,7 @@ namespace PC_Ripper_Benchmark.function {
 
             ui.Dispatcher.Invoke(() => {
                 ui.ShowTabWindow(Tab.RESULTS);
+                ui.btnRunTheTest.IsEnabled = true;
             });
         }
 

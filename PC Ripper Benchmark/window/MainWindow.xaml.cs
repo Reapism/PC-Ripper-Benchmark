@@ -51,6 +51,29 @@ namespace PC_Ripper_Benchmark.window {
 
         public MainWindow() {
             InitializeComponent();
+            Instantiate();
+            GetComputerSpecs();
+            InstantiateAdvancedSettings();
+        }
+
+        /// <summary>
+        /// Parameterized const
+        /// </summary>
+        /// <param name="userData"></param>
+
+        public MainWindow(UserData userData) : this() {
+            this.userData = userData;
+            WindowSettings ws = new WindowSettings();
+            ws.CenterWindowOnScreen(this);
+            GetWelcomeText();
+        }
+
+        /// <summary>
+        /// Instantiates this <see cref="MainWindow"/>
+        /// instance with default behaviors.
+        /// </summary>
+
+        private void Instantiate() {
             this.testToRun = Tab.WELCOME;
             this.rs = new RipperSettings();
             this.ws = new WindowSettings();
@@ -69,21 +92,9 @@ namespace PC_Ripper_Benchmark.window {
 
             this.ws.NavigationMenu(this);
 
-            GetComputerSpecs();
-
-            InstantiateAdvancedSettings();
-        }
-
-        /// <summary>
-        /// Parameterized const
-        /// </summary>
-        /// <param name="userData"></param>
-
-        public MainWindow(UserData userData) : this() {
-            this.userData = userData;
-            WindowSettings ws = new WindowSettings();
-            ws.CenterWindowOnScreen(this);
-            GetWelcomeText();
+            this.radCPUSingleUI.IsChecked = true;
+            this.radRamSingleUI.IsChecked = true;
+            this.radDiskSingleUI.IsChecked = true;
         }
 
         /// <summary>
@@ -419,8 +430,6 @@ namespace PC_Ripper_Benchmark.window {
                 threadType = ThreadType.Single;
             } else if (this.radRamSingleUI.IsChecked == true) {
                 threadType = ThreadType.SingleUI;
-            } else if (this.radRamMultithread.IsChecked == true) {
-                threadType = ThreadType.Multithreaded;
             } else {
                 MessageBox.Show("Please select a type of test you'd like to perform.",
                     "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -454,8 +463,6 @@ namespace PC_Ripper_Benchmark.window {
                 threadType = ThreadType.Single;
             } else if (this.radDiskSingleUI.IsChecked == true) {
                 threadType = ThreadType.SingleUI;
-            } else if (this.radDiskMultithread.IsChecked == true) {
-                threadType = ThreadType.Multithreaded;
             } else {
                 MessageBox.Show("Please select a type of test you'd like to perform.",
                     "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -637,6 +644,7 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void BtnRunTheTest_Click(object sender, RoutedEventArgs e) {
+            this.btnRunTheTest.IsEnabled = false;
             RunTest();
         }
 

@@ -29,6 +29,8 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <param name="rs">Takes in an initial <see cref="RipperSettings"/>
         /// but is marked <see langword="readonly"/> internally.</param>
+        /// <param name="userData">The <see cref="UserData"/> to get the
+        /// UserType from.</param>
 
         public RamResults(RipperSettings rs, ref UserData userData) {
             this.TestCollection = new List<TimeSpan>();
@@ -207,6 +209,13 @@ namespace PC_Ripper_Benchmark.util {
             return desc;
 
         }
+
+        /// <summary>
+        /// Represents a more simplified description for the results.
+        /// Generated if the underlying user is a 
+        /// <see cref="UserData.UserSkill.Beginner"/>.
+        /// </summary>
+        /// <returns></returns>
 
         protected override string GenerateBeginnerDescription() {
             string desc = string.Empty;

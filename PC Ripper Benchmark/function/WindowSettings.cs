@@ -25,10 +25,12 @@ namespace PC_Ripper_Benchmark.function {
         private const double btnHeightExpanded = 70;
         private const double btnHeightContracted = 30;
 
-        private bool isNavigationShown;
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
 
         public WindowSettings() {
-            this.isNavigationShown = false;
+
         }
 
         /// <summary>

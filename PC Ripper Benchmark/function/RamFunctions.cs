@@ -49,6 +49,11 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <param name="threadType">The type of threading 
         /// for the test.</param>
+        /// <param name="userData">The <see cref="UserData"/> thats passed
+        /// into the instance for user information but is marked 
+        /// <see langword="readonly"/> internally.</param>
+        /// <param name="ui">The <see cref="MainWindow"/> instance thats passed
+        /// into for UI related tasks for updating components in it.</param>
         /// <returns>A new <see cref="RamResults"/> instance
         /// containing the result.</returns>
         /// <exception cref="RipperThreadException"></exception>
@@ -77,6 +82,7 @@ namespace PC_Ripper_Benchmark.function {
 
                     ui.Dispatcher.Invoke(() => {
                         ui.ShowTabWindow(Tab.RESULTS);
+                        ui.btnRunTheTest.IsEnabled = true;
                     });
 
                     break;
@@ -169,6 +175,7 @@ namespace PC_Ripper_Benchmark.function {
 
             ui.Dispatcher.Invoke(() => {
                 ui.ShowTabWindow(Tab.RESULTS);
+                ui.btnRunTheTest.IsEnabled = true;
             });
         }
 

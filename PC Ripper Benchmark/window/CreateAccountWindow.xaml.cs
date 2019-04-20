@@ -422,7 +422,7 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
-        // <summary>
+        /// <summary>
         /// Event handler for UserPasswordBox "PasswordChanged" event in <see cref="CreateAccountWindow"/>.
         /// <para>When the password passwordBox changes, and contains a valid/invalid password, the border color and thickness 
         /// change<see cref="window.CreateAccountWindow"/></para>
@@ -440,7 +440,7 @@ namespace PC_Ripper_Benchmark.window {
         }
         #endregion
         #region Border Color Confirm Password
-        // <summary>
+        /// <summary>
         /// Event handler for ConfirmUserPasswordBox "PasswordChanged" event in <see cref="CreateAccountWindow"/>.
         /// <para>When the confirmUserpassword passwordBox changes, and contains a valid/invalid password, the border color and thickness 
         /// change<see cref="window.CreateAccountWindow"/></para>

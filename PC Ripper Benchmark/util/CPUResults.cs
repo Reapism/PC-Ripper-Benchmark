@@ -19,7 +19,7 @@ namespace PC_Ripper_Benchmark.util {
 
         private readonly RipperSettings rs;
         private readonly UserData userData;
-        private const byte uniqueTestCount = 5;      
+        private const byte uniqueTestCount = 5;
 
         /// <summary>
         /// Constructs <see cref="CPUResults"/> with
@@ -27,7 +27,6 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <param name="rs">Takes in an initial <see cref="RipperSettings"/>
         /// but is marked <see langword="readonly"/> internally.</param>
-        /// <param name="ui">The main UI to changed the UI.</param>
         /// <param name="userData">The <see cref="UserData"/> to get the
         /// UserType from.</param>
 
@@ -257,6 +256,13 @@ namespace PC_Ripper_Benchmark.util {
 
         }
 
+        /// <summary>
+        /// Represents a more simplified description for the results.
+        /// Generated if the underlying user is a 
+        /// <see cref="UserData.UserSkill.Beginner"/>.
+        /// </summary>
+        /// <returns></returns>
+
         protected override string GenerateBeginnerDescription() {
             string desc = string.Empty;
 
@@ -274,10 +280,10 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         /// <summary>
-        /// Generates a score that takes in the number of iterations
+        /// Generates a score between 0-100 that takes in the number of iterations
         /// per test, how much iterations performed per second/tick,
-        /// and total execution time for all tests.
-        /// <para>Result will be from 0-100</para>
+        /// and total execution time for all tests and compares it to the base
+        /// computer spec.
         /// <para>101+ will be errors</para>
         /// </summary>
         /// <returns></returns>
