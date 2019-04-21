@@ -1,5 +1,11 @@
 # PC-Ripper-Benchmark
-The PC-Ripper-Benchmark application is for Senior project BCS 430W. 
+The PC-Ripper-Benchmark application is for Senior project BCS 430W. The
+program benchmarks individual components on the PC and generates a score based
+on an custom algorithm. Depending on the type of user you choose to be with
+your account, the application will generate different results and information
+on the UI. The program features a login system that can store the account information
+and results generated from the application. It has the ability to also query
+the database for parts that are recommended for your PC.
 The is an extension of my original work located here: https://github.com/Reapism/CPU-Ripper
 
 # Running the setup
