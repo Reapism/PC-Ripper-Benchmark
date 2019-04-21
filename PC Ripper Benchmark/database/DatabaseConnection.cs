@@ -295,7 +295,7 @@ namespace PC_Ripper_Benchmark.database {
             }
         }
 
-        public bool addUserResults(string email, string results) {
+        public bool AddUserResults(string email, string results) {
             try {
                 if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
                     SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection) {
@@ -316,7 +316,7 @@ namespace PC_Ripper_Benchmark.database {
                 }
 
             } catch (SqlException e) {
-                MessageBox.Show("Computer results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Computer results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Connection.Close();
                 return false;
             }
