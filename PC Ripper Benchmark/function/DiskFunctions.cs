@@ -456,8 +456,15 @@ namespace PC_Ripper_Benchmark.function {
         /// <param name="path">The path to check.</param>
         /// <returns></returns>
 
-        private bool IsDirectoryEmpty(string path) =>
-            Directory.GetFileSystemEntries(path).Length == 0;
+        private bool IsDirectoryEmpty(string path) {
+            try {
+                bool b = Directory.GetFileSystemEntries(path).Length == 0;
+                return b;
+            } catch {
+                return false;
+            }
+        }
+            
 
         /// <summary>
         /// Attempts to generate a configuration file

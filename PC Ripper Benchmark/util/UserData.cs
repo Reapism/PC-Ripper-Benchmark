@@ -1,4 +1,7 @@
-﻿namespace PC_Ripper_Benchmark.util {
+﻿using System;
+using System.Windows;
+
+namespace PC_Ripper_Benchmark.util {
     /// <summary>
     /// The <see cref="UserData"/> class.
     /// <para></para>Object class to be created when a user signs up
@@ -136,7 +139,7 @@
         private uint GetUserSkillInt() {
             uint num = 0;
 
-            switch (IsAdvanced) {
+            switch (this.IsAdvanced) {
                 case UserSkill.Beginner: {
                     num += (int)UserSkill.Beginner;
                     break;
@@ -160,7 +163,7 @@
         public string GetUserSkillString() {
             string name = string.Empty;
 
-            switch (IsAdvanced) {
+            switch (this.IsAdvanced) {
                 case UserSkill.Beginner: {
                     name = "Beginner";
                     break;
@@ -184,7 +187,7 @@
         private uint GetTypeOfUserInt() {
             uint num = 0;
 
-            switch (UserType) {
+            switch (this.UserType) {
                 case TypeOfUser.Casual: {
                     num += (int)TypeOfUser.Casual;
                     break;
@@ -218,7 +221,7 @@
         public string GetTypeOfUserString() {
             string name = string.Empty;
 
-            switch (UserType) {
+            switch (this.UserType) {
                 case TypeOfUser.Casual: {
                     name = "Casual";
                     break;
@@ -244,14 +247,13 @@
         }
 
 
-        public static string UppercaseFirst(string s)
-        {
+        public static string UppercaseFirst(string s) {
             // Check for empty string.
-            if (string.IsNullOrEmpty(s))
-            {
+            if (string.IsNullOrEmpty(s)) {
                 return string.Empty;
             }
             // Return char and concat substring.
+            s = s.ToLower();
             return char.ToUpper(s[0]) + s.Substring(1);
         }
         #endregion

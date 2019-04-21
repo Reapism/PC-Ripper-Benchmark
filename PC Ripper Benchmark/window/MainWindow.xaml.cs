@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using PC_Ripper_Benchmark.database;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
@@ -147,10 +148,13 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
 
         private void GetWelcomeText() {
-            this.txtblkWelcome.Text = $"Welcome {UserData.UppercaseFirst(this.userData.FirstName)} to the PC Ripper Benchmark.";
-            this.txtBlkWelcomeText.Text = $"Welcome {UserData.UppercaseFirst(this.userData.FirstName)}, check out your account information below! ";
+            this.userData.FirstName = UserData.UppercaseFirst(this.userData.FirstName);
+            this.userData.LastName = UserData.UppercaseFirst(this.userData.LastName);
 
-            this.lblName.Content = $"Profile: {UserData.UppercaseFirst(this.userData.LastName)}, {UserData.UppercaseFirst(this.userData.FirstName)}.";
+            this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} to the PC Ripper Benchmark.";
+            this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}, check out your account information below! ";
+
+            this.lblName.Content = $"Profile: {this.userData.LastName}, {this.userData.FirstName}.";
 
             this.lblTypeOfUser.Content = $"You're using your computer mainly for {this.userData.GetTypeOfUserString()}.";
             this.lblUserSkill.Content = $"You've decided you're an {this.userData.GetUserSkillString()} user.";
@@ -890,12 +894,21 @@ namespace PC_Ripper_Benchmark.window {
         private void MenuLogoutSave_Click(object sender, RoutedEventArgs e) {
             var login = new LoginWindow();
             this.ws.TransitionScreen(login, this);
+            List<Window> w = new List<Window>();
+            foreach (Window window in Application.Current.Windows) {
+                if (typeof(MainWindow).IsInstanceOfType(window)) {
+                    MainWindow mw = (MainWindow)window;
+                    mw.Tag = mw.UniqueInstance;
+                    w.Add(mw);
+                }
+            }
             SaveSettings();
-            Close();
+            CloseWindows(this.UniqueInstance, w.ToArray());
+
         }
 
         private void MenuSettings_Click(object sender, RoutedEventArgs e) {
-            ShowTabWindow(Tab.SETTINGS);
+            BtnSettings_Click(sender, e);
         }
 
         private void MenuAboutProject_Click(object sender, RoutedEventArgs e) {
@@ -911,7 +924,21 @@ namespace PC_Ripper_Benchmark.window {
         #endregion
 
         private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
+            DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
+            db.Open();
 
+            if (this.userData.Email != "guest") {
+                var range = new TextRange(this.txtResults.Document.ContentStart,
+                         this.txtResults.Document.ContentEnd);
+
+                if (db.AddUserResults(this.userData.Email, range.Text)) {
+                    MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
+                        "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            } else {
+                MessageBox.Show($"Cannot send results as a guest!",
+                        "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
