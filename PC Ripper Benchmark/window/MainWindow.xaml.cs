@@ -145,10 +145,10 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
 
         private void GetWelcomeText() {
-            this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} to the PC Ripper Benchmark.";
-            this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}, check out your account information below! ";
+            this.txtblkWelcome.Text = $"Welcome {UserData.UppercaseFirst(this.userData.FirstName)} to the PC Ripper Benchmark.";
+            this.txtBlkWelcomeText.Text = $"Welcome {UserData.UppercaseFirst(this.userData.FirstName)}, check out your account information below! ";
 
-            this.lblName.Content = $"Profile: {this.userData.LastName}, {this.userData.FirstName}.";
+            this.lblName.Content = $"Profile: {UserData.UppercaseFirst(this.userData.LastName)}, {UserData.UppercaseFirst(this.userData.FirstName)}.";
 
             this.lblTypeOfUser.Content = $"You're using your computer mainly for {this.userData.GetTypeOfUserString()}.";
             this.lblUserSkill.Content = $"You've decided you're an {this.userData.GetUserSkillString()} user.";
