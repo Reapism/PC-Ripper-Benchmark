@@ -384,7 +384,7 @@ namespace PC_Ripper_Benchmark.window {
             //Sets the popup values, background property,
             this.popupContent.FontSize = 10;
             this.codePopup.PlacementTarget = this.userPasswordBox;
-            this.popupContent.Text = "Password must contain: \n-One uppercase letter" +
+            this.popupContent.Text = "Password must contain: \n-Minimum of 6 characters\n-One uppercase letter" +
                 "\n-One special character\n-One number";
 
             this.popupContent.Background = Brushes.PeachPuff;
@@ -392,15 +392,6 @@ namespace PC_Ripper_Benchmark.window {
             this.codePopup.Child = this.popupContent;
 
             this.codePopup.IsOpen = true;
-
-            if (util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password)) {
-                this.userPasswordBox.BorderThickness = new Thickness(3.0);
-                this.userPasswordBox.BorderBrush = Brushes.Green;
-                this.codePopup.IsOpen = false;
-            } else {
-                this.userPasswordBox.BorderThickness = new Thickness(3.0);
-                this.userPasswordBox.BorderBrush = Brushes.Red;
-            }
         }
 
 
@@ -434,6 +425,7 @@ namespace PC_Ripper_Benchmark.window {
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Green;
             } else {
+                this.codePopup.IsOpen = true;
                 this.userPasswordBox.BorderThickness = new Thickness(3.0);
                 this.userPasswordBox.BorderBrush = Brushes.Red;
             }
