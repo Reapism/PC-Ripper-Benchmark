@@ -174,9 +174,9 @@
                         </Grid>
                         <Grid x:Name="grdCPUResults" Height="100" Margin="100,0" Width="636" MinWidth="636" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
                             <TextBlock x:Name="txtCPUChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
-                            <RadioButton x:Name="radCPUSingleUI" Content="SingleUI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
-                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False" BorderBrush="White" Foreground="#FF131313"/>
+                            <RadioButton x:Name="radCPUSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black" ToolTip="Runs a purely single threaded test. The resulting effect is a hang or unresponsive window while the test runs."/>
+                            <RadioButton x:Name="radCPUSingleUI" Content="Dual threaded" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black" ToolTip="Recommended: This means that you can still use the program while the test runs."/>
+                            <RadioButton x:Name="radCPUMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False" BorderBrush="White" Foreground="#FF131313" ToolTip="Runs a multithreaded CPU test. This is not implemented."/>
                             <Button x:Name="btnCPURunTest" Content="Run the CPU test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnCPURunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" Foreground="White" BorderBrush="White" FontSize="14"/>
                         </Grid>
                     </Grid>
@@ -185,43 +185,42 @@
                     <Grid x:Name="grdDisk">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FF6593D6" Offset="1"/>
-                                <GradientStop Color="#FF6493D6"/>
+                                <GradientStop Color="#FFA3C0EA" Offset="1"/>
+                                <GradientStop Color="#FFD7E4F5"/>
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkDisk" Margin="0,6,0,450" MinHeight="60">
                             <TextBlock x:Name="txtDiskWelcome" TextWrapping="Wrap" Text="Welcome to the DISK benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center" Height="30" Margin="44,0"/>
                         </StackPanel>
                         <Grid x:Name="grdDiskTests" Margin="0,65,0,100" MinHeight="110" MinWidth="636" Background="#33FFFFFF">
-                            <Image x:Name="imgDiskFolderMatrix" Margin="-600,10,0,100" Source="/PC Ripper Benchmark;component/resources/disk_foldermatrix.png" ToolTip="The FolderMatrix algorithm generates folders in the working directory and reads them back." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                            <Image x:Name="imgDiskFolderMatrix" Margin="-600,10,0,125" Source="/PC Ripper Benchmark;component/resources/disk_foldermatrix.png" ToolTip="The FolderMatrix algorithm generates folders in the working directory and reads them back." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgDiskBulkFile" Height="100" Margin="-200,10,0,100" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_bulkfile.png" ToolTip="The BulkFile algorithm creates files and write data to them in the directories FolderMatrix creates." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgDiskBulkFile" Height="100" Margin="-200,10,0,125" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_bulkfile.png" ToolTip="The BulkFile algorithm creates files and write data to them in the directories FolderMatrix creates." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgDiskReferenceDereference" Height="100" Margin="200,10,0,100" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_readwrite.png" ToolTip="The Read&amp;WriteParse algorithm writes a single large file in the working directory and reads it back into memory from the filesystem." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgDiskReferenceDereference" Height="100" Margin="200,10,0,125" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_readwrite.png" ToolTip="The Read&amp;WriteParse algorithm writes a single large file in the working directory and reads it back into memory from the filesystem." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgDiskRipper" Height="100" Margin="600,10,0,100" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_ripper.png" ToolTip="The DiskRipper algorithm runs the BulkFile algorithm on every directory generated by the FolderMatrix algorithm. [Very Intensive Task] " MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgDiskRipper" Height="100" Margin="600,10,0,125" Width="100" Source="/PC Ripper Benchmark;component/resources/disk_ripper.png" ToolTip="The DiskRipper algorithm runs the BulkFile algorithm on every directory generated by the FolderMatrix algorithm. [Very Intensive Task] " MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15"/>
                                 </Image.Effect>
                             </Image>
-                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,100" TextWrapping="Wrap" Text="Note: This test requires an empty directory. Please browse for a directory for the test to be performed. Its recommended to put this file in a new folder on the desktop for accessibility." VerticalAlignment="Bottom" FontSize="16" Foreground="White"/>
-                            <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Center" Margin="0,0,0,50" VerticalAlignment="Bottom" Width="164" Height="20" MinHeight="40" MinWidth="100" Click="BtnBrowseWorkingDir_Click" Foreground="White" Background="#00DDDDDD" BorderBrush="#FFF3FF00"/>
-                            <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,23" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="16" Foreground="White"/>
+                            <TextBlock x:Name="txtBlkChooseDir" HorizontalAlignment="Center" Margin="70,0,70,80" TextWrapping="Wrap" Text="Note: This test requires an empty directory. Please browse for a directory for the test to be performed. Its recommended to put this file in a new folder on the desktop for accessibility." VerticalAlignment="Bottom" FontSize="18" Foreground="Red"/>
+                            <Button x:Name="btnBrowseWorkingDir" Content="Browse..." HorizontalAlignment="Left" Margin="100,0,0,15" VerticalAlignment="Bottom" Width="164" Height="25" MinHeight="25" MinWidth="100" Click="BtnBrowseWorkingDir_Click" Foreground="White" Background="#00DDDDDD" BorderBrush="#FFF3FF00" ToolTip="Browse for an empty directory!" FontSize="16"/>
+                            <TextBlock x:Name="txtBlkWorkingDir" HorizontalAlignment="Center" Margin="0,0,500,50" TextWrapping="Wrap" Text="Working Directory Path:" VerticalAlignment="Bottom" FontSize="18" Foreground="White" ToolTip="The current working directory for the benchmarking test."/>
                         </Grid>
                         <Grid x:Name="grdDiskResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtDiskChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top" Background="White"/>
-                            <RadioButton x:Name="radDiskSingleUI" Content="Single threaded UI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
-                            <RadioButton x:Name="radDiskMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <RadioButton x:Name="radDiskSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-300,34,0,0" VerticalAlignment="Top" Background="White" ToolTip="Runs a purely single threaded test. The resulting effect is a hang or unresponsive window while the test runs."/>
+                            <RadioButton x:Name="radDiskSingleUI" Content="Dual threaded" HorizontalAlignment="Center" Margin="300,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black" ToolTip="Recommended: This means that you can still use the program while the test runs."/>
                             <Button x:Name="btnDiskRunTest" Content="Run the DISK test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnDiskRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" BorderBrush="White" FontSize="14" Foreground="White"/>
                         </Grid>
 
@@ -231,20 +230,14 @@
                     <Grid x:Name="grdRAM">
                         <Grid.Background>
                             <RadialGradientBrush>
-                                <GradientStop Color="#FFBBBBBB" Offset="1"/>
-                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FFB5F1D3" Offset="1"/>
+                                <GradientStop Color="#FFF1F1F1"/>
                             </RadialGradientBrush>
                         </Grid.Background>
                         <StackPanel x:Name="stkRAM" Margin="0,6,0,464" MinHeight="60">
                             <TextBlock x:Name="txtRAMWelcome" TextWrapping="Wrap" Text="Welcome to the RAM benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636">
-                            <Grid.Background>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#7FFFDFDF" Offset="1"/>
-                                    <GradientStop Color="#3FFDF2F2"/>
-                                </RadialGradientBrush>
-                            </Grid.Background>
+                        <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636" Background="#33FFFFFF">
                             <Image x:Name="imgRamFolderMatrix" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The VirtualFolderMatrix algorithm creates (N) virtual directories in memory with about (N / 2) virtual files in them and reads them back into memory." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
@@ -263,10 +256,9 @@
                         </Grid>
                         <Grid x:Name="grdRamResults" Height="100" Margin="0,192,0,0" Width="636" MinWidth="636" VerticalAlignment="Bottom">
                             <TextBlock x:Name="txtRamChooseThreadType" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="What type of test would you like to perform?" VerticalAlignment="Top" FontSize="18"/>
-                            <RadioButton x:Name="radRamSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-400,34,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="radRamSingleUI" Content="Single threadedUI" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black"/>
-                            <RadioButton x:Name="radRamMultithread" Content="Multi threaded" HorizontalAlignment="Center" Margin="400,34,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                            <Button x:Name="btnRamRunTest" Content="Run the RAM test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRamRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30"/>
+                            <RadioButton x:Name="radRamSingle" Content="Single threaded" HorizontalAlignment="Center" Margin="-300,34,0,0" VerticalAlignment="Top" ToolTip="Runs a purely single threaded test. The resulting effect is a hang or unresponsive window while the test runs."/>
+                            <RadioButton x:Name="radRamSingleUI" Content="Dual threaded" HorizontalAlignment="Center" Margin="300,34,0,0" VerticalAlignment="Top" BorderBrush="White" Foreground="Black" ToolTip="Recommended: This means that you can still use the program while the test runs."/>
+                            <Button x:Name="btnRamRunTest" Content="Run the RAM test" Margin="0,60,0,10" VerticalAlignment="Center" Click="BtnRamRunTest_Click" HorizontalAlignment="Center" Width="124" MinWidth="125" MinHeight="30" Background="#00DDDDDD" BorderBrush="White" Foreground="White"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -332,7 +324,7 @@
                                             <StackPanel.Background>
                                                 <RadialGradientBrush>
                                                     <GradientStop Color="#4CFFFFFF"/>
-                                                    <GradientStop Color="#4CCBB2FF" Offset="1"/>
+                                                    <GradientStop Color="#4CC0ADE8" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </StackPanel.Background>
                                             <TextBlock x:Name="txtBlkAdvanced" TextWrapping="Wrap" Text="Here are the advanced settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
@@ -346,7 +338,7 @@
                                                     <GradientStop Color="#4C5BD0E2" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </ListBox.Background>
-                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)"/>
+                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)" Click="Menu_cpu_iter_per_test_Click"/>
                                             <MenuItem x:Name="menu_cpu_successorship" Header="Successorship: " ToolTip="Change the number of successorship iterations"/>
                                             <MenuItem x:Name="menu_cpu_boolean" Header="Boolean: " ToolTip="Change the number of boolean iterations"/>
                                             <MenuItem x:Name="menu_cpu_queue" Header="Queue: " ToolTip="Change the number of queue iterations"/>
@@ -377,7 +369,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Results the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
-                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="#FF2C742C" VerticalScrollBarVisibility="Auto">
+                        <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="White" VerticalScrollBarVisibility="Auto" Foreground="#FF2E6C25">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="menuResultsSelectAll" Header="Select All" Click="MenuResultsSelectAll_Click"/>
@@ -404,9 +396,13 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <Button x:Name="btnRunTheTest" Content="Run the benchmarking test!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="275" Height="50" FontSize="20" FontFamily="Adobe Garamond Pro" Click="BtnRunTheTest_Click" Background="#00DDDDDD" BorderBrush="White" Foreground="White"/>
-                        <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0,0,0,60"/>
+                        <Border x:Name="brdrPreLoader" BorderBrush="White" BorderThickness="1" Height="305" Margin="0,0,0,60" Width="305" MinWidth="305" MinHeight="305">
+                            <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0"/>
+                        </Border>
+                        <TextBlock x:Name="txtBlkRunningTest" HorizontalAlignment="Center" Margin="0,19,0,0" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Top" FontSize="18" Text="Are you sure you want to run the test?"/>
                     </Grid>
                 </TabItem>
+                <TabItem Header="ResultsParts"/>
             </TabControl>
         </Grid>
     </Grid>

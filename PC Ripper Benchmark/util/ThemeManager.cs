@@ -1,6 +1,6 @@
 ﻿using PC_Ripper_Benchmark.window;
-using System.Collections.Generic;
-using System.Windows;
+using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -46,6 +46,34 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         /// <summary>
+        /// Runs a threaded test
+        /// </summary>
+        /// <param name="ui"></param>
+
+        public void RunningTest(MainWindow ui) {
+            Action a = new Action(() => {
+                RunningTestHelper(ui, 0);
+            });
+
+            Task t = new Task(a);
+            t.Start();
+            
+        }
+
+        private void RunningTestHelper(MainWindow ui, byte color) {
+            const byte max_color = 8;
+            if (color == max_color) { color = 0; }
+
+            ui.Dispatcher.Invoke(() => {
+               
+                color++;
+            });
+
+
+
+        }
+
+        /// <summary>
         /// Applies the theme to a specific object.
         /// </summary>
         /// <param name="windows">A list of windows.</param>
@@ -61,7 +89,7 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         public void ApplyThemeHelper(MainWindow w) {
-            switch (themeType) {
+            switch (this.themeType) {
                 case Theme.Light: {
 
                     break;
@@ -75,7 +103,7 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         public void ApplyThemeHelper(QuestionaireWindow q) {
-            switch (themeType) {
+            switch (this.themeType) {
                 case Theme.Light: {
                     q.grdMain.Background = Brushes.White;
                     q.lblTheme.Foreground = Brushes.Black;

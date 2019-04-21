@@ -67,21 +67,23 @@
 
         /// <summary>
         /// Represents a guest <see cref="UserData"/>.
+        /// <para>Check if a user is a guest by checking
+        /// the email is "guest".</para>
         /// </summary>
         /// <returns></returns>
 
         public static UserData GetGuestUser() {
             UserData u = new UserData {
-                Email = "GuestEmail",
+                Email = "guest",
                 FirstName = "Guest",
-                LastName = "Guest",
+                LastName = "User",
                 IsAdvanced = UserSkill.Beginner,
                 IsLight = true,
                 Password = "guest",
                 PhoneNumber = "guest number",
                 SecurityQuestion = "guest security question",
                 SecurityQuestionAnswer = "guest",
-                UserType = TypeOfUser.HighPerformance
+                UserType = TypeOfUser.Casual
             };
 
             return u;

@@ -29,10 +29,13 @@ namespace PC_Ripper_Benchmark.util {
 
         public string UserName => Environment.UserName;
 
+
         /// <summary>
-        /// Gets the processor name.
+        /// Gets the CPU specifications and outputs it
+        /// in a <see cref="List{T}"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="lst">A <see cref="List{T}"/> that 
+        /// stores the CPU specifications.</param>
 
         public void GetProcessorInfo(out List<string> lst) {
             lst = new List<string>();
@@ -52,6 +55,13 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
 
+        /// <summary>
+        /// Gets the DISK specifications and outputs it
+        /// in a <see cref="List{T}"/>.
+        /// </summary>
+        /// <param name="lst">A <see cref="List{T}"/> that
+        /// stores the DISK specifications.</param>
+
         public void GetDiskInfo(out List<string> lst) {
             lst = new List<string>();
 
@@ -65,6 +75,13 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
 
+        /// <summary>
+        /// Gets the RAM specifications and outputs it
+        /// in a <see cref="List{T}"/>.
+        /// </summary>
+        /// <param name="lst">A <see cref="List{T}"/> that
+        /// stores the RAM specifications.</param>
+
         public void GetMemoryInfo(out List<string> lst) {
             lst = new List<string>();
 
@@ -77,6 +94,12 @@ namespace PC_Ripper_Benchmark.util {
                 lst.Add("Speed: " + item.Properties["Speed"].Value.ToString() + "MHz");
             }
         }
+
+        /// <summary>
+        /// Gets the GPU specifications and outputs it
+        /// in a <see cref="List{T}"/>.
+        /// </summary>
+        /// <param name="lst">A <see cref="List{T}"/> that stores the GPU specifications.</param>
 
         public void GetVideoCard(out List<string> lst) {
             lst = new List<string>();

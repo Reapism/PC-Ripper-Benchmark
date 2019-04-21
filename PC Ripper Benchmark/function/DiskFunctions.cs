@@ -84,6 +84,11 @@ namespace PC_Ripper_Benchmark.function {
         /// for the test.</param>
         /// <returns>A new <see cref="DiskFunctions"/> instance
         /// containing the result.</returns>
+        /// <param name="userData">The <see cref="UserData"/> thats passed
+        /// into the instance for user information but is marked 
+        /// <see langword="readonly"/> internally.</param>
+        /// <param name="ui">The <see cref="MainWindow"/> instance thats passed
+        /// into for UI related tasks for updating components in it.</param>
         /// <exception cref="RipperThreadException"></exception>
 
         public void RunDiskBenchmark(ThreadType threadType, ref UserData userData, MainWindow ui) {
@@ -111,6 +116,7 @@ namespace PC_Ripper_Benchmark.function {
 
                     ui.Dispatcher.Invoke(() => {
                         ui.ShowTabWindow(Tab.RESULTS);
+                        ui.btnRunTheTest.IsEnabled = true;
                     });
 
                     break;
@@ -177,6 +183,8 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <param name="results">The <see cref="DiskResults"/> by reference 
         /// to add the <see cref="TimeSpan"/>(s).</param>
+        /// <param name="ui">The <see cref="MainWindow"/> instance thats passed
+        /// into for UI related tasks for updating components in it.</param>
 
         private void RunTestsSingleUI(ref DiskResults results, MainWindow ui) {
 
@@ -212,6 +220,7 @@ namespace PC_Ripper_Benchmark.function {
 
             ui.Dispatcher.Invoke(() => {
                 ui.ShowTabWindow(Tab.RESULTS);
+                ui.btnRunTheTest.IsEnabled = true;
             });
         }
 
@@ -751,7 +760,7 @@ namespace PC_Ripper_Benchmark.function {
             foreach (DirectoryInfo dir in directories) {
                 try {
                     Directory.Delete(dir.FullName, recursiveDelete);
-                } catch (Exception e) {
+                } catch {
                     continue;
                 }
             }
@@ -793,7 +802,7 @@ namespace PC_Ripper_Benchmark.function {
             foreach (FileInfo dir in Files) {
                 try {
                     File.Delete(dir.FullName);
-                } catch (Exception e) {
+                } catch {
                     continue;
                 }
             }
