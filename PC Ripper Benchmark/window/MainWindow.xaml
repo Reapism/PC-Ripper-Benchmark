@@ -135,11 +135,7 @@
                                                     <GradientStop Color="#33E8E8E8" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </RichTextBox.Background>
-                                            <FlowDocument>
-                                                <Paragraph>
-                                                    <Run Text="RichTextBox"/>
-                                                </Paragraph>
-                                            </FlowDocument>
+                                            <FlowDocument/>
                                         </RichTextBox>
                                     </Grid>
                                 </GroupBox>
