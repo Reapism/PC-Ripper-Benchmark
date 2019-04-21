@@ -698,7 +698,7 @@ namespace PC_Ripper_Benchmark.window {
             this.txtBlkRunningTestTips.Visibility = Visibility.Visible;
 
             if (GetLinesFromFile("running_test_messages.txt", out List<string> lst)) {
-                Random rnd = new Random();            
+                Random rnd = new Random();
                 this.txtBlkRunningTest.Text = lst[rnd.Next(lst.Count)];
             } else {
                 this.txtBlkRunningTest.Text = "Test is running!";
