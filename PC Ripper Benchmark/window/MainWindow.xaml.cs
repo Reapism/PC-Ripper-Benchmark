@@ -148,8 +148,8 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
 
         private void GetWelcomeText() {
-            userData.FirstName = UserData.UppercaseFirst(userData.FirstName);
-            userData.LastName = UserData.UppercaseFirst(userData.LastName);
+            this.userData.FirstName = UserData.UppercaseFirst(this.userData.FirstName);
+            this.userData.LastName = UserData.UppercaseFirst(this.userData.LastName);
 
             this.txtblkWelcome.Text = $"Welcome {this.userData.FirstName} to the PC Ripper Benchmark.";
             this.txtBlkWelcomeText.Text = $"Welcome {this.userData.FirstName}, check out your account information below! ";
@@ -908,7 +908,7 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void MenuSettings_Click(object sender, RoutedEventArgs e) {
-            ShowTabWindow(Tab.SETTINGS);
+            BtnSettings_Click(sender, e);
         }
 
         private void MenuAboutProject_Click(object sender, RoutedEventArgs e) {
@@ -926,10 +926,10 @@ namespace PC_Ripper_Benchmark.window {
         private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
             DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
             db.Open();
-            
+
             if (this.userData.Email != "guest") {
-               var range = new TextRange(txtResults.Document.ContentStart,
-                        txtResults.Document.ContentEnd);
+                var range = new TextRange(this.txtResults.Document.ContentStart,
+                         this.txtResults.Document.ContentEnd);
 
                 if (db.AddUserResults(this.userData.Email, range.Text)) {
                     MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
