@@ -28,11 +28,12 @@ namespace PC_Ripper_Benchmark.window {
         #region Instance member(s), and enum(s), and properties.        
 
         /// <summary>
-        /// The first name associated with this
-        /// <see cref="MainWindow"/> instance.
+        /// The unique string associated with this
+        /// <see cref="MainWindow"/> instance based
+        /// on the email.
         /// </summary>
 
-        public string FirstName { get; set; }
+        public string UniqueInstance { get => GetUniqueString(); }
 
         private RipperSettings rs;
         private WindowSettings ws;
@@ -86,6 +87,7 @@ namespace PC_Ripper_Benchmark.window {
             Style s2 = new Style();
             s2.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
 
+            this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
             this.tabSettingsInner.ItemContainerStyle = s2;
             this.tabComponents.SelectedIndex = 0;
             this.btnDiskRunTest.IsEnabled = false;
@@ -242,6 +244,8 @@ namespace PC_Ripper_Benchmark.window {
                         image.EndInit();
                         AnimationBehavior.SetSourceUri(this.imgPreloader, uri);
                         AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
+                    } else {
+
                     }
 
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
@@ -263,6 +267,32 @@ namespace PC_Ripper_Benchmark.window {
         private void SaveSettings() => Properties.Settings.Default.Save();
 
         /// <summary>
+        /// Gets lines from a file in the resouces directory
+        /// and returns whether it succeeded or not.
+        /// </summary>
+        /// <param name="fileName">The file name. e.g. Reap.txt</param>
+        /// <param name="lst">Outputs a <see cref="List{T}"/> holding strings.</param>
+        /// <returns></returns>
+
+        private bool GetLinesFromFile(string fileName, out List<string> lst) {
+            string path = Path.Combine(Directory.GetCurrentDirectory(),
+                "resources", fileName);
+            try {
+                lst = new List<string>();
+                StreamReader sr = new StreamReader(path);
+
+                while (!sr.EndOfStream) {
+                    lst.Add(sr.ReadLine());
+                }
+
+            } catch {
+                lst = null;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Chooses a random preloader from the
         /// resources/preloader_urls.txt file.
         /// Returns a <see cref="Uri"/>.
@@ -270,30 +300,17 @@ namespace PC_Ripper_Benchmark.window {
         /// <returns></returns>
 
         private Uri ChoosePreloader() {
-            string path = Path.Combine(Directory.GetCurrentDirectory(),
-                "resources", "preloader_urls.txt");
+
             Uri uri;
+            Random rnd = new Random();
 
-            try {
-                List<string> urls = new List<string>();
-                StreamReader sr = new StreamReader(path);
-                Random rnd = new Random();
-
-                int index = 0;
-
-                while (!sr.EndOfStream) {
-                    urls.Add(sr.ReadLine());
-                    index++;
-                }
-
-                int rndIndex = rnd.Next(index);
+            if (GetLinesFromFile("preloaders_urls.txt", out List<string> urls)) {
+                int rndIndex = rnd.Next(urls.Count);
                 uri = new Uri(urls[rndIndex]);
-
                 return uri;
-            } catch {
-                return null;
             }
 
+            return null;
         }
 
         private void ExportResults(ExportType type, TextBlock textBlock) {
@@ -513,6 +530,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void ValidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = true;
+            this.btnDiskRunTest.Foreground = Brushes.White;
             this.txtBlkWorkingDir.Text = $"Working Directory Path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.GreenYellow;
             this.btnBrowseWorkingDir.BorderBrush = Brushes.GreenYellow;
@@ -527,6 +545,7 @@ namespace PC_Ripper_Benchmark.window {
 
         private void InvalidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = false;
+            this.btnDiskRunTest.Foreground = Brushes.Black;
             this.txtBlkWorkingDir.Text = $"Invalid path: {path}";
             this.txtBlkWorkingDir.Foreground = Brushes.LightSalmon;
             this.btnBrowseWorkingDir.BorderBrush = Brushes.Gold;
@@ -563,6 +582,36 @@ namespace PC_Ripper_Benchmark.window {
                 diskFunctions.LockDirectory(folderBrowser.SelectedPath);
             }
         }
+
+        /// <summary>
+        /// Closes all windows that are tagged with the string
+        /// "CLOSE".
+        /// </summary>
+        /// <param name="windows">The windows to close as an array.</param>
+
+        private void CloseWindows(params Window[] windows) {
+            foreach (Window window in windows) {
+                if (window.Tag.ToString() == "CLOSE") { window.Close(); }
+            }
+        }
+
+        /// <summary>
+        /// Closes all windows that are tagged with the unique string.
+        /// </summary>
+        /// <param name="uniqueStr">The unique string used to close the window.</param>
+        /// <param name="windows">The windows to close as an array.</param>
+
+        private void CloseWindows(string uniqueStr, params Window[] windows) {
+            foreach (Window window in windows) {
+                if (window.Tag.ToString() == uniqueStr) { window.Close(); }
+            }
+        }
+
+        /// <summary>
+        /// Gets a unique string for this instance.
+        /// </summary>
+
+        private string GetUniqueString() => this.userData.Email + this.userData.FirstName + this.userData.GetUserSkillString();
 
         #endregion
 
@@ -645,6 +694,23 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnRunTheTest_Click(object sender, RoutedEventArgs e) {
             this.btnRunTheTest.IsEnabled = false;
+            this.btnRunTheTest.Foreground = Brushes.Black;
+            this.txtBlkRunningTestTips.Visibility = Visibility.Visible;
+
+            if (GetLinesFromFile("running_test_messages.txt", out List<string> lst)) {
+                Random rnd = new Random();            
+                this.txtBlkRunningTest.Text = lst[rnd.Next(lst.Count)];
+            } else {
+                this.txtBlkRunningTest.Text = "Test is running!";
+            }
+
+            if (GetLinesFromFile("message_tips.txt", out List<string> lst2)) {
+                Random rnd = new Random();
+                this.txtBlkRunningTestTips.Text = lst2[rnd.Next(lst2.Count)];
+            } else {
+                this.txtBlkRunningTestTips.Text = "Did you know you can change the test settings? Go to Settings->Advanced Settings.";
+            }
+
             RunTest();
         }
 
@@ -755,8 +821,6 @@ namespace PC_Ripper_Benchmark.window {
 
         }
 
-        #endregion
-
         private void BtnLockDir_Click(object sender, RoutedEventArgs e) {
             LockDir();
         }
@@ -775,6 +839,84 @@ namespace PC_Ripper_Benchmark.window {
 
         private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
 
+        }
+
+        private void MenuNewWindow_Click(object sender, RoutedEventArgs e) {
+            new MainWindow(this.userData).Show(); ;
+        }
+
+        private void MenuNewWindowAsGuest_Click(object sender, RoutedEventArgs e) {
+            new MainWindow(UserData.GetGuestUser()).Show();
+        }
+
+        private void MenuCloseWindow_Click(object sender, RoutedEventArgs e) {
+            Close();
+        }
+
+        private void MenuCloseAllWindows_Click(object sender, RoutedEventArgs e) {
+            List<Window> w = new List<Window>();
+            foreach (Window window in Application.Current.Windows) {
+                window.Tag = "CLOSE";
+                w.Add(window);
+            }
+            CloseWindows(w.ToArray());
+        }
+
+        private void MenuSaveSettings_Click(object sender, RoutedEventArgs e) {
+            SaveSettings();
+        }
+
+        private void MenuCreateNewAccount_Click(object sender, RoutedEventArgs e) {
+            var create = new CreateAccountWindow();
+            this.ws.TransitionScreen(create, this);
+            Close();
+        }
+
+        private void MenuLogout_Click(object sender, RoutedEventArgs e) {
+            var login = new LoginWindow();
+            this.ws.TransitionScreen(login, this);
+
+            List<Window> w = new List<Window>();
+            foreach (Window window in Application.Current.Windows) {
+                if (typeof(MainWindow).IsInstanceOfType(window)) {
+                    MainWindow mw = (MainWindow)window;
+                    mw.Tag = mw.UniqueInstance;
+                    w.Add(mw);
+                }
+            }
+            CloseWindows(this.UniqueInstance, w.ToArray());
+        }
+
+        private void MenuLogoutSave_Click(object sender, RoutedEventArgs e) {
+            var login = new LoginWindow();
+            this.ws.TransitionScreen(login, this);
+            SaveSettings();
+            Close();
+        }
+
+        private void MenuSettings_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.SETTINGS);
+        }
+
+        private void MenuAboutProject_Click(object sender, RoutedEventArgs e) {
+            var result = MessageBox.Show("The PC Ripper Benchmark application is a PC diagnostics program that can benchmark " +
+                "the computers processor, memory, and hard drive and give it a score. Depending on the score, you might can " +
+                "want to possible upgrade certain components on the PC. This project is open sourced on GitHub, would you like " +
+                "to go there?", "About this project", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (result == MessageBoxResult.Yes) {
+                System.Diagnostics.Process.Start("https://github.com/Reapism/PC-Ripper-Benchmark");
+            }
+        }
+
+        #endregion
+
+        private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
+            this.txtResults.ScrollToVerticalOffset(0);
+            this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
         }
     }
 }

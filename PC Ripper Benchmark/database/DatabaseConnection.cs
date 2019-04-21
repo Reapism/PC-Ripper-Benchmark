@@ -267,15 +267,10 @@ namespace PC_Ripper_Benchmark.database {
             return (string)getSecurityQuestionAnswer.ExecuteScalar();
         }
 
-
-        public bool ChangeUserSettings(UserData.UserSkill skill, UserData.TypeOfUser type, string email)
-        {
-            try
-            {
-                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
-                {
-                    SqlCommand changeUserSettings = new SqlCommand("ChangeUserSettings", this.Connection)
-                    {
+        public bool ChangeUserSettings(UserData.UserSkill skill, UserData.TypeOfUser type, string email) {
+            try {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
+                    SqlCommand changeUserSettings = new SqlCommand("ChangeUserSettings", this.Connection) {
                         CommandType = CommandType.StoredProcedure
                     };
 
@@ -289,29 +284,21 @@ namespace PC_Ripper_Benchmark.database {
                     MessageBox.Show("Account Settings Changed");
 
                     return true;
-                }
-                else
-                {
+                } else {
                     return false;
                 }
 
-            }
-            catch (SqlException e)
-            {
+            } catch {
                 MessageBox.Show("Error changing settings", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Connection.Close();
                 return false;
             }
         }
 
-        public bool addUserResults(string email, string results)
-        {
-            try
-            {
-                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
-                {
-                    SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection)
-                    {
+        public bool addUserResults(string email, string results) {
+            try {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
+                    SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection) {
                         CommandType = CommandType.StoredProcedure
                     };
 
@@ -321,22 +308,18 @@ namespace PC_Ripper_Benchmark.database {
 
                     changeUserSettings.ExecuteNonQuery();
                     this.Connection.Close();
-                    MessageBox.Show("Results Added");
+                    MessageBox.Show("The following results have been added to the database.","Success",MessageBoxButton.OK,MessageBoxImage.Information);
 
                     return true;
-                }
-                else
-                {
+                } else {
                     return false;
                 }
 
-            }
-            catch (SqlException e)
-            {
+            } catch (SqlException e) {
                 MessageBox.Show("Computer results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Connection.Close();
                 return false;
             }
         }
-    }  
+    }
 }

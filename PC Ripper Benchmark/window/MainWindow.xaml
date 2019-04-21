@@ -46,6 +46,26 @@
                         <GradientStop Color="#33DEDCDC" Offset="1"/>
                     </RadialGradientBrush>
                 </Grid.Background>
+                <Menu x:Name="menuTop" Height="25" Margin="0" VerticalAlignment="Top" Background="#0CEEF5FD" Foreground="#FFE6E6E6" FontSize="14" FontFamily="Nirmala UI">
+                    <MenuItem x:Name="menuFile" Header="File" Foreground="#FFE6E6E6">
+                        <MenuItem x:Name="menuNewWindow" Header="New Window" ToolTip="Instantiate a new window!" Foreground="Black" Click="MenuNewWindow_Click"/>
+                        <MenuItem x:Name="menuNewWindowAsGuest" Header="New Guest Window" ToolTip="Instantiate a new window as a guest!" Foreground="Black" Click="MenuNewWindowAsGuest_Click"/>
+                        <MenuItem x:Name="menuCloseWindow" Header="Close Window" ToolTip="Close the current window." Foreground="Black" Click="MenuCloseWindow_Click"/>
+                        <MenuItem x:Name="menuCloseAllWindows" Header="Close All Window(s)" ToolTip="Close all windows" Foreground="Black" Click="MenuCloseAllWindows_Click"/>
+                        <Separator x:Name="seperatorMenuFile"/>
+                        <MenuItem x:Name="menuSaveSettings" Header="Save Settings" ToolTip="Save all the application settings." Foreground="Black" Click="MenuSaveSettings_Click"/>
+                        <Separator x:Name="seperatorMenuFile2"/>
+                        <MenuItem x:Name="menuCreateNewAccount" Header="Create New Account" ToolTip="Create a new account." Foreground="Black" Click="MenuCreateNewAccount_Click"/>
+                        <MenuItem x:Name="menuLogout" Header="Logout" ToolTip="Logout of your account" Foreground="Black" Click="MenuLogout_Click"/>
+                        <MenuItem x:Name="menuLogoutSave" Header="Save and logout" ToolTip="Save settings and logout of your account" Foreground="Black" Click="MenuLogoutSave_Click"/>
+                    </MenuItem>
+                    <MenuItem x:Name="menuEdit" Header="Edit" ToolTip="Edit application settings." Foreground="#FFE6E6E6">
+                        <MenuItem x:Name="menuSettings" Header="Settings" ToolTip="Open the settings!" Foreground="Black" Click="MenuSettings_Click"/>
+                    </MenuItem>
+                    <MenuItem x:Name="menuAbout" Header="About" ToolTip="About" Foreground="#FFE6E6E6">
+                        <MenuItem x:Name="menuAboutProject" Header="About this project..." ToolTip="About this project" Foreground="Black" Click="MenuAboutProject_Click"/>
+                    </MenuItem>
+                </Menu>
             </Grid>
         </Grid>
         <Grid x:Name="grdWindow" Margin="150,100,0,0" Grid.ColumnSpan="2" MinWidth="640" MinHeight="320">
@@ -360,7 +380,7 @@
                         </Grid>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabTestResults" Header="Results">
+                <TabItem x:Name="tabTestResults" Header="Results" GotFocus="TabTestResults_GotFocus">
                     <Grid x:Name="grdResults">
                         <Grid.Background>
                             <RadialGradientBrush>
@@ -379,6 +399,8 @@
                                         <MenuItem x:Name="menuResultsExprtTxt" Header="Text-File" Click="MenuResultsExprtTxt_Click"/>
                                         <MenuItem x:Name="menuResultsExprtXaml" Header="XAML" Click="MenuResultsExprtXaml_Click"/>
                                     </MenuItem>
+                                    <Separator/>
+                                    <MenuItem x:Name="menuSendToDatabase" Header="Save results to database" Click="MenuSendToDatabase_Click"/>
                                 </ContextMenu>
                             </RichTextBox.ContextMenu>
                             <FlowDocument>
@@ -400,6 +422,7 @@
                             <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0"/>
                         </Border>
                         <TextBlock x:Name="txtBlkRunningTest" HorizontalAlignment="Center" Margin="0,19,0,0" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Top" FontSize="18" Text="Are you sure you want to run the test?"/>
+                        <TextBlock x:Name="txtBlkRunningTestTips" HorizontalAlignment="Center" Margin="0,0,0,80" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Bottom" FontSize="18" Text="Are you sure you want to run the test?" ToolTip="A random tip! Try them out!"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="ResultsParts"/>
