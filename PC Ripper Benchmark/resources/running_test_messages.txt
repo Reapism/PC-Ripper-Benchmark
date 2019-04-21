@@ -1,0 +1,7 @@
+﻿Hang tight while we run these tests!
+Benchmarking is in progress...
+Currently melting the mainframe!
+Running the benchmarking algorithms...
+Current referencing and dereferencing objects!
+Found int main() {} !!
+// This is supposed to work.
