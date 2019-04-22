@@ -36,11 +36,16 @@ namespace PC_Ripper_Benchmark.function {
             return linear;
         }
 
-        public static System.Windows.Forms.DialogResult InputBox(string message, out string inputText, string caption = "Ripper Dialog") {
+        public static bool? InputBox(string message, out string inputText, string caption = "Ripper Dialog") {
             Window w = new Window {
                 WindowStyle = WindowStyle.None,
                 Content = caption,
-                Background = CreateLinearGradient(Colors.AliceBlue, Colors.AntiqueWhite, new Point(0.0,1.0))
+                Background = CreateLinearGradient(Colors.AliceBlue, Colors.AntiqueWhite, new Point(0.0, 1.0)),
+                DialogResult = false
+            };
+
+            StackPanel stk = new StackPanel {
+
             };
 
             TextBox textBox = new System.Windows.Controls.TextBox {
@@ -49,8 +54,28 @@ namespace PC_Ripper_Benchmark.function {
                 Foreground = Brushes.White,
             };
 
+            Button ok = new Button {
+                Content = "Okay",
+                Opacity = 0.0,
+                Foreground = Brushes.White,
+                BorderBrush = Brushes.White,
+                BorderThickness = new Thickness(1)
+            };
+
+            Button cancel = new Button {
+                Content = "Cancel",
+                Opacity = 0.0,
+                Foreground = Brushes.White,
+                BorderBrush = Brushes.White,
+                BorderThickness = new Thickness(1)
+            };
+
+            stk.Children.Add(textBox);
+            stk.Children.Add(ok);
+            stk.Children.Add(cancel);
+
             inputText = "";
-            return System.Windows.Forms.DialogResult.OK;
+            return w.ShowDialog();
         }
 
     }

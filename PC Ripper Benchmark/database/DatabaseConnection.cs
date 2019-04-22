@@ -296,7 +296,7 @@ namespace PC_Ripper_Benchmark.database {
             }
         }
 
-        public bool AddUserResults(string email, string results, TestComponent test) {
+        public bool AddUserResults(string email, string results) {
             try {
                 if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
                     SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection) {
