@@ -236,11 +236,6 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
 
-                case Tab.MY_ACCOUNT:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
-                        break;
-                    }
                     
                 case Tab.RUNNING_TEST: {
 
@@ -261,6 +256,12 @@ namespace PC_Ripper_Benchmark.window {
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
                     break;
                 }
+
+                case Tab.MY_ACCOUNT:
+                    {
+                        this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
+                        break;
+                    }
 
                 default: {
                     break;
@@ -960,6 +961,48 @@ namespace PC_Ripper_Benchmark.window {
         private void MenuAccount_Click(object sender, RoutedEventArgs e)
         {
             ShowTabWindow(Tab.MY_ACCOUNT);
+        }
+
+        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Slider s = (Slider)sender;
+
+            string userType;
+
+            switch (e.NewValue)
+            {
+                case double d when (e.NewValue >= 0 && e.NewValue <= 1):
+                    {
+                        s.Value = 1.0;
+                        userType = "Casual";
+                        s.ToolTip = userType;
+                        break;
+                    }
+
+                case double d when (e.NewValue > 1 && e.NewValue <= 2):
+                    {
+                        s.Value = 2.0;
+                        userType = "Web surfer";
+                        s.ToolTip = userType;
+                        break;
+                    }
+
+                case double d when (e.NewValue > 2 && e.NewValue <= 3):
+                    {
+                        s.Value = 3.0;
+                        userType = "High performance";
+                        s.ToolTip = userType;                     
+                        break;
+                    }
+
+                case double d when (e.NewValue > 3 && e.NewValue <= 4):
+                    {
+                        s.Value = 4.0;
+                        userType = "Video editor";
+                        s.ToolTip = userType;                        
+                        break;
+                    }
+            }
         }
     }
 }
