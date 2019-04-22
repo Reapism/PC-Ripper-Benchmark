@@ -213,5 +213,26 @@ namespace PC_Ripper_Benchmark.function {
             /// </summary>
             GPUReadWriteParse
         };
+
+        /// <summary>
+        /// Represents the test component name.
+        /// </summary>
+
+        public enum TestComponent {
+            /// <summary>
+            /// The CPU test.
+            /// </summary>
+            CPU,
+
+            /// <summary>
+            /// The RAM test.
+            /// </summary>
+            RAM,
+
+            /// <summary>
+            /// The DISK test.
+            /// </summary>
+            DISK
+        }
     }
 }

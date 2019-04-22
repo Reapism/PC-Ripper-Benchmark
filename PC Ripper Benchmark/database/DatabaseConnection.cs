@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
+using static PC_Ripper_Benchmark.function.RipperTypes;
 using static PC_Ripper_Benchmark.util.UserData;
 
 namespace PC_Ripper_Benchmark.database {
@@ -295,7 +296,7 @@ namespace PC_Ripper_Benchmark.database {
             }
         }
 
-        public bool AddUserResults(string email, string results) {
+        public bool AddUserResults(string email, string results, TestComponent test) {
             try {
                 if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
                     SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection) {
