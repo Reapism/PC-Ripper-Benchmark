@@ -236,6 +236,12 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
 
+                case Tab.MY_ACCOUNT:
+                    {
+                        this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
+                        break;
+                    }
+                    
                 case Tab.RUNNING_TEST: {
 
                     Random rnd = new Random();
@@ -949,6 +955,11 @@ namespace PC_Ripper_Benchmark.window {
         private void MenuHelp_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("help.htm");
+        }
+
+        private void MenuAccount_Click(object sender, RoutedEventArgs e)
+        {
+            ShowTabWindow(Tab.MY_ACCOUNT);
         }
     }
 }

@@ -88,7 +88,12 @@ namespace PC_Ripper_Benchmark.function {
             /// <summary>
             /// Tab running a test.
             /// </summary>
-            RUNNING_TEST
+            RUNNING_TEST,
+
+            /// <summary>
+            /// Tab for account settings.
+            /// </summary>
+            MY_ACCOUNT
         }
 
         /// <summary>

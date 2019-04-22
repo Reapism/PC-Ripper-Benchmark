@@ -65,6 +65,7 @@
                     <MenuItem x:Name="menuAbout" Header="About" ToolTip="About" Foreground="#FFE6E6E6">
                         <MenuItem x:Name="menuAboutProject" Header="About this project..." ToolTip="About this project" Foreground="Black" Click="MenuAboutProject_Click"/>
                     </MenuItem>
+                    <MenuItem x:Name="menuAccount" Header="My Account" Foreground="#FFE6E6E6" Click="MenuAccount_Click"/>
                     <MenuItem x:Name="menuHelp" Header="Help" Foreground="#FFE6E6E6" Click="MenuHelp_Click">
                     </MenuItem>
                 </Menu>
@@ -432,6 +433,7 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="ResultsParts"/>
+                <TabItem Header="My Account"/>
             </TabControl>
         </Grid>
     </Grid>
