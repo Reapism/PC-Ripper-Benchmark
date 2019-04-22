@@ -308,7 +308,7 @@ namespace PC_Ripper_Benchmark.database {
 
                     changeUserSettings.ExecuteNonQuery();
                     this.Connection.Close();
-                    MessageBox.Show("The following results have been added to the database.","Success",MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show("The following results have been added to the database.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     return true;
                 } else {
