@@ -75,23 +75,7 @@ namespace PC_Ripper_Benchmark.function {
                     // runs task on main thread.
                     RunTestsSingle(ref results);
 
-                    string desc = results.Description;
-
-                    ui.Dispatcher.InvokeAsync(() => {
-                        ui.txtResults.AppendText($"Successfully ran the CPU test! Below is the " +
-                            $"results of the test.\n\n" +
-                            $"{desc}\n\n" +
-                            $"\n\n");
-                    });
-
-                    ui.Dispatcher.Invoke(() => {
-                        ui.txtBlkResults.Text = "Results for the CPU test:";
-                    });
-
-                    ui.Dispatcher.Invoke(() => {
-                        ui.ShowTabWindow(Tab.RESULTS);
-                        ui.btnRunTheTest.IsEnabled = true;
-                    });
+                    InteractWithUI(ref results, ui);
 
                     break;
                 }
@@ -101,7 +85,7 @@ namespace PC_Ripper_Benchmark.function {
 
                     // local function instead of action, very similar to
                     // Action a = delegate () { RunTestsSingle(ref results); }; 
-                    void a() { RunTestsSingleUI(ref results,ui); }
+                    void a() { RunTestsSingleUI(ref results, ui); }
 
                     Task task = new Task(a);
 
@@ -121,7 +105,7 @@ namespace PC_Ripper_Benchmark.function {
                         "public CPUResults RunCPUBenchmark(ThreadType threadType) " +
                         "in function.CPUFunctions ");
                 }
-            }   
+            }
 
         }
 
@@ -188,6 +172,14 @@ namespace PC_Ripper_Benchmark.function {
                 results.TestCollection.Add(RunTree());
             }
 
+            InteractWithUI(ref results, ui);
+        }
+
+        private async Task<CPUResults> RunTestsMultithreaded() {
+            return null;
+        }
+
+        private void InteractWithUI(ref CPUResults results, MainWindow ui) {
             string desc = results.Description;
 
             ui.Dispatcher.InvokeAsync(() => {
@@ -197,18 +189,17 @@ namespace PC_Ripper_Benchmark.function {
                     $"\n\n");
             });
 
-            ui.Dispatcher.Invoke(() => {
+            ui.Dispatcher.InvokeAsync(() => {
                 ui.txtBlkResults.Text = "Results for the CPU test:";
             });
 
-            ui.Dispatcher.Invoke(() => {
+            ui.Dispatcher.InvokeAsync(() => {
                 ui.ShowTabWindow(Tab.RESULTS);
                 ui.btnRunTheTest.IsEnabled = true;
+                ui.txtBlkRunningTest.Text = "Are you sure you want to run this test?";
+                ui.txtResults.ScrollToVerticalOffset(0);
+                ui.txtBlkRunningTestTips.Visibility = System.Windows.Visibility.Hidden;
             });
-        }
-
-        private async Task<CPUResults> RunTestsMultithreaded() {
-            return null;
         }
 
         /// <summary>

@@ -100,24 +100,7 @@ namespace PC_Ripper_Benchmark.function {
                     // runs task on main thread.
                     RunTestsSingle(ref results);
 
-                    string desc = results.Description;
-
-                    ui.Dispatcher.InvokeAsync(() => {
-                        ui.txtResults.AppendText($"Successfully ran the DISK test! Below is the " +
-                            $"results of the test.\n\n" +
-                            $"{desc}\n\n" +
-                            $"\n\n");
-                    });
-
-                    ui.Dispatcher.Invoke(() => {
-                        ui.txtBlkResults.Text = "Results for the DISK test:";
-                    });
-
-
-                    ui.Dispatcher.Invoke(() => {
-                        ui.ShowTabWindow(Tab.RESULTS);
-                        ui.btnRunTheTest.IsEnabled = true;
-                    });
+                    InteractWithUI(ref results, ui);
 
                     break;
                 }
@@ -204,6 +187,14 @@ namespace PC_Ripper_Benchmark.function {
                 results.TestCollection.Add(RunDiskRipper());
             }
 
+            InteractWithUI(ref results, ui);
+        }
+
+        private async Task<CPUResults> RunTestsMultithreaded() {
+            return null;
+        }
+
+        private void InteractWithUI(ref DiskResults results, MainWindow ui) {
             string desc = results.Description;
 
             ui.Dispatcher.InvokeAsync(() => {
@@ -213,19 +204,17 @@ namespace PC_Ripper_Benchmark.function {
                     $"\n\n");
             });
 
-            ui.Dispatcher.Invoke(() => {
+            ui.Dispatcher.InvokeAsync(() => {
                 ui.txtBlkResults.Text = "Results for the DISK test:";
             });
 
-
-            ui.Dispatcher.Invoke(() => {
+            ui.Dispatcher.InvokeAsync(() => {
                 ui.ShowTabWindow(Tab.RESULTS);
                 ui.btnRunTheTest.IsEnabled = true;
+                ui.txtBlkRunningTest.Text = "Are you sure you want to run this test?";
+                ui.txtResults.ScrollToVerticalOffset(0);
+                ui.txtBlkRunningTestTips.Visibility = System.Windows.Visibility.Hidden;
             });
-        }
-
-        private async Task<CPUResults> RunTestsMultithreaded() {
-            return null;
         }
 
         /// <summary>
