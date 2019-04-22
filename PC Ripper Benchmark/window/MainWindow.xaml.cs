@@ -6,6 +6,7 @@ using PC_Ripper_Benchmark.util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -236,32 +237,30 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
 
-                    
+
                 case Tab.RUNNING_TEST: {
 
                     Random rnd = new Random();
                     Uri uri = ChoosePreloader();
-
+                    
                     if (uri != null) {
-                        var image = new BitmapImage();
-                        image.BeginInit();
-                        image.UriSource = uri;
-                        image.EndInit();
                         AnimationBehavior.SetSourceUri(this.imgPreloader, uri);
                         AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
-                    } else {
-
                     }
+
+                    Action a = new Action(() => {
+
+                    });
+                    Task t = new Task(a);
 
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
                     break;
                 }
 
-                case Tab.MY_ACCOUNT:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
-                        break;
-                    }
+                case Tab.MY_ACCOUNT: {
+                    this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
+                    break;
+                }
 
                 default: {
                     break;
@@ -315,7 +314,7 @@ namespace PC_Ripper_Benchmark.window {
             Uri uri;
             Random rnd = new Random();
 
-            if (GetLinesFromFile("preloaders_urls.txt", out List<string> urls)) {
+            if (GetLinesFromFile("preloader_urls.txt", out List<string> urls)) {
                 int rndIndex = rnd.Next(urls.Count);
                 uri = new Uri(urls[rndIndex]);
                 return uri;
@@ -953,55 +952,47 @@ namespace PC_Ripper_Benchmark.window {
             this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
         }
 
-        private void MenuHelp_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuHelp_Click(object sender, RoutedEventArgs e) {
             System.Diagnostics.Process.Start("help.htm");
         }
 
-        private void MenuAccount_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuAccount_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.MY_ACCOUNT);
         }
 
-        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
+        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             Slider s = (Slider)sender;
 
             string userType;
 
-            switch (e.NewValue)
-            {
-                case double d when (e.NewValue >= 0 && e.NewValue <= 1):
-                    {
-                        s.Value = 1.0;
-                        userType = "Casual";
-                        s.ToolTip = userType;
-                        break;
-                    }
+            switch (e.NewValue) {
+                case double d when (e.NewValue >= 0 && e.NewValue <= 1): {
+                    s.Value = 1.0;
+                    userType = "Casual";
+                    s.ToolTip = userType;
+                    break;
+                }
 
-                case double d when (e.NewValue > 1 && e.NewValue <= 2):
-                    {
-                        s.Value = 2.0;
-                        userType = "Web surfer";
-                        s.ToolTip = userType;
-                        break;
-                    }
+                case double d when (e.NewValue > 1 && e.NewValue <= 2): {
+                    s.Value = 2.0;
+                    userType = "Web surfer";
+                    s.ToolTip = userType;
+                    break;
+                }
 
-                case double d when (e.NewValue > 2 && e.NewValue <= 3):
-                    {
-                        s.Value = 3.0;
-                        userType = "High performance";
-                        s.ToolTip = userType;                     
-                        break;
-                    }
+                case double d when (e.NewValue > 2 && e.NewValue <= 3): {
+                    s.Value = 3.0;
+                    userType = "High performance";
+                    s.ToolTip = userType;
+                    break;
+                }
 
-                case double d when (e.NewValue > 3 && e.NewValue <= 4):
-                    {
-                        s.Value = 4.0;
-                        userType = "Video editor";
-                        s.ToolTip = userType;                        
-                        break;
-                    }
+                case double d when (e.NewValue > 3 && e.NewValue <= 4): {
+                    s.Value = 4.0;
+                    userType = "Video editor";
+                    s.ToolTip = userType;
+                    break;
+                }
             }
         }
     }

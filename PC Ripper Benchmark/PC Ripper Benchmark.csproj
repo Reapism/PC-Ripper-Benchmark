@@ -258,7 +258,9 @@
     <Resource Include="resources\menu.png" />
     <Resource Include="resources\github.png" />
     <Resource Include="resources\disk.png" />
-    <Resource Include="resources\check.png" />
+    <Resource Include="resources\check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="resources\check_with_circle.png" />
     <Resource Include="resources\announcement.png" />
     <Resource Include="resources\cpu.png" />
