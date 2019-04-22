@@ -423,7 +423,45 @@
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabMyAccount" Header="My Account">
-                    <Label x:Name="myAccountWelcome" Content="Change your account settings" Margin="311,119,262,303" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+                    <Grid x:Name="accWelcome">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="506*"/>
+                            <ColumnDefinition Width="355*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF5EABC1" Offset="0"/>
+                                <GradientStop Color="#FF2D4951" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Grid.Background>
+                        <StackPanel x:Name="stkWelcomeTopAcc" Margin="0" MinHeight="100" MinWidth="100" Height="107" MaxHeight="85" Background="#FF426E93" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <StackPanel x:Name="stkWelcomeAcc" Margin="6,6,6,0" MinHeight="90" MinWidth="90" Height="90" MaxHeight="85" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                            <StackPanel.Background>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#3396A7D3" Offset="1"/>
+                                    <GradientStop Color="#33FFFFFF"/>
+                                </RadialGradientBrush>
+                            </StackPanel.Background>
+                            <TextBlock x:Name="txtblkWelcomeAccount" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" FontSize="18" Margin="36,30,0,0" Foreground="White" Text="Example text"/>
+                        </StackPanel>
+                        <Grid x:Name="grdWelcomeWindowsAcc" Background="#00000000" Margin="0,100,0,0" Grid.ColumnSpan="2">
+                            <Grid x:Name="grdUserInfoAcc" MinHeight="389" MinWidth="440">
+                                <Grid.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#FF5A9ABF" Offset="1"/>
+                                        <GradientStop Color="#FFB1C7E2"/>
+                                    </RadialGradientBrush>
+                                </Grid.Background>
+                                <TextBlock x:Name="txtBlkWelcomeTextAcc" Text="Change your account settings" Margin="5,10,60,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Foreground="White" FontWeight="Bold" FontSize="20"/>
+                                <StackPanel x:Name="stkUserDataAcc" Margin="5,75,5,210" Background="#4CFFFFFF">
+                                    <Label x:Name="accountNameLbl" Content="Name:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
+                                    <Label x:Name="accountTypeOfUserLbl" Content="Typeofuser:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
+                                    <Label x:Name="accountUserSkillLbl" Content="Userskill:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid x:Name="grdAccountSystemSpecs" Margin="0" MinHeight="100"/>
+                        </Grid>
+                    </Grid>
                 </TabItem>
                 <TabItem x:Name="tabResultParts" Header="ResultsParts"/>
             </TabControl>
