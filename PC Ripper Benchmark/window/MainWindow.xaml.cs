@@ -953,7 +953,7 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void MenuHelp_Click(object sender, RoutedEventArgs e) {
-            System.Diagnostics.Process.Start("help.htm");
+            System.Diagnostics.Process.Start("help.html");
         }
 
         private void MenuAccount_Click(object sender, RoutedEventArgs e) {
