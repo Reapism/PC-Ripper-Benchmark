@@ -913,8 +913,8 @@ namespace PC_Ripper_Benchmark.window {
 
         private void MenuAboutProject_Click(object sender, RoutedEventArgs e) {
             var result = MessageBox.Show("The PC Ripper Benchmark application is a PC diagnostics program that can benchmark " +
-                "the computers processor, memory, and hard drive and give it a score. Depending on the score, you might can " +
-                "want to possible upgrade certain components on the PC. This project is open sourced on GitHub, would you like " +
+                "the computers processor, memory, and hard drive and give it a score. Depending on the score, you might want " +
+                "to possibly upgrade certain components of your PC. This project is open sourced on GitHub, would you like " +
                 "to go there?", "About this project", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes) {
                 System.Diagnostics.Process.Start("https://github.com/Reapism/PC-Ripper-Benchmark");
