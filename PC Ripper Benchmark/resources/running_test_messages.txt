@@ -7,3 +7,19 @@ Current referencing and dereferencing objects!
 Rendering the milky way galaxy. Please hold.
 Making the jump to lightspeed...
 // This is supposed to work.
+Computing the spacial dimensions of our universe.
+Computing the distance between each quark using vectors.
+Propagating at the speed of gravity!
+Virtualizing an A.I.
+Computing integrals.
+Computing all the derivatives.
+Reaching ordinal ω.
+Reaching ordinal ε^ω.
+Computing ackermann(ω,ω)!
+Getting to Graham's number, hold on.
+Computing every integral { 1 - Tree(3) }
+Communicating with E.T life!
+Reading the electromagnetic gamma rays coming out from the nearest blazar!
+Stepping in and out of the event horizon!
+Computing the golden ratio!
+Computing the first ten digits of pi!
