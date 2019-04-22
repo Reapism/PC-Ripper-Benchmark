@@ -945,5 +945,10 @@ namespace PC_Ripper_Benchmark.window {
             this.txtResults.ScrollToVerticalOffset(0);
             this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
         }
+
+        private void MenuHelp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("help.htm");
+        }
     }
 }
