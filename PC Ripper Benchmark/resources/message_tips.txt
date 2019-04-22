@@ -1,8 +1,10 @@
 ﻿Did you know you can export your results by right clicking the results window and choosing export?
 Did you know you can export your computer specifications by right clicking the specifications window and choosing export?
 Did you know this project is open-sourced on GitHub?
-Not sure about something? Hover over controls for more information?
-There is GitHub Wiki for this project! Check it out for more information.
+Not sure about something? Hover over controls for more information!
+There is a GitHub Wiki for this project! Check it out for more information.
 Choosing dualthreaded is highly recommended so the window won't freeze!
-This project was developed for a senior project for school.
+This project was developed for a group project Farmingdale State College.
 This project doesn't use artifical intelligence :(
+Found a bug? Email us at davidhartglass@gmail.com & reapsprgm@gmail.com
+Have an idea for a feature? Email us at davidhartglass@gmail.com & reapsprgm@gmail.com

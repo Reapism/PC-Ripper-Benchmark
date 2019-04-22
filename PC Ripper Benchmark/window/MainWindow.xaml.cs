@@ -236,6 +236,7 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
 
+                    
                 case Tab.RUNNING_TEST: {
 
                     Random rnd = new Random();
@@ -255,6 +256,12 @@ namespace PC_Ripper_Benchmark.window {
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
                     break;
                 }
+
+                case Tab.MY_ACCOUNT:
+                    {
+                        this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
+                        break;
+                    }
 
                 default: {
                     break;
@@ -913,8 +920,8 @@ namespace PC_Ripper_Benchmark.window {
 
         private void MenuAboutProject_Click(object sender, RoutedEventArgs e) {
             var result = MessageBox.Show("The PC Ripper Benchmark application is a PC diagnostics program that can benchmark " +
-                "the computers processor, memory, and hard drive and give it a score. Depending on the score, you might can " +
-                "want to possible upgrade certain components on the PC. This project is open sourced on GitHub, would you like " +
+                "the computers processor, memory, and hard drive and give it a score. Depending on the score, you might want " +
+                "to possibly upgrade certain components of your PC. This project is open sourced on GitHub, would you like " +
                 "to go there?", "About this project", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes) {
                 System.Diagnostics.Process.Start("https://github.com/Reapism/PC-Ripper-Benchmark");
@@ -938,6 +945,63 @@ namespace PC_Ripper_Benchmark.window {
             } else {
                 MessageBox.Show($"Cannot send results as a guest!",
                         "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
+            this.txtResults.ScrollToVerticalOffset(0);
+            this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
+        }
+
+        private void MenuHelp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("help.htm");
+        }
+
+        private void MenuAccount_Click(object sender, RoutedEventArgs e)
+        {
+            ShowTabWindow(Tab.MY_ACCOUNT);
+        }
+
+        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Slider s = (Slider)sender;
+
+            string userType;
+
+            switch (e.NewValue)
+            {
+                case double d when (e.NewValue >= 0 && e.NewValue <= 1):
+                    {
+                        s.Value = 1.0;
+                        userType = "Casual";
+                        s.ToolTip = userType;
+                        break;
+                    }
+
+                case double d when (e.NewValue > 1 && e.NewValue <= 2):
+                    {
+                        s.Value = 2.0;
+                        userType = "Web surfer";
+                        s.ToolTip = userType;
+                        break;
+                    }
+
+                case double d when (e.NewValue > 2 && e.NewValue <= 3):
+                    {
+                        s.Value = 3.0;
+                        userType = "High performance";
+                        s.ToolTip = userType;                     
+                        break;
+                    }
+
+                case double d when (e.NewValue > 3 && e.NewValue <= 4):
+                    {
+                        s.Value = 4.0;
+                        userType = "Video editor";
+                        s.ToolTip = userType;                        
+                        break;
+                    }
             }
         }
     }

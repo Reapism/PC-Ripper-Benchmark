@@ -65,6 +65,9 @@
                     <MenuItem x:Name="menuAbout" Header="About" ToolTip="About" Foreground="#FFE6E6E6">
                         <MenuItem x:Name="menuAboutProject" Header="About this project..." ToolTip="About this project" Foreground="Black" Click="MenuAboutProject_Click"/>
                     </MenuItem>
+                    <MenuItem x:Name="menuAccount" Header="My Account" Foreground="#FFE6E6E6" Click="MenuAccount_Click"/>
+                    <MenuItem x:Name="menuHelp" Header="Help" Foreground="#FFE6E6E6" Click="MenuHelp_Click">
+                    </MenuItem>
                 </Menu>
             </Grid>
         </Grid>
@@ -108,7 +111,7 @@
                                     <Label x:Name="lblName" Content="Name" Foreground="White" FontSize="18"/>
                                     <Label x:Name="lblTypeOfUser" Content="Typeofuser:" Foreground="White" FontSize="18"/>
                                     <Label x:Name="lblUserSkill" Content="Userskill:" Foreground="White" FontSize="18"/>
-                                </StackPanel> 
+                                </StackPanel>
                                 <DataGrid x:Name="dataGrdUserResults" Margin="5,187,5,5" FontSize="16" Background="#33F0F0F0"/>
                             </Grid>
                             <Grid x:Name="grdSystemSpecs" Margin="0" MinHeight="100">
@@ -139,7 +142,7 @@
                                         </RichTextBox>
                                     </Grid>
                                 </GroupBox>
-                                
+
                             </Grid>
                         </Grid>
                     </Grid>
@@ -424,6 +427,9 @@
                         <TextBlock x:Name="txtBlkRunningTest" HorizontalAlignment="Center" Margin="0,19,0,0" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Top" FontSize="18" Text="Are you sure you want to run the test?"/>
                         <TextBlock x:Name="txtBlkRunningTestTips" HorizontalAlignment="Center" Margin="0,0,0,80" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Bottom" FontSize="18" Text="Are you sure you want to run the test?" ToolTip="A random tip! Try them out!"/>
                     </Grid>
+                </TabItem>
+                <TabItem x:Name="My_Account" Header="My Account">
+                    <Label x:Name="myAccountWelcome" Content="Change your account settings" Margin="311,119,262,303" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"> </Label>
                 </TabItem>
                 <TabItem Header="ResultsParts"/>
             </TabControl>
