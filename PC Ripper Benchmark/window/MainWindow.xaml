@@ -380,7 +380,7 @@
                         </Grid>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabTestResults" Header="Results" GotFocus="TabTestResults_GotFocus">
+                <TabItem x:Name="tabTestResults" Header="Results">
                     <Grid x:Name="grdResults">
                         <Grid.Background>
                             <RadialGradientBrush>

@@ -940,10 +940,5 @@ namespace PC_Ripper_Benchmark.window {
                         "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
-            this.txtResults.ScrollToVerticalOffset(0);
-            this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
-        }
     }
 }
