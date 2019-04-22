@@ -246,6 +246,7 @@
     <Resource Include="resources\ram_referencedereference.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resources\help.html" />
     <Content Include="resources\running_test_messages.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
