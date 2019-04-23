@@ -339,14 +339,14 @@
                                             <Button x:Name="btnLockDir" Content="Lock a Directory" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Margin="100,10,100,0" Click="BtnLockDir_Click"/>
                                             <Button x:Name="btnUnlockDir" Content="Unlock a Directory" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,10,100,0" VerticalAlignment="Center" Click="BtnUnlockDir_Click"/>
                                         </StackPanel>
-                                        <ListBox x:Name="lstAdvancedSettings" Margin="5,120,5,50" BorderBrush="#FFA17EEC" FontSize="18" FontFamily="Nirmala UI" Foreground="#FF741997" BorderThickness="3" ToolTip="Double click a particular settings to change it!">
+                                        <ListBox x:Name="lstAdvancedSettings" Margin="5,120,5,50" BorderBrush="#FFA17EEC" FontSize="18" FontFamily="Nirmala UI" Foreground="#FF741997" BorderThickness="3" ToolTip="Right click a particular settings to change it!">
                                             <ListBox.Background>
                                                 <RadialGradientBrush>
                                                     <GradientStop Color="#4CE4FBFF" Offset="0"/>
                                                     <GradientStop Color="#4C5BD0E2" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </ListBox.Background>
-                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)" Click="Menu_cpu_iter_per_test_Click"/>
+                                            <MenuItem x:Name="menu_cpu_iter_per_test" Header="Iterations per CPU test: " ToolTip="Change the number of times each CPU test gets ran for averaging (higher, more accurate)" Click="Menu_cpu_iter_per_test_Click" />
                                             <MenuItem x:Name="menu_cpu_successorship" Header="Successorship: " ToolTip="Change the number of successorship iterations" Click="Menu_cpu_successorship_Click"/>
                                             <MenuItem x:Name="menu_cpu_boolean" Header="Boolean: " ToolTip="Change the number of boolean iterations" Click="Menu_cpu_boolean_Click"/>
                                             <MenuItem x:Name="menu_cpu_queue" Header="Queue: " ToolTip="Change the number of queue iterations" Click="Menu_cpu_queue_Click"/>
@@ -362,6 +362,7 @@
                                             <MenuItem x:Name="menu_disk_readwriteparse" Header="Read/Write Parse: " ToolTip="Change the number of read/write parse iterations" Click="Menu_disk_readwriteparse_Click"/>
                                             <MenuItem x:Name="menu_disk_ripper" Header="Disk Ripper: " ToolTip="Change the number of disk ripper iterations" Click="Menu_disk_ripper_Click"/>
                                         </ListBox>
+                                        <Button x:Name="btnDefaultSettings" Content="Restore Default Settings" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,0,100,15" VerticalAlignment="Bottom" Click="BtnDefaultSettings_Click"/>
                                     </Grid>
                                 </TabItem>
                             </TabControl>
