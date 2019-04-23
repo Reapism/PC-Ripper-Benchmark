@@ -68,6 +68,7 @@ namespace PC_Ripper_Benchmark.window {
             WindowSettings ws = new WindowSettings();
             ws.CenterWindowOnScreen(this);
             GetWelcomeText();
+            GetUserAccountText();
         }
 
         /// <summary>
@@ -160,6 +161,17 @@ namespace PC_Ripper_Benchmark.window {
 
             this.lblTypeOfUser.Content = $"You're using your computer mainly for {this.userData.GetTypeOfUserString()}.";
             this.lblUserSkill.Content = $"You've decided you're an {this.userData.GetUserSkillString()} user.";
+        }
+
+        private void GetUserAccountText()
+        {
+            this.userData.FirstName = UserData.UppercaseFirst(this.userData.FirstName);
+            this.userData.LastName = UserData.UppercaseFirst(this.userData.LastName);
+
+            this.accountNameLbl.Content = $"Name: {this.userData.FirstName}, {this.userData.LastName}";
+
+            this.accountTypeOfUserLbl.Content = $"Type: {this.userData.GetTypeOfUserString()}";
+            this.accountUserSkillLbl.Content = $"Skill Level: {this.userData.GetUserSkillString()} user";
 
         }
 
