@@ -296,7 +296,15 @@ namespace PC_Ripper_Benchmark.database {
             }
         }
 
-        public bool AddUserResults(string email, string results) {
+        /// <summary>
+        /// Adds the results to the database with a particular name.
+        /// </summary>
+        /// <param name="email">The email of the user.</param>
+        /// <param name="results">The results as a string.</param>
+        /// <param name="nameOfTest">The name of the test to reference.</param>
+        /// <returns></returns>
+
+        public bool AddUserResults(string email, string results, string nameOfTest) {
             try {
                 if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
                     SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection) {
@@ -306,6 +314,7 @@ namespace PC_Ripper_Benchmark.database {
                     //this.Connection.Open();
                     changeUserSettings.Parameters.AddWithValue("@Email", email);
                     changeUserSettings.Parameters.AddWithValue("@Results", results);
+                    changeUserSettings.Parameters.AddWithValue("@TestName", nameOfTest);
 
                     changeUserSettings.ExecuteNonQuery();
                     this.Connection.Close();

@@ -688,14 +688,6 @@ namespace PC_Ripper_Benchmark.window {
             this.testToRun = Tab.DISK;
         }
 
-        private void BtnSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
-
-        }
-
-        private void BtnSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
-
-        }
-
         private void BtnSettings_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.SETTINGS);
 
@@ -936,75 +928,6 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
-        #endregion
-
-        private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
-            DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
-            db.Open();
-
-            if (this.userData.Email != "guest") {
-                var range = new TextRange(this.txtResults.Document.ContentStart,
-                         this.txtResults.Document.ContentEnd);
-
-                if (db.AddUserResults(this.userData.Email, range.Text)) {
-                    MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
-                        "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            } else {
-                MessageBox.Show($"Cannot send results as a guest!",
-                        "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
-            this.txtResults.ScrollToVerticalOffset(0);
-            this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
-        }
-
-        private void MenuHelp_Click(object sender, RoutedEventArgs e) {
-            System.Diagnostics.Process.Start("help.html");
-        }
-
-        private void MenuAccount_Click(object sender, RoutedEventArgs e) {
-            ShowTabWindow(Tab.MY_ACCOUNT);
-        }
-
-        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            Slider s = (Slider)sender;
-
-            string userType;
-
-            switch (e.NewValue) {
-                case double d when (e.NewValue >= 0 && e.NewValue <= 1): {
-                    s.Value = 1.0;
-                    userType = "Casual";
-                    s.ToolTip = userType;
-                    break;
-                }
-
-                case double d when (e.NewValue > 1 && e.NewValue <= 2): {
-                    s.Value = 2.0;
-                    userType = "Web surfer";
-                    s.ToolTip = userType;
-                    break;
-                }
-
-                case double d when (e.NewValue > 2 && e.NewValue <= 3): {
-                    s.Value = 3.0;
-                    userType = "High performance";
-                    s.ToolTip = userType;
-                    break;
-                }
-
-                case double d when (e.NewValue > 3 && e.NewValue <= 4): {
-                    s.Value = 4.0;
-                    userType = "Video editor";
-                    s.ToolTip = userType;
-                    break;
-                }
-            }
-        }
-
         private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
             if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerCPUTest.ToString(), out byte output)) {
                 MessageBox.Show("The value you entered cannot be parsed.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1153,6 +1076,77 @@ namespace PC_Ripper_Benchmark.window {
 
             this.rs.IterationsDiskRipper = output;
             LoadAdvancedSettings();
+        }
+
+        #endregion
+
+        private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
+            DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
+            db.Open();
+
+            if (this.userData.Email != "guest") {
+                var range = new TextRange(this.txtResults.Document.ContentStart,
+                         this.txtResults.Document.ContentEnd);
+
+                string input = RipperDialog.InputBox("Please enter a name for the test!", "Enter a name", $"{userData.FirstName}'s Test");
+
+                if (db.AddUserResults(this.userData.Email, range.Text,input)) {
+                    MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
+                        "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            } else {
+                MessageBox.Show($"Cannot send results as a guest!",
+                        "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
+            this.txtResults.ScrollToVerticalOffset(0);
+            this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
+        }
+
+        private void MenuHelp_Click(object sender, RoutedEventArgs e) {
+            System.Diagnostics.Process.Start("help.html");
+        }
+
+        private void MenuAccount_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.MY_ACCOUNT);
+        }
+
+        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            Slider s = (Slider)sender;
+
+            string userType;
+
+            switch (e.NewValue) {
+                case double d when (e.NewValue >= 0 && e.NewValue <= 1): {
+                    s.Value = 1.0;
+                    userType = "Casual";
+                    s.ToolTip = userType;
+                    break;
+                }
+
+                case double d when (e.NewValue > 1 && e.NewValue <= 2): {
+                    s.Value = 2.0;
+                    userType = "Web surfer";
+                    s.ToolTip = userType;
+                    break;
+                }
+
+                case double d when (e.NewValue > 2 && e.NewValue <= 3): {
+                    s.Value = 3.0;
+                    userType = "High performance";
+                    s.ToolTip = userType;
+                    break;
+                }
+
+                case double d when (e.NewValue > 3 && e.NewValue <= 4): {
+                    s.Value = 4.0;
+                    userType = "Video editor";
+                    s.ToolTip = userType;
+                    break;
+                }
+            }
         }
     }
 }

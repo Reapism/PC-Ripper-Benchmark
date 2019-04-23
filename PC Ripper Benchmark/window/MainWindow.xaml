@@ -33,7 +33,7 @@
             <Button x:Name="btnDisk" HorizontalAlignment="Left" Margin="35,350,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnDisk_MouseEnter" MouseLeave="BtnDisk_MouseLeave" Click="BtnDisk_Click" GotFocus="BtnDisk_GotFocus" LostFocus="BtnDisk_LostFocus" Background="#00DDDDDD" BorderBrush="White">
                 <Image x:Name="imgBtnDisk" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/disk.png" ToolTip="Navigate to the DISK benchmarking tab."/>
             </Button>
-            <Button x:Name="btnSettings" HorizontalAlignment="Left" Margin="35,450,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnSettings_MouseEnter" MouseLeave="BtnSettings_MouseLeave" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus" Background="#00DDDDDD" BorderBrush="White">
+            <Button x:Name="btnSettings" HorizontalAlignment="Left" Margin="35,450,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="BtnSettings_Click" GotFocus="BtnSettings_GotFocus" LostFocus="BtnSettings_LostFocus" Background="#00DDDDDD" BorderBrush="White">
                 <Image x:Name="imgBtnSettings" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/settings.png" ToolTip="Navigate to the application settings."/>
             </Button>
 
