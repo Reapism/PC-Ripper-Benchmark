@@ -190,7 +190,10 @@ namespace PC_Ripper_Benchmark.function {
             });
 
             ui.Dispatcher.InvokeAsync(() => {
-                ui.txtBlkResults.Text = "Results for the CPU test:";
+                ui.txtBlkResults.Text = "Results for the CPU test are below! If you would " +
+                "like to send the results to the database, right click the results and press " +
+                "send to database!";
+;
             });
 
             ui.Dispatcher.InvokeAsync(() => {
