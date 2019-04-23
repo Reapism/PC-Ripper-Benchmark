@@ -266,14 +266,19 @@ namespace PC_Ripper_Benchmark.window {
 
             this.codePopup.IsOpen = true;
 
-            if (util.RegexUtilities.IsValidPassword(this.newPasswordBox.Password)) {
-                this.newPasswordBox.BorderThickness = new Thickness(3.0);
-                this.newPasswordBox.BorderBrush = Brushes.Green;
-                this.codePopup.IsOpen = false;
-            } else {
-                this.newPasswordBox.BorderThickness = new Thickness(3.0);
-                this.newPasswordBox.BorderBrush = Brushes.Red;
-                this.codePopup.IsOpen = true;
+            if (this.newPasswordBox.Password == this.confirmNewPasswordBox.Password
+                && this.confirmNewPasswordBox.Password != "" && this.confirmNewPasswordBox.Password != null)
+            {
+
+                //If the password matches, set passwords match label to green border and visible
+                this.lblPasswordsMatch.Content = "Passwords match";
+                this.lblPasswordsMatch.Background = Brushes.Green;
+            }
+            else
+            {
+                //If the password does not match, set passwords match label to visible;
+                this.lblPasswordsMatch.Content = "Passwords don't match";
+                this.lblPasswordsMatch.Background = Brushes.Red;
             }
         }
         #endregion
