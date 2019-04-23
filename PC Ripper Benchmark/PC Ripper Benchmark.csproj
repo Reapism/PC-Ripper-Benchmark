@@ -105,6 +105,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="database\DatabaseConnection.cs" />
+    <Compile Include="database\DatabaseQueries.cs" />
     <Compile Include="exception\RipperDatabaseException.cs" />
     <Compile Include="function\DiskFunctions.cs" />
     <Compile Include="function\RamFunctions.cs" />
