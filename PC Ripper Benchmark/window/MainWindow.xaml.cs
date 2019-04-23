@@ -57,9 +57,6 @@ namespace PC_Ripper_Benchmark.window {
             Instantiate();
             GetComputerSpecs();
             InstantiateAdvancedSettings();
-
-            RipperDialog.InputBox("", out string s, "");
-            MessageBox.Show(s);
         }
 
         /// <summary>
