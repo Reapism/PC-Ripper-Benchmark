@@ -89,6 +89,8 @@ namespace PC_Ripper_Benchmark.util {
             ManagementObjectCollection mgtCollection = mgt.GetInstances();
 
             foreach (ManagementObject item in mgtCollection) {
+
+
                 lst.Add("Manufacturer: " + item.Properties["Manufacturer"].Value.ToString());
                 lst.Add($"Capacity: {item.Properties["Capacity"].Value.ToString()} bytes");
                 lst.Add("Speed: " + item.Properties["Speed"].Value.ToString() + "MHz");
