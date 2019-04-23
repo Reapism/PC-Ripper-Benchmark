@@ -12,7 +12,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using XamlAnimatedGif;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 using static PC_Ripper_Benchmark.util.UserData;
@@ -127,6 +126,8 @@ namespace PC_Ripper_Benchmark.window {
             this.menu_disk_bulkfile.Header = this.menu_disk_bulkfile.Tag.ToString() + this.rs.IterationsDiskBulkFile.ToString("n0");
             this.menu_disk_readwriteparse.Header = this.menu_disk_readwriteparse.Tag.ToString() + this.rs.IterationsDiskReadWriteParse.ToString("n0");
             this.menu_disk_ripper.Header = this.menu_disk_ripper.Tag.ToString() + this.rs.IterationsDiskRipper.ToString("n0");
+
+            RipperSettings.SaveApplicationSettings(ref this.rs);
         }
 
         /// <summary>
@@ -239,19 +240,7 @@ namespace PC_Ripper_Benchmark.window {
 
 
                 case Tab.RUNNING_TEST: {
-
-                    Random rnd = new Random();
-                    Uri uri = ChoosePreloader();
-                    
-                    if (uri != null) {
-                        AnimationBehavior.SetSourceUri(this.imgPreloader, uri);
-                        AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
-                    }
-
-                    Action a = new Action(() => {
-
-                    });
-                    Task t = new Task(a);
+                    LoadRunningTest();
 
                     this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
                     break;
@@ -266,15 +255,36 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
             }
+        }
 
+        /// <summary>
+        /// Loads a random preloader. 
+        /// <para>Threaded.</para>
+        /// </summary>
 
+        private void LoadRunningTest() {
+            Action a = new Action(() => {
+                Random rnd = new Random();
+                Uri uri = ChoosePreloader();
+
+                if (uri != null) {
+                    this.Dispatcher.InvokeAsync(() => {
+                        AnimationBehavior.SetSourceUri(this.imgPreloader, uri);
+                        AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
+                    });
+                }
+            });
+
+            Task t = new Task(a);
+            t.Start();
         }
 
         /// <summary>
         /// Save the application settings.
         /// </summary>
 
-        private void SaveSettings() => Properties.Settings.Default.Save();
+        private void SaveSettings() => RipperSettings.SaveApplicationSettings(ref this.rs);
+
 
         /// <summary>
         /// Gets lines from a file in the resouces directory
@@ -847,10 +857,6 @@ namespace PC_Ripper_Benchmark.window {
             ExportResults(ExportType.TEXTFILE, this.txtComputerSpecs);
         }
 
-        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
-
-        }
-
         private void MenuNewWindow_Click(object sender, RoutedEventArgs e) {
             new MainWindow(this.userData).Show(); ;
         }
@@ -996,7 +1002,154 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
+        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerCPUTest.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            this.rs.IterationsPerCPUTest = output;
+            LoadAdvancedSettings();
+        }
 
+        private void Menu_cpu_successorship_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsSuccessorship.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsSuccessorship = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_cpu_boolean_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsBoolean.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsBoolean = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_cpu_queue_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsQueue.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsQueue = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_cpu_linkedlist_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsLinkedList.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsLinkedList = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_cpu_tree_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsTree.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsTree = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_ram_per_test_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerRAMTest.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsPerRAMTest = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_ram_foldermatrix_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMFolderMatrix.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsRAMFolderMatrix = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_ram_bulkfile_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMVirtualBulkFile.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsRAMVirtualBulkFile = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_ram_readwriteparse_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMReferenceDereference.ToString(), out ulong output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsRAMReferenceDereference = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_disk_per_test_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMReferenceDereference.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsRAMReferenceDereference = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_disk_foldermatrix_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDISKFolderMatrix.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsDISKFolderMatrix = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_disk_bulkfile_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskBulkFile.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsDiskBulkFile = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_disk_readwriteparse_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskReadWriteParse.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsDiskReadWriteParse = output;
+            LoadAdvancedSettings();
+        }
+
+        private void Menu_disk_ripper_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskRipper.ToString(), out byte output)) {
+                MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            this.rs.IterationsDiskRipper = output;
+            LoadAdvancedSettings();
+        }
     }
 }
