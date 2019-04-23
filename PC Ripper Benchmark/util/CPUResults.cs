@@ -1,5 +1,4 @@
 ﻿using PC_Ripper_Benchmark.exception;
-using PC_Ripper_Benchmark.window;
 using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -21,6 +20,8 @@ namespace PC_Ripper_Benchmark.util {
         private readonly UserData userData;
         private const byte uniqueTestCount = 5;
 
+        private uint iterations_per_tick;
+        private TimeSpan total_duration;
         /// <summary>
         /// Constructs <see cref="CPUResults"/> with
         /// a <see cref="RipperSettings"/> instance.
@@ -34,6 +35,8 @@ namespace PC_Ripper_Benchmark.util {
             this.TestCollection = new List<TimeSpan>();
             this.rs = rs;
             this.userData = userData;
+            this.iterations_per_tick = 0;
+            this.total_duration = new TimeSpan();
         }
 
         /// <summary>
@@ -52,9 +55,9 @@ namespace PC_Ripper_Benchmark.util {
         /// Represents the description for test.
         /// </summary>
 
-        public override string Description => userData.IsAdvanced == UserData.UserSkill.Advanced ?
+        public override string Description => this.userData.IsAdvanced == UserData.UserSkill.Advanced ?
             GenerateAdvancedDescription() : GenerateBeginnerDescription();
-        
+
         /// <summary>
         /// The number of different tests for the CPU component.
         /// </summary>
@@ -150,7 +153,7 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
         /// <returns></returns>
         /// <exception cref="UnknownTestException"></exception>
-        
+
         protected override string GenerateAdvancedDescription() {
 
             // Checking the worst case scenario. if these dont equal, something bad happened.
@@ -243,7 +246,8 @@ namespace PC_Ripper_Benchmark.util {
 
             // total time of all tests. 
             desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+            this.total_duration = TotalTimeSpan(this.TestCollection);
+            desc += $"\t{this.total_duration}";
 
             // score for the test.
             desc += Environment.NewLine;
@@ -290,6 +294,12 @@ namespace PC_Ripper_Benchmark.util {
 
         protected override byte GenerateScore() {
             return 0;
+            //var total_iterations = (this.rs.IterationsSuccessorship +
+            //    this.rs.IterationsBoolean + this.rs.IterationsQueue +
+            //    this.rs.IterationsLinkedList + this.rs.IterationsTree) *
+            //    this.rs.IterationsPerCPUTest;
+
+            //var iter_per_tick = (ulong)total_duration.Seconds / total_iterations;
         }
 
 
