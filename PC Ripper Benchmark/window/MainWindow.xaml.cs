@@ -114,7 +114,7 @@ namespace PC_Ripper_Benchmark.window {
             this.menu_cpu_linkedlist.Header = this.menu_cpu_linkedlist.Tag.ToString() + this.rs.IterationsLinkedList.ToString("n0");
             this.menu_cpu_tree.Header = this.menu_cpu_tree.Tag.ToString() + this.rs.IterationsTree.ToString("n0");
 
-            this.menu_ram_per_test.Header = this.menu_cpu_iter_per_test.Tag.ToString() + this.rs.IterationsPerRAMTest.ToString("n0");
+            this.menu_ram_per_test.Header = this.menu_ram_per_test.Tag.ToString() + this.rs.IterationsPerRAMTest.ToString("n0");
 
             this.menu_ram_foldermatrix.Header = this.menu_ram_foldermatrix.Tag.ToString() + this.rs.IterationsRAMFolderMatrix.ToString("n0");
             this.menu_ram_bulkfile.Header = this.menu_ram_bulkfile.Tag.ToString() + this.rs.IterationsRAMVirtualBulkFile.ToString("n0");
@@ -730,6 +730,9 @@ namespace PC_Ripper_Benchmark.window {
             } else {
                 this.txtBlkRunningTestTips.Text = "Did you know you can change the test settings? Go to Settings->Advanced Settings.";
             }
+
+            ThemeManager theme = new ThemeManager(this);
+            theme.RunningTest(this);
 
             RunTest();
         }
