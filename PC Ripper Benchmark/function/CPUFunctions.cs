@@ -199,6 +199,7 @@ namespace PC_Ripper_Benchmark.function {
                 ui.txtBlkRunningTest.Text = "Are you sure you want to run this test?";
                 ui.txtResults.ScrollToVerticalOffset(0);
                 ui.txtBlkRunningTestTips.Visibility = System.Windows.Visibility.Hidden;
+                ThemeManager.StopRunningTest();
             });
         }
 
