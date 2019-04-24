@@ -200,7 +200,7 @@ namespace PC_Ripper_Benchmark.window {
                 SqlCommand changePassword = new SqlCommand("UPDATE [USER] SET Password = @Password WHERE Email=@Email", connection);
                 //Fill the parameter of the query
                 changePassword.Parameters.AddWithValue("@Email", email);
-                changePassword.Parameters.AddWithValue("@Password", this.encryption.HashTextSHA256(this.confirmNewPasswordBox.Password));
+                changePassword.Parameters.AddWithValue("@Password", this.encryption.HashUniqueTextSHA256(this.confirmNewPasswordBox.Password));
                 changePassword.ExecuteNonQuery();
 
                 MessageBox.Show("Password Changed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
