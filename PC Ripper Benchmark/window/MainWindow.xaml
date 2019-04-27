@@ -414,7 +414,7 @@
                         <TextBlock x:Name="txtBlkRunningTestTips" HorizontalAlignment="Center" Margin="0,0,0,80" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Bottom" FontSize="18" Text="Are you sure you want to run the test?" ToolTip="A random tip! Try them out!"/>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabMyAccount" Header="My Account">
+                <TabItem x:Name="tabMyAccount" Header="My Account" Height="24" VerticalAlignment="Bottom">
                     <Grid x:Name="accWelcome">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="506*"/>
@@ -448,8 +448,8 @@
                                 <StackPanel x:Name="stkUserDataAcc" Margin="5,75,5,10" Background="#4CFFFFFF" RenderTransformOrigin="0.57,0.481">
                                     <Grid x:Name="grdUserData" Height="304">
                                         <Label x:Name="accountNameLbl" Content="Name:" Foreground="White" FontSize="18" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                        <Label x:Name="accountTypeOfUserLbl" Content="Typeofuser:" Foreground="White" FontSize="18" Margin="20,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                        <Label x:Name="accountUserSkillLbl" Content="Userskill:" Foreground="White" FontSize="18" Margin="20,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <Label x:Name="accountTypeOfUserLbl" Content="Type of User:" Foreground="White" FontSize="18" Margin="20,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <Label x:Name="accountUserSkillLbl" Content="User Skill:" Foreground="White" FontSize="18" Margin="20,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                         <ComboBox x:Name="typeOfUserComboBox" HorizontalAlignment="Left" Margin="200,155,0,0" VerticalAlignment="Top" Width="128" Height="25" Background="#4CFFFFFF" BorderBrush="White">
                                             <ComboBoxItem Content="Casual"/>
                                             <ComboBoxItem Content="Web Surfer"/>

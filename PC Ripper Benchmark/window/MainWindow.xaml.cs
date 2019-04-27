@@ -1453,32 +1453,75 @@ namespace PC_Ripper_Benchmark.window
                         };
 
                         UserSkill userSkill;
-                        switch (userSkillComboBox.SelectedIndex) {
-                            case 0: {
-                                userSkill = UserSkill.Beginner;
-                                break;
-                            }
+                        switch (userSkillComboBox.SelectedIndex)
+                        {
+                            case 0:
+                                {
+                                    userSkill = UserSkill.Beginner;
+                                    break;
+                                }
 
-                            case 1: {
-                                userSkill = UserSkill.Advanced;
-                                break;
-                            }
+                            case 1:
+                                {
+                                    userSkill = UserSkill.Advanced;
+                                    break;
+                                }
 
-                            default: {
-                                userSkill = UserSkill.Beginner;
-                                break;
-                            }
+                            default:
+                                {
+                                    userSkill = UserSkill.Beginner;
+                                    break;
+                                }
+                        }
+
+                        TypeOfUser typeOfUser;
+                        switch (typeOfUserComboBox.SelectedIndex)
+                        {
+                            case 0:
+                                {
+                                    typeOfUser = TypeOfUser.Casual;
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    typeOfUser = TypeOfUser.Websurfer;
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    typeOfUser = TypeOfUser.HighPerformance;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    typeOfUser = TypeOfUser.Video;
+                                    break;
+                                }
+                            default:
+                                {
+                                    typeOfUser = TypeOfUser.Video;
+                                    break;
+                                }
                         }
 
                         //Fill the parameter of the query
                         changeSettings.Parameters.AddWithValue("@Email", userData.Email);
                         changeSettings.Parameters.AddWithValue("@UserSkill", (int)userSkill);
-                        changeSettings.Parameters.AddWithValue("@TypeOfUser", typeOfUserComboBox.Text);
+                        changeSettings.Parameters.AddWithValue("@TypeOfUser", (int)typeOfUser);
                         changeSettings.ExecuteNonQuery();
 
                         connection.Close();
 
                         MessageBox.Show("Your changes have been saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        typeOfUserComboBox.SelectedIndex = -1;
+                        userSkillComboBox.SelectedIndex = -1;
+
+                        accountTypeOfUserLbl.Content = $"Type: {userData.UserType} user";
+                        accountUserSkillLbl.Content = $"Skill Level: {userData.IsAdvanced}";
+                        lblTypeOfUser.Content = $"Type: {userData.UserType} user";
+                        lblUserSkill.Content = $"Skill Level: {userData.IsAdvanced}";
                     }
                 }
                 catch
