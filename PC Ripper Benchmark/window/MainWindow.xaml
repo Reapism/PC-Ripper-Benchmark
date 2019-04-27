@@ -446,7 +446,7 @@
                                 </Grid.Background>
                                 <TextBlock x:Name="txtBlkWelcomeTextAcc" Text="Change your account settings" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
                                 <StackPanel x:Name="stkUserDataAcc" Margin="5,75,5,10" Background="#4CFFFFFF" RenderTransformOrigin="0.57,0.481">
-                                    <Grid x:Name="grdUserData" Height="250">
+                                    <Grid x:Name="grdUserData" Height="304">
                                         <Label x:Name="accountNameLbl" Content="Name:" Foreground="White" FontSize="18" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                         <Label x:Name="accountTypeOfUserLbl" Content="Typeofuser:" Foreground="White" FontSize="18" Margin="20,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                         <Label x:Name="accountUserSkillLbl" Content="Userskill:" Foreground="White" FontSize="18" Margin="20,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -462,6 +462,16 @@
                                         </ComboBox>
                                         <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="20,150,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                         <Label x:Name="changeUserSkillLbl" Content="Change User Skill" Foreground="White" FontSize="18" Margin="20,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                        <Button x:Name="alterUserDataBtn" Margin="200,232,0,34" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="128" Content="Save " Click="AlterUserDataBtn_Click">
+                                            <Button.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform Angle="180"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Button.RenderTransform>
+                                        </Button>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
