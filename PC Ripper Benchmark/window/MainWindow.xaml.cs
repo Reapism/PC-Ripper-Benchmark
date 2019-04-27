@@ -1452,7 +1452,7 @@ namespace PC_Ripper_Benchmark.window
                             CommandType = CommandType.StoredProcedure
                         };
 
-                        UserSkill userSkill;
+                        UserSkill userSkill = 0;
                         switch (userSkillComboBox.SelectedIndex)
                         {
                             case 0:
@@ -1474,7 +1474,7 @@ namespace PC_Ripper_Benchmark.window
                                 }
                         }
 
-                        TypeOfUser typeOfUser;
+                        TypeOfUser typeOfUser = 0;
                         switch (typeOfUserComboBox.SelectedIndex)
                         {
                             case 0:
@@ -1517,11 +1517,21 @@ namespace PC_Ripper_Benchmark.window
                         MessageBox.Show("Your changes have been saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         typeOfUserComboBox.SelectedIndex = -1;
                         userSkillComboBox.SelectedIndex = -1;
+                    
+                        if (MessageBox.Show("You must logout for changes to take affect. Want to logout now?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes){
+                            function.WindowSettings settings = new WindowSettings();
+                            LoginWindow loginWindow = new LoginWindow();
 
-                        accountTypeOfUserLbl.Content = $"Type: {userData.UserType} user";
-                        accountUserSkillLbl.Content = $"Skill Level: {userData.IsAdvanced}";
-                        lblTypeOfUser.Content = $"Type: {userData.UserType} user";
-                        lblUserSkill.Content = $"Skill Level: {userData.IsAdvanced}";
+                            settings.TransitionScreen(loginWindow, this);
+                        }
+                        else
+                        {
+                            accountTypeOfUserLbl.Content = $"Type: Logout to see changes";
+                            accountUserSkillLbl.Content = $"Skill Level: Logout to see changes";
+                            lblTypeOfUser.Content = $"Type: Logout to see changes";
+                            lblUserSkill.Content = $"Skill Level: Logout to see changes";
+
+                        }
                     }
                 }
                 catch
