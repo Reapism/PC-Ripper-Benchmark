@@ -269,8 +269,8 @@ namespace PC_Ripper_Benchmark.util {
 
             desc += Environment.NewLine + Environment.NewLine;
             desc += "";
-            return desc;
 
+            return desc;
         }
 
         /// <summary>
