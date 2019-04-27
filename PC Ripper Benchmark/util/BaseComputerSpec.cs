@@ -8,9 +8,9 @@
 
         public string CPUName { get => "Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"; }
 
-        public string RAMName { get => "Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"; }
+        public string RAMName { get => "Crucial RAM "; }
 
-        public string DISKName { get => "Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"; }
+        public string DISKName { get => ""; }
 
         public double IterationsPerTickCPU { get => 17.821496; }
 
