@@ -456,7 +456,7 @@ namespace PC_Ripper_Benchmark.util {
 
             Properties.Settings.Default.iter_per_ram_test = rs.IterationsPerRAMTest;
 
-            Properties.Settings.Default.iter_ram_foldermatrix = rs.IterationsBoolean;
+            Properties.Settings.Default.iter_ram_foldermatrix = rs.IterationsRAMFolderMatrix;
             Properties.Settings.Default.iter_ram_virtualbulkfile = rs.IterationsRAMVirtualBulkFile;
             Properties.Settings.Default.iter_ram_referencedereference = rs.IterationsRAMReferenceDereference;
 
