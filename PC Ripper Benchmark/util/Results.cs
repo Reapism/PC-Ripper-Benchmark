@@ -18,6 +18,12 @@ namespace PC_Ripper_Benchmark.util {
         #region Abstract properties for a given component.
 
         /// <summary>
+        /// Gets the <see cref="ThreadType"/> for a particular
+        /// test.
+        /// </summary>
+        protected abstract ThreadType GetThreadType { get; }
+
+        /// <summary>
         /// Represents the individual time for each test before the averaging.
         /// </summary>
         public abstract List<TimeSpan> TestCollection { get; }
@@ -41,6 +47,16 @@ namespace PC_Ripper_Benchmark.util {
         #endregion
 
         #region Abstract methods.
+
+        /// <summary>
+        /// Returns a particular score description thats contingent upon
+        /// the <see cref="UserData.TypeOfUser"/>.
+        /// </summary>
+        /// <param name="typeOfUser">The <see cref="UserData.TypeOfUser"/>.</param>
+        /// <param name="score">The score of the test.</param>
+        /// <returns></returns>
+
+        protected abstract string GenerateScoreDescription(UserData.TypeOfUser typeOfUser, byte score);
 
         /// <summary>
         /// Generates a particular description based on a
@@ -78,8 +94,6 @@ namespace PC_Ripper_Benchmark.util {
         #endregion
 
         #region Virtual function(s). Not meant to be overridden, base functionality is enough.       
-
-
 
         /// <summary>
         /// Takes in a <see cref="TestName"/> and

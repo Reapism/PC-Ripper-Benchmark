@@ -325,8 +325,8 @@ namespace PC_Ripper_Benchmark.database {
                     return false;
                 }
 
-            } catch (SqlException e) {
-                MessageBox.Show($"Computer results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            } catch {
+                MessageBox.Show($"Test results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Connection.Close();
                 return false;
             }
