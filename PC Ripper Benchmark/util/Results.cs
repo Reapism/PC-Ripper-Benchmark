@@ -231,6 +231,26 @@ namespace PC_Ripper_Benchmark.util {
             return total;
         }
 
+        /// <summary>
+        /// Returns a string representation of the <see cref="ThreadType"/> type.
+        /// </summary>
+        /// <param name="threadType">The <see cref="ThreadType"/> </param>
+        /// <returns></returns>
+
+        protected virtual string GetThreadAsString(ThreadType threadType) {
+            switch (threadType) {
+                case ThreadType.Single: { return "Single threaded"; }
+
+                case ThreadType.SingleUI: { return "Dual threaded"; }
+
+                case ThreadType.Multithreaded: { return "Multithreaded"; }
+
+                default: {
+                    return "";
+                }
+            }
+        }
+
         #endregion
     }
 }

@@ -17,9 +17,10 @@ Reaching ordinal ω.
 Reaching ordinal ε^ω.
 Computing ackermann(ω,ω)!
 Getting to Graham's number, hold on.
-Computing every integral { 1 - Tree(3) }
+Computing every integral { 1 : Tree(3) }
 Communicating with E.T life!
 Reading the electromagnetic gamma rays coming out from the nearest blazar!
 Stepping in and out of the event horizon!
 Computing the golden ratio!
 Computing the first ten digits of pi!
+Powering up! 🍄

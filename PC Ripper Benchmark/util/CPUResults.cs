@@ -175,7 +175,10 @@ namespace PC_Ripper_Benchmark.util {
 
             string desc = string.Empty;
 
-            desc += "Running a " + Environment.NewLine;
+            desc += $"Running a {GetThreadAsString(GetThreadType)} benchmarking test"  + Environment.NewLine;
+            desc += $"Username: {Environment.UserName}" + Environment.NewLine;
+            desc += $"Time: {DateTime.Now.ToLongTimeString()}" + Environment.NewLine;
+            desc += $"Date: {DateTime.Now.ToLongDateString()}" + Environment.NewLine;
 
             desc += "Each test runs with a specific number of iterations";
             desc += Environment.NewLine;
@@ -338,6 +341,9 @@ namespace PC_Ripper_Benchmark.util {
                     return "Pretty good. You are in a good spot!";
                 }
 
+                default: {
+                    return "Error";
+                }
             }
         }
 
@@ -363,6 +369,10 @@ namespace PC_Ripper_Benchmark.util {
                 case byte a when (score >= 76 && score <= 100): {
                     return "You wont need to upgrade for your system " +
                         "preference.";
+                }
+
+                default: {
+                    return "Error";
                 }
 
             }
@@ -427,7 +437,7 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
         private string GetVideoDescription(byte score) {
-
+            return "";
         }
 
         /// <summary>
@@ -440,15 +450,21 @@ namespace PC_Ripper_Benchmark.util {
         /// <returns></returns>
 
         protected override byte GenerateScore() {
-            
+            BaseComputerSpec b = new BaseComputerSpec();          
+
             var total_iterations = (this.rs.IterationsSuccessorship +
                 this.rs.IterationsBoolean + this.rs.IterationsQueue +
                 this.rs.IterationsLinkedList + this.rs.IterationsTree) *
                 this.rs.IterationsPerCPUTest;
 
-            var iter_per_tick = (ulong)this.totalDuration.Seconds / total_iterations;
+            var iter_per_tick = (double)this.totalDuration.Seconds / total_iterations;
+            
 
+
+            return 0;
 
         }
+
+        
     }
 }

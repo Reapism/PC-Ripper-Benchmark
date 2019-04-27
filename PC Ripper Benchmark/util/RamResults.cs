@@ -39,6 +39,12 @@ namespace PC_Ripper_Benchmark.util {
         }
 
         /// <summary>
+        /// Get the <see cref="ThreadType"/> for the test.
+        /// </summary>
+        
+        protected override ThreadType GetThreadType { get; }
+
+        /// <summary>
         /// Represents all the timespans for the RAM tests.
         /// </summary>
 
@@ -62,6 +68,7 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
 
         public override byte UniqueTestCount => uniqueTestCount;
+
 
         /// <summary>
         /// Returns a <see cref="Tuple{T1, T2}"/> containing
@@ -139,6 +146,13 @@ namespace PC_Ripper_Benchmark.util {
             }
 
             string desc = string.Empty;
+            desc += $"Running a {GetThreadAsString(GetThreadType)} benchmarking test" + Environment.NewLine;
+            desc += $"Username: {Environment.UserName}" + Environment.NewLine;
+            desc += $"Time: {DateTime.Now.ToLongTimeString()}" + Environment.NewLine;
+            desc += $"Date: {DateTime.Now.ToLongDateString()}" + Environment.NewLine;
+
+            desc += $"The Ripper runs {this.rs.IterationsPerRAMTest} iterations of each test. Below are the durations:";
+            desc += Environment.NewLine;
 
             desc += "Each test runs with a specific number of iterations";
             desc += Environment.NewLine;
@@ -149,11 +163,6 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"\tThe {GetTestName(TestName.RAMReferenceDereferenceParse)} ran " +
                 $"{this.rs.IterationsRAMReferenceDereference.ToString("n0")} iterations per test" + Environment.NewLine;
 
-            // each duration printed.
-            // Should later put in another function.
-
-            desc += $"The Ripper runs {this.rs.IterationsPerRAMTest} iterations of each test. Below are the durations:";
-            desc += Environment.NewLine;
 
             byte index = 0;
 
@@ -246,5 +255,8 @@ namespace PC_Ripper_Benchmark.util {
             return 0;
         }
 
+        protected override string GenerateScoreDescription(UserData.TypeOfUser typeOfUser, byte score) {
+            throw new NotImplementedException();
+        }
     }
 }

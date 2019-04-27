@@ -1,6 +1,4 @@
 ﻿using PC_Ripper_Benchmark.exception;
-using PC_Ripper_Benchmark.function;
-using PC_Ripper_Benchmark.window;
 using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -42,7 +40,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <summary>
         /// Represents all the timespans for the DISK tests.
         /// </summary>
-        
+
         public override List<TimeSpan> TestCollection { get; }
 
         /// <summary>
@@ -55,7 +53,7 @@ namespace PC_Ripper_Benchmark.util {
         /// Represents the description for test.
         /// </summary>
 
-        public override string Description => userData.IsAdvanced == UserData.UserSkill.Advanced ?
+        public override string Description => this.userData.IsAdvanced == UserData.UserSkill.Advanced ?
             GenerateAdvancedDescription() : GenerateBeginnerDescription();
 
         /// <summary>
@@ -63,6 +61,12 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
 
         public override byte UniqueTestCount => uniqueTestCount;
+
+        /// <summary>
+        /// Get the <see cref="ThreadType"/> for the test.
+        /// </summary>
+
+        protected override ThreadType GetThreadType { get; }
 
         /// <summary>
         /// Generates a description for this <see cref="DiskResults"/> instance.
@@ -79,6 +83,10 @@ namespace PC_Ripper_Benchmark.util {
             }
 
             string desc = string.Empty;
+            desc += $"Running a {GetThreadAsString(this.GetThreadType)} benchmarking test" + Environment.NewLine;
+            desc += $"Username: {Environment.UserName}" + Environment.NewLine;
+            desc += $"Time: {DateTime.Now.ToLongTimeString()}" + Environment.NewLine;
+            desc += $"Date: {DateTime.Now.ToLongDateString()}" + Environment.NewLine;
 
             desc += "Each test runs with a specific number of iterations";
             desc += Environment.NewLine;
@@ -89,16 +97,14 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"\tThe {GetTestName(TestName.DISKReadWriteParse)} ran " +
                 $"{this.rs.IterationsDiskReadWriteParse.ToString("n0")} iterations per test" + Environment.NewLine;
             desc += $"\tThe {GetTestName(TestName.DISKRipper)} ran " +
-                $"{this.rs.IterationsDiskRipper.ToString("n0")} iterations per test" + Environment.NewLine;  
+                $"{this.rs.IterationsDiskRipper.ToString("n0")} iterations per test" + Environment.NewLine;
 
-            // each duration printed.
-            // Should later put in another function.
 
             desc += $"The Ripper runs {this.rs.IterationsPerDiskTest} iterations of each test. Below are the durations:";
             desc += Environment.NewLine;
 
             byte index = 0;
-            
+
             for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
                 desc += $"\t{GetTestName(TestName.DISKFolderMatrix)}[{b + 1}] - " +
                     $"{this.TestCollection[index].ToString()}" + Environment.NewLine;
@@ -267,6 +273,10 @@ namespace PC_Ripper_Benchmark.util {
             }
 
             return averageTest;
+        }
+
+        protected override string GenerateScoreDescription(UserData.TypeOfUser typeOfUser, byte score) {
+            throw new NotImplementedException();
         }
     }
 }

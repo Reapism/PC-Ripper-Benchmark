@@ -434,7 +434,7 @@
                                     <GradientStop Color="#33FFFFFF"/>
                                 </RadialGradientBrush>
                             </StackPanel.Background>
-                            <TextBlock x:Name="txtblkWelcomeAccount" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" FontSize="18" Margin="36,30,0,0" Foreground="White" Text="Example text"/>
+                            <TextBlock x:Name="txtblkWelcomeAccount" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" FontSize="18" Margin="36,30,0,0" Foreground="White" Text="My Account"/>
                         </StackPanel>
                         <Grid x:Name="grdWelcomeWindowsAcc" Background="#00000000" Margin="0,100,0,0" Grid.ColumnSpan="2">
                             <Grid x:Name="grdUserInfoAcc" MinHeight="389" MinWidth="440">
@@ -444,29 +444,26 @@
                                         <GradientStop Color="#FFB1C7E2"/>
                                     </RadialGradientBrush>
                                 </Grid.Background>
-                                <TextBlock x:Name="txtBlkWelcomeTextAcc" Text="Change your account settings" Margin="5,10,60,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Foreground="White" FontWeight="Bold" FontSize="20"/>
+                                <TextBlock x:Name="txtBlkWelcomeTextAcc" Text="Change your account settings" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
                                 <StackPanel x:Name="stkUserDataAcc" Margin="5,75,5,10" Background="#4CFFFFFF" RenderTransformOrigin="0.57,0.481">
-                                    <Label x:Name="accountNameLbl" Content="Name:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
-                                    <Label x:Name="accountTypeOfUserLbl" Content="Typeofuser:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
-                                    <Label x:Name="accountUserSkillLbl" Content="Userskill:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
-                                    <ComboBox x:Name="typeOfUserComboBox" HorizontalAlignment="Left" Margin="200,30,0,0" VerticalAlignment="Top" Width="128" Height="34">
-                                        <ComboBoxItem Content="Casual"/>
-                                        <ComboBoxItem Content="Web Surfer"/>
-                                        <ComboBoxItem Content="High Performance"/>
-                                        <ComboBoxItem Content="Video Editor"/>
-                                    </ComboBox>
-                                    <ComboBox x:Name="userSkillComboBox" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Width="128" Height="34">
-                                        <ComboBoxItem Content="Beginner"/>
-                                        <ComboBoxItem Content="Advanced"/>
-                                    </ComboBox>
-                                    <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="18,246,646,0" VerticalAlignment="Top"/>
-                                    <Label x:Name="changeUserSkillLbl" Content="Change User Skill" Foreground="White" FontSize="18" Margin="18,280,646,0" VerticalAlignment="Top"/>
-
+                                    <Grid x:Name="grdUserData" Height="250">
+                                        <Label x:Name="accountNameLbl" Content="Name:" Foreground="White" FontSize="18" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <Label x:Name="accountTypeOfUserLbl" Content="Typeofuser:" Foreground="White" FontSize="18" Margin="20,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <Label x:Name="accountUserSkillLbl" Content="Userskill:" Foreground="White" FontSize="18" Margin="20,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <ComboBox x:Name="typeOfUserComboBox" HorizontalAlignment="Left" Margin="200,155,0,0" VerticalAlignment="Top" Width="128" Height="25" Background="#4CFFFFFF" BorderBrush="White">
+                                            <ComboBoxItem Content="Casual"/>
+                                            <ComboBoxItem Content="Web Surfer"/>
+                                            <ComboBoxItem Content="High Performance"/>
+                                            <ComboBoxItem Content="Video Editor"/>
+                                        </ComboBox>
+                                        <ComboBox x:Name="userSkillComboBox" HorizontalAlignment="Left" Margin="200,185,0,0" VerticalAlignment="Top" Width="128" Height="25" Background="#4CFFFFFF" BorderBrush="White">
+                                            <ComboBoxItem Content="Beginner"/>
+                                            <ComboBoxItem Content="Advanced"/>
+                                        </ComboBox>
+                                        <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="20,150,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                        <Label x:Name="changeUserSkillLbl" Content="Change User Skill" Foreground="White" FontSize="18" Margin="20,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                    </Grid>
                                 </StackPanel>
-
-                            </Grid>
-                            <Grid x:Name="grdAccountSystemSpecs" Margin="0" MinHeight="100">
-
                             </Grid>
                         </Grid>
                     </Grid>
