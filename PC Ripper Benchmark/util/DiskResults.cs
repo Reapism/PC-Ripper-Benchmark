@@ -5,7 +5,6 @@ using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {
 
-
     /// <summary>
     /// The <see cref="DiskResults"/> class.
     /// <para></para>
