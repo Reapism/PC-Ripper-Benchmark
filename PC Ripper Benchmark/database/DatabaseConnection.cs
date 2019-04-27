@@ -195,6 +195,7 @@ namespace PC_Ripper_Benchmark.database {
 
                         if (GetUserData(out UserData u, email)) {
                             // returns the user with that email.
+                            u.Password = "";
                             mainWindow = new MainWindow(u);
                         } else {
                             // returns a null user.
