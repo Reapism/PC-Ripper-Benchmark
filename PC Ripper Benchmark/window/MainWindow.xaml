@@ -449,24 +449,24 @@
                                     <Label x:Name="accountNameLbl" Content="Name:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
                                     <Label x:Name="accountTypeOfUserLbl" Content="Typeofuser:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
                                     <Label x:Name="accountUserSkillLbl" Content="Userskill:" Foreground="White" FontSize="18" Margin="0,0,431,0"/>
-                                    <ComboBox x:Name="typeOfUserComboBox" HorizontalAlignment="Left" Margin="269,246,0,0" VerticalAlignment="Top" Width="128" Height="34">
+                                    <ComboBox x:Name="typeOfUserComboBox" HorizontalAlignment="Left" Margin="200,30,0,0" VerticalAlignment="Top" Width="128" Height="34">
                                         <ComboBoxItem Content="Casual"/>
                                         <ComboBoxItem Content="Web Surfer"/>
                                         <ComboBoxItem Content="High Performance"/>
                                         <ComboBoxItem Content="Video Editor"/>
                                     </ComboBox>
-                                    <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="18,246,646,0" VerticalAlignment="Top"/>
-                                    <ComboBox x:Name="userSkillComboBox" HorizontalAlignment="Left" Margin="269,280,0,0" VerticalAlignment="Top" Width="128" Height="34">
+                                    <ComboBox x:Name="userSkillComboBox" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Width="128" Height="34">
                                         <ComboBoxItem Content="Beginner"/>
                                         <ComboBoxItem Content="Advanced"/>
                                     </ComboBox>
+                                    <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="18,246,646,0" VerticalAlignment="Top"/>
                                     <Label x:Name="changeUserSkillLbl" Content="Change User Skill" Foreground="White" FontSize="18" Margin="18,280,646,0" VerticalAlignment="Top"/>
 
                                 </StackPanel>
 
                             </Grid>
                             <Grid x:Name="grdAccountSystemSpecs" Margin="0" MinHeight="100">
-                                
+
                             </Grid>
                         </Grid>
                     </Grid>
