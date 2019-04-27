@@ -1291,7 +1291,7 @@ namespace PC_Ripper_Benchmark.window
 
         private void Menu_disk_foldermatrix_Click(object sender, RoutedEventArgs e)
         {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDISKFolderMatrix.ToString(), out byte output))
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDISKFolderMatrix.ToString(), out ulong output))
             {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
                 lstAdvancedSettings.SelectedIndex = -1;
@@ -1304,7 +1304,7 @@ namespace PC_Ripper_Benchmark.window
 
         private void Menu_disk_bulkfile_Click(object sender, RoutedEventArgs e)
         {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskBulkFile.ToString(), out byte output))
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskBulkFile.ToString(), out ulong output))
             {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
                 lstAdvancedSettings.SelectedIndex = -1;
@@ -1317,7 +1317,7 @@ namespace PC_Ripper_Benchmark.window
 
         private void Menu_disk_readwriteparse_Click(object sender, RoutedEventArgs e)
         {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskReadWriteParse.ToString(), out byte output))
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskReadWriteParse.ToString(), out ulong output))
             {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
                 lstAdvancedSettings.SelectedIndex = -1;
@@ -1330,7 +1330,7 @@ namespace PC_Ripper_Benchmark.window
 
         private void Menu_disk_ripper_Click(object sender, RoutedEventArgs e)
         {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskRipper.ToString(), out byte output))
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskRipper.ToString(), out ulong output))
             {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
                 lstAdvancedSettings.SelectedIndex = -1;
@@ -1451,11 +1451,28 @@ namespace PC_Ripper_Benchmark.window
                         {
                             CommandType = CommandType.StoredProcedure
                         };
-                        
+
+                        UserSkill userSkill;
+                        switch (userSkillComboBox.SelectedIndex) {
+                            case 0: {
+                                userSkill = UserSkill.Beginner;
+                                break;
+                            }
+
+                            case 1: {
+                                userSkill = UserSkill.Advanced;
+                                break;
+                            }
+
+                            default: {
+                                userSkill = UserSkill.Beginner;
+                                break;
+                            }
+                        }
 
                         //Fill the parameter of the query
                         changeSettings.Parameters.AddWithValue("@Email", userData.Email);
-                        changeSettings.Parameters.AddWithValue("@UserSkill", this.userSkillComboBox.Text);
+                        changeSettings.Parameters.AddWithValue("@UserSkill", (int)userSkill);
                         changeSettings.Parameters.AddWithValue("@TypeOfUser", typeOfUserComboBox.Text);
                         changeSettings.ExecuteNonQuery();
 
@@ -1464,7 +1481,7 @@ namespace PC_Ripper_Benchmark.window
                         MessageBox.Show("Your changes have been saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
-                catch (SqlException)
+                catch
                 {
                     MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
