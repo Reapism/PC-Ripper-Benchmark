@@ -1,4 +1,5 @@
 ﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.function;
 using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -20,8 +21,9 @@ namespace PC_Ripper_Benchmark.util {
         private readonly UserData userData;
         private const byte uniqueTestCount = 5;
 
-        private uint iterations_per_tick;
-        private TimeSpan total_duration;
+        private TimeSpan totalDuration;
+        private double iterationsPerTick;
+
         /// <summary>
         /// Constructs <see cref="CPUResults"/> with
         /// a <see cref="RipperSettings"/> instance.
@@ -30,14 +32,22 @@ namespace PC_Ripper_Benchmark.util {
         /// but is marked <see langword="readonly"/> internally.</param>
         /// <param name="userData">The <see cref="UserData"/> to get the
         /// UserType from.</param>
+        /// <param name="threadType">The thread type for the test.</param>
 
-        public CPUResults(RipperSettings rs, ref UserData userData) {
+        public CPUResults(RipperSettings rs, ref UserData userData, ThreadType threadType) {
             this.TestCollection = new List<TimeSpan>();
             this.rs = rs;
             this.userData = userData;
-            this.iterations_per_tick = 0;
-            this.total_duration = new TimeSpan();
+            this.totalDuration = new TimeSpan();
+            this.iterationsPerTick = 0;
+            this.GetThreadType = threadType;
         }
+
+        /// <summary>
+        /// Get the <see cref="ThreadType"/> for the test.
+        /// </summary>
+
+        protected override ThreadType GetThreadType { get; }
 
         /// <summary>
         /// Represents all the timespans for the CPU tests.
@@ -159,11 +169,13 @@ namespace PC_Ripper_Benchmark.util {
             // Checking the worst case scenario. if these dont equal, something bad happened.
             if (this.UniqueTestCount * this.rs.IterationsPerCPUTest != this.TestCollection.Count) {
                 throw new UnknownTestException($"Generating CPU Description: Number of Test" +
-                    $"Collection elements does not add up.  {this.UniqueTestCount} * {this.rs.IterationsPerCPUTest} != " +
+                    $"Collection elements does not add up. {this.UniqueTestCount} * {this.rs.IterationsPerCPUTest} != " +
                     $"{this.TestCollection.Count}");
             }
 
             string desc = string.Empty;
+
+            desc += "Running a " + Environment.NewLine;
 
             desc += "Each test runs with a specific number of iterations";
             desc += Environment.NewLine;
@@ -216,7 +228,6 @@ namespace PC_Ripper_Benchmark.util {
                 index++;
             }
 
-
             // average per test.
             desc += Environment.NewLine;
             desc += "Average duration per test:";
@@ -246,8 +257,7 @@ namespace PC_Ripper_Benchmark.util {
 
             // total time of all tests. 
             desc += "Total duration of the test:";
-            this.total_duration = TotalTimeSpan(this.TestCollection);
-            desc += $"\t{this.total_duration}";
+            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
 
             // score for the test.
             desc += Environment.NewLine;
@@ -255,7 +265,7 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"The score for this test is {this.Score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
-            desc += "(Algorithm not implemented for generating a score)";
+            desc += "";
             return desc;
 
         }
@@ -279,8 +289,145 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"The score for this test is {this.Score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
-            desc += "(Algorithm not implemented for generating a score)";
+            desc += "";
             return desc;
+        }
+
+        /// <summary>
+        /// Generates a descripton for the generated score.
+        /// </summary>
+        /// <returns></returns>
+
+        protected override string GenerateScoreDescription(UserData.TypeOfUser typeOfUser, byte score) {
+            switch (typeOfUser) {
+                case UserData.TypeOfUser.Casual: {
+                    return GetCasualScoreDesc(score);
+                }
+
+                case UserData.TypeOfUser.Websurfer: {
+                    return GetWebScoreDesc(score);
+                }
+
+                case UserData.TypeOfUser.HighPerformance: {
+                    return GetHighPerfScoreDesc(score);
+                }
+
+                case UserData.TypeOfUser.Video: {
+                    return GetVideoDescription(score);
+                }
+
+                default: {
+                    return "Error generating the description.";
+                }
+            }
+        }
+
+
+        private string GetCasualScoreDesc(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 49): {
+                    return "Not the best, but your probably okay.";
+                }
+
+                case byte a when (score == 50): {
+                    return "It's average.";
+                }
+
+
+                case byte a when (score >= 51 && score <= 100): {
+                    return "Pretty good. You are in a good spot!";
+                }
+
+            }
+        }
+
+        private string GetWebScoreDesc(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 25): {
+                    return "This isn't great, but for causal websurfing it might suffice. Videos " +
+                        "might stutter even with a good internet connection.";
+                }
+
+                case byte a when (score >= 26 && score <= 49): {
+                    return "Almost average. However, you should be okay.";
+                }
+
+                case byte a when (score == 50): {
+                    return "You're, well average!";
+                }
+
+                case byte a when (score >= 51 && score <= 75): {
+                    return "Better than average. This ";
+                }
+
+                case byte a when (score >= 76 && score <= 100): {
+                    return "You wont need to upgrade for your system " +
+                        "preference.";
+                }
+
+            }
+        }
+
+        private string GetHighPerfScoreDesc(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 10): {
+                    return "You're in the lowest percentile. " +
+                        "You want to consider getting a new processor.";
+                }
+
+                case byte a when (score >= 11 && score <= 20): {
+                    return "You're in the lowest percentile. " +
+                        "You want to consider getting a new processor.";
+                }
+
+                case byte a when (score >= 21 && score <= 30): {
+                    return "You're in the lowest percentile. " +
+                        "You want to consider getting a new processor.";
+                }
+
+                case byte a when (score >= 31 && score <= 40): {
+                    return "";
+                }
+
+                case byte a when (score >= 41 && score <= 49): {
+                    return "";
+                }
+
+                case byte a when (score == 50): {
+                    return "";
+                }
+
+                case byte a when (score >= 51 && score <= 60): {
+                    return "";
+                }
+
+                case byte a when (score >= 61 && score <= 70): {
+                    return "";
+                }
+
+                case byte a when (score >= 71 && score <= 80): {
+                    return "";
+                }
+
+                case byte a when (score >= 81 && score <= 90): {
+                    return "";
+                }
+
+                case byte a when (score >= 91 && score <= 95): {
+                    return "";
+                }
+
+                case byte a when (score >= 96 && score <= 100): {
+                    return "";
+                }
+
+                default: {
+                    return "";
+                }
+            }
+        }
+        private string GetVideoDescription(byte score) {
+
         }
 
         /// <summary>
@@ -293,15 +440,15 @@ namespace PC_Ripper_Benchmark.util {
         /// <returns></returns>
 
         protected override byte GenerateScore() {
-            return 0;
-            //var total_iterations = (this.rs.IterationsSuccessorship +
-            //    this.rs.IterationsBoolean + this.rs.IterationsQueue +
-            //    this.rs.IterationsLinkedList + this.rs.IterationsTree) *
-            //    this.rs.IterationsPerCPUTest;
+            
+            var total_iterations = (this.rs.IterationsSuccessorship +
+                this.rs.IterationsBoolean + this.rs.IterationsQueue +
+                this.rs.IterationsLinkedList + this.rs.IterationsTree) *
+                this.rs.IterationsPerCPUTest;
 
-            //var iter_per_tick = (ulong)total_duration.Seconds / total_iterations;
+            var iter_per_tick = (ulong)this.totalDuration.Seconds / total_iterations;
+
+
         }
-
-
     }
 }
