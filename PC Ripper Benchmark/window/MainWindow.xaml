@@ -458,7 +458,7 @@
                                         </ComboBox>
                                         <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="20,150,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                         <Label x:Name="changeUserSkillLbl" Content="Change User Skill" Foreground="White" FontSize="18" Margin="20,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                        <Button x:Name="alterUserDataBtn" Margin="0,240,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Width="202" Content="Save " Click="AlterUserDataBtn_Click" Background="#00DDDDDD" BorderBrush="White" Foreground="White" VerticalAlignment="Center" Height="35">
+                                        <Button x:Name="alterUserDataBtn" Margin="0,0,0,20" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Width="202" Content="Save " Click="AlterUserDataBtn_Click" Background="#00DDDDDD" BorderBrush="White" Foreground="White" VerticalAlignment="Bottom" Height="35">
                                             <Button.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>

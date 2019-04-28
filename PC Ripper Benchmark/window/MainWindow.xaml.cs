@@ -1355,7 +1355,7 @@ namespace PC_Ripper_Benchmark.window {
                         this.userSkillComboBox.SelectedIndex = -1;
 
                         if (MessageBox.Show("You must logout for changes to take affect. Want to logout now?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
-                            function.WindowSettings settings = new WindowSettings();
+                            WindowSettings settings = new WindowSettings();
                             LoginWindow loginWindow = new LoginWindow();
 
                             settings.TransitionScreen(loginWindow, this);
