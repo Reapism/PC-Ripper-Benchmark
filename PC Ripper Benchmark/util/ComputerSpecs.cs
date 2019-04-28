@@ -54,8 +54,7 @@ namespace PC_Ripper_Benchmark.util {
 
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add("Max clock speed: " + item.Properties["MaxClockSpeed"].Value.ToString());
-                lst.Add("Architecture: " + item.Properties["Architecture"].Value.ToString());
+                lst.Add("Max clock speed: " + item.Properties["MaxClockSpeed"].Value.ToString() + "Mhz");
                 lst.Add("Number of cores: " + item.Properties["NumberOfCores"].Value.ToString());
                 lst.Add("Number of logical processors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
                 lst.Add("L2 cache size: " + item.Properties["L2CacheSize"].Value.ToString());
