@@ -54,12 +54,12 @@ namespace PC_Ripper_Benchmark.util {
 
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add("MaxClockSpeed: " + item.Properties["MaxClockSpeed"].Value.ToString());
+                lst.Add("Max clock speed: " + item.Properties["MaxClockSpeed"].Value.ToString());
                 lst.Add("Architecture: " + item.Properties["Architecture"].Value.ToString());
-                lst.Add("NumberOfCores: " + item.Properties["NumberOfCores"].Value.ToString());
-                lst.Add("NumberOfLogicalProcessors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
-                lst.Add("L2CacheSize: " + item.Properties["L2CacheSize"].Value.ToString());
-                lst.Add("L3CacheSize: " + item.Properties["L3CacheSize"].Value.ToString());
+                lst.Add("Number of cores: " + item.Properties["NumberOfCores"].Value.ToString());
+                lst.Add("Number of logical processors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
+                lst.Add("L2 cache size: " + item.Properties["L2CacheSize"].Value.ToString());
+                lst.Add("L3 cache size: " + item.Properties["L3CacheSize"].Value.ToString());
                 if (CPUClockSpeed == null) { CPUClockSpeed = item.Properties["MaxClockSpeed"].Value.ToString(); }
             }
         }
@@ -76,10 +76,12 @@ namespace PC_Ripper_Benchmark.util {
 
             ManagementClass mgt = new ManagementClass("Win32_DiskDrive");
             ManagementObjectCollection mgtCollection = mgt.GetInstances();
-
+            ulong size =0;
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Model"].Value.ToString());
-                lst.Add("Size: " + item.Properties["Size"].Value.ToString());
+                size = (ulong)item.Properties["Size"].Value;
+                size = size / (1024 * 1024 * 1024);
+                lst.Add($"Size: {size.ToString("n0")}");
             }
         }
 
@@ -111,8 +113,9 @@ namespace PC_Ripper_Benchmark.util {
                 if (RAMClockSpeed == null) { RAMClockSpeed = item.Properties["Speed"].Value.ToString(); }
             }
 
-            lst.Add($"Total Capacity: ~{capacity / (1024 * 1024 * 1024)} GB");
-            lst.Add($"Total Capacity more accurately: {capacity / (1024 * 1024)} MB");
+            lst.Add($"Total capacity: ~{capacity / (1024 * 1024 * 1024)} GB");
+            ulong capacityInMB = capacity / (1024 * 1024);
+            lst.Add($"Total capacity more accurately: {capacityInMB.ToString("n0")} MB");
         }
 
         /// <summary>
