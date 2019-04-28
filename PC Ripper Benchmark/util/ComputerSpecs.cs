@@ -81,7 +81,7 @@ namespace PC_Ripper_Benchmark.util {
                 lst.Add("Name: " + item.Properties["Model"].Value.ToString());
                 size = (ulong)item.Properties["Size"].Value;
                 size = size / (1024 * 1024 * 1024);
-                lst.Add($"Size: {size.ToString("n0")}");
+                lst.Add($"Total free space: {size.ToString("n0")} GB");
             }
         }
 
