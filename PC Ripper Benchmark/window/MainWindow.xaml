@@ -416,17 +416,13 @@
                 </TabItem>
                 <TabItem x:Name="tabMyAccount" Header="My Account" Height="24" VerticalAlignment="Bottom">
                     <Grid x:Name="accWelcome">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="506*"/>
-                            <ColumnDefinition Width="355*"/>
-                        </Grid.ColumnDefinitions>
                         <Grid.Background>
                             <RadialGradientBrush>
                                 <GradientStop Color="#FF5EABC1" Offset="0"/>
                                 <GradientStop Color="#FF2D4951" Offset="1"/>
                             </RadialGradientBrush>
                         </Grid.Background>
-                        <StackPanel x:Name="stkWelcomeTopAcc" Margin="0" MinHeight="100" MinWidth="100" Height="107" MaxHeight="85" Background="#FF426E93" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <StackPanel x:Name="stkWelcomeTopAcc" Margin="0" MinHeight="100" MinWidth="100" Height="107" MaxHeight="85" Background="#FF2A95F0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
                         <StackPanel x:Name="stkWelcomeAcc" Margin="6,6,6,0" MinHeight="90" MinWidth="90" Height="90" MaxHeight="85" VerticalAlignment="Top" Grid.ColumnSpan="2">
                             <StackPanel.Background>
                                 <RadialGradientBrush>
@@ -440,8 +436,8 @@
                             <Grid x:Name="grdUserInfoAcc" MinHeight="389" MinWidth="440">
                                 <Grid.Background>
                                     <RadialGradientBrush>
-                                        <GradientStop Color="#FF5A9ABF" Offset="1"/>
-                                        <GradientStop Color="#FFB1C7E2"/>
+                                        <GradientStop Color="#FF45C596" Offset="1"/>
+                                        <GradientStop Color="#FFB4FFEE"/>
                                     </RadialGradientBrush>
                                 </Grid.Background>
                                 <TextBlock x:Name="txtBlkWelcomeTextAcc" Text="Change your account settings" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
@@ -462,7 +458,7 @@
                                         </ComboBox>
                                         <Label x:Name="changeTypeOfUser" Content="Change Type of User" Foreground="White" FontSize="18" Margin="20,150,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                         <Label x:Name="changeUserSkillLbl" Content="Change User Skill" Foreground="White" FontSize="18" Margin="20,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                        <Button x:Name="alterUserDataBtn" Margin="200,232,0,34" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="128" Content="Save " Click="AlterUserDataBtn_Click">
+                                        <Button x:Name="alterUserDataBtn" Margin="0,240,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Width="202" Content="Save " Click="AlterUserDataBtn_Click" Background="#00DDDDDD" BorderBrush="White" Foreground="White" VerticalAlignment="Center" Height="35">
                                             <Button.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>
@@ -478,7 +474,50 @@
                         </Grid>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabResultParts" Header="ResultsParts"/>
+                <TabItem x:Name="tabResultParts" Header="ResultsParts">
+                    <Grid x:Name="grdResultsParts">
+                        <Grid.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FFDCDC9F" Offset="1"/>
+                                <GradientStop Color="#FFFFFBE4"/>
+                            </RadialGradientBrush>
+                        </Grid.Background>
+                        <Grid x:Name="grdResultsPartsWelcome" Margin="0" VerticalAlignment="Top" Background="#4CFFFFFF" MinHeight="100">
+                            <TextBlock x:Name="txtBlkWelcomeResultsParts" Margin="0" TextWrapping="Wrap" Text="Welcome to the parts information tab. Here you will be able to get a list of different processors, RAM models, and hard-drives and SSD's!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                        </Grid>
+                        <DataGrid x:Name="dataGrid" Margin="0,285,0,0" Background="#7FCBFFC3" BorderBrush="White"/>
+                        <GroupBox x:Name="grpBoxComponents" Header="GroupBox" HorizontalAlignment="Left" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
+                            <Grid Height="80" Margin="0"/>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabUserResults" Header="User Results">
+                    <Grid x:Name="grdUserResults">
+                        <Grid.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF9AD3A7" Offset="1"/>
+                                <GradientStop Color="#FFDCFFE4"/>
+                            </RadialGradientBrush>
+                        </Grid.Background>
+                        <Grid x:Name="grdUserResultsWelcome" VerticalAlignment="Top" MinWidth="100" Height="100" Background="#4CFFFFFF">
+                            <TextBlock x:Name="txtBlkUserResultsWelcome" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Welcome to your results tab. Here is all of your results you've sent to the database." VerticalAlignment="Center" FontSize="18"/>
+                        </Grid>
+                        <RichTextBox x:Name="richTxtBoxResults" Margin="275,105,0,0" Background="#4CFFFFFF" BorderBrush="White" Foreground="#FF32834C" FontSize="14">
+                            <FlowDocument FontSize="14">
+                                <Paragraph>
+                                    <Run Text="RichTextBox"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                        <ListView x:Name="listView" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>
