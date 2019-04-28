@@ -2,6 +2,7 @@
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.util;
 using PC_Ripper_Benchmark.window;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -313,6 +314,8 @@ namespace PC_Ripper_Benchmark.database {
                     };
 
                     //this.Connection.Open();
+                    changeUserSettings.Parameters.AddWithValue("@DateCreated", DateTime.Now.ToString("MM / dd / yyyy HH: mm:ss"));
+                    changeUserSettings.Parameters.AddWithValue("@ComputerName", Environment.MachineName);
                     changeUserSettings.Parameters.AddWithValue("@Email", email);
                     changeUserSettings.Parameters.AddWithValue("@Results", results);
                     changeUserSettings.Parameters.AddWithValue("@TestName", nameOfTest);
