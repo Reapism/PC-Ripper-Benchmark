@@ -639,8 +639,8 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void CreateAccountSubmitButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
-            this.goBackButton.Foreground = Brushes.White;
-            this.goBackButton.BorderBrush = Brushes.White;
+            this.createAccountSubmitButton.Foreground = Brushes.White;
+            this.createAccountSubmitButton.BorderBrush = Brushes.White;
         }
 
         private void GoBackButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
