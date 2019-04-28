@@ -29,6 +29,15 @@ namespace PC_Ripper_Benchmark.util {
 
         public string UserName => Environment.UserName;
 
+        /// <summary>
+        /// Gets the computer name from your system.
+        /// </summary>
+
+        public string MachineName => Environment.MachineName;
+
+        public string CPUClockSpeed { get; set; }
+
+        public string RAMClockSpeed { get; set; }
 
         /// <summary>
         /// Gets the CPU specifications and outputs it
@@ -51,7 +60,7 @@ namespace PC_Ripper_Benchmark.util {
                 lst.Add("NumberOfLogicalProcessors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
                 lst.Add("L2CacheSize: " + item.Properties["L2CacheSize"].Value.ToString());
                 lst.Add("L3CacheSize: " + item.Properties["L3CacheSize"].Value.ToString());
-               
+                if (CPUClockSpeed == null) { CPUClockSpeed = item.Properties["MaxClockSpeed"].Value.ToString(); }
             }
         }
 
@@ -65,13 +74,12 @@ namespace PC_Ripper_Benchmark.util {
         public void GetDiskInfo(out List<string> lst) {
             lst = new List<string>();
 
-            ManagementClass mgt = new ManagementClass("Win32_DiskPartition");
+            ManagementClass mgt = new ManagementClass("Win32_DiskDrive");
             ManagementObjectCollection mgtCollection = mgt.GetInstances();
 
             foreach (ManagementObject item in mgtCollection) {
-                lst.Add("Name: " + item.Properties["Name"].Value.ToString());
+                lst.Add("Name: " + item.Properties["Model"].Value.ToString());
                 lst.Add("Size: " + item.Properties["Size"].Value.ToString());
-                lst.Add("Type: " + item.Properties["Type"].Value.ToString());
             }
         }
 
@@ -88,12 +96,19 @@ namespace PC_Ripper_Benchmark.util {
             ManagementClass mgt = new ManagementClass("Win32_PhysicalMemory");
             ManagementObjectCollection mgtCollection = mgt.GetInstances();
 
+
+
             foreach (ManagementObject item in mgtCollection) {
 
+                if (item.Properties["Manufacturer"].Value.ToString() == "Unknown") {
+                    lst.Add("Manufacturer: Unknown RAM Manufactuer");
+                } else {
+                    lst.Add("Manufacturer: " + item.Properties["Manufacturer"].Value.ToString());
+                }
 
-                lst.Add("Manufacturer: " + item.Properties["Manufacturer"].Value.ToString());
                 lst.Add($"Capacity: {item.Properties["Capacity"].Value.ToString()} bytes");
                 lst.Add("Speed: " + item.Properties["Speed"].Value.ToString() + "MHz");
+                if (RAMClockSpeed == null) { RAMClockSpeed = item.Properties["Speed"].Value.ToString(); }
             }
         }
 
