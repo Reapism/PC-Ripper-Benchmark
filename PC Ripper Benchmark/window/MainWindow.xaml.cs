@@ -1462,18 +1462,21 @@ namespace PC_Ripper_Benchmark.window
                             case 0:
                                 {
                                     userSkill = UserSkill.Beginner;
+                                    userSkillComboBox.SelectedIndex = 0;
                                     break;
                                 }
 
                             case 1:
                                 {
                                     userSkill = UserSkill.Advanced;
+                                    userSkillComboBox.SelectedIndex = 1;
                                     break;
                                 }
 
                             default:
                                 {
                                     userSkill = UserSkill.Beginner;
+                                    userSkillComboBox.SelectedIndex = 0;
                                     break;
                                 }
                         }
@@ -1484,28 +1487,33 @@ namespace PC_Ripper_Benchmark.window
                             case 0:
                                 {
                                     typeOfUser = TypeOfUser.Casual;
+                                    typeOfUserComboBox.SelectedIndex = 0;
                                     break;
                                 }
 
                             case 1:
                                 {
                                     typeOfUser = TypeOfUser.Websurfer;
+                                    typeOfUserComboBox.SelectedIndex = 1;
                                     break;
                                 }
 
                             case 2:
                                 {
                                     typeOfUser = TypeOfUser.HighPerformance;
+                                    typeOfUserComboBox.SelectedIndex = 2;
                                     break;
                                 }
                             case 3:
                                 {
                                     typeOfUser = TypeOfUser.Video;
+                                    typeOfUserComboBox.SelectedIndex = 3;
                                     break;
                                 }
                             default:
                                 {
                                     typeOfUser = TypeOfUser.Video;
+                                    typeOfUserComboBox.SelectedIndex = 3;
                                     break;
                                 }
                         }
