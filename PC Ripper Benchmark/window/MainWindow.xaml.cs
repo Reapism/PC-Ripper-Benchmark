@@ -1438,6 +1438,10 @@ namespace PC_Ripper_Benchmark.window
             {
                 MessageBox.Show("Must select a value for both comboboxes", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+            else if (userData.Email == "guest")
+            {
+                MessageBox.Show("Cannot change user settings for guest accounts!", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
             else
             {
                 try
