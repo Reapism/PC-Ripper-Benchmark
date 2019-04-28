@@ -18,8 +18,7 @@ using XamlAnimatedGif;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 using static PC_Ripper_Benchmark.util.UserData;
 
-namespace PC_Ripper_Benchmark.window
-{
+namespace PC_Ripper_Benchmark.window {
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -27,8 +26,7 @@ namespace PC_Ripper_Benchmark.window
     /// David Hartglass, (c) all rights reserved.
     /// </summary>
 
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
 
         #region Instance member(s), and enum(s), and properties.        
 
@@ -55,8 +53,7 @@ namespace PC_Ripper_Benchmark.window
         /// Default constructor for the <see cref="MainWindow"/>.
         /// </summary>
 
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
             Instantiate();
             GetComputerSpecs();
@@ -68,13 +65,13 @@ namespace PC_Ripper_Benchmark.window
         /// </summary>
         /// <param name="userData"></param>
 
-        public MainWindow(UserData userData) : this()
-        {
+        public MainWindow(UserData userData) : this() {
             this.userData = userData;
             WindowSettings ws = new WindowSettings();
             ws.CenterWindowOnScreen(this);
             GetWelcomeText();
             GetUserAccountText();
+            LoadUserAccount();
         }
 
         /// <summary>
@@ -82,8 +79,7 @@ namespace PC_Ripper_Benchmark.window
         /// instance with default behaviors.
         /// </summary>
 
-        private void Instantiate()
-        {
+        private void Instantiate() {
             this.testToRun = Tab.WELCOME;
             this.rs = new RipperSettings();
             this.ws = new WindowSettings();
@@ -113,8 +109,7 @@ namespace PC_Ripper_Benchmark.window
         /// advanced settings list view.
         /// </summary>
 
-        private void LoadAdvancedSettings()
-        {
+        private void LoadAdvancedSettings() {
 
             this.menu_cpu_iter_per_test.Header = this.menu_cpu_iter_per_test.Tag.ToString() + this.rs.IterationsPerCPUTest.ToString("n0");
 
@@ -137,14 +132,13 @@ namespace PC_Ripper_Benchmark.window
             this.menu_disk_readwriteparse.Header = this.menu_disk_readwriteparse.Tag.ToString() + this.rs.IterationsDiskReadWriteParse.ToString("n0");
             this.menu_disk_ripper.Header = this.menu_disk_ripper.Tag.ToString() + this.rs.IterationsDiskRipper.ToString("n0");
 
-            lstAdvancedSettings.SelectedIndex = -1;
-            grdSettingsAdvanced.Focus();
+            this.lstAdvancedSettings.SelectedIndex = -1;
+            this.grdSettingsAdvanced.Focus();
 
             RipperSettings.SaveApplicationSettings(ref this.rs);
         }
 
-        private void LoadDefaultSettings()
-        {
+        private void LoadDefaultSettings() {
             this.rs.IterationsPerCPUTest = 3;
 
             this.rs.IterationsSuccessorship = 150000;
@@ -174,11 +168,9 @@ namespace PC_Ripper_Benchmark.window
         /// tags with their proper names.
         /// </summary>
 
-        private void InstantiateAdvancedSettings()
-        {
+        private void InstantiateAdvancedSettings() {
 
-            foreach (MenuItem m in this.lstAdvancedSettings.Items)
-            {
+            foreach (MenuItem m in this.lstAdvancedSettings.Items) {
                 m.Tag = m.Header;
             }
 
@@ -190,8 +182,7 @@ namespace PC_Ripper_Benchmark.window
         /// text blocks.
         /// </summary>
 
-        private void GetWelcomeText()
-        {
+        private void GetWelcomeText() {
             this.userData.FirstName = UserData.UppercaseFirst(this.userData.FirstName);
             this.userData.LastName = UserData.UppercaseFirst(this.userData.LastName);
 
@@ -204,8 +195,7 @@ namespace PC_Ripper_Benchmark.window
             this.lblUserSkill.Content = $"You've decided you're an {this.userData.GetUserSkillString()} user.";
         }
 
-        private void GetUserAccountText()
-        {
+        private void GetUserAccountText() {
             this.userData.FirstName = UserData.UppercaseFirst(this.userData.FirstName);
             this.userData.LastName = UserData.UppercaseFirst(this.userData.LastName);
 
@@ -221,8 +211,7 @@ namespace PC_Ripper_Benchmark.window
         /// <see cref="txtComputerSpecs"/> <see cref="RichTextBox"/>.
         /// </summary>
 
-        private void GetComputerSpecs()
-        {
+        private void GetComputerSpecs() {
             List<string> lst = new List<string>();
             ComputerSpecs specs = new ComputerSpecs();
 
@@ -254,72 +243,60 @@ namespace PC_Ripper_Benchmark.window
         /// </summary>
         /// <param name="theTab">The <see cref="Tab"/> type.</param>
 
-        public void ShowTabWindow(Tab theTab)
-        {
+        public void ShowTabWindow(Tab theTab) {
 
-            switch (theTab)
-            {
-                case Tab.WELCOME:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.WELCOME;
-                        break;
-                    }
+            switch (theTab) {
+                case Tab.WELCOME: {
+                    this.tabComponents.SelectedIndex = (int)Tab.WELCOME;
+                    break;
+                }
 
-                case Tab.CPU:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.CPU;
-                        break;
-                    }
+                case Tab.CPU: {
+                    this.tabComponents.SelectedIndex = (int)Tab.CPU;
+                    break;
+                }
 
-                case Tab.DISK:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.DISK;
-                        break;
-                    }
+                case Tab.DISK: {
+                    this.tabComponents.SelectedIndex = (int)Tab.DISK;
+                    break;
+                }
 
-                case Tab.RAM:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.RAM;
-                        break;
-                    }
+                case Tab.RAM: {
+                    this.tabComponents.SelectedIndex = (int)Tab.RAM;
+                    break;
+                }
 
-                case Tab.GPU:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.GPU;
-                        break;
-                    }
+                case Tab.GPU: {
+                    this.tabComponents.SelectedIndex = (int)Tab.GPU;
+                    break;
+                }
 
-                case Tab.SETTINGS:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.SETTINGS;
-                        break;
-                    }
+                case Tab.SETTINGS: {
+                    this.tabComponents.SelectedIndex = (int)Tab.SETTINGS;
+                    break;
+                }
 
-                case Tab.RESULTS:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.RESULTS;
-                        break;
-                    }
+                case Tab.RESULTS: {
+                    this.tabComponents.SelectedIndex = (int)Tab.RESULTS;
+                    break;
+                }
 
 
-                case Tab.RUNNING_TEST:
-                    {
-                        LoadRunningTest();
+                case Tab.RUNNING_TEST: {
+                    LoadRunningTest();
 
-                        this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
-                        break;
-                    }
+                    this.tabComponents.SelectedIndex = (int)Tab.RUNNING_TEST;
+                    break;
+                }
 
-                case Tab.MY_ACCOUNT:
-                    {
-                        this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
-                        break;
-                    }
+                case Tab.MY_ACCOUNT: {
+                    this.tabComponents.SelectedIndex = (int)Tab.MY_ACCOUNT;
+                    break;
+                }
 
-                default:
-                    {
-                        break;
-                    }
+                default: {
+                    break;
+                }
             }
         }
 
@@ -328,17 +305,13 @@ namespace PC_Ripper_Benchmark.window
         /// <para>Threaded.</para>
         /// </summary>
 
-        private void LoadRunningTest()
-        {
-            Action a = new Action(() =>
-            {
+        private void LoadRunningTest() {
+            Action a = new Action(() => {
                 Random rnd = new Random();
                 Uri uri = ChoosePreloader();
 
-                if (uri != null)
-                {
-                    this.Dispatcher.InvokeAsync(() =>
-                    {
+                if (uri != null) {
+                    this.Dispatcher.InvokeAsync(() => {
                         AnimationBehavior.SetSourceUri(this.imgPreloader, uri);
                         AnimationBehavior.SetRepeatBehavior(this.imgPreloader, RepeatBehavior.Forever);
                     });
@@ -364,23 +337,18 @@ namespace PC_Ripper_Benchmark.window
         /// <param name="lst">Outputs a <see cref="List{T}"/> holding strings.</param>
         /// <returns></returns>
 
-        private bool GetLinesFromFile(string fileName, out List<string> lst)
-        {
+        private bool GetLinesFromFile(string fileName, out List<string> lst) {
             string path = Path.Combine(Directory.GetCurrentDirectory(),
                 "resources", fileName);
-            try
-            {
+            try {
                 lst = new List<string>();
                 StreamReader sr = new StreamReader(path);
 
-                while (!sr.EndOfStream)
-                {
+                while (!sr.EndOfStream) {
                     lst.Add(sr.ReadLine());
                 }
 
-            }
-            catch
-            {
+            } catch {
                 lst = null;
                 return false;
             }
@@ -394,14 +362,12 @@ namespace PC_Ripper_Benchmark.window
         /// </summary>
         /// <returns></returns>
 
-        private Uri ChoosePreloader()
-        {
+        private Uri ChoosePreloader() {
 
             Uri uri;
             Random rnd = new Random();
 
-            if (GetLinesFromFile("preloader_urls.txt", out List<string> urls))
-            {
+            if (GetLinesFromFile("preloader_urls.txt", out List<string> urls)) {
                 int rndIndex = rnd.Next(urls.Count);
                 uri = new Uri(urls[rndIndex]);
                 return uri;
@@ -410,10 +376,8 @@ namespace PC_Ripper_Benchmark.window
             return null;
         }
 
-        private void ExportResults(ExportType type, TextBlock textBlock)
-        {
-            SaveFileDialog saveFile = new SaveFileDialog
-            {
+        private void ExportResults(ExportType type, TextBlock textBlock) {
+            SaveFileDialog saveFile = new SaveFileDialog {
                 Title = "Export file to...",
                 InitialDirectory = Path.GetDirectoryName(Environment.GetFolderPath(
                     Environment.SpecialFolder.DesktopDirectory)),
@@ -424,28 +388,23 @@ namespace PC_Ripper_Benchmark.window
 
             string format = string.Empty;
 
-            switch (type)
-            {
+            switch (type) {
 
-                case ExportType.TEXTFILE:
-                    {
-                        saveFile.Filter = "Textfile|*.txt";
-                        format = DataFormats.Text;
-                        break;
-                    }
+                case ExportType.TEXTFILE: {
+                    saveFile.Filter = "Textfile|*.txt";
+                    format = DataFormats.Text;
+                    break;
+                }
 
-                case ExportType.XAML:
-                    {
-                        saveFile.Filter = "XAML|*.xaml";
-                        format = DataFormats.Xaml;
-                        break;
-                    }
+                case ExportType.XAML: {
+                    saveFile.Filter = "XAML|*.xaml";
+                    format = DataFormats.Xaml;
+                    break;
+                }
             }
 
-            try
-            {
-                if (saveFile.ShowDialog() == true)
-                {
+            try {
+                if (saveFile.ShowDialog() == true) {
 
                     range = new TextRange(textBlock.ContentStart,
                         textBlock.ContentEnd);
@@ -457,18 +416,14 @@ namespace PC_Ripper_Benchmark.window
                          $"{saveFile.FileName} successfully.", "Success",
                          MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 MessageBox.Show($"An exception has occured in generating the file. {e.ToString()}", "SaveFileException",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void ExportResults(ExportType type, RichTextBox richTextBox)
-        {
-            SaveFileDialog saveFile = new SaveFileDialog
-            {
+        private void ExportResults(ExportType type, RichTextBox richTextBox) {
+            SaveFileDialog saveFile = new SaveFileDialog {
                 Title = "Export file to...",
                 InitialDirectory = Path.GetDirectoryName(Environment.GetFolderPath(
                     Environment.SpecialFolder.DesktopDirectory)),
@@ -479,28 +434,23 @@ namespace PC_Ripper_Benchmark.window
 
             string format = string.Empty;
 
-            switch (type)
-            {
+            switch (type) {
 
-                case ExportType.TEXTFILE:
-                    {
-                        saveFile.Filter = "Textfile|*.txt";
-                        format = DataFormats.Text;
-                        break;
-                    }
+                case ExportType.TEXTFILE: {
+                    saveFile.Filter = "Textfile|*.txt";
+                    format = DataFormats.Text;
+                    break;
+                }
 
-                case ExportType.XAML:
-                    {
-                        saveFile.Filter = "XAML|*.xaml";
-                        format = DataFormats.Xaml;
-                        break;
-                    }
+                case ExportType.XAML: {
+                    saveFile.Filter = "XAML|*.xaml";
+                    format = DataFormats.Xaml;
+                    break;
+                }
             }
 
-            try
-            {
-                if (saveFile.ShowDialog() == true)
-                {
+            try {
+                if (saveFile.ShowDialog() == true) {
 
                     range = new TextRange(richTextBox.Document.ContentStart,
                         richTextBox.Document.ContentEnd);
@@ -512,39 +462,28 @@ namespace PC_Ripper_Benchmark.window
                          $"{saveFile.FileName} successfully.", "Success",
                          MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 MessageBox.Show($"An exception has occured in generating the file. {e.ToString()}", "SaveFileException",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
 
-        private void RunCPUTest()
-        {
+        private void RunCPUTest() {
             CPUFunctions cpu = new CPUFunctions(ref this.rs);
 
             ThreadType threadType;
 
-            if (this.radCPUSingle.IsChecked == true)
-            {
+            if (this.radCPUSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
-            }
-            else if (this.radCPUSingleUI.IsChecked == true)
-            {
+            } else if (this.radCPUSingleUI.IsChecked == true) {
                 threadType = ThreadType.SingleUI;
-            }
-            else if (this.radCPUMultithread.IsChecked == true)
-            {
+            } else if (this.radCPUMultithread.IsChecked == true) {
                 threadType = ThreadType.Multithreaded;
-            }
-            else
-            {
+            } else {
                 MessageBox.Show("Please select a type of test you'd like to perform.",
                     "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Dispatcher.Invoke(() =>
-                {
+                this.Dispatcher.Invoke(() => {
                     ShowTabWindow(Tab.CPU);
                 });
                 return;
@@ -552,40 +491,29 @@ namespace PC_Ripper_Benchmark.window
 
             this.txtResults.Document.Blocks.Clear();
 
-            try
-            {
-                this.Dispatcher.Invoke(() =>
-                {
+            try {
+                this.Dispatcher.Invoke(() => {
                     cpu.RunCPUBenchmark(threadType, ref this.userData, this);
                 });
 
-            }
-            catch (RipperThreadException ex)
-            {
+            } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
         }
 
-        private void RunRAMTest()
-        {
+        private void RunRAMTest() {
             RamFunctions ram = new RamFunctions(ref this.rs);
 
             ThreadType threadType;
 
-            if (this.radRamSingle.IsChecked == true)
-            {
+            if (this.radRamSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
-            }
-            else if (this.radRamSingleUI.IsChecked == true)
-            {
+            } else if (this.radRamSingleUI.IsChecked == true) {
                 threadType = ThreadType.SingleUI;
-            }
-            else
-            {
+            } else {
                 MessageBox.Show("Please select a type of test you'd like to perform.",
                     "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Dispatcher.Invoke(() =>
-                {
+                this.Dispatcher.Invoke(() => {
                     ShowTabWindow(Tab.RAM);
                 });
                 return;
@@ -593,44 +521,32 @@ namespace PC_Ripper_Benchmark.window
 
             this.txtResults.Document.Blocks.Clear();
 
-            try
-            {
-                this.Dispatcher.Invoke(() =>
-                {
+            try {
+                this.Dispatcher.Invoke(() => {
                     ram.RunRAMBenchmark(threadType, ref this.userData, this);
                 });
 
-            }
-            catch (RipperThreadException ex)
-            {
+            } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
 
         }
 
-        private void RunDISKTest()
-        {
-            DiskFunctions disk = new DiskFunctions(ref this.rs)
-            {
+        private void RunDISKTest() {
+            DiskFunctions disk = new DiskFunctions(ref this.rs) {
                 WorkingDir = this.workingDir
             };
 
             ThreadType threadType;
 
-            if (this.radDiskSingle.IsChecked == true)
-            {
+            if (this.radDiskSingle.IsChecked == true) {
                 threadType = ThreadType.Single;
-            }
-            else if (this.radDiskSingleUI.IsChecked == true)
-            {
+            } else if (this.radDiskSingleUI.IsChecked == true) {
                 threadType = ThreadType.SingleUI;
-            }
-            else
-            {
+            } else {
                 MessageBox.Show("Please select a type of test you'd like to perform.",
                     "RipperUnknownTestException", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Dispatcher.Invoke(() =>
-                {
+                this.Dispatcher.Invoke(() => {
                     ShowTabWindow(Tab.DISK);
                 });
                 return;
@@ -638,41 +554,32 @@ namespace PC_Ripper_Benchmark.window
 
             this.txtResults.Document.Blocks.Clear();
 
-            try
-            {
-                this.Dispatcher.InvokeAsync(() =>
-                {
+            try {
+                this.Dispatcher.InvokeAsync(() => {
                     disk.RunDiskBenchmark(threadType, ref this.userData, this);
                 });
-            }
-            catch (RipperThreadException ex)
-            {
+            } catch (RipperThreadException ex) {
                 MessageBox.Show($"Oh no. A Ripper thread exception occured.. {ex.ToString()}");
             }
         }
 
-        private void RunTest()
-        {
-            switch (this.testToRun)
-            {
+        private void RunTest() {
+            switch (this.testToRun) {
 
-                case Tab.CPU:
-                    {
-                        RunCPUTest();
-                        break;
-                    }
+                case Tab.CPU: {
+                    RunCPUTest();
+                    break;
+                }
 
-                case Tab.RAM:
-                    {
-                        RunRAMTest();
-                        break;
-                    }
+                case Tab.RAM: {
+                    RunRAMTest();
+                    break;
+                }
 
-                case Tab.DISK:
-                    {
-                        RunDISKTest();
-                        break;
-                    }
+                case Tab.DISK: {
+                    RunDISKTest();
+                    break;
+                }
 
             }
         }
@@ -684,8 +591,7 @@ namespace PC_Ripper_Benchmark.window
         /// <param name="path">The path to display
         /// to the user.</param>
 
-        private void ValidDirectory(string path)
-        {
+        private void ValidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = true;
             this.btnDiskRunTest.Foreground = Brushes.White;
             this.txtBlkWorkingDir.Text = $"Working Directory Path: {path}";
@@ -700,8 +606,7 @@ namespace PC_Ripper_Benchmark.window
         /// <param name="path">The path to display
         /// to the user.</param>
 
-        private void InvalidDirectory(string path)
-        {
+        private void InvalidDirectory(string path) {
             this.btnDiskRunTest.IsEnabled = false;
             this.btnDiskRunTest.Foreground = Brushes.Black;
             this.txtBlkWorkingDir.Text = $"Invalid path: {path}";
@@ -713,16 +618,13 @@ namespace PC_Ripper_Benchmark.window
         /// Unlocks a particular directory on the filesystem.
         /// </summary>
 
-        private void UnlockDir()
-        {
-            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog
-            {
+        private void UnlockDir() {
+            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
                 Description = "Choose a directory!",
                 ShowNewFolderButton = true
             };
 
-            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 DiskFunctions diskFunctions = new DiskFunctions(ref this.rs);
                 diskFunctions.UnlockDirectory(folderBrowser.SelectedPath);
             }
@@ -732,16 +634,13 @@ namespace PC_Ripper_Benchmark.window
         /// Locks a particular directory on the filesystem.
         /// </summary>
 
-        private void LockDir()
-        {
-            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog
-            {
+        private void LockDir() {
+            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog {
                 Description = "Choose a directory!",
                 ShowNewFolderButton = true
             };
 
-            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 DiskFunctions diskFunctions = new DiskFunctions(ref this.rs);
                 diskFunctions.LockDirectory(folderBrowser.SelectedPath);
             }
@@ -753,10 +652,8 @@ namespace PC_Ripper_Benchmark.window
         /// </summary>
         /// <param name="windows">The windows to close as an array.</param>
 
-        private void CloseWindows(params Window[] windows)
-        {
-            foreach (Window window in windows)
-            {
+        private void CloseWindows(params Window[] windows) {
+            foreach (Window window in windows) {
                 if (window.Tag.ToString() == "CLOSE") { window.Close(); }
             }
         }
@@ -767,10 +664,8 @@ namespace PC_Ripper_Benchmark.window
         /// <param name="uniqueStr">The unique string used to close the window.</param>
         /// <param name="windows">The windows to close as an array.</param>
 
-        private void CloseWindows(string uniqueStr, params Window[] windows)
-        {
-            foreach (Window window in windows)
-            {
+        private void CloseWindows(string uniqueStr, params Window[] windows) {
+            foreach (Window window in windows) {
                 if (window.Tag.ToString() == uniqueStr) { window.Close(); }
             }
         }
@@ -785,113 +680,89 @@ namespace PC_Ripper_Benchmark.window
 
         #region Event(s) and event handler(s).
 
-        private void BtnCPU_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnCPU_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnCPU.Foreground = Brushes.Salmon;
         }
 
-        private void BtnCPU_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnCPU_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnCPU.Foreground = Brushes.Black;
         }
 
-        private void BtnCPU_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnCPU_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.CPU);
         }
 
-        private void BtnRAM_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnRAM_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnRAM.Foreground = Brushes.Salmon;
         }
 
-        private void BtnRAM_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnRAM_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnRAM.Foreground = Brushes.Black;
         }
 
-        private void BtnRAM_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnRAM_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RAM);
         }
 
-        private void BtnDisk_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnDisk_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnDisk.Foreground = Brushes.Salmon;
         }
 
-        private void BtnDisk_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnDisk_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
             this.btnDisk.Foreground = Brushes.Black;
         }
 
-        private void BtnDisk_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnDisk_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.DISK);
         }
 
-        private void BtnCPURunTest_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnCPURunTest_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RUNNING_TEST);
             this.testToRun = Tab.CPU;
         }
 
-        private void BtnRamRunTest_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnRamRunTest_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RUNNING_TEST);
             this.testToRun = Tab.RAM;
         }
 
-        private void BtnDiskRunTest_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnDiskRunTest_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RUNNING_TEST);
             this.testToRun = Tab.DISK;
         }
 
-        private void BtnSettings_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnSettings_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.SETTINGS);
 
-            if (this.userData.IsAdvanced == UserSkill.Advanced)
-            {
+            if (this.userData.IsAdvanced == UserSkill.Advanced) {
                 this.tabSettingsInner.SelectedIndex = 1;
-            }
-            else { this.tabSettingsInner.SelectedIndex = 0; }
+            } else { this.tabSettingsInner.SelectedIndex = 0; }
         }
 
-        private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuResultsExprtTxt_Click(object sender, RoutedEventArgs e) {
             ExportResults(ExportType.TEXTFILE, this.txtResults);
         }
 
-        private void MenuResultsExprtXaml_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuResultsExprtXaml_Click(object sender, RoutedEventArgs e) {
             ExportResults(ExportType.XAML, this.txtResults);
         }
 
-        private void BtnRunTheTest_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnRunTheTest_Click(object sender, RoutedEventArgs e) {
             this.btnRunTheTest.IsEnabled = false;
             this.btnRunTheTest.Foreground = Brushes.Black;
             this.txtBlkRunningTestTips.Visibility = Visibility.Visible;
 
-            if (GetLinesFromFile("running_test_messages.txt", out List<string> lst))
-            {
+            if (GetLinesFromFile("running_test_messages.txt", out List<string> lst)) {
                 Random rnd = new Random();
                 this.txtBlkRunningTest.Text = lst[rnd.Next(lst.Count)];
-            }
-            else
-            {
+            } else {
                 this.txtBlkRunningTest.Text = "Test is running!";
             }
 
-            if (GetLinesFromFile("message_tips.txt", out List<string> lst2))
-            {
+            if (GetLinesFromFile("message_tips.txt", out List<string> lst2)) {
                 Random rnd = new Random();
                 this.txtBlkRunningTestTips.Text = lst2[rnd.Next(lst2.Count)];
-            }
-            else
-            {
+            } else {
                 this.txtBlkRunningTestTips.Text = "Did you know you can change the test settings? Go to Settings->Advanced Settings.";
             }
 
@@ -901,13 +772,11 @@ namespace PC_Ripper_Benchmark.window
             RunTest();
         }
 
-        private void BtnBrowseWorkingDir_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnBrowseWorkingDir_Click(object sender, RoutedEventArgs e) {
             // if path is good.
             var disk = new DiskFunctions(ref this.rs);
 
-            if (disk.SetWorkingDirectory(out string path))
-            {
+            if (disk.SetWorkingDirectory(out string path)) {
 
                 // prompt again for verification.
                 if (MessageBox.Show("Are you sure you would like " +
@@ -917,191 +786,153 @@ namespace PC_Ripper_Benchmark.window
                     $"power off the machine or open/access any of the files/folders in folder. Please " +
                     "confirm.", "Confirmation",
                     MessageBoxButton.OKCancel, MessageBoxImage.Information)
-                    == MessageBoxResult.OK)
-                {
+                    == MessageBoxResult.OK) {
 
                     ValidDirectory(path);
                     this.workingDir = path;
-                }
-                else
-                {
+                } else {
                     InvalidDirectory(string.Empty);
                 }
 
-            }
-            else
-            {
+            } else {
                 InvalidDirectory(path);
             }
         }
 
-        private void MenuResultsSelectAll_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuResultsSelectAll_Click(object sender, RoutedEventArgs e) {
             this.txtResults.SelectAll();
         }
 
-        private void MenuResultsCopy_Click(object sender, RoutedEventArgs e)
-        {
-            if (!this.txtResults.Selection.IsEmpty)
-            {
+        private void MenuResultsCopy_Click(object sender, RoutedEventArgs e) {
+            if (!this.txtResults.Selection.IsEmpty) {
                 Clipboard.SetText(this.txtResults.Selection.Text);
             }
         }
 
-        private void BtnMenu_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnMenu_Click(object sender, RoutedEventArgs e) {
             this.ws.NavigationMenu(this);
         }
 
-        private void BtnUnlockDirectory_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnUnlockDirectory_Click(object sender, RoutedEventArgs e) {
             UnlockDir();
         }
 
-        private void BtnLockDirectory_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnLockDirectory_Click(object sender, RoutedEventArgs e) {
             LockDir();
         }
 
         //Got focus and lost focus events for buttons on stack panel
-        private void BtnCPU_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnCPU_GotFocus(object sender, RoutedEventArgs e) {
             this.btnCPU.BorderThickness = new Thickness(5);
             this.btnCPU.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnRAM_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnRAM_GotFocus(object sender, RoutedEventArgs e) {
             this.btnRAM.BorderThickness = new Thickness(5);
             this.btnRAM.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnDisk_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnDisk_GotFocus(object sender, RoutedEventArgs e) {
             this.btnDisk.BorderThickness = new Thickness(5);
             this.btnDisk.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnSettings_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnSettings_GotFocus(object sender, RoutedEventArgs e) {
             this.btnSettings.BorderThickness = new Thickness(5);
             this.btnSettings.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnCPU_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnCPU_LostFocus(object sender, RoutedEventArgs e) {
             this.btnCPU.BorderThickness = new Thickness(0);
         }
 
-        private void BtnRAM_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnRAM_LostFocus(object sender, RoutedEventArgs e) {
             this.btnRAM.BorderThickness = new Thickness(0);
         }
 
-        private void BtnDisk_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnDisk_LostFocus(object sender, RoutedEventArgs e) {
             this.btnDisk.BorderThickness = new Thickness(0);
         }
 
-        private void BtnSettings_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnSettings_LostFocus(object sender, RoutedEventArgs e) {
             this.btnSettings.BorderThickness = new Thickness(0);
         }
 
-        private void BtnWelcome_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnWelcome_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.WELCOME);
         }
 
-        private void BtnWelcome_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnWelcome_GotFocus(object sender, RoutedEventArgs e) {
             this.btnWelcome.BorderThickness = new Thickness(5);
             this.btnWelcome.BorderBrush = Brushes.ForestGreen;
         }
 
-        private void BtnWelcome_LostFocus(object sender, RoutedEventArgs e)
-        {
+        private void BtnWelcome_LostFocus(object sender, RoutedEventArgs e) {
             this.btnWelcome.BorderThickness = new Thickness(0);
         }
 
-        private void BtnWelcome_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnWelcome_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
 
         }
 
-        private void BtnWelcome_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
+        private void BtnWelcome_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
 
         }
 
-        private void BtnLockDir_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnLockDir_Click(object sender, RoutedEventArgs e) {
             LockDir();
         }
 
-        private void BtnUnlockDir_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnUnlockDir_Click(object sender, RoutedEventArgs e) {
             UnlockDir();
         }
 
-        private void BtnShowAdvanced_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnShowAdvanced_Click(object sender, RoutedEventArgs e) {
             this.tabSettingsInner.SelectedIndex = 1;
         }
 
-        private void BtnExportSpecTxt_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnExportSpecTxt_Click(object sender, RoutedEventArgs e) {
             ExportResults(ExportType.TEXTFILE, this.txtComputerSpecs);
         }
 
-        private void MenuNewWindow_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuNewWindow_Click(object sender, RoutedEventArgs e) {
             new MainWindow(this.userData).Show(); ;
         }
 
-        private void MenuNewWindowAsGuest_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuNewWindowAsGuest_Click(object sender, RoutedEventArgs e) {
             new MainWindow(UserData.GetGuestUser()).Show();
         }
 
-        private void MenuCloseWindow_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuCloseWindow_Click(object sender, RoutedEventArgs e) {
             Close();
         }
 
-        private void MenuCloseAllWindows_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuCloseAllWindows_Click(object sender, RoutedEventArgs e) {
             List<Window> w = new List<Window>();
-            foreach (Window window in Application.Current.Windows)
-            {
+            foreach (Window window in Application.Current.Windows) {
                 window.Tag = "CLOSE";
                 w.Add(window);
             }
             CloseWindows(w.ToArray());
         }
 
-        private void MenuSaveSettings_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuSaveSettings_Click(object sender, RoutedEventArgs e) {
             SaveSettings();
         }
 
-        private void MenuCreateNewAccount_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuCreateNewAccount_Click(object sender, RoutedEventArgs e) {
             var create = new CreateAccountWindow();
             this.ws.TransitionScreen(create, this);
             Close();
         }
 
-        private void MenuLogout_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuLogout_Click(object sender, RoutedEventArgs e) {
             var login = new LoginWindow();
             this.ws.TransitionScreen(login, this);
 
             List<Window> w = new List<Window>();
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (typeof(MainWindow).IsInstanceOfType(window))
-                {
+            foreach (Window window in Application.Current.Windows) {
+                if (typeof(MainWindow).IsInstanceOfType(window)) {
                     MainWindow mw = (MainWindow)window;
                     mw.Tag = mw.UniqueInstance;
                     w.Add(mw);
@@ -1110,15 +941,12 @@ namespace PC_Ripper_Benchmark.window
             CloseWindows(this.UniqueInstance, w.ToArray());
         }
 
-        private void MenuLogoutSave_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuLogoutSave_Click(object sender, RoutedEventArgs e) {
             var login = new LoginWindow();
             this.ws.TransitionScreen(login, this);
             List<Window> w = new List<Window>();
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (typeof(MainWindow).IsInstanceOfType(window))
-                {
+            foreach (Window window in Application.Current.Windows) {
+                if (typeof(MainWindow).IsInstanceOfType(window)) {
                     MainWindow mw = (MainWindow)window;
                     mw.Tag = mw.UniqueInstance;
                     w.Add(mw);
@@ -1129,28 +957,23 @@ namespace PC_Ripper_Benchmark.window
 
         }
 
-        private void MenuSettings_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuSettings_Click(object sender, RoutedEventArgs e) {
             BtnSettings_Click(sender, e);
         }
 
-        private void MenuAboutProject_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuAboutProject_Click(object sender, RoutedEventArgs e) {
             var result = MessageBox.Show("The PC Ripper Benchmark application is a PC diagnostics program that can benchmark " +
                 "the computers processor, memory, and hard drive and give it a score. Depending on the score, you might want " +
                 "to possibly upgrade certain components of your PC. This project is open sourced on GitHub, would you like " +
                 "to go there? Credits: iconfinder.net for their icons.", "About this project", MessageBoxButton.YesNo, MessageBoxImage.Information);
-            if (result == MessageBoxResult.Yes)
-            {
+            if (result == MessageBoxResult.Yes) {
                 System.Diagnostics.Process.Start("https://github.com/Reapism/PC-Ripper-Benchmark");
             }
         }
 
-        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e)
-        {
-            lstAdvancedSettings.SelectedIndex = -1;
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerCPUTest.ToString(), out byte output))
-            {
+        private void Menu_cpu_iter_per_test_Click(object sender, RoutedEventArgs e) {
+            this.lstAdvancedSettings.SelectedIndex = -1;
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerCPUTest.ToString(), out byte output)) {
                 MessageBox.Show("The value you entered cannot be parsed.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -1159,12 +982,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_cpu_successorship_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsSuccessorship.ToString(), out ulong output))
-            {
+        private void Menu_cpu_successorship_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsSuccessorship.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1172,12 +993,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_cpu_boolean_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsBoolean.ToString(), out ulong output))
-            {
+        private void Menu_cpu_boolean_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsBoolean.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1185,12 +1004,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_cpu_queue_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsQueue.ToString(), out ulong output))
-            {
+        private void Menu_cpu_queue_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsQueue.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1198,12 +1015,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_cpu_linkedlist_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsLinkedList.ToString(), out ulong output))
-            {
+        private void Menu_cpu_linkedlist_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsLinkedList.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1211,12 +1026,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_cpu_tree_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsTree.ToString(), out ulong output))
-            {
+        private void Menu_cpu_tree_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsTree.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1224,12 +1037,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_ram_per_test_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerRAMTest.ToString(), out byte output))
-            {
+        private void Menu_ram_per_test_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerRAMTest.ToString(), out byte output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1237,12 +1048,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_ram_foldermatrix_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMFolderMatrix.ToString(), out ulong output))
-            {
+        private void Menu_ram_foldermatrix_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMFolderMatrix.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1250,12 +1059,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_ram_bulkfile_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMVirtualBulkFile.ToString(), out ulong output))
-            {
+        private void Menu_ram_bulkfile_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMVirtualBulkFile.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1263,12 +1070,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_ram_readwriteparse_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMReferenceDereference.ToString(), out ulong output))
-            {
+        private void Menu_ram_readwriteparse_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsRAMReferenceDereference.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1276,12 +1081,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_disk_per_test_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerDiskTest.ToString(), out byte output))
-            {
+        private void Menu_disk_per_test_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsPerDiskTest.ToString(), out byte output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1289,12 +1092,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_disk_foldermatrix_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDISKFolderMatrix.ToString(), out ulong output))
-            {
+        private void Menu_disk_foldermatrix_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDISKFolderMatrix.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1302,12 +1103,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_disk_bulkfile_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskBulkFile.ToString(), out ulong output))
-            {
+        private void Menu_disk_bulkfile_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskBulkFile.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1315,12 +1114,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_disk_readwriteparse_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskReadWriteParse.ToString(), out ulong output))
-            {
+        private void Menu_disk_readwriteparse_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskReadWriteParse.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1328,12 +1125,10 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void Menu_disk_ripper_Click(object sender, RoutedEventArgs e)
-        {
-            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskRipper.ToString(), out ulong output))
-            {
+        private void Menu_disk_ripper_Click(object sender, RoutedEventArgs e) {
+            if (!RipperDialog.InputBox("Please enter a new value: ", "", this.rs.IterationsDiskRipper.ToString(), out ulong output)) {
                 MessageBox.Show("The value you entered cannot be parsed, or is too small or large.", "InvalidParseException", MessageBoxButton.OK, MessageBoxImage.Error);
-                lstAdvancedSettings.SelectedIndex = -1;
+                this.lstAdvancedSettings.SelectedIndex = -1;
                 return;
             }
 
@@ -1341,185 +1136,214 @@ namespace PC_Ripper_Benchmark.window
             LoadAdvancedSettings();
         }
 
-        private void BtnDefaultSettings_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnDefaultSettings_Click(object sender, RoutedEventArgs e) {
             LoadDefaultSettings();
         }
 
         #endregion
 
-        private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
             DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
             db.Open();
 
-            if (this.userData.Email != "guest")
-            {
+            if (this.userData.Email != "guest") {
                 var range = new TextRange(this.txtResults.Document.ContentStart,
                          this.txtResults.Document.ContentEnd);
 
-                string input = RipperDialog.InputBox("Please enter a name for the test!", "Enter a name", $"{userData.FirstName}'s Test");
+                string input = RipperDialog.InputBox("Please enter a name for the test!", "Enter a name", $"{this.userData.FirstName}'s Test");
 
-                if (db.AddUserResults(this.userData.Email, range.Text, input))
-                {
+                if (db.AddUserResults(this.userData.Email, range.Text, input)) {
                     MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
                         "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-            }
-            else
-            {
+            } else {
                 MessageBox.Show($"Cannot send results as a guest!",
                         "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
             this.txtResults.ScrollToVerticalOffset(0);
             this.txtBlkRunningTestTips.Visibility = Visibility.Hidden;
         }
 
-        private void MenuHelp_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuHelp_Click(object sender, RoutedEventArgs e) {
             System.Diagnostics.Process.Start("https://docs.google.com/document" +
                 "/d/1WMmI6pNMZJi0da1IsfJ9YGcFL44UNgm8VHuij_ue7cY/edit?usp=sharing");
         }
 
-        private void MenuAccount_Click(object sender, RoutedEventArgs e)
-        {
+        private void MenuAccount_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.MY_ACCOUNT);
         }
 
-        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
+        private void SliderUserSkill_Copy_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             Slider s = (Slider)sender;
 
             string userType;
 
-            switch (e.NewValue)
-            {
-                case double d when (e.NewValue >= 0 && e.NewValue <= 1):
-                    {
-                        s.Value = 1.0;
-                        userType = "Casual";
-                        s.ToolTip = userType;
-                        break;
-                    }
+            switch (e.NewValue) {
+                case double d when (e.NewValue >= 0 && e.NewValue <= 1): {
+                    s.Value = 1.0;
+                    userType = "Casual";
+                    s.ToolTip = userType;
+                    break;
+                }
 
-                case double d when (e.NewValue > 1 && e.NewValue <= 2):
-                    {
-                        s.Value = 2.0;
-                        userType = "Web surfer";
-                        s.ToolTip = userType;
-                        break;
-                    }
+                case double d when (e.NewValue > 1 && e.NewValue <= 2): {
+                    s.Value = 2.0;
+                    userType = "Web surfer";
+                    s.ToolTip = userType;
+                    break;
+                }
 
-                case double d when (e.NewValue > 2 && e.NewValue <= 3):
-                    {
-                        s.Value = 3.0;
-                        userType = "High performance";
-                        s.ToolTip = userType;
-                        break;
-                    }
+                case double d when (e.NewValue > 2 && e.NewValue <= 3): {
+                    s.Value = 3.0;
+                    userType = "High performance";
+                    s.ToolTip = userType;
+                    break;
+                }
 
-                case double d when (e.NewValue > 3 && e.NewValue <= 4):
-                    {
-                        s.Value = 4.0;
-                        userType = "Video editor";
-                        s.ToolTip = userType;
-                        break;
-                    }
+                case double d when (e.NewValue > 3 && e.NewValue <= 4): {
+                    s.Value = 4.0;
+                    userType = "Video editor";
+                    s.ToolTip = userType;
+                    break;
+                }
             }
         }
 
-        private void AlterUserDataBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (userSkillComboBox.SelectedIndex == -1 || typeOfUserComboBox.SelectedIndex == -1)
-            {
+        /// <summary>
+        /// Returns true if the user data matches the selected combo box index's
+        /// </summary>
+        /// <returns></returns>
+
+        private bool CheckUserAccount() {
+            byte count = 0;
+
+            if ((int)this.userData.IsAdvanced == this.userSkillComboBox.SelectedIndex) {
+                count++;
+            }
+
+            if ((int)this.userData.UserType == this.typeOfUserComboBox.SelectedIndex) {
+                count++;
+            }
+
+            if (count == 2) {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void LoadUserAccount() {
+            switch (this.userData.IsAdvanced) {
+                case UserSkill.Beginner: {
+                    this.userSkillComboBox.SelectedIndex = 0;
+                    break;
+                }
+
+                case UserSkill.Advanced: {
+                    this.userSkillComboBox.SelectedIndex = 1;
+                    break;
+                }
+            }
+
+            switch (this.userData.UserType) {
+                case TypeOfUser.Casual: {
+                    this.typeOfUserComboBox.SelectedIndex = 0;
+                    break;
+                }
+
+                case TypeOfUser.Websurfer: {
+                    this.typeOfUserComboBox.SelectedIndex = 1;
+                    break;
+                }
+
+                case TypeOfUser.HighPerformance: {
+                    this.typeOfUserComboBox.SelectedIndex = 2;
+                    break;
+                }
+                case TypeOfUser.Video: {
+                    this.typeOfUserComboBox.SelectedIndex = 3;
+                    break;
+                }
+            }
+        }
+
+        private void AlterUserDataBtn_Click(object sender, RoutedEventArgs e) {
+            if (CheckUserAccount()) {
+                MessageBox.Show("User data has not been changed. Please change at least one.", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            if (this.userSkillComboBox.SelectedIndex == -1 || this.typeOfUserComboBox.SelectedIndex == -1) {
                 MessageBox.Show("Must select a value for both comboboxes", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else if (userData.Email == "guest")
-            {
+            } else if (this.userData.Email == "guest") {
                 MessageBox.Show("Cannot change user settings for guest accounts!", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else
-            {
-                try
-                {
-                    if (SystemSettings.IsInternetAvailable() == true)
-                    {
+            } else {
+                try {
+                    if (SystemSettings.IsInternetAvailable() == true) {
                         SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
                         connection.Open();
 
-                        SqlCommand changeSettings = new SqlCommand("ChangeUserSettings", connection)
-                        {
+                        SqlCommand changeSettings = new SqlCommand("ChangeUserSettings", connection) {
                             CommandType = CommandType.StoredProcedure
                         };
 
                         UserSkill userSkill = 0;
-                        switch (userSkillComboBox.SelectedIndex)
-                        {
-                            case 0:
-                                {
-                                    userSkill = UserSkill.Beginner;
-                                    userSkillComboBox.SelectedIndex = 0;
-                                    break;
-                                }
+                        switch (this.userSkillComboBox.SelectedIndex) {
+                            case 0: {
+                                userSkill = UserSkill.Beginner;
+                                this.userSkillComboBox.SelectedIndex = 0;
+                                break;
+                            }
 
-                            case 1:
-                                {
-                                    userSkill = UserSkill.Advanced;
-                                    userSkillComboBox.SelectedIndex = 1;
-                                    break;
-                                }
+                            case 1: {
+                                userSkill = UserSkill.Advanced;
+                                this.userSkillComboBox.SelectedIndex = 1;
+                                break;
+                            }
 
-                            default:
-                                {
-                                    userSkill = UserSkill.Beginner;
-                                    userSkillComboBox.SelectedIndex = 0;
-                                    break;
-                                }
+                            default: {
+                                userSkill = UserSkill.Beginner;
+                                this.userSkillComboBox.SelectedIndex = 0;
+                                break;
+                            }
                         }
 
                         TypeOfUser typeOfUser = 0;
-                        switch (typeOfUserComboBox.SelectedIndex)
-                        {
-                            case 0:
-                                {
-                                    typeOfUser = TypeOfUser.Casual;
-                                    typeOfUserComboBox.SelectedIndex = 0;
-                                    break;
-                                }
+                        switch (this.typeOfUserComboBox.SelectedIndex) {
+                            case 0: {
+                                typeOfUser = TypeOfUser.Casual;
+                                this.typeOfUserComboBox.SelectedIndex = 0;
+                                break;
+                            }
 
-                            case 1:
-                                {
-                                    typeOfUser = TypeOfUser.Websurfer;
-                                    typeOfUserComboBox.SelectedIndex = 1;
-                                    break;
-                                }
+                            case 1: {
+                                typeOfUser = TypeOfUser.Websurfer;
+                                this.typeOfUserComboBox.SelectedIndex = 1;
+                                break;
+                            }
 
-                            case 2:
-                                {
-                                    typeOfUser = TypeOfUser.HighPerformance;
-                                    typeOfUserComboBox.SelectedIndex = 2;
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    typeOfUser = TypeOfUser.Video;
-                                    typeOfUserComboBox.SelectedIndex = 3;
-                                    break;
-                                }
-                            default:
-                                {
-                                    typeOfUser = TypeOfUser.Video;
-                                    typeOfUserComboBox.SelectedIndex = 3;
-                                    break;
-                                }
+                            case 2: {
+                                typeOfUser = TypeOfUser.HighPerformance;
+                                this.typeOfUserComboBox.SelectedIndex = 2;
+                                break;
+                            }
+                            case 3: {
+                                typeOfUser = TypeOfUser.Video;
+                                this.typeOfUserComboBox.SelectedIndex = 3;
+                                break;
+                            }
+                            default: {
+                                typeOfUser = TypeOfUser.Video;
+                                this.typeOfUserComboBox.SelectedIndex = 3;
+                                break;
+                            }
                         }
 
                         //Fill the parameter of the query
-                        changeSettings.Parameters.AddWithValue("@Email", userData.Email);
+                        changeSettings.Parameters.AddWithValue("@Email", this.userData.Email);
                         changeSettings.Parameters.AddWithValue("@UserSkill", (int)userSkill);
                         changeSettings.Parameters.AddWithValue("@TypeOfUser", (int)typeOfUser);
                         changeSettings.ExecuteNonQuery();
@@ -1527,27 +1351,23 @@ namespace PC_Ripper_Benchmark.window
                         connection.Close();
 
                         MessageBox.Show("Your changes have been saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        typeOfUserComboBox.SelectedIndex = -1;
-                        userSkillComboBox.SelectedIndex = -1;
-                    
-                        if (MessageBox.Show("You must logout for changes to take affect. Want to logout now?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes){
+                        this.typeOfUserComboBox.SelectedIndex = -1;
+                        this.userSkillComboBox.SelectedIndex = -1;
+
+                        if (MessageBox.Show("You must logout for changes to take affect. Want to logout now?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
                             function.WindowSettings settings = new WindowSettings();
                             LoginWindow loginWindow = new LoginWindow();
 
                             settings.TransitionScreen(loginWindow, this);
-                        }
-                        else
-                        {
-                            accountTypeOfUserLbl.Content = $"Type: Logout to see changes";
-                            accountUserSkillLbl.Content = $"Skill Level: Logout to see changes";
-                            lblTypeOfUser.Content = $"Type: Logout to see changes";
-                            lblUserSkill.Content = $"Skill Level: Logout to see changes";
+                        } else {
+                            this.accountTypeOfUserLbl.Content = $"Type: Logout to see changes";
+                            this.accountUserSkillLbl.Content = $"Skill Level: Logout to see changes";
+                            this.lblTypeOfUser.Content = $"Type: Logout to see changes";
+                            this.lblUserSkill.Content = $"Skill Level: Logout to see changes";
 
                         }
                     }
-                }
-                catch
-                {
+                } catch {
                     MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }

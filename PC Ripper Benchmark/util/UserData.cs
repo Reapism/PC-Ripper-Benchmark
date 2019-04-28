@@ -23,13 +23,13 @@ namespace PC_Ripper_Benchmark.util {
             /// Represents a beginner
             /// user.
             /// </summary>
-            Beginner = 1024,
+            Beginner = 0,
 
             /// <summary>
             /// Represents an advanced
             /// user.
             /// </summary>
-            Advanced = 2048
+            Advanced = 1
         }
 
         /// <summary>
@@ -41,23 +41,23 @@ namespace PC_Ripper_Benchmark.util {
             /// <summary>
             /// Represents a casual user.
             /// </summary>
-            Casual = 16,
+            Casual = 0,
 
             /// <summary>
             /// Represents a websurfing user.
             /// </summary>
-            Websurfer = 32,
+            Websurfer = 1,
 
             /// <summary>
             /// Represents a user who games or use high performance task.
             /// </summary>
-            HighPerformance = 64,
+            HighPerformance = 2,
 
             /// <summary>
             /// Represents a user who does a lot of video editing, also
             /// requires decent performance.
             /// </summary>
-            Video = 128
+            Video = 3
         }
 
         #endregion
