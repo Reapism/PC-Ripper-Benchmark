@@ -96,7 +96,7 @@ namespace PC_Ripper_Benchmark.util {
             ManagementClass mgt = new ManagementClass("Win32_PhysicalMemory");
             ManagementObjectCollection mgtCollection = mgt.GetInstances();
 
-
+            ulong capacity = 0;
 
             foreach (ManagementObject item in mgtCollection) {
 
@@ -106,10 +106,13 @@ namespace PC_Ripper_Benchmark.util {
                     lst.Add("Manufacturer: " + item.Properties["Manufacturer"].Value.ToString());
                 }
 
-                lst.Add($"Capacity: {item.Properties["Capacity"].Value.ToString()} bytes");
+                capacity += (ulong)item.Properties["Capacity"].Value;
                 lst.Add("Speed: " + item.Properties["Speed"].Value.ToString() + "MHz");
                 if (RAMClockSpeed == null) { RAMClockSpeed = item.Properties["Speed"].Value.ToString(); }
             }
+
+            lst.Add($"Total Capacity: ~{capacity / (1024 * 1024 * 1024)} GB");
+            lst.Add($"Total Capacity more accurately: {capacity / (1024 * 1024)} MB");
         }
 
         /// <summary>
