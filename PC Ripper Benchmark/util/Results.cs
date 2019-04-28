@@ -102,6 +102,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <param name="theTest">The <see cref="TestName"/> enum
         /// which represents the name.</param>
         /// <returns></returns>
+        
         protected virtual string GetTestName(TestName theTest) {
             switch (theTest) {
                 // CPU test names.
