@@ -12,11 +12,11 @@
 
         public string DISKName { get => ""; }
 
-        public double IterationsPerTickCPU { get => 90; }
+        public double TicksPerIterationCPU { get => 90; }
 
-        public double IterationsPerTickRAM { get => 45.500006; }
+        public double TicksPerIterationRAM { get => 45.500006; }
 
-        public double IterationsPerTickDISK { get => 110.3033833; }
+        public double TicksPerIterationDISK { get => 110.3033833; }
 
         public byte Score { get => 50; }
 
