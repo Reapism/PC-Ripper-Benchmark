@@ -259,8 +259,10 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
 
             // total time of all tests. 
+            this.totalDuration = TotalTimeSpan(this.TestCollection);
+            
             desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+            desc += $"\t{totalDuration}";
 
             // score for the test.
             desc += Environment.NewLine;
@@ -283,8 +285,9 @@ namespace PC_Ripper_Benchmark.util {
         protected override string GenerateBeginnerDescription() {
             string desc = string.Empty;
 
+            this.totalDuration = TotalTimeSpan(this.TestCollection);
             desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+            desc += $"\t{this.totalDuration}";
 
             // score for the test.
             desc += Environment.NewLine;
@@ -457,11 +460,11 @@ namespace PC_Ripper_Benchmark.util {
                 this.rs.IterationsLinkedList + this.rs.IterationsTree) *
                 this.rs.IterationsPerCPUTest;
 
-            var iter_per_tick = (double)this.totalDuration.Seconds / total_iterations;
-            
+            var iter_per_tick = ((ulong)this.totalDuration.Ticks / total_iterations) ;
 
+            System.Windows.Forms.MessageBox.Show($"Total Duration(Ticks) {this.totalDuration.Ticks}   Total Iterations (all tests) {total_iterations}   IterPerTick {iterationsPerTick}");
 
-            return 0;
+            return (byte)iter_per_tick;
 
         }
 
