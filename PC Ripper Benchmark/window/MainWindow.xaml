@@ -66,6 +66,7 @@
                         <MenuItem x:Name="menuAboutProject" Header="About this project..." ToolTip="About this project" Foreground="Black" Click="MenuAboutProject_Click"/>
                     </MenuItem>
                     <MenuItem x:Name="menuAccount" Header="My Account" Foreground="#FFE6E6E6" Click="MenuAccount_Click"/>
+                    <MenuItem x:Name="menuMyTests" Header="My Tests" Foreground="#FFE6E6E6" Click="MenuMyTests_Click"/>
                     <MenuItem x:Name="menuHelp" Header="Help" Foreground="#FFE6E6E6" Click="MenuHelp_Click">
                     </MenuItem>
                 </Menu>
@@ -507,8 +508,8 @@
                         </RichTextBox>
                         <ListView x:Name="listView" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White">
                             <ListView.View>
-                                <GridView>
-                                    <GridViewColumn/>
+                                <GridView ColumnHeaderStringFormat="">
+                                    <GridViewColumn Header="Test Name"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
