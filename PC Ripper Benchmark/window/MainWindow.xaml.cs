@@ -293,6 +293,16 @@ namespace PC_Ripper_Benchmark.window {
                     break;
                 }
 
+                case Tab.RESULTS_PARTS: {
+                    this.tabComponents.SelectedIndex = (int)Tab.RESULTS_PARTS;
+                    break;
+                }
+
+                case Tab.USER_RESULTS: {
+                    this.tabComponents.SelectedIndex = (int)Tab.USER_RESULTS;
+                    break;
+                }
+
                 default: {
                     break;
                 }
@@ -1388,6 +1398,10 @@ namespace PC_Ripper_Benchmark.window {
 
         private void BtnChangeAccountSetting_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.MY_ACCOUNT);
+        }
+
+        private void MenuMyTests_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.USER_RESULTS);
         }
     }
 }

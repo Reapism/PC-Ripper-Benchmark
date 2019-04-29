@@ -506,7 +506,7 @@
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
-                        <ListView x:Name="listView" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White">
+                        <ListView x:Name="listViewUserResults" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White">
                             <ListView.View>
                                 <GridView ColumnHeaderStringFormat="">
                                     <GridViewColumn Header="Test Name"/>
