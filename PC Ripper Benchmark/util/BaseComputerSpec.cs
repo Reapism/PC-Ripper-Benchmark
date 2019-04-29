@@ -12,7 +12,7 @@
 
         public string DISKName { get => ""; }
 
-        public double IterationsPerTickCPU { get => 17.821496; }
+        public double IterationsPerTickCPU { get => 90; }
 
         public double IterationsPerTickRAM { get => 45.500006; }
 
