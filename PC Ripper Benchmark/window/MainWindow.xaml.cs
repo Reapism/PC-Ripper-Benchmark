@@ -192,7 +192,7 @@ namespace PC_Ripper_Benchmark.window {
             this.lblName.Content = $"Profile: {this.userData.LastName}, {this.userData.FirstName}.";
 
             this.lblTypeOfUser.Content = $"You're using your computer mainly for {this.userData.GetTypeOfUserString()}.";
-            this.lblUserSkill.Content = $"You've decided you're an {this.userData.GetUserSkillString()} user.";
+            this.lblUserSkill.Content = $"Account Skill: {this.userData.GetUserSkillString()} user.";
         }
 
         private void GetUserAccountText() {
@@ -200,10 +200,7 @@ namespace PC_Ripper_Benchmark.window {
             this.userData.LastName = UserData.UppercaseFirst(this.userData.LastName);
 
             this.accountNameLbl.Content = $"Name: {this.userData.FirstName}, {this.userData.LastName}";
-
-            this.accountTypeOfUserLbl.Content = $"Type: {this.userData.GetTypeOfUserString()}";
-            this.accountUserSkillLbl.Content = $"Skill Level: {this.userData.GetUserSkillString()} user";
-
+            this.txtblkWelcomeAccount.Text = $"Welcome {this.userData.FirstName}! Below you can change your account settings.";
         }
 
         /// <summary>
@@ -219,6 +216,8 @@ namespace PC_Ripper_Benchmark.window {
 
             this.txtComputerSpecs.AppendText($"System specifications for {specs.UserName}."
                 + Environment.NewLine + Environment.NewLine);
+            this.txtComputerSpecs.AppendText($"Computer name: {specs.MachineName}" + Environment.NewLine);
+            this.txtComputerSpecs.AppendText($"Username: {specs.UserName}" + Environment.NewLine);
 
             this.txtComputerSpecs.AppendText("Processor (CPU) specs" + Environment.NewLine);
             specs.GetProcessorInfo(out lst);
@@ -1271,106 +1270,124 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void AlterUserDataBtn_Click(object sender, RoutedEventArgs e) {
+            // If user is guest, don't allow a change.
+            if (this.userData.Email == "guest") {
+                MessageBox.Show("Cannot change user settings for guest accounts!", "GuestAccountException!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                LoadUserAccount();
+                return;
+            }
+            // Must change at least one of the current options.
             if (CheckUserAccount()) {
-                MessageBox.Show("User data has not been changed. Please change at least one.", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("User data has not been changed. Please change at least one.", "UnchangedAccountSettingsException!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                LoadUserAccount();
+                return;
+            }
+            // Must select an item in either combobox.
+            if (this.userSkillComboBox.SelectedIndex == -1 || this.typeOfUserComboBox.SelectedIndex == -1) {
+                MessageBox.Show("Must select a value for both comboboxes", "UnselectedChangesException!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                LoadUserAccount();
                 return;
             }
 
-            if (this.userSkillComboBox.SelectedIndex == -1 || this.typeOfUserComboBox.SelectedIndex == -1) {
-                MessageBox.Show("Must select a value for both comboboxes", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            } else if (this.userData.Email == "guest") {
-                MessageBox.Show("Cannot change user settings for guest accounts!", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            } else {
-                try {
-                    if (SystemSettings.IsInternetAvailable() == true) {
-                        SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
-                        connection.Open();
+            try {
+                if (SystemSettings.IsInternetAvailable() == true) {
+                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                    connection.Open();
 
-                        SqlCommand changeSettings = new SqlCommand("ChangeUserSettings", connection) {
-                            CommandType = CommandType.StoredProcedure
-                        };
+                    SqlCommand changeSettings = new SqlCommand("ChangeUserSettings", connection) {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
-                        UserSkill userSkill = 0;
-                        switch (this.userSkillComboBox.SelectedIndex) {
-                            case 0: {
-                                userSkill = UserSkill.Beginner;
-                                this.userSkillComboBox.SelectedIndex = 0;
-                                break;
-                            }
-
-                            case 1: {
-                                userSkill = UserSkill.Advanced;
-                                this.userSkillComboBox.SelectedIndex = 1;
-                                break;
-                            }
-
-                            default: {
-                                userSkill = UserSkill.Beginner;
-                                this.userSkillComboBox.SelectedIndex = 0;
-                                break;
-                            }
+                    UserSkill userSkill = 0;
+                    switch (this.userSkillComboBox.SelectedIndex) {
+                        case 0: {
+                            userSkill = UserSkill.Beginner;
+                            this.userSkillComboBox.SelectedIndex = 0;
+                            break;
                         }
 
-                        TypeOfUser typeOfUser = 0;
-                        switch (this.typeOfUserComboBox.SelectedIndex) {
-                            case 0: {
-                                typeOfUser = TypeOfUser.Casual;
-                                this.typeOfUserComboBox.SelectedIndex = 0;
-                                break;
-                            }
-
-                            case 1: {
-                                typeOfUser = TypeOfUser.Websurfer;
-                                this.typeOfUserComboBox.SelectedIndex = 1;
-                                break;
-                            }
-
-                            case 2: {
-                                typeOfUser = TypeOfUser.HighPerformance;
-                                this.typeOfUserComboBox.SelectedIndex = 2;
-                                break;
-                            }
-                            case 3: {
-                                typeOfUser = TypeOfUser.Video;
-                                this.typeOfUserComboBox.SelectedIndex = 3;
-                                break;
-                            }
-                            default: {
-                                typeOfUser = TypeOfUser.Video;
-                                this.typeOfUserComboBox.SelectedIndex = 3;
-                                break;
-                            }
+                        case 1: {
+                            userSkill = UserSkill.Advanced;
+                            this.userSkillComboBox.SelectedIndex = 1;
+                            break;
                         }
 
-                        //Fill the parameter of the query
-                        changeSettings.Parameters.AddWithValue("@Email", this.userData.Email);
-                        changeSettings.Parameters.AddWithValue("@UserSkill", (int)userSkill);
-                        changeSettings.Parameters.AddWithValue("@TypeOfUser", (int)typeOfUser);
-                        changeSettings.ExecuteNonQuery();
-
-                        connection.Close();
-
-                        MessageBox.Show("Your changes have been saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        this.typeOfUserComboBox.SelectedIndex = -1;
-                        this.userSkillComboBox.SelectedIndex = -1;
-
-                        if (MessageBox.Show("You must logout for changes to take affect. Want to logout now?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
-                            WindowSettings settings = new WindowSettings();
-                            LoginWindow loginWindow = new LoginWindow();
-
-                            settings.TransitionScreen(loginWindow, this);
-                        } else {
-                            this.accountTypeOfUserLbl.Content = $"Type: Logout to see changes";
-                            this.accountUserSkillLbl.Content = $"Skill Level: Logout to see changes";
-                            this.lblTypeOfUser.Content = $"Type: Logout to see changes";
-                            this.lblUserSkill.Content = $"Skill Level: Logout to see changes";
-
+                        default: {
+                            userSkill = UserSkill.Beginner;
+                            this.userSkillComboBox.SelectedIndex = 0;
+                            break;
                         }
                     }
-                } catch {
-                    MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    TypeOfUser typeOfUser = 0;
+                    switch (this.typeOfUserComboBox.SelectedIndex) {
+                        case 0: {
+                            typeOfUser = TypeOfUser.Casual;
+                            this.typeOfUserComboBox.SelectedIndex = 0;
+                            break;
+                        }
+
+                        case 1: {
+                            typeOfUser = TypeOfUser.Websurfer;
+                            this.typeOfUserComboBox.SelectedIndex = 1;
+                            break;
+                        }
+
+                        case 2: {
+                            typeOfUser = TypeOfUser.HighPerformance;
+                            this.typeOfUserComboBox.SelectedIndex = 2;
+                            break;
+                        }
+                        case 3: {
+                            typeOfUser = TypeOfUser.Video;
+                            this.typeOfUserComboBox.SelectedIndex = 3;
+                            break;
+                        }
+                        default: {
+                            typeOfUser = TypeOfUser.Video;
+                            this.typeOfUserComboBox.SelectedIndex = 3;
+                            break;
+                        }
+                    }
+
+                    //Fill the parameter of the query
+                    changeSettings.Parameters.AddWithValue("@Email", this.userData.Email);
+                    changeSettings.Parameters.AddWithValue("@UserSkill", (int)userSkill);
+                    changeSettings.Parameters.AddWithValue("@TypeOfUser", (int)typeOfUser);
+                    changeSettings.ExecuteNonQuery();
+
+                    connection.Close();
+
+                    MessageBox.Show("Your changes have been saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.typeOfUserComboBox.SelectedIndex = -1;
+                    this.userSkillComboBox.SelectedIndex = -1;
+
+                    if (MessageBox.Show("You must logout for changes to take affect. Want to logout now?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                        WindowSettings settings = new WindowSettings();
+                        LoginWindow loginWindow = new LoginWindow();
+
+                        settings.TransitionScreen(loginWindow, this);
+                    } else {
+                        this.txtblkWelcomeAccount.Text = "Please logout and log back into your account to see the changes.";
+                        this.txtblkWelcomeAccount.Foreground = Brushes.IndianRed;
+                        this.alterUserDataBtn.Content = "Relog to view your changes!";
+                        this.alterUserDataBtn.Foreground = Brushes.IndianRed;
+
+                        // disable the interactables.
+                        typeOfUserComboBox.IsEnabled = false;
+                        userSkillComboBox.IsEnabled = false;
+                        alterUserDataBtn.IsEnabled = false;
+                    }
+                } else {
+                    return;
                 }
+            } catch {
+                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void BtnChangeAccountSetting_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.MY_ACCOUNT);
         }
     }
 }
