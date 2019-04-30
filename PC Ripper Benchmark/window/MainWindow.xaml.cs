@@ -1038,44 +1038,50 @@ namespace PC_Ripper_Benchmark.window
         private void MenuMyTests_Click(object sender, RoutedEventArgs e)
         {
             List<string> testName = new List<string>();
-            try
+            if (userData.Email == "guest")
             {
-                if (SystemSettings.IsInternetAvailable() == true)
+                MessageBox.Show("Guests can not save results!", "Guest account detected", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                try
                 {
-                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
-                    connection.Open();
-
-                    SqlCommand getTests = new SqlCommand("GetUserResults", connection)
+                    if (SystemSettings.IsInternetAvailable() == true)
                     {
-                        CommandType = CommandType.StoredProcedure
-                    };
+                        SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                        connection.Open();
+
+                        SqlCommand getTests = new SqlCommand("GetUserResults", connection)
+                        {
+                            CommandType = CommandType.StoredProcedure
+                        };
 
 
-                    //Fill the parameter of the query
-                    getTests.Parameters.AddWithValue("@Email", this.userData.Email);
+                        //Fill the parameter of the query
+                        getTests.Parameters.AddWithValue("@Email", this.userData.Email);
 
-                    SqlDataReader rdr = getTests.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        testName.Add(rdr["TestName"].ToString());
+                        SqlDataReader rdr = getTests.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            testName.Add(rdr["TestName"].ToString());
 
+                        }
+                        connection.Close();
+
+                        listViewUserResults.ItemsSource = testName;
                     }
-                    connection.Close();
-
-                    listViewUserResults.ItemsSource = testName;
+                    else
+                    {
+                        return;
+                    }
                 }
-                else
+                catch
                 {
-                    return;
+                    MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
+                ShowTabWindow(Tab.USER_RESULTS);
             }
-            catch
-            {
-                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            ShowTabWindow(Tab.USER_RESULTS);
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ShowTabWindow(Tab.RESULTS_PARTS);
