@@ -1042,6 +1042,9 @@ namespace PC_Ripper_Benchmark.window
             List<Tuple<string, string, string>> testName = new List<Tuple<string, string, string>>();
             Tuple<string, string, string> testResults;
 
+            listViewUserResults.Items.Clear();
+            richTxtBoxResults.Document.Blocks.Clear();
+
             if (userData.Email == "guest")
             {
                 MessageBox.Show("Guests can not save results!", "Guest account detected", MessageBoxButton.OK, MessageBoxImage.Error);

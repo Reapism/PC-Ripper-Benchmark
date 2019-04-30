@@ -518,7 +518,6 @@
                             <ListView.View>
                                 <GridView ColumnHeaderStringFormat="">
                                     <GridViewColumn x:Name="testNameColumn" Header="Test Name"/>
-                                    <GridViewColumn x:Name="dateCreatedColumn" Header="Date Created"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
