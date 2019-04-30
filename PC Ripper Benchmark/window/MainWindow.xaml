@@ -488,10 +488,10 @@
                         <DataGrid x:Name="dataGridResultsParts" Margin="0,285,0,0" Background="#7FCBFFC3" BorderBrush="White"/>
                         <GroupBox x:Name="grpBoxComponents" Header="Parts Database" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
                             <Grid Height="80" Margin="0">
-                                <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="120,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click"/>
-                                <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="RamButton_Click"/>
-                                <Button x:Name="diskButton" Content="DISK" HorizontalAlignment="Left" Margin="440,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="DiskButton_Click"/>
-                                <Button x:Name="ssdButton" Content="SSD" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="SsdButton_Click"/>
+                                <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="120,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click" Background="#00DDDDDD" FontSize="18" BorderBrush="Black"/>
+                                <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="RamButton_Click" FontSize="18" Background="#00DDDDDD"/>
+                                <Button x:Name="diskButton" Content="DISK" HorizontalAlignment="Left" Margin="440,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="DiskButton_Click" FontSize="18" Background="#00DDDDDD"/>
+                                <Button x:Name="ssdButton" Content="SSD" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="SsdButton_Click" FontSize="18" Background="#00DDDDDD"/>
                             </Grid>
 
                         </GroupBox>
@@ -508,14 +508,14 @@
                         <Grid x:Name="grdUserResultsWelcome" VerticalAlignment="Top" MinWidth="100" Height="100" Background="#4CFFFFFF">
                             <TextBlock x:Name="txtBlkUserResultsWelcome" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Welcome to your results tab. Here is all of your results you've sent to the database." VerticalAlignment="Center" FontSize="18"/>
                         </Grid>
-                        <RichTextBox x:Name="richTxtBoxResults" Margin="0,256,0,0" Background="#4CFFFFFF" BorderBrush="White" Foreground="#FF32834C" FontSize="14" HorizontalAlignment="Right">
+                        <RichTextBox x:Name="richTxtBoxResults" Margin="0,260,0,0" Background="#4CFFFFFF" BorderBrush="White" Foreground="Black" FontSize="14" HorizontalAlignment="Right" VerticalScrollBarVisibility="Auto">
                             <FlowDocument FontSize="14">
                                 <Paragraph>
                                     <Run Text=""/>
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
-                        <ListView x:Name="listViewUserResults" Margin="0,105,10,231" MinHeight="151" Background="#4CA2F2FF" BorderBrush="White" SelectionChanged="ListViewUserResults_SelectionChanged">
+                        <ListView x:Name="listViewUserResults" Margin="0,105,10,231" MinHeight="151" Background="#4CA2F2FF" BorderBrush="White" SelectionChanged="ListViewUserResults_SelectionChanged" VerticalAlignment="Top" Height="150" MaxHeight="150">
                             <ListView.View>
                                 <GridView ColumnHeaderStringFormat="">
                                     <GridViewColumn x:Name="testNameColumn" Header="Test Name"/>
