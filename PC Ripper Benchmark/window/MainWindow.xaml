@@ -311,7 +311,7 @@
                                                     <GradientStop Color="#4CFFF8B2" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </StackPanel.Background>
-                                            <TextBlock x:Name="txtBlkBeginner" TextWrapping="Wrap" Text="Here are some settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
+                                            <TextBlock x:Name="txtBlkBeginner" TextWrapping="Wrap" Text="Here are some application settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
                                             <Button x:Name="btnChangeAccountSetting" Content="Change Account Settings" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Foreground="#FF7F2A8D" Click="BtnChangeAccountSetting_Click" Margin="100,10,100,0"/>
                                             <Button x:Name="btnShowAdvanced" Content="Advanced Settings" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Foreground="#FF7F2A8D" Click="BtnShowAdvanced_Click" Margin="100,10,100,0"/>
                                         </StackPanel>
@@ -332,7 +332,7 @@
                                                     <GradientStop Color="#4CC0ADE8" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </StackPanel.Background>
-                                            <TextBlock x:Name="txtBlkAdvanced" TextWrapping="Wrap" Text="Here are the advanced settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
+                                            <TextBlock x:Name="txtBlkAdvanced" TextWrapping="Wrap" Text="Here are the advanced application settings you can change for the program." Foreground="Black" FontSize="24" TextAlignment="Center"/>
                                             <Button x:Name="btnLockDir" Content="Lock a Directory" Background="#4CDDDDDD" BorderBrush="#99FFFFFF" Margin="100,10,100,0" Click="BtnLockDir_Click"/>
                                             <Button x:Name="btnUnlockDir" Content="Unlock a Directory" Background="#4CFFFFFF" BorderBrush="#99FFFFFF" Margin="100,10,100,0" VerticalAlignment="Center" Click="BtnUnlockDir_Click"/>
                                         </StackPanel>
@@ -407,7 +407,7 @@
                         <Border x:Name="brdrPreLoader" BorderThickness="1" Height="305" Margin="0,0,0,60" Width="305" MinWidth="305" MinHeight="305" BorderBrush="White">
                             <Image x:Name="imgPreloader" MinWidth="300" MinHeight="300" Width="300" Height="300" Margin="0"/>
                         </Border>
-                        <TextBlock x:Name="txtBlkRunningTest" HorizontalAlignment="Center" Margin="0,19,0,0" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Top" FontSize="18" Text="Are you sure you want to run the test?"/>
+                        <TextBlock x:Name="txtBlkRunningTest" HorizontalAlignment="Center" Margin="0,19,0,0" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Top" FontSize="18" Text="Are you sure you want to run the test? Make sure to close other applications and background processes for more accurate results." TextAlignment="Center"/>
                         <TextBlock x:Name="txtBlkRunningTestTips" HorizontalAlignment="Center" Margin="0,0,0,80" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Bottom" FontSize="18" Text="Are you sure you want to run the test?" ToolTip="A random tip! Try them out!"/>
                     </Grid>
                 </TabItem>
