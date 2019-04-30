@@ -1037,6 +1037,42 @@ namespace PC_Ripper_Benchmark.window
 
         private void MenuMyTests_Click(object sender, RoutedEventArgs e)
         {
+            List<string> testName = new List<string>();
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true)
+                {
+                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                    connection.Open();
+
+                    SqlCommand getTests = new SqlCommand("GetUserResults", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+
+                    //Fill the parameter of the query
+                    getTests.Parameters.AddWithValue("@Email", this.userData.Email);
+
+                    SqlDataReader rdr = getTests.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        testName.Add(rdr["TestName"].ToString());
+
+                    }
+                    connection.Close();
+
+                    listViewUserResults.ItemsSource = testName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             ShowTabWindow(Tab.USER_RESULTS);
         }
 
@@ -1671,7 +1707,7 @@ namespace PC_Ripper_Benchmark.window
             }
         }
 
-        
+
         private void CpuButton_Click(object sender, RoutedEventArgs e)
         {
             if (RipperDialog.InputBox("Enter the CPU speed:", "CPU Speed", "", out int myCPUSpeed))
