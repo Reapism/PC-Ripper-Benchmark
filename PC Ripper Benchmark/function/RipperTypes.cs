@@ -248,9 +248,11 @@ namespace PC_Ripper_Benchmark.function {
 
         public static byte GetScoreCPU(ulong ticksPerIterations) {
             byte score = 100;
+            int max_Iterations = 100000000;
 
-            for (int i = 0; i < 10000; i ++) {
+            for (int i = 0; i < max_Iterations; i ++) {
                 if (Enumerable.Range(i, i + 3).Contains((int)ticksPerIterations)) {
+                    if (score == 0) { break; }
                     return score;
                 }
                 score--;
@@ -261,9 +263,11 @@ namespace PC_Ripper_Benchmark.function {
 
         public static byte GetScoreRAM(ulong ticksPerIterations) {
             byte score = 100;
-
-            for (int i = 0; i < 1000; i++) {
-                if (Enumerable.Range(i, i + 3).Contains((int)ticksPerIterations)) {
+            int max_Iterations = 100000000;
+            
+            for (int i = 0; i < max_Iterations; i+=3) {
+                if (Enumerable.Range(i, i + 6).Contains((int)ticksPerIterations)) {
+                    if (score == 0) { break; }
                     return score;
                 }
                 score--;
@@ -274,9 +278,11 @@ namespace PC_Ripper_Benchmark.function {
 
         public static byte GetScoreDisk(ulong ticksPerIterations) {
             byte score = 100;
+            int max_Iterations = 100000000;
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < max_Iterations; i++) {
                 if (Enumerable.Range(i, i + 3).Contains((int)ticksPerIterations)) {
+                    if (score == 0) { break; }
                     return score;
                 }
                 score--;
