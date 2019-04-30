@@ -1,4 +1,5 @@
 ﻿using PC_Ripper_Benchmark.exception;
+using PC_Ripper_Benchmark.function;
 using System;
 using System.Collections.Generic;
 using static PC_Ripper_Benchmark.function.RipperTypes;
@@ -19,6 +20,8 @@ namespace PC_Ripper_Benchmark.util {
         private readonly RipperSettings rs;
         private readonly UserData userData;
         private const byte uniqueTestCount = 4;
+
+        private TimeSpan totalDuration;
 
         /// <summary>
         /// Constructs <see cref="DiskResults"/> with
@@ -153,16 +156,17 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"\t{averageTest.Item1} - {averageTest.Item2} {Environment.NewLine}";
 
             // total time of all tests. 
+            this.totalDuration = TotalTimeSpan(this.TestCollection);
             desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+            desc += $"\t{totalDuration}";
 
             // score for the test.
             desc += Environment.NewLine;
-
-            desc += $"The score for this test is {this.Score}.";
+            byte score = this.Score;
+            desc += $"The score for this test is {score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
-            desc += "(Algorithm not implemented for generating a score)";
+            desc += GenerateScoreDescription(userData.UserType, score);
             return desc;
         }
 
@@ -175,18 +179,256 @@ namespace PC_Ripper_Benchmark.util {
 
         protected override string GenerateBeginnerDescription() {
             string desc = string.Empty;
+            this.totalDuration = TotalTimeSpan(this.TestCollection);
 
             desc += "Total duration of the test:";
-            desc += $"\t{TotalTimeSpan(this.TestCollection)}";
+            desc += $"\t{this.totalDuration}";
 
             // score for the test.
             desc += Environment.NewLine;
-
-            desc += $"The score for this test is {this.Score}.";
+            byte score = this.Score;
+            desc += $"The score for this test is {score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
-            desc += "(Algorithm not implemented for generating a score)";
+            desc += GenerateScoreDescription(userData.UserType, score);
             return desc;
+        }
+
+        /// <summary>
+        /// Generates a descripton for the generated score.
+        /// </summary>
+        /// <returns></returns>
+
+        protected override string GenerateScoreDescription(UserData.TypeOfUser typeOfUser, byte score) {
+            switch (typeOfUser) {
+                case UserData.TypeOfUser.Casual: {
+                    return GetCasualScoreDesc(score);
+                }
+
+                case UserData.TypeOfUser.Websurfer: {
+                    return GetWebScoreDesc(score);
+                }
+
+                case UserData.TypeOfUser.HighPerformance: {
+                    return GetHighPerfScoreDesc(score);
+                }
+
+                case UserData.TypeOfUser.Video: {
+                    return GetVideoDescription(score);
+                }
+
+                default: {
+                    return "Error generating the description.";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a casual description using the score.
+        /// </summary>
+        /// <param name="score">The score of the component.</param>
+        /// <returns></returns>
+
+        private string GetCasualScoreDesc(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 49): {
+                    return "Not the best, but your probably okay. " +
+                        "More information is given depending on the " +
+                        "type of user you are. e.g. web surfer, high performance, video editor.";
+                }
+
+                case byte a when (score == 50): {
+                    return "It's average. " +
+                        "More information is given depending on the " +
+                        "type of user you are. e.g. web surfer, high performance, video editor."; ;
+                }
+
+
+                case byte a when (score >= 51 && score <= 100): {
+                    return "Pretty good. You are in a good spot! " +
+                        "More information is given depending on the " +
+                        "type of user you are. e.g. web surfer, high performance, video editor."; ;
+                }
+
+                default: {
+                    return "";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a web surfing description using the score.
+        /// </summary>
+        /// <param name="score">The score of the component.</param>
+        /// <returns></returns>
+
+        private string GetWebScoreDesc(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 25): {
+                    return "This isn't great, but for causal websurfing it might suffice. Videos " +
+                        "might stutter even with a good internet connection.";
+                }
+
+                case byte a when (score >= 26 && score <= 49): {
+                    return "Almost average. However, you should be okay. You might " +
+                        "not have great performance with multitasking with your internet tabs and other things open.";
+                }
+
+                case byte a when (score == 50): {
+                    return "You're, well average! But this is just fine for your web purposes.";
+                }
+
+                case byte a when (score >= 51 && score <= 75): {
+                    return "Better than average. This will do you just fine for your web purposes.";
+                }
+
+                case byte a when (score >= 76 && score <= 100): {
+                    return "This will be more than sufficient. You are set.";
+                }
+
+                default: {
+                    return "";
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Returns a high performance description using the score.
+        /// </summary>
+        /// <param name="score">The score of the component.</param>
+        /// <returns></returns>
+
+        private string GetHighPerfScoreDesc(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 10): {
+                    return "You're in the lowest percentile. " +
+                        "You want to consider getting a new processor.";
+                }
+
+                case byte a when (score >= 11 && score <= 20): {
+                    return "You're in the low percentile. " +
+                        "Won't be sufficient for high performance purposes.";
+                }
+
+                case byte a when (score >= 21 && score <= 30): {
+                    return "You will have issues multitasking with different applications open.";
+                }
+
+                case byte a when (score >= 31 && score <= 40): {
+                    return "This will be suffient for many games, but multitasking might be a problem.";
+                }
+
+                case byte a when (score >= 41 && score <= 49): {
+                    return "Close to average. You would be able to multitask okay.";
+                }
+
+                case byte a when (score == 50): {
+                    return "This is average score of 50. You will be able to multitask with a game open.";
+                }
+
+                case byte a when (score >= 51 && score <= 60): {
+                    return "A bit above average, A humble score. You will have no problems " +
+                        "multitasking with common items.";
+                }
+
+                case byte a when (score >= 61 && score <= 70): {
+                    return "A decent score for your needs. Multitasking is not a problem. You can likely watch videos " +
+                        "while playing your favorite games.";
+                }
+
+                case byte a when (score >= 71 && score <= 80): {
+                    return "A pretty good score for playing most games. Multitasking is easy, and efficient.";
+                }
+
+                case byte a when (score >= 81 && score <= 90): {
+                    return "Sub-server level performance! You will know what your capable of.";
+                }
+
+                case byte a when (score >= 91 && score <= 95): {
+                    return "A crazy score. This must be a server computer running this benchmark!";
+                }
+
+                case byte a when (score >= 96 && score <= 100): {
+                    return "An insane score. This must be a large server computer running this benchmark!";
+                }
+
+                default: {
+                    return "";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a video description using the score.
+        /// </summary>
+        /// <param name="score">The score of the component.</param>
+        /// <returns></returns>
+
+        private string GetVideoDescription(byte score) {
+            switch (score) {
+                case byte a when (score >= 0 && score <= 10): {
+                    return "You're in the lowest percentile. " +
+                        "You want to consider getting a new processor.";
+                }
+
+                case byte a when (score >= 11 && score <= 20): {
+                    return "You're in the low percentile. " +
+                        "This won't be sufficient for video rendering performance purposes.";
+                }
+
+                case byte a when (score >= 21 && score <= 30): {
+                    return "You will have issues multitasking with different applications open. " +
+                        "You will not be able to render and multitask";
+                }
+
+                case byte a when (score >= 31 && score <= 40): {
+                    return "This will be suffient for many rendering options, " +
+                        "but multitasking might be a problem while rendering.";
+                }
+
+                case byte a when (score >= 41 && score <= 49): {
+                    return "Close to average. While rendering, you might be able to run light weight apps " +
+                        "fine.";
+                }
+
+                case byte a when (score == 50): {
+                    return "This is average score of 50. You will be able to multitask with rendering a video " +
+                        "and ";
+                }
+
+                case byte a when (score >= 51 && score <= 60): {
+                    return "A bit above average, A humble score. You will have no problems " +
+                        "multitasking with common items.";
+                }
+
+                case byte a when (score >= 61 && score <= 70): {
+                    return "A decent score for your needs. Multitasking is not a problem. You can likely watch videos " +
+                        "while playing your favorite games.";
+                }
+
+                case byte a when (score >= 71 && score <= 80): {
+                    return "A pretty good score for playing most games. Multitasking is easy, and efficient.";
+                }
+
+                case byte a when (score >= 81 && score <= 90): {
+                    return "Sub-server level performance! You will know what your capable of.";
+                }
+
+                case byte a when (score >= 91 && score <= 95): {
+                    return "A crazy score. This must be a server computer running this benchmark! You can " +
+                        "render a video and play a game, and all sorts of things no problem.";
+                }
+
+                case byte a when (score >= 96 && score <= 100): {
+                    return "An insane score. This must be a large server computer running this benchmark! " +
+                        "You will not have any problems with this CPU for any common needs.";
+                }
+
+                default: {
+                    return "";
+                }
+            }
         }
 
         /// <summary>
@@ -199,7 +441,17 @@ namespace PC_Ripper_Benchmark.util {
         /// <returns></returns>
 
         protected override byte GenerateScore() {
-            return 0;
+            BaseComputerSpec b = new BaseComputerSpec();
+
+            var total_iterations = (this.rs.IterationsDISKFolderMatrix +
+                this.rs.IterationsDiskBulkFile +
+                this.rs.IterationsDiskReadWriteParse +
+                this.rs.IterationsDiskRipper) *
+                this.rs.IterationsPerRAMTest;
+
+            ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
+
+            return RipperTypes.GetScoreDisk(iter_per_tick);
         }
 
         /// <summary>
@@ -272,10 +524,6 @@ namespace PC_Ripper_Benchmark.util {
             }
 
             return averageTest;
-        }
-
-        protected override string GenerateScoreDescription(UserData.TypeOfUser typeOfUser, byte score) {
-            throw new NotImplementedException();
         }
     }
 }
