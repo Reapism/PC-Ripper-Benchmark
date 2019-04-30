@@ -22,7 +22,6 @@ namespace PC_Ripper_Benchmark.util {
         private const byte uniqueTestCount = 5;
 
         private TimeSpan totalDuration;
-        private double iterationsPerTick;
 
         /// <summary>
         /// Constructs <see cref="CPUResults"/> with
@@ -39,7 +38,6 @@ namespace PC_Ripper_Benchmark.util {
             this.rs = rs;
             this.userData = userData;
             this.totalDuration = new TimeSpan();
-            this.iterationsPerTick = 0;
             this.GetThreadType = threadType;
         }
 
@@ -453,21 +451,16 @@ namespace PC_Ripper_Benchmark.util {
         /// <returns></returns>
 
         protected override byte GenerateScore() {
-            BaseComputerSpec b = new BaseComputerSpec();          
+            BaseComputerSpec b = new BaseComputerSpec();
 
             var total_iterations = (this.rs.IterationsSuccessorship +
                 this.rs.IterationsBoolean + this.rs.IterationsQueue +
                 this.rs.IterationsLinkedList + this.rs.IterationsTree) *
                 this.rs.IterationsPerCPUTest;
 
-            var iter_per_tick = ((ulong)this.totalDuration.Ticks / total_iterations) ;
+            ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
 
-            System.Windows.Forms.MessageBox.Show($"Total Duration(Ticks) {this.totalDuration.Ticks}   Total Iterations (all tests) {total_iterations}   IterPerTick {iterationsPerTick}");
-
-            return (byte)iter_per_tick;
-
-        }
-
-        
+            return RipperTypes.GetScoreCPU(iter_per_tick);
+        }       
     }
 }
