@@ -544,14 +544,11 @@ namespace PC_Ripper_Benchmark.util {
         /// <returns></returns>
 
         protected override byte GenerateScore() {
-            BaseComputerSpec b = new BaseComputerSpec();
-
             var total_iterations = (this.rs.IterationsSuccessorship +
                 this.rs.IterationsBoolean + this.rs.IterationsQueue +
                 this.rs.IterationsLinkedList + this.rs.IterationsTree) *
                 this.rs.IterationsPerCPUTest;
-
-            ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
+                ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
 
             return RipperTypes.GetScoreCPU(iter_per_tick);
         }

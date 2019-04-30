@@ -250,8 +250,8 @@ namespace PC_Ripper_Benchmark.function {
             byte score = 100;
             int max_Iterations = 100000000;
 
-            for (int i = 0; i < max_Iterations; i ++) {
-                if (Enumerable.Range(i, i + 3).Contains((int)ticksPerIterations)) {
+            for (int i = 0; i < max_Iterations; i++) {
+                if (Enumerable.Range(i - 1, i + 2).Contains((int)ticksPerIterations)) {
                     if (score == 0) { break; }
                     return score;
                 }
@@ -266,7 +266,7 @@ namespace PC_Ripper_Benchmark.function {
             int max_Iterations = 100000000;
             
             for (int i = 0; i < max_Iterations; i+=3) {
-                if (Enumerable.Range(i, i + 6).Contains((int)ticksPerIterations)) {
+                if (Enumerable.Range(i, i + 3).Contains((int)ticksPerIterations)) {
                     if (score == 0) { break; }
                     return score;
                 }
