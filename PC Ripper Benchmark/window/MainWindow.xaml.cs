@@ -44,7 +44,9 @@ namespace PC_Ripper_Benchmark.window
         private WindowSettings ws;
         private Tab testToRun;
         private string workingDir;
-
+        private List<string> userResultsList = new List<string>();
+        private List<string> userTestNameList = new List<string>();
+        private List<string> userTestCreationDateList = new List<string>();
         private UserData userData;
 
         #endregion
@@ -1037,7 +1039,9 @@ namespace PC_Ripper_Benchmark.window
 
         private void MenuMyTests_Click(object sender, RoutedEventArgs e)
         {
-            List<string> testName = new List<string>();
+            List<Tuple<string, string, string>> testName = new List<Tuple<string, string, string>>();
+            Tuple<string, string, string> testResults;
+
             if (userData.Email == "guest")
             {
                 MessageBox.Show("Guests can not save results!", "Guest account detected", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1061,14 +1065,34 @@ namespace PC_Ripper_Benchmark.window
                         getTests.Parameters.AddWithValue("@Email", this.userData.Email);
 
                         SqlDataReader rdr = getTests.ExecuteReader();
+
                         while (rdr.Read())
                         {
-                            testName.Add(rdr["TestName"].ToString());
+                            testResults = Tuple.Create(rdr["TestName"].ToString(), 
+                                rdr["DateCreated"].ToString(), rdr["Results"].ToString());
+
+                            testName.Add(testResults);
+                           
+                        }
+
+                        foreach (var item in testName)
+                        {
+                            userTestNameList.Add(item.Item1);
+                        }
+
+                        foreach (var item in testName)
+                        {
+                            userTestCreationDateList.Add(item.Item2);
+                        }
+
+                        foreach (var item in testName)
+                        {
+                            userResultsList.Add(item.Item3);
 
                         }
-                        connection.Close();
 
-                        listViewUserResults.ItemsSource = testName;
+                        listViewUserResults.ItemsSource = userTestNameList;
+                       
                     }
                     else
                     {
@@ -1082,6 +1106,16 @@ namespace PC_Ripper_Benchmark.window
                 ShowTabWindow(Tab.USER_RESULTS);
             }
         }
+
+        private void ListViewUserResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listViewUserResults.SelectedIndex > -1)
+            {
+                richTxtBoxResults.Document.Blocks.Clear();
+                richTxtBoxResults.Document.Blocks.Add(new Paragraph(new Run((userResultsList[listViewUserResults.SelectedIndex]))));
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ShowTabWindow(Tab.RESULTS_PARTS);

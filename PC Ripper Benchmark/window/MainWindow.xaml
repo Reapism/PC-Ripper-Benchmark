@@ -514,10 +514,11 @@
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
-                        <ListView x:Name="listViewUserResults" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White">
+                        <ListView x:Name="listViewUserResults" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White" SelectionChanged="ListViewUserResults_SelectionChanged">
                             <ListView.View>
                                 <GridView ColumnHeaderStringFormat="">
-                                    <GridViewColumn Header="Test Name"/>
+                                    <GridViewColumn x:Name="testNameColumn" Header="Test Name"/>
+                                    <GridViewColumn x:Name="dateCreatedColumn" Header="Date Created"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
