@@ -65,9 +65,12 @@
                     <MenuItem x:Name="menuAbout" Header="About" ToolTip="About" Foreground="#FFE6E6E6">
                         <MenuItem x:Name="menuAboutProject" Header="About this project..." ToolTip="About this project" Foreground="Black" Click="MenuAboutProject_Click"/>
                     </MenuItem>
-                    <MenuItem x:Name="menuAccount" Header="My Account" Foreground="#FFE6E6E6" Click="MenuAccount_Click"/>
-                    <MenuItem x:Name="menuMyTests" Header="My Tests" Foreground="#FFE6E6E6" Click="MenuMyTests_Click"/>
-                    <MenuItem x:Name="menuHelp" Header="Help" Foreground="#FFE6E6E6" Click="MenuHelp_Click">
+                    <MenuItem x:Name="menuAccount" Header="Account" Foreground="#FFE6E6E6">
+                        <MenuItem x:Name="menuAccount2" Header="My Account" Foreground="Black" Click="MenuAccount_Click"/>
+                        <MenuItem x:Name="menuMyTests" Header="My Tests" Foreground="Black" Click="MenuMyTests_Click"/>
+                    </MenuItem>
+                    <MenuItem x:Name="menuHelp" Header="Help" Foreground="#FFE6E6E6">
+                        <MenuItem x:Name="menuHelp2" Header="Help Page/Overview" Foreground="Black" Click="MenuHelp_Click"/>
                     </MenuItem>
                 </Menu>
             </Grid>
@@ -375,7 +378,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Results the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
-                        <Button x:Name="button" Content="Go to Computer Parts Tab" Margin="350,130,350,0" VerticalAlignment="Top" Click="Button_Click"/>
+                        <Button x:Name="button" Content="Go to Computer Parts Tab" Margin="0,95,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Center" MinWidth="300" MinHeight="45" Background="#00000000" Height="45" Width="300" FontSize="18" ToolTip="Want to check out some different parts? Click this button"/>
                         <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="White" VerticalScrollBarVisibility="Auto" Foreground="#FF2E6C25">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
@@ -483,7 +486,7 @@
                             <TextBlock x:Name="txtBlkWelcomeResultsParts" Margin="0" TextWrapping="Wrap" Text="Welcome to the parts information tab. Here you will be able to get a list of different processors, RAM models, and hard-drives and SSD's!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
                         </Grid>
                         <DataGrid x:Name="dataGridResultsParts" Margin="0,285,0,0" Background="#7FCBFFC3" BorderBrush="White"/>
-                        <GroupBox x:Name="grpBoxComponents" Header="Parts Database" HorizontalAlignment="Left" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
+                        <GroupBox x:Name="grpBoxComponents" Header="Parts Database" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
                             <Grid Height="80" Margin="0">
                                 <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="50,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click"/>
                                 <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="350,10,10,10" VerticalAlignment="Top" Width="120" Height="60"/>
