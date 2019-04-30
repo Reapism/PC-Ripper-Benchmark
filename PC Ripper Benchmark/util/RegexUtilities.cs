@@ -110,7 +110,7 @@ namespace PC_Ripper_Benchmark.util {
             try {
                 if (string.IsNullOrWhiteSpace(phoneNumber)) { return false; }
 
-                return Regex.IsMatch(phoneNumber, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
+                return Regex.IsMatch(phoneNumber, @"^\(\d{3}\)\d{3}-\d{4}$",
                     RegexOptions.None, TimeSpan.FromMilliseconds(250));
 
             } catch (RegexMatchTimeoutException) {
