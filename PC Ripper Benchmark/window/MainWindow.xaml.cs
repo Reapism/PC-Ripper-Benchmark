@@ -1071,11 +1071,11 @@ namespace PC_Ripper_Benchmark.window
 
                         while (rdr.Read())
                         {
-                            testResults = Tuple.Create(rdr["TestName"].ToString(), 
+                            testResults = Tuple.Create(rdr["TestName"].ToString(),
                                 rdr["DateCreated"].ToString(), rdr["Results"].ToString());
 
                             testName.Add(testResults);
-                           
+
                         }
 
                         foreach (var item in testName)
@@ -1095,7 +1095,7 @@ namespace PC_Ripper_Benchmark.window
                         }
 
                         listViewUserResults.ItemsSource = userTestNameList;
-                       
+
                     }
                     else
                     {
@@ -1750,47 +1750,130 @@ namespace PC_Ripper_Benchmark.window
             }
         }
 
-
+        #region PartsDB Button Events
         private void CpuButton_Click(object sender, RoutedEventArgs e)
         {
-            if (RipperDialog.InputBox("Enter the CPU speed:", "CPU Speed", "", out int myCPUSpeed))
+            try
             {
-                if (myCPUSpeed <= 0)
+                if (SystemSettings.IsInternetAvailable() == true)
                 {
-                    MessageBox.Show("Invalid CPU Speed! Must be a positive number", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                    connection.Open();
+
+
+                    string CmdString = "SELECT Model, Series, Codename, Clock_Speed FROM dbo.[CPU] WHERE Clock_Speed >= '3000'";
+                    SqlCommand cmd = new SqlCommand(CmdString, connection);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable("CPU Table");
+                    sda.Fill(dt);
+                    dataGridResultsParts.ItemsSource = dt.DefaultView;
+
+                    connection.Close();
+
                 }
                 else
                 {
-                    try
-                    {
-                        if (SystemSettings.IsInternetAvailable() == true)
-                        {
-                            SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
-                            connection.Open();
-
-
-                            string CmdString = "SELECT Model, Series, Codename, Clock_Speed FROM dbo.[CPU] WHERE Clock_Speed >='" + myCPUSpeed + "'";
-                            SqlCommand cmd = new SqlCommand(CmdString, connection);
-                            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                            DataTable dt = new DataTable("CPU Table");
-                            sda.Fill(dt);
-                            dataGridResultsParts.ItemsSource = dt.DefaultView;
-
-                            connection.Close();
-
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-
+                    return;
                 }
             }
+            catch
+            {
+                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+
+        private void RamButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true)
+                {
+                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                    connection.Open();
+
+
+                    string CmdString = "SELECT Memory_Model, MEMORY_Type, Memory_Size, DRAM_Frequency FROM [Memory] where DRAM_Frequency > 2400";
+                    SqlCommand cmd = new SqlCommand(CmdString, connection);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable("RAM Table");
+                    sda.Fill(dt);
+                    dataGridResultsParts.ItemsSource = dt.DefaultView;
+
+                    connection.Close();
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void DiskButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true)
+                {
+                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                    connection.Open();
+
+
+                    string CmdString = "SELECT Manufacturer, Size_In_GB, RPM FROM dbo.[HDD] where RPM >= 7200 order by RPM";
+                    SqlCommand cmd = new SqlCommand(CmdString, connection);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable("HDD Table");
+                    sda.Fill(dt);
+                    dataGridResultsParts.ItemsSource = dt.DefaultView;
+
+                    connection.Close();
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void SsdButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true)
+                {
+                    SqlConnection connection = new SqlConnection(DatabaseConnection.GetConnectionString());
+                    connection.Open();
+
+
+                    string CmdString = "SELECT Manufacturer_SSD, Size_In_GB FROM dbo.[SSD] where Size_In_GB >= 500 order by Size_In_GB";
+                    SqlCommand cmd = new SqlCommand(CmdString, connection);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable("SSD Table");
+                    sda.Fill(dt);
+                    dataGridResultsParts.ItemsSource = dt.DefaultView;
+
+                    connection.Close();
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("A SQL Error was caught", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        #endregion
     }
 }
