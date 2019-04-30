@@ -375,6 +375,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Results the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
+                        <Button x:Name="button" Content="Go to Computer Parts Tab" Margin="350,130,350,0" VerticalAlignment="Top" Click="Button_Click"/>
                         <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="White" VerticalScrollBarVisibility="Auto" Foreground="#FF2E6C25">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
@@ -482,8 +483,13 @@
                             <TextBlock x:Name="txtBlkWelcomeResultsParts" Margin="0" TextWrapping="Wrap" Text="Welcome to the parts information tab. Here you will be able to get a list of different processors, RAM models, and hard-drives and SSD's!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
                         </Grid>
                         <DataGrid x:Name="dataGridResultsParts" Margin="0,285,0,0" Background="#7FCBFFC3" BorderBrush="White"/>
-                        <GroupBox x:Name="grpBoxComponents" Header="GroupBox" HorizontalAlignment="Left" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
-                            <Grid Height="80" Margin="0"/>
+                        <GroupBox x:Name="grpBoxComponents" Header="Parts Database" HorizontalAlignment="Left" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
+                            <Grid Height="80" Margin="0">
+                                <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="50,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click"/>
+                                <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="350,10,10,10" VerticalAlignment="Top" Width="120" Height="60"/>
+                                <Button x:Name="diskButton" Content="DISK" HorizontalAlignment="Left" Margin="650,10,10,10" VerticalAlignment="Top" Width="120" Height="60"/>
+                            </Grid>
+
                         </GroupBox>
                     </Grid>
                 </TabItem>
