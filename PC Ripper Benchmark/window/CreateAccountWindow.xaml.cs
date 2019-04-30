@@ -1,6 +1,7 @@
 ﻿using PC_Ripper_Benchmark.database;
 using System;
 using System.Data.SqlClient;
+using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -65,6 +66,11 @@ namespace PC_Ripper_Benchmark.window {
                 errorMessage += " \"Password\" ";
             }
 
+            if (string.IsNullOrWhiteSpace(this.securityQuestionTextBox.Text))
+            {
+                errorMessage += " \"Security Question\" ";
+            }
+
             if (string.IsNullOrWhiteSpace(this.confirmUserPasswordBox.Password)) {
                 errorMessage += " \"Password\" ";
             } else if (this.confirmUserPasswordBox.Password != this.userPasswordBox.Password) {
@@ -104,16 +110,22 @@ namespace PC_Ripper_Benchmark.window {
                 this.lastNameTextBox.Focus();
             }
 
+            if (securityQuestionTextBox.Text == "" || securityQuestionTextBox.Text == null)
+            {
+                this.securityQuestionTextBox.Focus();
+            }
+
             #endregion
             #region Create a user
             //If all the data is valid...
             if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text) &&
                util.RegexUtilities.IsValidName(this.firstNameTextBox.Text) &&
                util.RegexUtilities.IsValidName(this.lastNameTextBox.Text) &&
-               util.RegexUtilities.IsValidEmail(this.emailTextBox.Text) &&
+               CheckEmail(this.emailTextBox.Text) &&
                util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text) &&
                util.RegexUtilities.IsValidPassword(this.userPasswordBox.Password) &&
-               this.userPasswordBox.Password == this.confirmUserPasswordBox.Password) {
+               this.userPasswordBox.Password == this.confirmUserPasswordBox.Password && 
+               securityQuestionTextBox.Text != "") {
 
                 //New instance of encryption class
                 util.HashManager encrypter = new util.HashManager();
@@ -281,7 +293,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e) {
-            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
+            if (CheckEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Green;
             } else {
@@ -297,7 +309,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         private void EmailTextBox_GotFocus(object sender, RoutedEventArgs e) {
-            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
+            if (CheckEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Green;
             } else {
@@ -313,7 +325,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            if (util.RegexUtilities.IsValidEmail(this.emailTextBox.Text)) {
+            if (CheckEmail(this.emailTextBox.Text)) {
                 this.emailTextBox.BorderThickness = new Thickness(3.0);
                 this.emailTextBox.BorderBrush = Brushes.Green;
             } else {
@@ -330,6 +342,7 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         private void PhoneTextBox_GotFocus(object sender, RoutedEventArgs e) {
+            phoneLabel.Content += "\tFormat: (xxx)xxx-xxxx";
             if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Green;
@@ -363,6 +376,8 @@ namespace PC_Ripper_Benchmark.window {
         /// </summary>
         /// 
         private void PhoneTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            phoneLabel.Content = "Phone";
+
             if (util.RegexUtilities.IsValidPhoneNumber(this.phoneTextBox.Text)) {
                 this.phoneTextBox.BorderThickness = new Thickness(3.0);
                 this.phoneTextBox.BorderBrush = Brushes.Green;
@@ -659,6 +674,20 @@ namespace PC_Ripper_Benchmark.window {
             this.confirmUserPasswordBox.Password = "Anthony1!";
             this.securityQuestionComboBox.SelectedIndex = 0;
             this.securityQuestionTextBox.Text = "poggers";
+        }
+
+        private bool CheckEmail(string email)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(email);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

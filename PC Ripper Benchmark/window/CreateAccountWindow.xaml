@@ -19,7 +19,7 @@
             <Label x:Name="lblEmail" Content="Email" Foreground="White"/>
             <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" LostFocus="EmailTextBox_LostFocus" GotFocus="EmailTextBox_GotFocus" TextChanged="EmailTextBox_TextChanged" KeyUp="EmailTextBox_KeyUp" BorderThickness="3" ToolTip="Your email address"/>
             <Label x:Name="phoneLabel" Content="Phone" Foreground="White"/>
-            <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus" KeyUp="PhoneTextBox_KeyUp" BorderThickness="3" ToolTip="Your phone number (any format)"/>
+            <TextBox Name="phoneTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" TextChanged="PhoneTextBox_TextChanged" LostFocus="PhoneTextBox_LostFocus" GotFocus="PhoneTextBox_GotFocus" KeyUp="PhoneTextBox_KeyUp" BorderThickness="3" ToolTip="Your phone number (xxx)xxx-xxxx"/>
             <Label x:Name="lblPassword" Content="Password" Foreground="White" AutomationProperties.IsRequiredForForm="True" FontSize="14"/>
             <PasswordBox Name="userPasswordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" GotFocus="UserPasswordBox_GotFocus" LostFocus="UserPasswordBox_LostFocus" PasswordChanged="UserPasswordBox_PasswordChanged" ToolTip="A password must be 6 characters including: One uppercase letter, one special character, one number" KeyUp="UserPasswordBox_KeyUp" BorderThickness="3"/>
             <Label x:Name="lblConfirmPassword" Content="Confirm Password" Foreground="White"/>
