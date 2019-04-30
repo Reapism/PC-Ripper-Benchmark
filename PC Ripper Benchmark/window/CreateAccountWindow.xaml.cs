@@ -452,6 +452,8 @@ namespace PC_Ripper_Benchmark.window {
                 //If the password matches, set passwords match label to green border and visible
                 this.lblPasswordsMatch.Content = "Passwords match";
                 this.lblPasswordsMatch.Background = Brushes.Green;
+                this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
+                this.confirmUserPasswordBox.BorderBrush = Brushes.Green;
             }
             else
             {
@@ -459,6 +461,8 @@ namespace PC_Ripper_Benchmark.window {
                 //If the password does not match, set passwords match label to visible;
                 this.lblPasswordsMatch.Content = "Passwords don't match";
                 this.lblPasswordsMatch.Background = Brushes.Red;
+                this.confirmUserPasswordBox.BorderThickness = new Thickness(3.0);
+                this.confirmUserPasswordBox.BorderBrush = Brushes.Red;
             }
         }
         #endregion
