@@ -508,14 +508,14 @@
                         <Grid x:Name="grdUserResultsWelcome" VerticalAlignment="Top" MinWidth="100" Height="100" Background="#4CFFFFFF">
                             <TextBlock x:Name="txtBlkUserResultsWelcome" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Welcome to your results tab. Here is all of your results you've sent to the database." VerticalAlignment="Center" FontSize="18"/>
                         </Grid>
-                        <RichTextBox x:Name="richTxtBoxResults" Margin="275,105,0,0" Background="#4CFFFFFF" BorderBrush="White" Foreground="#FF32834C" FontSize="14">
+                        <RichTextBox x:Name="richTxtBoxResults" Margin="0,256,0,0" Background="#4CFFFFFF" BorderBrush="White" Foreground="#FF32834C" FontSize="14" HorizontalAlignment="Right">
                             <FlowDocument FontSize="14">
                                 <Paragraph>
                                     <Run Text=""/>
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
-                        <ListView x:Name="listViewUserResults" Margin="5,105,600,0" Background="#4CA2F2FF" BorderBrush="White" SelectionChanged="ListViewUserResults_SelectionChanged">
+                        <ListView x:Name="listViewUserResults" Margin="0,105,10,231" MinHeight="151" Background="#4CA2F2FF" BorderBrush="White" SelectionChanged="ListViewUserResults_SelectionChanged">
                             <ListView.View>
                                 <GridView ColumnHeaderStringFormat="">
                                     <GridViewColumn x:Name="testNameColumn" Header="Test Name"/>
