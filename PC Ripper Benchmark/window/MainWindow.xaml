@@ -488,9 +488,10 @@
                         <DataGrid x:Name="dataGridResultsParts" Margin="0,285,0,0" Background="#7FCBFFC3" BorderBrush="White"/>
                         <GroupBox x:Name="grpBoxComponents" Header="Parts Database" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
                             <Grid Height="80" Margin="0">
-                                <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="50,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click"/>
-                                <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="350,10,10,10" VerticalAlignment="Top" Width="120" Height="60"/>
-                                <Button x:Name="diskButton" Content="DISK" HorizontalAlignment="Left" Margin="650,10,10,10" VerticalAlignment="Top" Width="120" Height="60"/>
+                                <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="120,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click"/>
+                                <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="RamButton_Click"/>
+                                <Button x:Name="diskButton" Content="DISK" HorizontalAlignment="Left" Margin="440,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="DiskButton_Click"/>
+                                <Button x:Name="ssdButton" Content="SSD" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="SsdButton_Click"/>
                             </Grid>
 
                         </GroupBox>
