@@ -548,9 +548,11 @@ namespace PC_Ripper_Benchmark.util {
                 this.rs.IterationsBoolean + this.rs.IterationsQueue +
                 this.rs.IterationsLinkedList + this.rs.IterationsTree) *
                 this.rs.IterationsPerCPUTest;
-                ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
 
-            return RipperTypes.GetScoreCPU(iter_per_tick);
+            ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
+            uint iter_per_tick_int = (uint)iter_per_tick;
+
+            return RipperTypes.GetScoreCPU(iter_per_tick_int);
         }
     }
 }
