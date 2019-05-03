@@ -246,16 +246,65 @@ namespace PC_Ripper_Benchmark.function {
             DISK
         }
 
-        public static byte GetScoreCPU(ulong ticksPerIterations) {
+        public static byte GetScoreCPU(uint ticksPerIterations) {
             byte score = 100;
             int max_Iterations = 100000000;
 
             for (int i = 0; i < max_Iterations; i++) {
-                if (Enumerable.Range(i - 1, i + 2).Contains((int)ticksPerIterations)) {
-                    if (score == 0) { break; }
-                    return score;
+                switch (ticksPerIterations) {
+
+                    case uint u when (ticksPerIterations >= 0 && ticksPerIterations < 100): {
+                        if (Enumerable.Range(i, i + 1).Contains((int)ticksPerIterations)) {
+                            if (score == 0) { break; }
+                            return score;
+                        }
+                        score--;
+
+                        break;
+                    }
+
+                    case uint u when (ticksPerIterations >= 100 && ticksPerIterations < 200): {
+                        if (Enumerable.Range(i + 99, i + 5).Contains((int)ticksPerIterations)) {
+                            if (score == 0) { break; }
+                            return score;
+                        }
+                        score--;
+
+                        break;
+                    }
+
+                    case uint u when (ticksPerIterations >= 200 && ticksPerIterations < 300): {
+                        if (Enumerable.Range(i + 199, i + 5).Contains((int)ticksPerIterations)) {
+                            if (score == 0) { break; }
+                            return score;
+                        }
+                        score--;
+
+                        break;
+                    }
+
+                    case uint u when (ticksPerIterations >= 300 && ticksPerIterations < 400): {
+                        if (Enumerable.Range(i + 299, i + 5).Contains((int)ticksPerIterations)) {
+                            if (score == 0) { break; }
+                            return score;
+                        }
+                        score--;
+
+                        break;
+                    }
+
+                    case uint u when (ticksPerIterations >= 500): {
+                        if (Enumerable.Range(i + 299, i + 10).Contains((int)ticksPerIterations)) {
+                            if (score == 0) { break; }
+                            return score;
+                        }
+                        score--;
+
+                        break;
+                    }
                 }
-                score--;
+
+
             }
 
             return 0;
@@ -264,8 +313,8 @@ namespace PC_Ripper_Benchmark.function {
         public static byte GetScoreRAM(ulong ticksPerIterations) {
             byte score = 100;
             int max_Iterations = 100000000;
-            
-            for (int i = 0; i < max_Iterations; i+=3) {
+
+            for (int i = 0; i < max_Iterations; i += 3) {
                 if (Enumerable.Range(i, i + 3).Contains((int)ticksPerIterations)) {
                     if (score == 0) { break; }
                     return score;
