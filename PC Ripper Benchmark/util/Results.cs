@@ -91,6 +91,30 @@ namespace PC_Ripper_Benchmark.util {
 
         protected abstract Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName theTest);
 
+        /// <summary>
+        /// Returns the starting score and also
+        /// returns a <see cref="ScorePercentile"/>.
+        /// Used for the internal score algorithm.
+        /// </summary>
+        /// <param name="ticksPerIteration">The number of ticks per iteration.</param>
+        /// <param name="scorePercentile">A <see cref="ScorePercentile"/>
+        /// used to determine the increment, and start index.</param>
+        /// <returns></returns>
+
+        protected abstract byte GetStartingScore(uint ticksPerIteration, out ScorePercentile scorePercentile);
+
+        /// <summary>
+        /// Returns the incrementing <see langword="int"/> as 
+        /// a function return and also outs a startIndex for the
+        /// score algorithm. 
+        /// </summary>
+        /// <param name="scorePercentile">A <see cref="ScorePercentile"/>
+        /// used to determine the increment, and start index.</param>
+        /// <param name="startIndex">The startIndex to return.</param>
+        /// <returns></returns>
+
+        protected abstract int GetIncrement(ScorePercentile scorePercentile, out int startIndex);
+
         #endregion
 
         #region Virtual function(s). Not meant to be overridden, base functionality is enough.       
@@ -102,7 +126,7 @@ namespace PC_Ripper_Benchmark.util {
         /// <param name="theTest">The <see cref="TestName"/> enum
         /// which represents the name.</param>
         /// <returns></returns>
-        
+
         protected virtual string GetTestName(TestName theTest) {
             switch (theTest) {
                 // CPU test names.
@@ -248,159 +272,6 @@ namespace PC_Ripper_Benchmark.util {
 
                 default: {
                     return "";
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns the starting score and also
-        /// returns a <see cref="ScorePercentile"/>.
-        /// Used for the internal score algorithm.
-        /// </summary>
-        /// <param name="ticksPerIteration"></param>
-        /// <param name="scorePercentile"></param>
-        /// <returns></returns>
-
-        protected virtual byte GetStartingScore(uint ticksPerIteration, out ScorePercentile scorePercentile) {
-            switch (ticksPerIteration) {
-
-                case 0: {
-                    scorePercentile = ScorePercentile.HUNDRED;
-                    return 100;
-                }
-
-                case uint u when (ticksPerIteration >= 1 && ticksPerIteration < 21): {
-                    scorePercentile = ScorePercentile.NINTIES;
-                    return 99;
-                }
-
-                case uint u when (ticksPerIteration >= 21 && ticksPerIteration < 61): {
-                    scorePercentile = ScorePercentile.EIGHTIES;
-                    return 89;
-                }
-
-                case uint u when (ticksPerIteration >= 61 && ticksPerIteration < 121): {
-                    scorePercentile = ScorePercentile.SEVENTIES;
-                    return 79;
-                }
-
-                case uint u when (ticksPerIteration >= 121 && ticksPerIteration < 201): {
-                    scorePercentile = ScorePercentile.SIXTIES;
-                    return 69;
-                }
-
-                case uint u when (ticksPerIteration >= 201 && ticksPerIteration < 301): {
-                    scorePercentile = ScorePercentile.FIFTIES;
-                    return 59;
-                }
-
-                case uint u when (ticksPerIteration >= 301 && ticksPerIteration < 421): {
-                    scorePercentile = ScorePercentile.FORTIES;
-                    return 49;
-                }
-
-                case uint u when (ticksPerIteration >= 421 && ticksPerIteration < 561): {
-                    scorePercentile = ScorePercentile.THIRTIES;
-                    return 39;
-                }
-
-                case uint u when (ticksPerIteration >= 561 && ticksPerIteration < 721): {
-                    scorePercentile = ScorePercentile.TWENTIES;
-                    return 29;
-                }
-
-                case uint u when (ticksPerIteration >= 721 && ticksPerIteration < 901): {
-                    scorePercentile = ScorePercentile.TENS;
-                    return 19;
-                }
-
-                case uint u when (ticksPerIteration >= 901 && ticksPerIteration < 1101): {
-                    scorePercentile = ScorePercentile.ONES;
-                    return 9;
-                }
-
-                default: {
-                    scorePercentile = ScorePercentile.ZERO;
-                    return 0;
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Returns the incrementing <see langword="int"/> as 
-        /// a function return and also outs a startIndex for the
-        /// score algorithm.
-        /// </summary>
-        /// <param name="scorePercentile">A <see cref="ScorePercentile"/>
-        /// used to determine the increment, and start index.</param>
-        /// <param name="startIndex">The startIndex to return.</param>
-        /// <returns></returns>
-
-        protected virtual int GetIncrement(ScorePercentile scorePercentile, out int startIndex) {
-            switch (scorePercentile) {
-                case ScorePercentile.HUNDRED: {
-                    startIndex = 0;
-                    return 0;
-                }
-
-                case ScorePercentile.NINTIES: {
-                    startIndex = 0;
-                    return 2;
-                }
-
-                case ScorePercentile.EIGHTIES: {
-                    startIndex = 20;
-                    return 4;
-                }
-
-                case ScorePercentile.SEVENTIES: {
-                    startIndex = 60;
-                    return 6;
-                }
-
-                case ScorePercentile.SIXTIES: {
-                    startIndex = 120;
-                    return 8;
-                }
-
-                case ScorePercentile.FIFTIES: {
-                    startIndex = 200;
-                    return 10;
-                }
-
-                case ScorePercentile.FORTIES: {
-                    startIndex = 300;
-                    return 12;
-                }
-
-                case ScorePercentile.THIRTIES: {
-                    startIndex = 420;
-                    return 14;
-                }
-
-                case ScorePercentile.TWENTIES: {
-                    startIndex = 560;
-                    return 16;
-                }
-
-                case ScorePercentile.TENS: {
-                    startIndex = 720;
-                    return 18;
-                }
-
-                case ScorePercentile.ONES: {
-                    startIndex = 900;
-                    return 20;
-                }
-
-                case ScorePercentile.ZERO: {
-                    startIndex = 0;
-                    return 0;
-                }
-
-                default: {
-                    throw new exception.RipperScoreException("Imposible scorepercentile passed into a function.");
                 }
             }
         }

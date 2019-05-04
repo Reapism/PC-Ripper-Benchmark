@@ -1,5 +1,4 @@
 ﻿using PC_Ripper_Benchmark.exception;
-using PC_Ripper_Benchmark.function;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +69,78 @@ namespace PC_Ripper_Benchmark.util {
         /// </summary>
 
         protected override ThreadType GetThreadType { get; }
+
+        /// <summary>
+        /// Returns a <see cref="Tuple{T1, T2}"/> containing
+        /// the name and average of the specific test under the
+        /// <see langword="DISK component"/>.
+        /// </summary>
+        /// <param name="testCollection">The total collection of <see cref="TimeSpan"/>(s)
+        /// for the component.</param>
+        /// <param name="theTest">The test represented by <see cref="TestName"/>.</param>
+        /// <returns></returns>
+
+        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName theTest) {
+            Tuple<string, TimeSpan> averageTest;
+
+            switch (theTest) {
+
+                case TestName.DISKFolderMatrix: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
+
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.DISKBulkFile: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerDiskTest * 1)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.DISKReadWriteParse: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerDiskTest * 2)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                case TestName.DISKRipper: {
+                    TimeSpan totalTime = new TimeSpan();
+
+                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
+                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerDiskTest * 3)]);
+                    }
+
+                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
+                    averageTest = Tuple.Create(GetTestName(theTest), average);
+                    break;
+                }
+
+                default: {
+                    return Tuple.Create("**UnknownTest**", new TimeSpan());
+                }
+            }
+
+            return averageTest;
+        }
 
         /// <summary>
         /// Generates a description for this <see cref="DiskResults"/> instance.
@@ -159,7 +230,7 @@ namespace PC_Ripper_Benchmark.util {
             // total time of all tests. 
             this.totalDuration = TotalTimeSpan(this.TestCollection);
             desc += "Total duration of the test:";
-            desc += $"\t{totalDuration}";
+            desc += $"\t{this.totalDuration}";
 
             // score for the test.
             desc += Environment.NewLine;
@@ -167,7 +238,7 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"The score for this test is {score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
-            desc += GenerateScoreDescription(userData.UserType, score);
+            desc += GenerateScoreDescription(this.userData.UserType, score);
             return desc;
         }
 
@@ -191,7 +262,7 @@ namespace PC_Ripper_Benchmark.util {
             desc += $"The score for this test is {score}.";
 
             desc += Environment.NewLine + Environment.NewLine;
-            desc += GenerateScoreDescription(userData.UserType, score);
+            desc += GenerateScoreDescription(this.userData.UserType, score);
             return desc;
         }
 
@@ -453,6 +524,10 @@ namespace PC_Ripper_Benchmark.util {
             ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
             uint iter_per_tick_int = (uint)iter_per_tick; // converts properly.
 
+            System.Windows.Forms.MessageBox.Show(this.totalDuration.Ticks.ToString() +
+                "   " + total_iterations.ToString() + "   " +
+                iter_per_tick_int.ToString());
+
             byte score = GetStartingScore(iter_per_tick_int, out ScorePercentile scorePercentile);
             int variance = GetIncrement(scorePercentile, out int startIndex);
 
@@ -472,76 +547,138 @@ namespace PC_Ripper_Benchmark.util {
             return 0;
         }
 
-        /// <summary>
-        /// Returns a <see cref="Tuple{T1, T2}"/> containing
-        /// the name and average of the specific test under the
-        /// <see langword="DISK component"/>.
-        /// </summary>
-        /// <param name="testCollection">The total collection of <see cref="TimeSpan"/>(s)
-        /// for the component.</param>
-        /// <param name="theTest">The test represented by <see cref="TestName"/>.</param>
-        /// <returns></returns>
+        protected override byte GetStartingScore(uint ticksPerIteration, out ScorePercentile scorePercentile) {
+            switch (ticksPerIteration) {
 
-        protected override Tuple<string, TimeSpan> GenerateAverageTest(List<TimeSpan> testCollection, TestName theTest) {
-            Tuple<string, TimeSpan> averageTest;
-
-            switch (theTest) {
-
-                case TestName.DISKFolderMatrix: {
-                    TimeSpan totalTime = new TimeSpan();
-
-                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b]);
-                    }
-
-                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
-
-                    averageTest = Tuple.Create(GetTestName(theTest), average);
-                    break;
+                case 0: {
+                    scorePercentile = ScorePercentile.HUNDRED;
+                    return 100;
                 }
 
-                case TestName.DISKBulkFile: {
-                    TimeSpan totalTime = new TimeSpan();
-
-                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerDiskTest * 1)]);
-                    }
-
-                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
-                    averageTest = Tuple.Create(GetTestName(theTest), average);
-                    break;
+                case uint u when (ticksPerIteration >= 1 && ticksPerIteration < 21): {
+                    scorePercentile = ScorePercentile.NINTIES;
+                    return 99;
                 }
 
-                case TestName.DISKReadWriteParse: {
-                    TimeSpan totalTime = new TimeSpan();
-
-                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerDiskTest * 2)]);
-                    }
-
-                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
-                    averageTest = Tuple.Create(GetTestName(theTest), average);
-                    break;
+                case uint u when (ticksPerIteration >= 21 && ticksPerIteration < 61): {
+                    scorePercentile = ScorePercentile.EIGHTIES;
+                    return 89;
                 }
 
-                case TestName.DISKRipper: {
-                    TimeSpan totalTime = new TimeSpan();
+                case uint u when (ticksPerIteration >= 61 && ticksPerIteration < 121): {
+                    scorePercentile = ScorePercentile.SEVENTIES;
+                    return 79;
+                }
 
-                    for (byte b = 0; b < this.rs.IterationsPerDiskTest; b++) {
-                        totalTime = totalTime.Add(this.TestCollection[b + (this.rs.IterationsPerDiskTest * 3)]);
-                    }
+                case uint u when (ticksPerIteration >= 121 && ticksPerIteration < 201): {
+                    scorePercentile = ScorePercentile.SIXTIES;
+                    return 69;
+                }
 
-                    TimeSpan average = AverageTimespan(ref totalTime, this.rs.IterationsPerDiskTest);
-                    averageTest = Tuple.Create(GetTestName(theTest), average);
-                    break;
+                case uint u when (ticksPerIteration >= 201 && ticksPerIteration < 301): {
+                    scorePercentile = ScorePercentile.FIFTIES;
+                    return 59;
+                }
+
+                case uint u when (ticksPerIteration >= 301 && ticksPerIteration < 421): {
+                    scorePercentile = ScorePercentile.FORTIES;
+                    return 49;
+                }
+
+                case uint u when (ticksPerIteration >= 421 && ticksPerIteration < 561): {
+                    scorePercentile = ScorePercentile.THIRTIES;
+                    return 39;
+                }
+
+                case uint u when (ticksPerIteration >= 561 && ticksPerIteration < 721): {
+                    scorePercentile = ScorePercentile.TWENTIES;
+                    return 29;
+                }
+
+                case uint u when (ticksPerIteration >= 721 && ticksPerIteration < 901): {
+                    scorePercentile = ScorePercentile.TENS;
+                    return 19;
+                }
+
+                case uint u when (ticksPerIteration >= 901 && ticksPerIteration < 1101): {
+                    scorePercentile = ScorePercentile.ONES;
+                    return 9;
                 }
 
                 default: {
-                    return Tuple.Create("**UnknownTest**", new TimeSpan());
+                    scorePercentile = ScorePercentile.ZERO;
+                    return 0;
+                }
+
+            }
+        }
+
+        protected override int GetIncrement(ScorePercentile scorePercentile, out int startIndex) {
+            switch (scorePercentile) {
+                case ScorePercentile.HUNDRED: {
+                    startIndex = 0;
+                    return 0;
+                }
+
+                case ScorePercentile.NINTIES: {
+                    startIndex = 0;
+                    return 2;
+                }
+
+                case ScorePercentile.EIGHTIES: {
+                    startIndex = 20;
+                    return 4;
+                }
+
+                case ScorePercentile.SEVENTIES: {
+                    startIndex = 60;
+                    return 6;
+                }
+
+                case ScorePercentile.SIXTIES: {
+                    startIndex = 120;
+                    return 8;
+                }
+
+                case ScorePercentile.FIFTIES: {
+                    startIndex = 200;
+                    return 10;
+                }
+
+                case ScorePercentile.FORTIES: {
+                    startIndex = 300;
+                    return 12;
+                }
+
+                case ScorePercentile.THIRTIES: {
+                    startIndex = 420;
+                    return 14;
+                }
+
+                case ScorePercentile.TWENTIES: {
+                    startIndex = 560;
+                    return 16;
+                }
+
+                case ScorePercentile.TENS: {
+                    startIndex = 720;
+                    return 18;
+                }
+
+                case ScorePercentile.ONES: {
+                    startIndex = 900;
+                    return 20;
+                }
+
+                case ScorePercentile.ZERO: {
+                    startIndex = 0;
+                    return 0;
+                }
+
+                default: {
+                    throw new exception.RipperScoreException("Imposible scorepercentile passed into a function.");
                 }
             }
-
-            return averageTest;
         }
     }
 }
