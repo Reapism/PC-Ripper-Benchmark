@@ -455,15 +455,15 @@ namespace PC_Ripper_Benchmark.function {
             // if your score is 100 or 0, no need to do work.
             if (score == 100 || score == 0) { return score; }
 
-            int max_Iterations = 1102;
-            int c = 0;
-            for (int i = 0; i < max_Iterations; i++) {
-                c += variance;
+            int c = 0; // top range.
+            while (true) {
+                c += variance; // increment c by variance.
+                if (score == 0) { break; }
+
                 if (Enumerable.Range(startIndex + 1, c).Contains((int)ticksPerIteration)) {
-                    if (score == 0) { break; }
                     return score;
                 }
-                score--;
+                score--; // if not found, decrease score.
             }
             return 0;
         }
