@@ -246,67 +246,225 @@ namespace PC_Ripper_Benchmark.function {
             DISK
         }
 
-        public static byte GetScoreCPU(uint ticksPerIterations) {
-            byte score = 100;
-            int max_Iterations = 100000000;
+        /// <summary>
+        /// Represents what score percentile you're in.
+        /// </summary>
 
-            for (int i = 0; i < max_Iterations; i++) {
-                switch (ticksPerIterations) {
+        public enum ScorePercentile {
 
-                    case uint u when (ticksPerIterations >= 0 && ticksPerIterations < 100): {
-                        if (Enumerable.Range(i, i + 1).Contains((int)ticksPerIterations)) {
-                            if (score == 0) { break; }
-                            return score;
-                        }
-                        score--;
+            /// <summary>
+            /// Represents the score 100.
+            /// </summary>
+            HUNDRED,
 
-                        break;
-                    }
+            /// <summary>
+            /// Represents the score 90-99.
+            /// </summary>
+            NINTIES,
 
-                    case uint u when (ticksPerIterations >= 100 && ticksPerIterations < 200): {
-                        if (Enumerable.Range(i + 99, i + 5).Contains((int)ticksPerIterations)) {
-                            if (score == 0) { break; }
-                            return score;
-                        }
-                        score--;
+            /// <summary>
+            /// Represents the score 80-89.
+            /// </summary>
+            EIGHTIES,
 
-                        break;
-                    }
+            /// <summary>
+            /// Represents the score 70-79.
+            /// </summary>
+            SEVENTIES,
 
-                    case uint u when (ticksPerIterations >= 200 && ticksPerIterations < 300): {
-                        if (Enumerable.Range(i + 199, i + 5).Contains((int)ticksPerIterations)) {
-                            if (score == 0) { break; }
-                            return score;
-                        }
-                        score--;
+            /// <summary>
+            /// Represents the score 60-69.
+            /// </summary>
+            SIXTIES,
 
-                        break;
-                    }
+            /// <summary>
+            /// Represents the score 50-59.
+            /// </summary>
+            FIFTIES,
 
-                    case uint u when (ticksPerIterations >= 300 && ticksPerIterations < 400): {
-                        if (Enumerable.Range(i + 299, i + 5).Contains((int)ticksPerIterations)) {
-                            if (score == 0) { break; }
-                            return score;
-                        }
-                        score--;
+            /// <summary>
+            /// Represents the score 40-49.
+            /// </summary>
+            FORTIES,
 
-                        break;
-                    }
+            /// <summary>
+            /// Represents the score 30-39.
+            /// </summary>
+            THIRTIES,
 
-                    case uint u when (ticksPerIterations >= 500): {
-                        if (Enumerable.Range(i + 299, i + 10).Contains((int)ticksPerIterations)) {
-                            if (score == 0) { break; }
-                            return score;
-                        }
-                        score--;
+            /// <summary>
+            /// Represents the score 20-29.
+            /// </summary>
+            TWENTIES,
 
-                        break;
-                    }
+            /// <summary>
+            /// Represents the score 10-19.
+            /// </summary>
+            TENS,
+
+            /// <summary>
+            /// Represents the score 1-9.
+            /// </summary>
+            ONES,
+
+            /// <summary>
+            /// Represents the score 0.
+            /// </summary>
+            ZERO
+        }
+
+
+        private static byte GetStartingScore(uint ticksPerIteration, out ScorePercentile scorePercentile) {
+            switch (ticksPerIteration) {
+
+                case 0: {
+                    scorePercentile = ScorePercentile.HUNDRED;
+                    return 100;
                 }
 
+                case uint u when (ticksPerIteration >= 1 && ticksPerIteration < 21): {
+                    scorePercentile = ScorePercentile.NINTIES;
+                    return 99;
+                }
+
+                case uint u when (ticksPerIteration >= 21 && ticksPerIteration < 61): {
+                    scorePercentile = ScorePercentile.EIGHTIES;
+                    return 89;
+                }
+
+                case uint u when (ticksPerIteration >= 61 && ticksPerIteration < 121): {
+                    scorePercentile = ScorePercentile.SEVENTIES;
+                    return 79;
+                }
+
+                case uint u when (ticksPerIteration >= 121 && ticksPerIteration < 201): {
+                    scorePercentile = ScorePercentile.SIXTIES;
+                    return 69;
+                }
+
+                case uint u when (ticksPerIteration >= 201 && ticksPerIteration < 301): {
+                    scorePercentile = ScorePercentile.FIFTIES;
+                    return 59;
+                }
+
+                case uint u when (ticksPerIteration >= 301 && ticksPerIteration < 421): {
+                    scorePercentile = ScorePercentile.FORTIES;
+                    return 49;
+                }
+
+                case uint u when (ticksPerIteration >= 421 && ticksPerIteration < 561): {
+                    scorePercentile = ScorePercentile.THIRTIES;
+                    return 39;
+                }
+
+                case uint u when (ticksPerIteration >= 561 && ticksPerIteration < 721): {
+                    scorePercentile = ScorePercentile.TWENTIES;
+                    return 29;
+                }
+
+                case uint u when (ticksPerIteration >= 721 && ticksPerIteration < 901): {
+                    scorePercentile = ScorePercentile.TENS;
+                    return 19;
+                }
+
+                case uint u when (ticksPerIteration >= 901 && ticksPerIteration < 1101): {
+                    scorePercentile = ScorePercentile.ONES;
+                    return 9;
+                }
+
+                default: {
+                    scorePercentile = ScorePercentile.ZERO;
+                    return 0;
+                }
 
             }
+        }
 
+        private static int GetIncrement(ScorePercentile scorePercentile, out int startIndex) {
+            switch (scorePercentile) {
+                case ScorePercentile.HUNDRED: {
+                    startIndex = 0;
+                    return 0;
+                }
+
+                case ScorePercentile.NINTIES: {
+                    startIndex = 0;
+                    return 2;
+                }
+
+                case ScorePercentile.EIGHTIES: {
+                    startIndex = 20;
+                    return 4;
+                }
+
+                case ScorePercentile.SEVENTIES: {
+                    startIndex = 60;
+                    return 6;
+                }
+
+                case ScorePercentile.SIXTIES: {
+                    startIndex = 120;
+                    return 8;
+                }
+
+                case ScorePercentile.FIFTIES: {
+                    startIndex = 200;
+                    return 10;
+                }
+
+                case ScorePercentile.FORTIES: {
+                    startIndex = 300;
+                    return 12;
+                }
+
+                case ScorePercentile.THIRTIES: {
+                    startIndex = 420;
+                    return 14;
+                }
+
+                case ScorePercentile.TWENTIES: {
+                    startIndex = 560;
+                    return 16;
+                }
+
+                case ScorePercentile.TENS: {
+                    startIndex = 720;
+                    return 18;
+                }
+
+                case ScorePercentile.ONES: {
+                    startIndex = 900;
+                    return 20;
+                }
+
+                case ScorePercentile.ZERO: {
+                    startIndex = 0;
+                    return 0;
+                }
+
+                default: {
+                    throw new exception.RipperScoreException("Imposible scorepercentile passed into a function.");
+                }
+            }
+        }
+
+        public static byte GetScoreCPU(uint ticksPerIteration) {
+            byte score = GetStartingScore(ticksPerIteration, out ScorePercentile scorePercentile);
+            int variance = GetIncrement(scorePercentile, out int startIndex);
+
+            // if your score is 100 or 0, no need to do work.
+            if (score == 100 || score == 0) { return score; }
+
+            int max_Iterations = 1102;
+            int c = 0;
+            for (int i = 0; i < max_Iterations; i++) {
+                c += variance;
+                if (Enumerable.Range(startIndex + 1, c).Contains((int)ticksPerIteration)) {
+                    if (score == 0) { break; }
+                    return score;
+                }
+                score--;
+            }
             return 0;
         }
 
