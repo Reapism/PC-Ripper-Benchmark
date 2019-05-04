@@ -2,6 +2,7 @@
 using PC_Ripper_Benchmark.function;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {
@@ -536,10 +537,9 @@ namespace PC_Ripper_Benchmark.util {
 
         /// <summary>
         /// Generates a score between 0-100 that takes in the number of iterations
-        /// per test, how much iterations performed per second/tick,
-        /// and total execution time for all tests and compares it to the base
-        /// computer spec.
-        /// <para>101+ will be errors</para>
+        /// per test, how much ticks performed per iteration,
+        /// and total execution time for all tests and generates a score thats 
+        /// competitive at the lower ticks/iteration and becomes less competitive.
         /// </summary>
         /// <returns></returns>
 
@@ -549,10 +549,27 @@ namespace PC_Ripper_Benchmark.util {
                 this.rs.IterationsLinkedList + this.rs.IterationsTree) *
                 this.rs.IterationsPerCPUTest;
 
+            // mostly because total iterations is likely ulong.
             ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
-            uint iter_per_tick_int = (uint)iter_per_tick;
+            uint iter_per_tick_int = (uint)iter_per_tick; // converts properly.
 
-            return RipperTypes.GetScoreCPU(iter_per_tick_int);
+            byte score = GetStartingScore(iter_per_tick_int, out ScorePercentile scorePercentile);
+            int variance = GetIncrement(scorePercentile, out int startIndex);
+
+            // if your score is 100 or 0, no need to do work.
+            if (score == 100 || score == 0) { return score; }
+
+            int c = 0; // top range.
+            while (true) {
+                c += variance; // increment c by variance.
+                if (score == 0) { break; }
+
+                if (Enumerable.Range(startIndex + 1, c).Contains((int)iter_per_tick_int)) {
+                    return score;
+                }
+                score--; // if not found, decrease score.
+            }
+            return 0;
         }
     }
 }
