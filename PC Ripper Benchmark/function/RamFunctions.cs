@@ -144,10 +144,6 @@ namespace PC_Ripper_Benchmark.function {
             InteractWithUI(ref results, ui);
         }
 
-        private async Task<CPUResults> RunTestsMultithreaded() {
-            return null;
-        }
-
         private void InteractWithUI(ref RamResults results, MainWindow ui) {
             string desc = results.Description;
 
@@ -189,7 +185,6 @@ namespace PC_Ripper_Benchmark.function {
             List<RipperFolder> lstFolders = new List<RipperFolder>();
             List<RipperFile> lstFiles = new List<RipperFile>();
             Random rnd = new Random();
-            Random rnd2 = new Random();
 
             ulong NUM_FOLDERS = this.rs.IterationsRAMFolderMatrix;
             ulong NUM_FILES = this.rs.IterationsRAMFolderMatrix / 2;
@@ -200,16 +195,17 @@ namespace PC_Ripper_Benchmark.function {
             // Naming convention of folder and files are in HEX.
             // File and Folders contain the same name if they are derived.
             for (ulong i = 0; i < NUM_FOLDERS; i++) {
-
                 lstFolders.Add(new RipperFolder($"folder{string.Format("0x{0:X}", i)}",
                     $"path={string.Format("0x{0:X}", i)}", true,
-                    rnd2.Next(2) == 0 ? null : new RipperFile($"file{string.Format("0x{0:X}", i)}",
+                    new RipperFile($"file{string.Format("0x{0:X}", i)}",
                     GenerateData(ref rnd, num_rnd_data), num_rnd_data)));
             }
 
             // read all files in the directories
             foreach (RipperFolder dir in lstFolders) {
                 RipperFile file = dir.File;
+                string data = dir.File.Data;
+                ulong size = dir.File.Size;
             }
 
             sw.Stop();
@@ -232,7 +228,7 @@ namespace PC_Ripper_Benchmark.function {
             List<RipperFile> ripperFiles = new List<RipperFile>();
             Random rnd = new Random();
 
-            const int size = 1000;
+            const int size = 5;
 
             // write 
             for (ulong u = 0; u < this.rs.IterationsRAMVirtualBulkFile; u++) {
@@ -243,6 +239,7 @@ namespace PC_Ripper_Benchmark.function {
             // read
             foreach (RipperFile file in ripperFiles) {
                 string readIn = file.Data;
+                ulong the_size = file.Size;
             }
 
             sw.Stop();
@@ -259,10 +256,13 @@ namespace PC_Ripper_Benchmark.function {
             var sw = Stopwatch.StartNew();
 
             List<RipperFile> lstObjects = new List<RipperFile>();
+            Random rnd = new Random();
 
+            const int size = 5;
             // add objects
             for (ulong u = 0; u < this.rs.IterationsRAMReferenceDereference; u++) {
-                lstObjects.Add(new RipperFile());
+                lstObjects.Add(new RipperFile($"file{string.Format("0x{0:X}", u)}",
+                    GenerateData(ref rnd, size), size));
             }
 
             // reference/ dereference objects
