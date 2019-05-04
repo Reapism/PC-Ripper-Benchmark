@@ -68,6 +68,7 @@
                     <MenuItem x:Name="menuAccount" Header="Account" Foreground="#FFE6E6E6">
                         <MenuItem x:Name="menuAccount2" Header="My Account" Foreground="Black" Click="MenuAccount_Click"/>
                         <MenuItem x:Name="menuMyTests" Header="My Tests" Foreground="Black" Click="MenuMyTests_Click"/>
+                        <MenuItem x:Name="menuViewParts" Header="View Parts" Foreground="Black" Click="MenuViewParts_Click"/>
                     </MenuItem>
                     <MenuItem x:Name="menuHelp" Header="Help" Foreground="#FFE6E6E6">
                         <MenuItem x:Name="menuHelp2" Header="Help Page/Overview" Foreground="Black" Click="MenuHelp_Click"/>
@@ -254,7 +255,7 @@
                             <TextBlock x:Name="txtRAMWelcome" TextWrapping="Wrap" Text="Welcome to the RAM benchmarking tab! Below you can learn more about how the test works. " FontSize="18" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <Grid x:Name="grdRAMTests" Margin="0,65,0,106" MinHeight="110" MinWidth="636" Background="#33FFFFFF">
-                            <Image x:Name="imgRamFolderMatrix" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The VirtualFolderMatrix algorithm creates (N) virtual directories in memory with about N virtual files in them and reads them back into memory." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
+                            <Image x:Name="imgRamFolderMatrix" Margin="-600,10,0,0" Source="/PC Ripper Benchmark;component/resources/ram_foldermatrix.png" ToolTip="The VirtualFolderMatrix algorithm creates (N) virtual directories in memory with (N) virtual files in them and reads them back into memory." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300" Width="100" Height="100" StretchDirection="DownOnly">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
@@ -264,7 +265,7 @@
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgRamReferenceDereference" Height="100" Margin="600,10,67,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_referencedereference.png" ToolTip="The ReferenceDereferenceParse algorithm creates RipperFiles in memory, finds them and deletes them." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgRamReferenceDereference" Height="100" Margin="600,10,67,0" Width="100" Source="/PC Ripper Benchmark;component/resources/ram_referencedereference.png" ToolTip="The ReferenceDereferenceParse algorithm creates virtual files in memory, finds them and deletes them." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
@@ -378,7 +379,7 @@
                             </RadialGradientBrush>
                         </Grid.Background>
                         <TextBlock x:Name="txtBlkResults" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Results the {} test." VerticalAlignment="Top" FontSize="18" Foreground="Black"/>
-                        <Button x:Name="button" Content="Go to Computer Parts Tab" Margin="0,95,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Center" MinWidth="300" MinHeight="45" Background="#00000000" Height="45" Width="300" FontSize="18" ToolTip="Want to check out some different parts? Click this button"/>
+                        <Button x:Name="buttonViewParts" Content="Go to Computer Parts Tab" Margin="0,95,0,0" VerticalAlignment="Top" Click="ButtonViewParts_Click" HorizontalAlignment="Center" MinWidth="300" MinHeight="45" Background="#00000000" Height="45" Width="300" FontSize="18" ToolTip="Want to check out some different parts? Click this button"/>
                         <RichTextBox x:Name="txtResults" Margin="0,150,0,0" MinWidth="100" MinHeight="100" IsReadOnly="True" FontSize="18" Background="#4CFFFFFF" BorderBrush="White" VerticalScrollBarVisibility="Auto" Foreground="#FF2E6C25">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
@@ -488,10 +489,10 @@
                         <DataGrid x:Name="dataGridResultsParts" Margin="0,285,0,0" Background="#7FCBFFC3" BorderBrush="White"/>
                         <GroupBox x:Name="grpBoxComponents" Header="Parts Database" Height="100" Margin="10,180,0,0" VerticalAlignment="Top" Width="841" BorderBrush="White" Foreground="#FF67CDFD">
                             <Grid Height="80" Margin="0">
-                                <Button x:Name="cpuButton" Content="CPU" HorizontalAlignment="Left" Margin="120,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click" Background="#00DDDDDD" FontSize="18" BorderBrush="Black"/>
-                                <Button x:Name="ramButton" Content="RAM" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="RamButton_Click" FontSize="18" Background="#00DDDDDD"/>
-                                <Button x:Name="diskButton" Content="DISK" HorizontalAlignment="Left" Margin="440,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="DiskButton_Click" FontSize="18" Background="#00DDDDDD"/>
-                                <Button x:Name="ssdButton" Content="SSD" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="SsdButton_Click" FontSize="18" Background="#00DDDDDD"/>
+                                <Button x:Name="cpuButton" Content="Processors" HorizontalAlignment="Left" Margin="120,10,10,10" VerticalAlignment="Top" Width="120" Height="60" Click="CpuButton_Click" Background="#00DDDDDD" FontSize="18" BorderBrush="Black" ToolTip="Click to query the database to find certain central processing units (CPU) models that are good."/>
+                                <Button x:Name="ramButton" Content="Memory" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="RamButton_Click" FontSize="18" Background="#00DDDDDD" ToolTip="Click to query the database to find certain random access memory (RAM) models that are good."/>
+                                <Button x:Name="diskButton" Content="Hard Drives" HorizontalAlignment="Left" Margin="440,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="DiskButton_Click" FontSize="18" Background="#00DDDDDD" ToolTip="Click to query the database to find certain hard drive (HD) models that are good."/>
+                                <Button x:Name="ssdButton" Content="Solid States" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="120" Height="60" Click="SsdButton_Click" FontSize="18" Background="#00DDDDDD" ToolTip="Click to query the database to find certain solid state drives (SSD) models that are good."/>
                             </Grid>
 
                         </GroupBox>

@@ -920,7 +920,7 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void ButtonViewParts_Click(object sender, RoutedEventArgs e) {
             ShowTabWindow(Tab.RESULTS_PARTS);
         }
 
@@ -1535,5 +1535,9 @@ namespace PC_Ripper_Benchmark.window {
             }
         }
         #endregion
+
+        private void MenuViewParts_Click(object sender, RoutedEventArgs e) {
+            ShowTabWindow(Tab.RESULTS_PARTS);
+        }
     }
 }
