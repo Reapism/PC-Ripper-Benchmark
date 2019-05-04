@@ -487,16 +487,16 @@ namespace PC_Ripper_Benchmark.util {
 
             rs.IterationsPerRAMTest = 3;
 
-            rs.IterationsRAMFolderMatrix = 10000;
-            rs.IterationsRAMVirtualBulkFile = 10000;
-            rs.IterationsRAMReferenceDereference = 10000;
+            rs.IterationsRAMFolderMatrix = 150000;
+            rs.IterationsRAMVirtualBulkFile = 150000;
+            rs.IterationsRAMReferenceDereference = 150000;
 
             rs.IterationsPerDiskTest = 3;
 
             rs.IterationsDISKFolderMatrix = 2000;
             rs.IterationsDiskBulkFile = 2000;
             rs.IterationsDiskReadWriteParse = 2000;
-            rs.IterationsDiskRipper = 25;
+            rs.IterationsDiskRipper = 5;
 
         }
         #endregion
