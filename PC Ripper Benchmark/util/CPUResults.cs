@@ -571,6 +571,16 @@ namespace PC_Ripper_Benchmark.util {
             return 0;
         }
 
+        /// <summary>
+        /// Returns the starting score and also
+        /// returns a <see cref="ScorePercentile"/>.
+        /// Used for the internal score algorithm.
+        /// </summary>
+        /// <param name="ticksPerIteration">The number of ticks per iteration.</param>
+        /// <param name="scorePercentile">A <see cref="ScorePercentile"/>
+        /// used to determine the increment, and start index.</param>
+        /// <returns></returns>
+
         protected override byte GetStartingScore(uint ticksPerIteration, out ScorePercentile scorePercentile) {
             switch (ticksPerIteration) {
 
@@ -636,6 +646,16 @@ namespace PC_Ripper_Benchmark.util {
 
             }
         }
+
+        /// <summary>
+        /// Returns the incrementing <see langword="int"/> as 
+        /// a function return and also outs a startIndex for the
+        /// score algorithm. 
+        /// </summary>
+        /// <param name="scorePercentile">A <see cref="ScorePercentile"/>
+        /// used to determine the increment, and start index.</param>
+        /// <param name="startIndex">The startIndex to return.</param>
+        /// <returns></returns>
 
         protected override int GetIncrement(ScorePercentile scorePercentile, out int startIndex) {
             switch (scorePercentile) {
