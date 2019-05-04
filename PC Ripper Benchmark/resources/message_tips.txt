@@ -5,8 +5,9 @@ Want to know how to algorithms work in detail? Check out the GitHub Wiki. Go to 
 Not sure about something? Hover over controls for more information!
 There is a GitHub Wiki for this project! Check it out for more information.
 Choosing dualthreaded is highly recommended so the window won't freeze!
-This project was developed for a group project Farmingdale State College.
+This project was developed in a group project Farmingdale State College.
 This project doesn't use artifical intelligence :(
 You can change your account settings! Yeah, go and do that.
-Found a bug? Email us at davidhartglass@gmail.com & reapsprgm@gmail.com
-Have an idea for a feature? Email us at davidhartglass@gmail.com & reapsprgm@gmail.com
+The benchmarking algorithms developed were made by Reapism (GitHub) from scratch!
+The benchmarking algorithms give you an idea how well your computer scores from typical computer use.
+This application captures the fundamentals of object-oreinted programming.
