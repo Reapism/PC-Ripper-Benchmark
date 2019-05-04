@@ -2,6 +2,7 @@
 using PC_Ripper_Benchmark.function;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static PC_Ripper_Benchmark.function.RipperTypes;
 
 namespace PC_Ripper_Benchmark.util {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PC_Ripper_Benchmark.exception;
 using PC_Ripper_Benchmark.function;
 using PC_Ripper_Benchmark.window;
