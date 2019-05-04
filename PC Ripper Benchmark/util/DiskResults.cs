@@ -640,7 +640,7 @@ namespace PC_Ripper_Benchmark.util {
 
                 case ScorePercentile.NINTIES: {
                     startIndex = 1;
-                    return 4;
+                    return 2;
                 }
 
                 case ScorePercentile.EIGHTIES: {
@@ -650,42 +650,42 @@ namespace PC_Ripper_Benchmark.util {
 
                 case ScorePercentile.SEVENTIES: {
                     startIndex = 301;
-                    return 14;
+                    return 18;
                 }
 
                 case ScorePercentile.SIXTIES: {
                     startIndex = 601;
-                    return 22;
+                    return 34;
                 }
 
                 case ScorePercentile.FIFTIES: {
                     startIndex = 1201;
-                    return 36;
+                    return 56;
                 }
 
                 case ScorePercentile.FORTIES: {
                     startIndex = 1801;
-                    return 54;
+                    return 65;
                 }
 
                 case ScorePercentile.THIRTIES: {
                     startIndex = 3001;
-                    return 78;
+                    return 70;
                 }
 
                 case ScorePercentile.TWENTIES: {
                     startIndex = 4401;
-                    return 98;
+                    return 80;
                 }
 
                 case ScorePercentile.TENS: {
                     startIndex = 6001;
-                    return 120;
+                    return 90;
                 }
 
                 case ScorePercentile.ONES: {
                     startIndex = 8501;
-                    return 200;
+                    return 110;
                 }
 
                 case ScorePercentile.ZERO: {
