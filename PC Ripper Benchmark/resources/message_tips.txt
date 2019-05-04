@@ -10,4 +10,4 @@ This project doesn't use artifical intelligence :(
 You can change your account settings! Yeah, go and do that.
 The benchmarking algorithms developed were made by Reapism (GitHub) from scratch!
 The benchmarking algorithms give you an idea how well your computer scores from typical computer use.
-This application captures the fundamentals of object-oreinted programming.
+This application captures the fundamentals of object-oriented programming.
