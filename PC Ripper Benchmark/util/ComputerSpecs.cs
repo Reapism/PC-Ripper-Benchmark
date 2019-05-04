@@ -35,8 +35,16 @@ namespace PC_Ripper_Benchmark.util {
 
         public string MachineName => Environment.MachineName;
 
+        /// <summary>
+        /// Represents the clock speed for the loaded processor.
+        /// </summary>
+
         public string CPUClockSpeed { get; set; }
 
+        /// <summary>
+        /// Represents the clock speed for the loaded memory module.
+        /// </summary>
+        
         public string RAMClockSpeed { get; set; }
 
         /// <summary>
