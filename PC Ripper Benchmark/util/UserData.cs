@@ -246,6 +246,12 @@ namespace PC_Ripper_Benchmark.util {
             return name;
         }
 
+        /// <summary>
+        /// Returns a string where it capitalizes only
+        /// the first character of the string.
+        /// </summary>
+        /// <param name="s">The string to use.</param>
+        /// <returns></returns>
 
         public static string UppercaseFirst(string s) {
             // Check for empty string.

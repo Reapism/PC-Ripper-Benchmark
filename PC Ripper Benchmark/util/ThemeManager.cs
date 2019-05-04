@@ -20,7 +20,7 @@ namespace PC_Ripper_Benchmark.util {
         private static MainWindow ui;
         private static Random rnd;
         private static bool run;
-        private static byte currentColor;
+
         /// <summary>
         /// The <see cref="Theme"/> enum type.
         /// <para>Represents all possible themes.</para>
@@ -58,7 +58,6 @@ namespace PC_Ripper_Benchmark.util {
         public ThemeManager(MainWindow ui) {
             ThemeManager.ui = ui;
             rnd = new Random();
-            currentColor = 0;
             run = false;
         }
 
@@ -167,7 +166,12 @@ namespace PC_Ripper_Benchmark.util {
             }
         }
 
-        public void ApplyThemeHelper(MainWindow w) {
+        /// <summary>
+        /// Helper function.
+        /// </summary>
+        /// <param name="w"></param>
+
+        private void ApplyThemeHelper(MainWindow w) {
             switch (this.themeType) {
                 case Theme.Light: {
 
@@ -180,6 +184,11 @@ namespace PC_Ripper_Benchmark.util {
                 }
             }
         }
+
+        /// <summary>
+        /// Changes the color of the <see cref="QuestionaireWindow"/>.
+        /// </summary>
+        /// <param name="q">The <see cref="QuestionaireWindow"/> instance to change.</param>
 
         public void ApplyThemeHelper(QuestionaireWindow q) {
             switch (this.themeType) {
