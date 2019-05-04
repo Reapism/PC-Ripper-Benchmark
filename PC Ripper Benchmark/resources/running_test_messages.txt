@@ -24,3 +24,13 @@ Stepping in and out of the event horizon!
 Computing the golden ratio!
 Computing the first ten digits of pi!
 Powering up! 🍄
+Ripping all the threads!
+Catching all the pokemon.
+Computing the density of each grain of sand on earth.
+Running around with busy beaver.
+Computing the power set of ackermann(ω,ω).
+Computing all the possible minecraft worlds.
+Speed running super mario 64.
+Bruteforcing MD5.
+Truncating infinite fractions.
+Running magnitudinal iterations of mandelbrot zooms.
