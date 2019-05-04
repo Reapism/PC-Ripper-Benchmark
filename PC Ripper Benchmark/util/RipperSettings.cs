@@ -470,6 +470,35 @@ namespace PC_Ripper_Benchmark.util {
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rs">The <see cref="RipperSettings"/> instance to load default settings into.</param>
+
+        public static void LoadDefaultSettings(ref RipperSettings rs) {
+            rs.AutoCheckForUpdates = true;
+            rs.IterationsPerCPUTest = 3;
+
+            rs.IterationsSuccessorship = 150000;
+            rs.IterationsBoolean = 150000;
+            rs.IterationsQueue = 150000;
+            rs.IterationsLinkedList = 150000;
+            rs.IterationsTree = 150000;
+
+            rs.IterationsPerRAMTest = 3;
+
+            rs.IterationsRAMFolderMatrix = 10000;
+            rs.IterationsRAMVirtualBulkFile = 10000;
+            rs.IterationsRAMReferenceDereference = 10000;
+
+            rs.IterationsPerDiskTest = 3;
+
+            rs.IterationsDISKFolderMatrix = 2000;
+            rs.IterationsDiskBulkFile = 2000;
+            rs.IterationsDiskReadWriteParse = 2000;
+            rs.IterationsDiskRipper = 25;
+
+        }
         #endregion
 
     }
