@@ -2,12 +2,29 @@
 using System.Data.SqlClient;
 
 namespace PC_Ripper_Benchmark.database {
+
+    /// <summary>
+    /// The <see cref="DatabaseQueries"/> class.
+    /// <para></para>Contains queries.
+    /// <para>Author: David Hartglass, (c) all rights reserved.</para>
+    /// </summary>
+
     public class DatabaseQueries {
         private SqlConnection sqlConnection;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
 
         public DatabaseQueries() {
             this.sqlConnection = new SqlConnection(DatabaseConnection.GetConnectionString());
         }
+
+        /// <summary>
+        /// Returns a dataset containing the queries output.
+        /// </summary>
+        /// <param name="clockSpeed">The clockspeed for the query.</param>
+        /// <returns></returns>
 
         public DataSet RunCPUQueries(int clockSpeed) {
             this.sqlConnection.Open();
@@ -24,6 +41,12 @@ namespace PC_Ripper_Benchmark.database {
 
             return ds;
         }
+
+        /// <summary>
+        /// Returns a dataset containing the queries output.
+        /// </summary>
+        /// <param name="size">The size for the query.</param>
+        /// <returns></returns>
 
         public DataSet RunDISKQueries(int size) {
             this.sqlConnection.Open();

@@ -251,6 +251,14 @@ namespace PC_Ripper_Benchmark.database {
             return false;
         }
 
+        /// <summary>
+        /// Returns the security question using the
+        /// email for the query.
+        /// </summary>
+        /// <param name="email">The email associated with the
+        /// security question.</param>
+        /// <returns></returns>
+
         public string GetSecurityQuestion(string email) {
             //Command to get the actual answered security question
             this.Connection.Open();
@@ -261,6 +269,14 @@ namespace PC_Ripper_Benchmark.database {
             return (string)getSecurityQuestion.ExecuteScalar();
         }
 
+        /// <summary>
+        /// Returns the security answer using the
+        /// email for the query.
+        /// </summary>
+        /// <param name="email">The email associated with the
+        /// security question.</param>
+        /// <returns></returns>
+
         public string GetSecurityQuestionAnswer(string email) {
             this.Connection.Open();
             SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", this.Connection);
@@ -269,6 +285,15 @@ namespace PC_Ripper_Benchmark.database {
             //Set the answer returned by the query to a variable for comparison
             return (string)getSecurityQuestionAnswer.ExecuteScalar();
         }
+
+        /// <summary>
+        /// Changes user settings based on the email associated with user.
+        /// </summary>
+        /// <param name="skill">The new <see cref="UserSkill"/>.</param>
+        /// <param name="type">The new <see cref="TypeOfUser"/>.</param>
+        /// <param name="email">The email associated with the
+        /// account.</param>
+        /// <returns></returns>
 
         public bool ChangeUserSettings(UserData.UserSkill skill, UserData.TypeOfUser type, string email) {
             try {
