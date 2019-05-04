@@ -21,7 +21,7 @@
                     <Image x:Name="imgMenu" Height="29" MaxWidth="30" MaxHeight="30" MinWidth="30" MinHeight="30" Source="/PC Ripper Benchmark;component/resources/menu.png" Margin="0,-2,5,0" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnWelcome" HorizontalAlignment="Left" Margin="35,50,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnWelcome_MouseEnter" MouseLeave="BtnWelcome_MouseLeave" Click="BtnWelcome_Click" GotFocus="BtnWelcome_GotFocus" LostFocus="BtnWelcome_LostFocus" Background="#00DDDDDD" BorderBrush="White">
+            <Button x:Name="btnWelcome" HorizontalAlignment="Left" Margin="35,50,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="BtnWelcome_Click" GotFocus="BtnWelcome_GotFocus" LostFocus="BtnWelcome_LostFocus" Background="#00DDDDDD" BorderBrush="White">
                 <Image x:Name="imgBtnWelcome" Height="45" Width="45" Source="/PC Ripper Benchmark;component/resources/specs.png" ToolTip="Navigate to the home tab."/>
             </Button>
             <Button x:Name="btnCPU" HorizontalAlignment="Left" Margin="35,150,0,0" VerticalAlignment="Top" Width="50" Height="50" MouseEnter="BtnCPU_MouseEnter" MouseLeave="BtnCPU_MouseLeave" Click="BtnCPU_Click" GotFocus="BtnCPU_GotFocus" LostFocus="BtnCPU_LostFocus" BorderBrush="White" Background="#00DDDDDD">

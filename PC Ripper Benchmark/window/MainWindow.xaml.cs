@@ -140,31 +140,6 @@ namespace PC_Ripper_Benchmark.window {
             RipperSettings.SaveApplicationSettings(ref this.rs);
         }
 
-        private void LoadDefaultSettings() {
-            this.rs.IterationsPerCPUTest = 3;
-
-            this.rs.IterationsSuccessorship = 150000;
-            this.rs.IterationsBoolean = 150000;
-            this.rs.IterationsQueue = 150000;
-            this.rs.IterationsLinkedList = 150000;
-            this.rs.IterationsTree = 150000;
-
-            this.rs.IterationsPerRAMTest = 3;
-
-            this.rs.IterationsRAMFolderMatrix = 10000;
-            this.rs.IterationsRAMVirtualBulkFile = 10000;
-            this.rs.IterationsRAMReferenceDereference = 10000;
-
-            this.rs.IterationsPerDiskTest = 3;
-
-            this.rs.IterationsDISKFolderMatrix = 2000;
-            this.rs.IterationsDiskBulkFile = 2000;
-            this.rs.IterationsDiskReadWriteParse = 2000;
-            this.rs.IterationsDiskRipper = 25;
-
-            LoadAdvancedSettings();
-        }
-
         /// <summary>
         /// Instantiates the advanced settings
         /// tags with their proper names.
@@ -236,10 +211,6 @@ namespace PC_Ripper_Benchmark.window {
             this.txtComputerSpecs.AppendText(Environment.NewLine + "Video card (GPU) specs" + Environment.NewLine);
             specs.GetVideoCard(out lst);
             foreach (string s in lst) { this.txtComputerSpecs.AppendText("   " + s + Environment.NewLine); }
-
-            for (uint score = 0; score < 500; score++) {
-                this.txtComputerSpecs.AppendText( RipperTypes.GetScoreCPU(score) + Environment.NewLine);
-            }
         }
 
         /// <summary>
@@ -285,7 +256,6 @@ namespace PC_Ripper_Benchmark.window {
                     this.tabComponents.SelectedIndex = (int)Tab.RESULTS;
                     break;
                 }
-
 
                 case Tab.RUNNING_TEST: {
                     LoadRunningTest();
@@ -963,14 +933,6 @@ namespace PC_Ripper_Benchmark.window {
             this.btnWelcome.BorderThickness = new Thickness(0);
         }
 
-        private void BtnWelcome_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) {
-
-        }
-
-        private void BtnWelcome_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
-
-        }
-
         private void BtnLockDir_Click(object sender, RoutedEventArgs e) {
             LockDir();
         }
@@ -1229,7 +1191,8 @@ namespace PC_Ripper_Benchmark.window {
         }
 
         private void BtnDefaultSettings_Click(object sender, RoutedEventArgs e) {
-            LoadDefaultSettings();
+            RipperSettings.LoadDefaultSettings(ref this.rs);
+            LoadAdvancedSettings();
         }
 
         #endregion
