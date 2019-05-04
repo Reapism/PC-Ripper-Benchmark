@@ -49,13 +49,13 @@ namespace PC_Ripper_Benchmark.database {
         /// <summary>
         /// Opens the SQL database connection.
         /// </summary>
-        /// <exception cref="RipperDatabaseException"></exception>
+        /// <exception cref="RipperScoreException"></exception>
 
         public void Open() {
             try {
                 this.Connection.Open();
             } catch {
-                throw new RipperDatabaseException("Failed to open connection.");
+                throw new RipperScoreException("Failed to open connection.");
             }
         }
 
