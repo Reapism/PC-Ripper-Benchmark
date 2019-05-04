@@ -127,6 +127,8 @@ namespace PC_Ripper_Benchmark.function {
         /// </summary>
         /// <param name="results">The <see cref="RamResults"/> by reference 
         /// to add the <see cref="TimeSpan"/>(s).</param>
+        /// <param name="ui">The <see cref="MainWindow"/> instance thats passed
+        /// into for UI related tasks for updating components in it.</param>
 
         private void RunTestsSingleUI(ref RamResults results, MainWindow ui) {
             for (byte b = 0; b < this.rs.IterationsPerRAMTest; b++) {

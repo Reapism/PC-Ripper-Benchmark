@@ -190,10 +190,6 @@ namespace PC_Ripper_Benchmark.function {
             InteractWithUI(ref results, ui);
         }
 
-        private async Task<CPUResults> RunTestsMultithreaded() {
-            return null;
-        }
-
         private void InteractWithUI(ref DiskResults results, MainWindow ui) {
             string desc = results.Description;
 
