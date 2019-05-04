@@ -3,14 +3,14 @@
 namespace PC_Ripper_Benchmark.exception {
 
     /// <summary>
-    /// The <see cref="RipperDatabaseException"/> class.
-    /// <para>Thrown when there is insufficient information from a
-    /// class that inherits <see cref="util.Results"/>.</para>
+    /// The <see cref="RipperScoreException"/> class.
+    /// <para>Thrown when there is an impossible scores passed
+    /// into some of the functions that require scores.</para>
     /// <para>Author: <see langword="Anthony Jaghab"/> (c),
     /// all rights reserved.</para>
     /// </summary>
 
-    public class RipperDatabaseException : Exception {
+    public class RipperScoreException : Exception {
         private string message;
 
         /// <summary>
@@ -19,13 +19,13 @@ namespace PC_Ripper_Benchmark.exception {
         /// </summary>
         /// <param name="message">The exception message.</param>
 
-        public RipperDatabaseException(string message) {
+        public RipperScoreException(string message) {
             this.message = message;
         }
 
         /// <summary>
         /// Returns the exception message for 
-        /// this <see cref="RipperDatabaseException"/>.
+        /// this <see cref="RipperScoreException"/>.
         /// </summary>
         /// <returns></returns>
 

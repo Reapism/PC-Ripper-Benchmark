@@ -4,9 +4,10 @@ namespace PC_Ripper_Benchmark.exception {
 
     /// <summary>
     /// The <see cref="RipperThreadException"/> class.
-    /// <para>Thrown when multithreading goes out of sync
-    /// or a race condition occurs.</para>
-    /// <para>Author: David Hartglass</para>
+    /// <para>Thrown when there is an exception with connecting, or
+    /// querying our database.</para>
+    /// <para>Author: <see langword="Anthony Jaghab"/> (c),
+    /// all rights reserved.</para>
     /// </summary>
 
     public class RipperThreadException : Exception {
