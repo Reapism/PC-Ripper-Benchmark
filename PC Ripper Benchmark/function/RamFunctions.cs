@@ -174,9 +174,9 @@ namespace PC_Ripper_Benchmark.function {
         /// <summary>
         /// Creates (N) virtual directories in memory
         /// using the <see cref="RipperFolder"/> class
-        /// with ~(N/2) <see cref="RipperFile"/>(s) thrown in
-        /// and reads all the files back into memory.
-        /// </summary>
+        /// with N <see cref="RipperFile"/>(s) thrown in
+        /// and reads all the files back into memory, size,
+        /// and data. </summary>
         /// <returns></returns>
 
         private TimeSpan RunVirtualFolderMatrix() {
@@ -191,7 +191,7 @@ namespace PC_Ripper_Benchmark.function {
 
             const int num_rnd_data = 5;
 
-            // Create N folders with ~N/2 files randomly in them.
+            // Create N folders with N files randomly in them.
             // Naming convention of folder and files are in HEX.
             // File and Folders contain the same name if they are derived.
             for (ulong i = 0; i < NUM_FOLDERS; i++) {
