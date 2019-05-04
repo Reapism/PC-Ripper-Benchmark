@@ -26,6 +26,10 @@ namespace PC_Ripper_Benchmark.window {
 
         #endregion
 
+        /// <summary>
+        /// The default constructor for this instance.
+        /// </summary>
+
         public PasswordResetWindow() {
             Instantiate();
             InitializeComponent();
