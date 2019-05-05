@@ -563,52 +563,52 @@ namespace PC_Ripper_Benchmark.util {
                     return 100;
                 }
 
-                case uint u when (ticksPerIteration >= 1 && ticksPerIteration < 101): {
+                case uint u when (ticksPerIteration >= 1 && ticksPerIteration < 1001): {
                     scorePercentile = ScorePercentile.NINTIES;
                     return 99;
                 }
 
-                case uint u when (ticksPerIteration >= 101 && ticksPerIteration < 301): {
+                case uint u when (ticksPerIteration >= 1001 && ticksPerIteration < 2501): {
                     scorePercentile = ScorePercentile.EIGHTIES;
                     return 89;
                 }
 
-                case uint u when (ticksPerIteration >= 301 && ticksPerIteration < 601): {
+                case uint u when (ticksPerIteration >= 2501 && ticksPerIteration < 4901): {
                     scorePercentile = ScorePercentile.SEVENTIES;
                     return 79;
                 }
 
-                case uint u when (ticksPerIteration >= 601 && ticksPerIteration < 1201): {
+                case uint u when (ticksPerIteration >= 4901 && ticksPerIteration < 7001): {
                     scorePercentile = ScorePercentile.SIXTIES;
                     return 69;
                 }
 
-                case uint u when (ticksPerIteration >= 1201 && ticksPerIteration < 1801): {
+                case uint u when (ticksPerIteration >= 7001 && ticksPerIteration < 10001): {
                     scorePercentile = ScorePercentile.FIFTIES;
                     return 59;
                 }
 
-                case uint u when (ticksPerIteration >= 1801 && ticksPerIteration < 3001): {
+                case uint u when (ticksPerIteration >= 10001 && ticksPerIteration < 14501): {
                     scorePercentile = ScorePercentile.FORTIES;
                     return 49;
                 }
 
-                case uint u when (ticksPerIteration >= 3001 && ticksPerIteration < 4401): {
+                case uint u when (ticksPerIteration >= 14501 && ticksPerIteration < 20001): {
                     scorePercentile = ScorePercentile.THIRTIES;
                     return 39;
                 }
 
-                case uint u when (ticksPerIteration >= 4401 && ticksPerIteration < 6001): {
+                case uint u when (ticksPerIteration >= 20001 && ticksPerIteration < 26001): {
                     scorePercentile = ScorePercentile.TWENTIES;
                     return 29;
                 }
 
-                case uint u when (ticksPerIteration >= 6001 && ticksPerIteration < 8501): {
+                case uint u when (ticksPerIteration >= 26001 && ticksPerIteration < 32001): {
                     scorePercentile = ScorePercentile.TENS;
                     return 19;
                 }
 
-                case uint u when (ticksPerIteration >= 8501 && ticksPerIteration < 11001): {
+                case uint u when (ticksPerIteration >= 32001 && ticksPerIteration < 40001): {
                     scorePercentile = ScorePercentile.ONES;
                     return 9;
                 }
@@ -640,56 +640,56 @@ namespace PC_Ripper_Benchmark.util {
 
                 case ScorePercentile.NINTIES: {
                     startIndex = 1;
-                    return 2;
+                    return 4;
                 }
 
                 case ScorePercentile.EIGHTIES: {
-                    startIndex = 101;
-                    return 8;
+                    startIndex = 1001;
+                    return 14;
                 }
 
                 case ScorePercentile.SEVENTIES: {
-                    startIndex = 301;
-                    return 18;
+                    startIndex = 2501;
+                    return 30;
                 }
 
                 case ScorePercentile.SIXTIES: {
-                    startIndex = 601;
-                    return 34;
+                    startIndex = 4901;
+                    return 64;
                 }
 
                 case ScorePercentile.FIFTIES: {
-                    startIndex = 1201;
-                    return 56;
+                    startIndex = 7001;
+                    return 92;
                 }
 
                 case ScorePercentile.FORTIES: {
-                    startIndex = 1801;
-                    return 65;
+                    startIndex = 10001;
+                    return 132;
                 }
 
                 case ScorePercentile.THIRTIES: {
-                    startIndex = 3001;
-                    return 70;
+                    startIndex = 14501;
+                    return 178;
                 }
 
                 case ScorePercentile.TWENTIES: {
-                    startIndex = 4401;
-                    return 80;
+                    startIndex = 20001;
+                    return 242;
                 }
 
                 case ScorePercentile.TENS: {
-                    startIndex = 6001;
-                    return 90;
+                    startIndex = 26001;
+                    return 332;
                 }
 
                 case ScorePercentile.ONES: {
-                    startIndex = 8501;
-                    return 110;
+                    startIndex = 32001;
+                    return 420;
                 }
 
                 case ScorePercentile.ZERO: {
-                    startIndex = 11001;
+                    startIndex = 0;
                     return 0;
                 }
 
