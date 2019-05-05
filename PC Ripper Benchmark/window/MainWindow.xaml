@@ -6,7 +6,7 @@
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:PC_Ripper_Benchmark"
         mc:Ignorable="d"
-        Title="PC Ripper Benchmark Tool" Height="650" Width="1025" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="1000" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" FontFamily="Nirmala UI">
+        Title="PC Ripper Benchmark Tool" Height="650" Width="1025" Background="#FFDCD8D8" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="1025" MinHeight="650" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" FontFamily="Nirmala UI">
     <Grid x:Name="grdMain" Margin="0" MinHeight="420" MinWidth="790">
         <Grid x:Name="grdNavigation" HorizontalAlignment="Left" MinWidth="50" MinHeight="400" VerticalAlignment="Stretch" Width="150" Margin="0,100,0,0">
             <Grid.Background>
