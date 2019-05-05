@@ -549,21 +549,21 @@ namespace PC_Ripper_Benchmark.util {
                 this.rs.IterationsPerCPUTest;
 
             // mostly because total iterations is likely ulong.
-            ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
-            uint iter_per_tick_int = (uint)iter_per_tick; // converts properly.
+            ulong ticks_per_iter_long = (ulong)this.totalDuration.Ticks / total_iterations;
+            uint ticks_per_iter_uint = (uint)ticks_per_iter_long; // converts properly.
 
-            byte score = GetStartingScore(iter_per_tick_int, out ScorePercentile scorePercentile);
+            byte score = GetStartingScore(ticks_per_iter_uint, out ScorePercentile scorePercentile);
             int variance = GetIncrement(scorePercentile, out int startIndex);
 
             // if your score is 100 or 0, no need to do work.
             if (score == 100 || score == 0) { return score; }
 
-            int c = 0; // top range.
+            int top_range = 0; // top range.
             while (true) {
-                c += variance; // increment c by variance.
+                top_range += variance; // increment c by variance.
                 if (score == 0) { break; }
 
-                if (Enumerable.Range(startIndex + 1, c).Contains((int)iter_per_tick_int)) {
+                if (Enumerable.Range(startIndex + 1, top_range).Contains((int)ticks_per_iter_uint)) {
                     return score;
                 }
                 score--; // if not found, decrease score.
