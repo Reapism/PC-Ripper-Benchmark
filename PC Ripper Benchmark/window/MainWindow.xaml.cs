@@ -859,8 +859,7 @@ namespace PC_Ripper_Benchmark.window {
             List<Tuple<string, string, string>> testName = new List<Tuple<string, string, string>>();
             Tuple<string, string, string> testResults;
 
-            if (listViewUserResults.HasItems)
-            {
+            if (this.listViewUserResults.HasItems) {
                 this.listViewUserResults.ItemsSource = null;
                 this.richTxtBoxResults.Document.Blocks.Clear();
             }
@@ -891,26 +890,20 @@ namespace PC_Ripper_Benchmark.window {
 
                         }
 
-                        if (userTestNameList.Count == 0)
-                        {
-                            foreach (var item in testName)
-                            {
+                        if (this.userTestNameList.Count == 0) {
+                            foreach (var item in testName) {
                                 this.userTestNameList.Add(item.Item1);
                             }
                         }
 
-                        if (userTestCreationDateList.Count == 0)
-                        {
-                            foreach (var item in testName)
-                            {
+                        if (this.userTestCreationDateList.Count == 0) {
+                            foreach (var item in testName) {
                                 this.userTestCreationDateList.Add(item.Item2);
                             }
                         }
 
-                        if (userResultsList.Count == 0)
-                        {
-                            foreach (var item in testName)
-                            {
+                        if (this.userResultsList.Count == 0) {
+                            foreach (var item in testName) {
                                 this.userResultsList.Add(item.Item3);
 
                             }
@@ -1213,23 +1206,33 @@ namespace PC_Ripper_Benchmark.window {
         #endregion
 
         private void MenuSendToDatabase_Click(object sender, RoutedEventArgs e) {
-            DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
-            db.Open();
 
-            if (this.userData.Email != "guest") {
-                var range = new TextRange(this.txtResults.Document.ContentStart,
-                         this.txtResults.Document.ContentEnd);
+            if (SystemSettings.IsInternetAvailable()) {
+                DatabaseConnection db = new DatabaseConnection(DatabaseConnection.GetConnectionString());
+                db.Open();
 
-                string input = RipperDialog.InputBox("Please enter a name for the test!", "Enter a name", $"{this.userData.FirstName}'s Test");
+                if (this.userData.Email != "guest") {
+                    var range = new TextRange(this.txtResults.Document.ContentStart,
+                             this.txtResults.Document.ContentEnd);
 
-                if (db.AddUserResults(this.userData.Email, range.Text, input)) {
-                    MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
-                        "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string input = RipperDialog.InputBox("Please enter a name for the test!", "Enter a name", $"{this.userData.FirstName}'s Test");
+
+                    if (input.Length > 0) {
+                        if (db.AddUserResults(this.userData.Email, range.Text, input)) {
+                            MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
+                                "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    } else {
+                        MessageBox.Show($"Please enter a name with at least one character!",
+                            "Failed!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    }
+
+                } else {
+                    MessageBox.Show($"Cannot send results as a guest!",
+                            "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            } else {
-                MessageBox.Show($"Cannot send results as a guest!",
-                        "ResultsFailureException!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         private void TabTestResults_GotFocus(object sender, RoutedEventArgs e) {
