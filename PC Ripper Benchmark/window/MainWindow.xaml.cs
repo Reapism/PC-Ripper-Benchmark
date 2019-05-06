@@ -1216,11 +1216,13 @@ namespace PC_Ripper_Benchmark.window {
                              this.txtResults.Document.ContentEnd);
 
                     string input = RipperDialog.InputBox("Please enter a name for the test!", "Enter a name", $"{this.userData.FirstName}'s Test");
-
+                    
                     if (input.Length > 0) {
                         if (db.AddUserResults(this.userData.Email, range.Text, input)) {
                             MessageBox.Show($"Uploaded results to your account {this.userData.FirstName}!",
                                 "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        } else {
+                            MessageBox.Show($"Test results already exist in database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                     } else {
                         MessageBox.Show($"Please enter a name with at least one character!",
