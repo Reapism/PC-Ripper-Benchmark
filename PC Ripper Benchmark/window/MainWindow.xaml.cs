@@ -891,17 +891,29 @@ namespace PC_Ripper_Benchmark.window {
 
                         }
 
-                        foreach (var item in testName) {
-                            this.userTestNameList.Add(item.Item1);
+                        if (userTestNameList.Count == 0)
+                        {
+                            foreach (var item in testName)
+                            {
+                                this.userTestNameList.Add(item.Item1);
+                            }
                         }
 
-                        foreach (var item in testName) {
-                            this.userTestCreationDateList.Add(item.Item2);
+                        if (userTestCreationDateList.Count == 0)
+                        {
+                            foreach (var item in testName)
+                            {
+                                this.userTestCreationDateList.Add(item.Item2);
+                            }
                         }
 
-                        foreach (var item in testName) {
-                            this.userResultsList.Add(item.Item3);
+                        if (userResultsList.Count == 0)
+                        {
+                            foreach (var item in testName)
+                            {
+                                this.userResultsList.Add(item.Item3);
 
+                            }
                         }
 
                         this.listViewUserResults.ItemsSource = this.userTestNameList;
