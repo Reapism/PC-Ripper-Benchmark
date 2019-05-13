@@ -522,10 +522,6 @@ namespace PC_Ripper_Benchmark.util {
             ulong iter_per_tick = (ulong)this.totalDuration.Ticks / total_iterations;
             uint iter_per_tick_int = (uint)iter_per_tick; // converts properly.
 
-            System.Windows.Forms.MessageBox.Show(this.totalDuration.Ticks.ToString() +
-                "   " + total_iterations.ToString() + "   " +
-                iter_per_tick_int.ToString());
-
             byte score = GetStartingScore(iter_per_tick_int, out ScorePercentile scorePercentile);
             int variance = GetIncrement(scorePercentile, out int startIndex);
 
