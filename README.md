@@ -1,5 +1,5 @@
 # PC-Ripper-Benchmark
-The PC-Ripper-Benchmark application is for Senior project BCS 430W. The
+The PC-Ripper-Benchmark application was made during our Senior project (BCS 430W) class. The
 program benchmarks individual components on the PC and generates a score based
 on an custom algorithm. Depending on the type of user you choose to be with
 your account, the application will generate different results and information
