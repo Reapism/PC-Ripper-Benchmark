@@ -35,6 +35,13 @@ in this repository.
 # Is there more documentation for this project?
 YES. Please check the WIP [Wiki](https://github.com/Reapism/PC-Ripper-Benchmark/wiki) tab!
 
+# Credits
+Thank you to `iconfinder.net` for the icons used in this project. The logo for PC Ripper Benchmark
+was created by Reapism. The preloaders that show up during the test are viewed from an internal
+browser. Non of the actual gif data is embedded in the program for copyright, just links to the
+original sources to view. We do not own any of the icons (except the application logo), and 
+preloaders.
+
 # Packages used
 `WpfAnimatedGif` `1.4.18`
 https://github.com/XamlAnimatedGif/WpfAnimatedGif
