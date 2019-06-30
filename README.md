@@ -8,6 +8,9 @@ and results generated from the application. It has the ability to also query
 the database for parts that are recommended for your PC.
 The is an extension of my original work located here: https://github.com/Reapism/CPU-Ripper
 
+The following video is a demo of the application.
+[![Click here to go to the demo](https://img.youtube.com/vi/VrTnj4BXmwA/0.jpg)](https://www.youtube.com/watch?v=VrTnj4BXmwA)
+
 # Running the setup
 At the moment, the application installs to
 `C:\Users\Reapism\AppData\Local\Apps\2.0`
