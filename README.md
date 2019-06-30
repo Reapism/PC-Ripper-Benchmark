@@ -14,7 +14,9 @@ The following video is a demo of the application.
 
 # Running the setup
 At the moment, the application installs to
-`C:\Users\Reapism\AppData\Local\Apps\2.0`
+`C:\Users\USER\AppData\Local\Apps\2.0`
+
+Clone this repository to view the source.
 
 # What is the PC-Ripper Benchmark application?
 Let's call it Ripper for short. The Ripper is an app designed
