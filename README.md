@@ -10,9 +10,10 @@ The is an extension of my original work located here: https://github.com/Reapism
 
 ## Authors:
 Reapism (Anthony J)
+-- 
 dhartglass (David Hartglass)
 [See contributors page](https://github.com/Reapism/PC-Ripper-Benchmark/graphs/contributors)
-
+--
 # Development methodology
 This project was developed in five sprints using the Agile methodology. 
 Please follow the link below to view our trello board to see our user stories.
