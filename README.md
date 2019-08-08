@@ -11,6 +11,7 @@ The is an extension of my original work located here: https://github.com/Reapism
 ## Authors:
 
 > Reapism (Anthony J)
+
 > dhartglass (David Hartglass)
 
 > [See contributors page](https://github.com/Reapism/PC-Ripper-Benchmark/graphs/contributors)
