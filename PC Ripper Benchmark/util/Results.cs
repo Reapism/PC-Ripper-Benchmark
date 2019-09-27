@@ -143,7 +143,7 @@ namespace PC_Ripper_Benchmark.util {
                 }
 
                 case TestName.CPULinkedList: {
-                    return "Linked List";
+                    return "List";
                 }
 
                 case TestName.CPUTree: {
