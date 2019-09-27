@@ -58,15 +58,15 @@ namespace PC_Ripper_Benchmark.util {
             lst = new List<string>();
 
             ManagementClass mgt = new ManagementClass("Win32_Processor");
-            ManagementObjectCollection mgtCollection = mgt.GetInstances();
+            var mgtCollection = mgt.GetInstances();
 
             foreach (ManagementObject item in mgtCollection) {
-                lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add("Max clock speed: " + item.Properties["MaxClockSpeed"].Value.ToString() + "Mhz");
-                lst.Add("Number of cores: " + item.Properties["NumberOfCores"].Value.ToString());
-                lst.Add("Number of logical processors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
-                lst.Add("L2 cache size: " + item.Properties["L2CacheSize"].Value.ToString());
-                lst.Add("L3 cache size: " + item.Properties["L3CacheSize"].Value.ToString());
+                lst.Add($"Name: {item.Properties["Name"].Value.ToString()}");
+                lst.Add($"Max clock speed: {item.Properties["MaxClockSpeed"].Value.ToString()} Mhz");
+                lst.Add($"Number of cores: {item.Properties["NumberOfCores"].Value.ToString()}");
+                lst.Add($"Number of logical processors: {item.Properties["NumberOfLogicalProcessors"].Value.ToString()}");
+                lst.Add($"L2 cache size: {item.Properties["L2CacheSize"].Value.ToString()}K");
+                lst.Add($"L3 cache size: {item.Properties["L3CacheSize"].Value.ToString()}K");
                 if (CPUClockSpeed == null) { CPUClockSpeed = item.Properties["MaxClockSpeed"].Value.ToString(); }
             }
         }
@@ -82,7 +82,7 @@ namespace PC_Ripper_Benchmark.util {
             lst = new List<string>();
 
             ManagementClass mgt = new ManagementClass("Win32_DiskDrive");
-            ManagementObjectCollection mgtCollection = mgt.GetInstances();
+            var mgtCollection = mgt.GetInstances();
             ulong size =0;
             foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Model"].Value.ToString());
