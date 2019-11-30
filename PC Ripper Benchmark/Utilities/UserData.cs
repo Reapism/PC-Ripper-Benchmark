@@ -83,13 +83,13 @@
                 Email = "guest",
                 FirstName = "Guest",
                 LastName = "User",
-                IsAdvanced = UserSkill.Beginner,
+                IsAdvanced = UserSkill.Advanced,
                 IsLight = true,
                 Password = "guest",
                 PhoneNumber = "guest number",
                 SecurityQuestion = "guest security question",
                 SecurityQuestionAnswer = "guest",
-                UserType = TypeOfUser.Casual
+                UserType = TypeOfUser.HighPerformance
             };
 
             return u;

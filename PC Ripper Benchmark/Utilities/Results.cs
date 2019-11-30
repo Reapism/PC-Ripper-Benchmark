@@ -1,10 +1,9 @@
-﻿using PC_Ripper_Benchmark.Exceptions;
+﻿using PC_Ripper_Benchmark.exception;
 using System;
 using System.Collections.Generic;
-using static PC_Ripper_Benchmark.Functions.RipperTypes;
+using static PC_Ripper_Benchmark.function.RipperTypes;
 
-namespace PC_Ripper_Benchmark.Utilities
-{
+namespace PC_Ripper_Benchmark.util {
 
     /// <summary>
     /// The abstract <see cref="Results"/> class.
@@ -14,8 +13,7 @@ namespace PC_Ripper_Benchmark.Utilities
     /// all rights reserved.</para>
     /// </summary>
 
-    public abstract class Results
-    {
+    public abstract class Results {
 
         #region Abstract properties for a given component.
 
@@ -129,91 +127,73 @@ namespace PC_Ripper_Benchmark.Utilities
         /// which represents the name.</param>
         /// <returns></returns>
 
-        protected virtual string GetTestName(TestName theTest)
-        {
-            switch (theTest)
-            {
+        protected virtual string GetTestName(TestName theTest) {
+            switch (theTest) {
                 // CPU test names.
-                case TestName.CPUSuccessorship:
-                {
+                case TestName.CPUSuccessorship: {
                     return "Successorship";
                 }
 
-                case TestName.CPUBoolean:
-                {
+                case TestName.CPUBoolean: {
                     return "Boolean";
                 }
 
-                case TestName.CPUQueue:
-                {
+                case TestName.CPUQueue: {
                     return "Queue";
                 }
 
-                case TestName.CPULinkedList:
-                {
-                    return "Linked List";
+                case TestName.CPULinkedList: {
+                    return "List";
                 }
 
-                case TestName.CPUTree:
-                {
+                case TestName.CPUTree: {
                     return "Tree";
                 }
 
                 // Disk test names.
-                case TestName.DISKFolderMatrix:
-                {
+                case TestName.DISKFolderMatrix: {
                     return "Folder Matrix";
                 }
 
-                case TestName.DISKBulkFile:
-                {
+                case TestName.DISKBulkFile: {
                     return "Bulk File";
                 }
 
-                case TestName.DISKReadWriteParse:
-                {
+                case TestName.DISKReadWriteParse: {
                     return "Read/Write Parse";
                 }
 
-                case TestName.DISKRipper:
-                {
+                case TestName.DISKRipper: {
                     return "Disk Ripper";
                 }
 
                 // Ram test names.
-                case TestName.RAMFolderMatrix:
-                {
+                case TestName.RAMFolderMatrix: {
                     return "Virtual Folder Matrix";
                 }
 
-                case TestName.RAMBulkFile:
-                {
+                case TestName.RAMBulkFile: {
                     return "Virtual Bulk Data";
                 }
 
-                case TestName.RAMReferenceDereferenceParse:
-                {
+                case TestName.RAMReferenceDereferenceParse: {
                     return "Reference/Dereference Parse";
                 }
 
                 // GPU test names.
-                case TestName.GPUFolderMatrix:
-                {
+                case TestName.GPUFolderMatrix: {
                     return "Not Implemented.";
                 }
 
-                case TestName.GPUBulkFile:
-                {
+                case TestName.GPUBulkFile: {
                     return "Not Implemented.";
                 }
 
-                case TestName.GPUReadWriteParse:
-                {
+                case TestName.GPUReadWriteParse: {
                     return "Not Implemented.";
                 }
 
-                default:
-                {
+                default: {
                     throw new UnknownTestException("");
                 }
             }
@@ -225,8 +205,7 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <param name="duration">A <see cref="TimeSpan"/> that represents
         /// a duration for the test.</param>
 
-        protected virtual void AddTest(TimeSpan duration)
-        {
+        protected virtual void AddTest(TimeSpan duration) {
             this.TestCollection.Add(duration);
         }
 
@@ -239,8 +218,7 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <returns></returns>
         /// <exception cref="DivideByZeroException">Thrown if a number is less than or = to 0.</exception>
 
-        protected virtual TimeSpan AverageTimespan(ref TimeSpan averageMe, int divideBy)
-        {
+        protected virtual TimeSpan AverageTimespan(ref TimeSpan averageMe, int divideBy) {
             return (divideBy <= 0) ? throw new DivideByZeroException() :
                 new TimeSpan(averageMe.Ticks / divideBy);
         }
@@ -254,11 +232,9 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <see cref="TimeSpan"/>[] of timespans.</param>
         /// <returns></returns>
 
-        protected virtual TimeSpan TotalTimeSpan(params TimeSpan[] times)
-        {
+        protected virtual TimeSpan TotalTimeSpan(params TimeSpan[] times) {
             TimeSpan total = new TimeSpan();
-            foreach (TimeSpan t in times)
-            {
+            foreach (TimeSpan t in times) {
                 total = total.Add(t);
             }
             return total;
@@ -272,11 +248,9 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <param name="list">A <see cref="List{T}"/> of timespans.</param>
         /// <returns></returns>
 
-        protected virtual TimeSpan TotalTimeSpan(List<TimeSpan> list)
-        {
+        protected virtual TimeSpan TotalTimeSpan(List<TimeSpan> list) {
             TimeSpan total = new TimeSpan();
-            foreach (TimeSpan t in list)
-            {
+            foreach (TimeSpan t in list) {
                 total = total.Add(t);
             }
             return total;
@@ -288,18 +262,15 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <param name="threadType">The <see cref="ThreadType"/> </param>
         /// <returns></returns>
 
-        protected virtual string GetThreadAsString(ThreadType threadType)
-        {
-            switch (threadType)
-            {
+        protected virtual string GetThreadAsString(ThreadType threadType) {
+            switch (threadType) {
                 case ThreadType.Single: { return "Single threaded"; }
 
                 case ThreadType.SingleUI: { return "Dual threaded"; }
 
                 case ThreadType.Multithreaded: { return "Multithreaded"; }
 
-                default:
-                {
+                default: {
                     return "";
                 }
             }

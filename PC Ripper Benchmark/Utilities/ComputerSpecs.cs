@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Management;
 
-namespace PC_Ripper_Benchmark.Utilities
-{
+namespace PC_Ripper_Benchmark.util {
 
     /// <summary>
     /// The <see cref="ComputerSpecs"/> class.
@@ -13,15 +13,13 @@ namespace PC_Ripper_Benchmark.Utilities
     /// all rights reserved.</para>
     /// </summary>
 
-    public class ComputerSpecs
-    {
+    public class ComputerSpecs {
 
         /// <summary>
         /// Default constructor for <see cref="ComputerSpecs"/>.
         /// </summary>
 
-        public ComputerSpecs()
-        {
+        public ComputerSpecs() {
 
         }
 
@@ -46,7 +44,7 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <summary>
         /// Represents the clock speed for the loaded memory module.
         /// </summary>
-
+        
         public string RAMClockSpeed { get; set; }
 
         /// <summary>
@@ -56,21 +54,19 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <param name="lst">A <see cref="List{T}"/> that 
         /// stores the CPU specifications.</param>
 
-        public void GetProcessorInfo(out List<string> lst)
-        {
+        public void GetProcessorInfo(out List<string> lst) {
             lst = new List<string>();
 
             ManagementClass mgt = new ManagementClass("Win32_Processor");
-            ManagementObjectCollection mgtCollection = mgt.GetInstances();
+            var mgtCollection = mgt.GetInstances();
 
-            foreach (ManagementObject item in mgtCollection)
-            {
-                lst.Add("Name: " + item.Properties["Name"].Value.ToString());
-                lst.Add("Max clock speed: " + item.Properties["MaxClockSpeed"].Value.ToString() + "Mhz");
-                lst.Add("Number of cores: " + item.Properties["NumberOfCores"].Value.ToString());
-                lst.Add("Number of logical processors: " + item.Properties["NumberOfLogicalProcessors"].Value.ToString());
-                lst.Add("L2 cache size: " + item.Properties["L2CacheSize"].Value.ToString());
-                lst.Add("L3 cache size: " + item.Properties["L3CacheSize"].Value.ToString());
+            foreach (ManagementObject item in mgtCollection) {
+                lst.Add($"Name: {item.Properties["Name"].Value.ToString()}");
+                lst.Add($"Max clock speed: {item.Properties["MaxClockSpeed"].Value.ToString()} Mhz");
+                lst.Add($"Number of cores: {item.Properties["NumberOfCores"].Value.ToString()}");
+                lst.Add($"Number of logical processors: {item.Properties["NumberOfLogicalProcessors"].Value.ToString()}");
+                lst.Add($"L2 cache size: {item.Properties["L2CacheSize"].Value.ToString()}K");
+                lst.Add($"L3 cache size: {item.Properties["L3CacheSize"].Value.ToString()}K");
                 if (CPUClockSpeed == null) { CPUClockSpeed = item.Properties["MaxClockSpeed"].Value.ToString(); }
             }
         }
@@ -82,15 +78,13 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <param name="lst">A <see cref="List{T}"/> that
         /// stores the DISK specifications.</param>
 
-        public void GetDiskInfo(out List<string> lst)
-        {
+        public void GetDiskInfo(out List<string> lst) {
             lst = new List<string>();
 
             ManagementClass mgt = new ManagementClass("Win32_DiskDrive");
-            ManagementObjectCollection mgtCollection = mgt.GetInstances();
-            ulong size = 0;
-            foreach (ManagementObject item in mgtCollection)
-            {
+            var mgtCollection = mgt.GetInstances();
+            ulong size =0;
+            foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Model"].Value.ToString());
                 size = (ulong)item.Properties["Size"].Value;
                 size = size / (1024 * 1024 * 1024);
@@ -105,8 +99,7 @@ namespace PC_Ripper_Benchmark.Utilities
         /// <param name="lst">A <see cref="List{T}"/> that
         /// stores the RAM specifications.</param>
 
-        public void GetMemoryInfo(out List<string> lst)
-        {
+        public void GetMemoryInfo(out List<string> lst) {
             lst = new List<string>();
 
             ManagementClass mgt = new ManagementClass("Win32_PhysicalMemory");
@@ -114,15 +107,11 @@ namespace PC_Ripper_Benchmark.Utilities
 
             ulong capacity = 0;
 
-            foreach (ManagementObject item in mgtCollection)
-            {
+            foreach (ManagementObject item in mgtCollection) {
 
-                if (item.Properties["Manufacturer"].Value.ToString() == "Unknown")
-                {
+                if (item.Properties["Manufacturer"].Value.ToString() == "Unknown") {
                     lst.Add("Manufacturer: Unknown RAM Manufactuer");
-                }
-                else
-                {
+                } else {
                     lst.Add("Manufacturer: " + item.Properties["Manufacturer"].Value.ToString());
                 }
 
@@ -142,15 +131,13 @@ namespace PC_Ripper_Benchmark.Utilities
         /// </summary>
         /// <param name="lst">A <see cref="List{T}"/> that stores the GPU specifications.</param>
 
-        public void GetVideoCard(out List<string> lst)
-        {
+        public void GetVideoCard(out List<string> lst) {
             lst = new List<string>();
 
             ManagementClass mgt = new ManagementClass("Win32_VideoController");
             ManagementObjectCollection mgtCollection = mgt.GetInstances();
 
-            foreach (ManagementObject item in mgtCollection)
-            {
+            foreach (ManagementObject item in mgtCollection) {
                 lst.Add("Name: " + item.Properties["Name"].Value.ToString());
                 lst.Add("DriverVersion: " + item.Properties["DriverVersion"].Value.ToString());
             }
