@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PC_Ripper_Benchmark</RootNamespace>
     <AssemblyName>PC Ripper Benchmark</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -38,6 +38,7 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,7 +61,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>resources\pc_ripper_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\pc_ripper_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>F92F75A834C9A0C9E9B1F5BBC501BFC5DB89A63E</ManifestCertificateThumbprint>
@@ -104,40 +105,40 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="database\DatabaseConnection.cs" />
-    <Compile Include="database\DatabaseQueries.cs" />
-    <Compile Include="exception\RipperDatabaseException.cs" />
-    <Compile Include="exception\RipperScoreException.cs" />
-    <Compile Include="function\DiskFunctions.cs" />
-    <Compile Include="function\RamFunctions.cs" />
-    <Compile Include="function\RipperDialog.cs" />
-    <Compile Include="function\SystemSettings.cs" />
-    <Compile Include="util\DiskResults.cs" />
-    <Compile Include="util\HashManager.cs" />
-    <Compile Include="util\RamResults.cs" />
-    <Compile Include="util\RegexUtilities.cs" />
-    <Compile Include="function\WindowSettings.cs" />
-    <Compile Include="util\RipperFile.cs" />
-    <Compile Include="util\RipperFolder.cs" />
-    <Compile Include="util\ThemeManager.cs" />
-    <Compile Include="util\UserData.cs" />
-    <Compile Include="window\LoginWindow.xaml.cs">
+    <Compile Include="Database\DatabaseConnection.cs" />
+    <Compile Include="Database\DatabaseQueries.cs" />
+    <Compile Include="Exceptions\RipperDatabaseException.cs" />
+    <Compile Include="Exceptions\RipperScoreException.cs" />
+    <Compile Include="Functions\DiskFunctions.cs" />
+    <Compile Include="Functions\RamFunctions.cs" />
+    <Compile Include="Functions\RipperDialog.cs" />
+    <Compile Include="Functions\SystemSettings.cs" />
+    <Compile Include="Utilities\DiskResults.cs" />
+    <Compile Include="Utilities\HashManager.cs" />
+    <Compile Include="Utilities\RamResults.cs" />
+    <Compile Include="Utilities\RegexUtilities.cs" />
+    <Compile Include="Functions\WindowSettings.cs" />
+    <Compile Include="Utilities\RipperFile.cs" />
+    <Compile Include="Utilities\RipperFolder.cs" />
+    <Compile Include="Utilities\ThemeManager.cs" />
+    <Compile Include="Utilities\UserData.cs" />
+    <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="window\CreateAccountWindow.xaml.cs">
+    <Compile Include="Windows\CreateAccountWindow.xaml.cs">
       <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="window\PasswordResetWindow.xaml.cs">
+    <Compile Include="Windows\PasswordResetWindow.xaml.cs">
       <DependentUpon>PasswordResetWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="window\QuestionaireWindow.xaml.cs">
+    <Compile Include="Windows\QuestionaireWindow.xaml.cs">
       <DependentUpon>QuestionaireWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="window\LoginWindow.xaml">
+    <Page Include="Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="window\MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -145,27 +146,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="exception\RipperThreadException.cs" />
-    <Compile Include="exception\UnknownTestException.cs" />
-    <Compile Include="function\CPUFunctions.cs" />
-    <Compile Include="function\RipperTypes.cs" />
-    <Compile Include="util\ComputerSpecs.cs" />
-    <Compile Include="util\CPUResults.cs" />
-    <Compile Include="util\Results.cs" />
-    <Compile Include="util\RipperSettings.cs" />
-    <Compile Include="window\MainWindow.xaml.cs">
+    <Compile Include="Exceptions\RipperThreadException.cs" />
+    <Compile Include="Exceptions\UnknownTestException.cs" />
+    <Compile Include="Functions\CPUFunctions.cs" />
+    <Compile Include="Functions\RipperTypes.cs" />
+    <Compile Include="Utilities\ComputerSpecs.cs" />
+    <Compile Include="Utilities\CPUResults.cs" />
+    <Compile Include="Utilities\Results.cs" />
+    <Compile Include="Utilities\RipperSettings.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="window\CreateAccountWindow.xaml">
+    <Page Include="Windows\CreateAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="window\PasswordResetWindow.xaml">
+    <Page Include="Windows\PasswordResetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="window\QuestionaireWindow.xaml">
+    <Page Include="Windows\QuestionaireWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,70 +211,70 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\pc_ripper_icon.ico" />
+    <Resource Include="Resources\pc_ripper_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\cpu_bool.png" />
+    <Resource Include="Resources\cpu_bool.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\cpu_list.png" />
+    <Resource Include="Resources\cpu_list.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\cpu_queue.png" />
+    <Resource Include="Resources\cpu_queue.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\cpu_successorship.png" />
+    <Resource Include="Resources\cpu_successorship.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\cpu_tree.png" />
+    <Resource Include="Resources\cpu_tree.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\disk_bulkfile.png" />
+    <Resource Include="Resources\disk_bulkfile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\disk_foldermatrix.png" />
+    <Resource Include="Resources\disk_foldermatrix.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\disk_readwrite.png" />
+    <Resource Include="Resources\disk_readwrite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\disk_ripper.png" />
+    <Resource Include="Resources\disk_ripper.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\ram_bulkfile.png" />
+    <Resource Include="Resources\ram_bulkfile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\ram_foldermatrix.png" />
+    <Resource Include="Resources\ram_foldermatrix.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\ram_referencedereference.png" />
+    <Resource Include="Resources\ram_referencedereference.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\help.html" />
-    <Content Include="resources\running_test_messages.txt">
+    <Content Include="Resources\help.html" />
+    <Content Include="Resources\running_test_messages.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="resources\running_test.png" />
-    <Resource Include="resources\results.png" />
-    <Resource Include="resources\specs.png" />
-    <Resource Include="resources\verified.png" />
-    <Resource Include="resources\settings.png" />
-    <Resource Include="resources\ram.png" />
-    <Resource Include="resources\menu.png" />
-    <Resource Include="resources\github.png" />
-    <Resource Include="resources\disk.png" />
-    <Resource Include="resources\check.png">
+    <Resource Include="Resources\running_test.png" />
+    <Resource Include="Resources\results.png" />
+    <Resource Include="Resources\specs.png" />
+    <Resource Include="Resources\verified.png" />
+    <Resource Include="Resources\settings.png" />
+    <Resource Include="Resources\ram.png" />
+    <Resource Include="Resources\menu.png" />
+    <Resource Include="Resources\github.png" />
+    <Resource Include="Resources\disk.png" />
+    <Resource Include="Resources\check.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="resources\check_with_circle.png" />
-    <Resource Include="resources\announcement.png" />
-    <Resource Include="resources\cpu.png" />
-    <Content Include="resources\preloader_urls.txt">
+    <Resource Include="Resources\check_with_circle.png" />
+    <Resource Include="Resources\announcement.png" />
+    <Resource Include="Resources\cpu.png" />
+    <Content Include="Resources\preloader_urls.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\message_tips.txt">
+    <Content Include="Resources\message_tips.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -1,16 +1,16 @@
-﻿using PC_Ripper_Benchmark.exception;
-using PC_Ripper_Benchmark.function;
-using PC_Ripper_Benchmark.util;
-using PC_Ripper_Benchmark.window;
+﻿using PC_Ripper_Benchmark.Exceptions;
+using PC_Ripper_Benchmark.Functions;
+using PC_Ripper_Benchmark.Utilities;
+using PC_Ripper_Benchmark.Windows;
 using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
-using static PC_Ripper_Benchmark.function.RipperTypes;
-using static PC_Ripper_Benchmark.util.UserData;
+using static PC_Ripper_Benchmark.Utilities.UserData;
 
-namespace PC_Ripper_Benchmark.database {
+namespace PC_Ripper_Benchmark.Database
+{
 
     /// <summary>
     /// The <see cref="DatabaseConnection"/> class.
@@ -21,7 +21,8 @@ namespace PC_Ripper_Benchmark.database {
     /// all rights reserved.</para>
     /// </summary>
 
-    public class DatabaseConnection {
+    public class DatabaseConnection
+    {
 
         /// <summary>
         /// A <see cref="SqlConnection"/> instance
@@ -35,12 +36,17 @@ namespace PC_Ripper_Benchmark.database {
         /// Default constructor. Sets the connection string.
         /// </summary>
 
-        public DatabaseConnection(string connectionString) {
-            if (connectionString == "" || connectionString == null) {
+        public DatabaseConnection(string connectionString)
+        {
+            if (connectionString == "" || connectionString == null)
+            {
                 MessageBox.Show("Empty connection string!", "Null Connection",
                     MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            } else {
-                this.Connection = new SqlConnection {
+            }
+            else
+            {
+                this.Connection = new SqlConnection
+                {
                     ConnectionString = connectionString
                 };
             }
@@ -51,10 +57,14 @@ namespace PC_Ripper_Benchmark.database {
         /// </summary>
         /// <exception cref="RipperScoreException"></exception>
 
-        public void Open() {
-            try {
+        public void Open()
+        {
+            try
+            {
                 this.Connection.Open();
-            } catch {
+            }
+            catch
+            {
                 throw new RipperScoreException("Failed to open connection.");
             }
         }
@@ -73,11 +83,15 @@ namespace PC_Ripper_Benchmark.database {
         /// procedure
         /// </summary>
 
-        public bool AddUserToDatabase(UserData user) {
+        public bool AddUserToDatabase(UserData user)
+        {
 
-            try {
-                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
-                    SqlCommand addUser = new SqlCommand("UserAdd", this.Connection) {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
+                {
+                    SqlCommand addUser = new SqlCommand("UserAdd", this.Connection)
+                    {
                         CommandType = CommandType.StoredProcedure
                     };
 
@@ -98,11 +112,15 @@ namespace PC_Ripper_Benchmark.database {
                     MessageBox.Show("Registration Successful");
 
                     return true;
-                } else {
+                }
+                else
+                {
                     return false;
                 }
 
-            } catch {
+            }
+            catch
+            {
                 MessageBox.Show("An account with that email already exists!", "Existing Account", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Connection.Close();
                 return false;
@@ -117,17 +135,21 @@ namespace PC_Ripper_Benchmark.database {
         /// <param name="email">The email used to find the particular user.</param>
         /// <returns></returns>
 
-        public bool GetUserData(out UserData userData, string email) {
+        public bool GetUserData(out UserData userData, string email)
+        {
             userData = new UserData();
 
-            try {
+            try
+            {
                 SqlCommand cmd = new SqlCommand("SELECT * FROM [USER] WHERE Email=@Email", this.Connection);
                 cmd.Parameters.AddWithValue("@Email", email);
 
                 cmd.ExecuteScalar();
 
-                using (SqlDataReader reader = cmd.ExecuteReader()) {
-                    if (reader.Read()) {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
 
                         userData.FirstName = reader.GetString(0);
                         userData.LastName = reader.GetString(1);
@@ -137,7 +159,8 @@ namespace PC_Ripper_Benchmark.database {
                         userData.SecurityQuestion = reader.GetString(5);
                         userData.SecurityQuestionAnswer = reader.GetString(6);
 
-                        if (int.TryParse(reader.GetString(7), out int i)) {
+                        if (int.TryParse(reader.GetString(7), out int i))
+                        {
                             bool b = (i == 1) ? true : false;
                             userData.IsLight = b;
                         }
@@ -149,12 +172,15 @@ namespace PC_Ripper_Benchmark.database {
                         userData.UserType = type;
 
                         // if it reads another comma.
-                        if (reader.Read()) {
+                        if (reader.Read())
+                        {
                             return false;
                         }
                     }
                 }
-            } catch {
+            }
+            catch
+            {
                 return false;
             }
 
@@ -168,10 +194,13 @@ namespace PC_Ripper_Benchmark.database {
         /// a 0 or 1 to determine if it exists.
         /// </summary>
 
-        public bool CheckAccountExists(string email, string password) {
+        public bool CheckAccountExists(string email, string password)
+        {
 
-            try {
-                if (SystemSettings.IsInternetAvailable() == true) {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true)
+                {
                     this.Connection.Open();
 
                     HashManager encrypter = new HashManager();
@@ -191,14 +220,18 @@ namespace PC_Ripper_Benchmark.database {
 
                     int count = ds.Tables[0].Rows.Count;
 
-                    if (count == 1) {
+                    if (count == 1)
+                    {
                         MainWindow mainWindow;
 
-                        if (GetUserData(out UserData u, email)) {
+                        if (GetUserData(out UserData u, email))
+                        {
                             // returns the user with that email.
                             u.Password = "";
                             mainWindow = new MainWindow(u);
-                        } else {
+                        }
+                        else
+                        {
                             // returns a null user.
                             mainWindow = new MainWindow(GetNullUser());
                         }
@@ -208,7 +241,8 @@ namespace PC_Ripper_Benchmark.database {
                         return true;
                     }
                 }
-            } catch { }
+            }
+            catch { }
 
             return false;
         }
@@ -220,9 +254,12 @@ namespace PC_Ripper_Benchmark.database {
         /// a 0 or 1 to determine if it exists.
         /// </summary>
 
-        public bool CheckEmailExists(string email) {
-            try {
-                if (SystemSettings.IsInternetAvailable() == true) {
+        public bool CheckEmailExists(string email)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true)
+                {
                     this.Connection.Open();
 
                     HashManager encrypter = new HashManager();
@@ -239,13 +276,15 @@ namespace PC_Ripper_Benchmark.database {
 
                     int count = ds.Tables[0].Rows.Count;
 
-                    if (count == 1) {
+                    if (count == 1)
+                    {
                         this.Connection.Close();
                         return true;
 
                     }
                 }
-            } catch { }
+            }
+            catch { }
 
             this.Connection.Close();
             return false;
@@ -259,7 +298,8 @@ namespace PC_Ripper_Benchmark.database {
         /// security question.</param>
         /// <returns></returns>
 
-        public string GetSecurityQuestion(string email) {
+        public string GetSecurityQuestion(string email)
+        {
             //Command to get the actual answered security question
             this.Connection.Open();
             SqlCommand getSecurityQuestion = new SqlCommand("SELECT SecurityQuestion FROM [USER] where Email=@Email", this.Connection);
@@ -277,7 +317,8 @@ namespace PC_Ripper_Benchmark.database {
         /// security question.</param>
         /// <returns></returns>
 
-        public string GetSecurityQuestionAnswer(string email) {
+        public string GetSecurityQuestionAnswer(string email)
+        {
             this.Connection.Open();
             SqlCommand getSecurityQuestionAnswer = new SqlCommand("SELECT SecurityQuestionAnswer FROM [USER] where Email=@Email", this.Connection);
             getSecurityQuestionAnswer.Parameters.AddWithValue("@Email", email);
@@ -295,10 +336,14 @@ namespace PC_Ripper_Benchmark.database {
         /// account.</param>
         /// <returns></returns>
 
-        public bool ChangeUserSettings(UserData.UserSkill skill, UserData.TypeOfUser type, string email) {
-            try {
-                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
-                    SqlCommand changeUserSettings = new SqlCommand("ChangeUserSettings", this.Connection) {
+        public bool ChangeUserSettings(UserData.UserSkill skill, UserData.TypeOfUser type, string email)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
+                {
+                    SqlCommand changeUserSettings = new SqlCommand("ChangeUserSettings", this.Connection)
+                    {
                         CommandType = CommandType.StoredProcedure
                     };
 
@@ -312,11 +357,15 @@ namespace PC_Ripper_Benchmark.database {
                     MessageBox.Show("Account Settings Changed");
 
                     return true;
-                } else {
+                }
+                else
+                {
                     return false;
                 }
 
-            } catch {
+            }
+            catch
+            {
                 MessageBox.Show("Error changing settings", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Connection.Close();
                 return false;
@@ -331,10 +380,14 @@ namespace PC_Ripper_Benchmark.database {
         /// <param name="nameOfTest">The name of the test to reference.</param>
         /// <returns></returns>
 
-        public bool AddUserResults(string email, string results, string nameOfTest) {
-            try {
-                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null) {
-                    SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection) {
+        public bool AddUserResults(string email, string results, string nameOfTest)
+        {
+            try
+            {
+                if (SystemSettings.IsInternetAvailable() == true && this.Connection.ConnectionString != "" && this.Connection.ConnectionString != null)
+                {
+                    SqlCommand changeUserSettings = new SqlCommand("ResultsAdd", this.Connection)
+                    {
                         CommandType = CommandType.StoredProcedure
                     };
 
@@ -348,11 +401,15 @@ namespace PC_Ripper_Benchmark.database {
                     changeUserSettings.ExecuteNonQuery();
                     this.Connection.Close();
                     return true;
-                } else {
+                }
+                else
+                {
                     return false;
                 }
 
-            } catch {  
+            }
+            catch
+            {
                 this.Connection.Close();
                 return false;
             }

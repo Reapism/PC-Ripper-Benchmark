@@ -1,0 +1,23 @@
+﻿<Window x:Name="windowLogin" x:Class="PC_Ripper_Benchmark.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PC Ripper Benchmark" Height="650" Width="400" FontSize="14" Background="#17b79a"
+        MinHeight="650" MinWidth="400" MaxWidth="400" Icon="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" WindowStartupLocation="CenterScreen" AllowDrop="True" MaxHeight="750" ResizeMode="CanMinimize">
+
+    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        <StackPanel Margin="20,10">
+            <Image x:Name="image" Height="100" Margin="0,0,0,10" Source="/PC Ripper Benchmark;component/resources/pc_ripper_icon.ico" HorizontalAlignment="Center"/>
+            <Label Content="Welcome" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
+            <Separator x:Name="sepLine"></Separator>
+            <Label x:Name="lblEmail" Content="Email" Foreground="White"/>
+            <TextBox Name="emailTextBox" Background="#D3CAD2" Foreground="Black" FontSize="18" ToolTip="Email address of your account" KeyDown="EmailTextBox_KeyDown"/>
+            <Label x:Name="lblPassword" Content="Password" Foreground="White"/>
+            <PasswordBox x:Name="passwordBox" Background="#D3CAD2" Foreground="Black" FontSize="18" KeyDown="PasswordTextBox_KeyDown"/>
+            <ProgressBar x:Name="database_progressbar" Height="21" Margin="0 70"/>
+            <Button x:Name="loginButton" Content="Login" Margin="50,-38,50,10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginButton_Click" GotFocus="LoginButton_GotFocus" LostFocus="LoginButton_LostFocus" MouseEnter="LoginButton_MouseEnter" MouseLeave="LoginButton_MouseLeave"/>
+            <Button x:Name="signUpButton" Click="SignUpButton_Click" Content="Sign Up" Margin="50 0" Background="#545d6a" Foreground="White" FontSize="18" GotFocus="SignUpButton_GotFocus" LostFocus="SignUpButton_LostFocus" MouseEnter="SignUpButton_MouseEnter" MouseLeave="SignUpButton_MouseLeave"/>
+            <Button x:Name="resetPasswordButton" Content="Reset Password" Margin="50 10" Background="#545d6a" Foreground="White" FontSize="18" Click="ResetPasswordButton_Click" GotFocus="ResetPasswordButton_GotFocus" LostFocus="ResetPasswordButton_LostFocus" MouseEnter="ResetPasswordButton_MouseEnter" MouseLeave="ResetPasswordButton_MouseLeave"/>
+            <Button x:Name="loginGuestButton" Content="Login as Guest" Margin="50,0,50,10" Background="#545d6a" Foreground="White" FontSize="18" Click="LoginGuestButton_Click"/>
+        </StackPanel>
+    </Border>
+</Window>
