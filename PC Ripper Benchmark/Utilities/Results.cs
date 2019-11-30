@@ -1,9 +1,10 @@
-﻿using PC_Ripper_Benchmark.exception;
+﻿using PC_Ripper_Benchmark.Exceptions;
+using PC_Ripper_Benchmark.Utilities;
 using System;
 using System.Collections.Generic;
-using static PC_Ripper_Benchmark.function.RipperTypes;
+using static PC_Ripper_Benchmark.Functions.RipperTypes;
 
-namespace PC_Ripper_Benchmark.util {
+namespace PC_Ripper_Benchmark.Utlities {
 
     /// <summary>
     /// The abstract <see cref="Results"/> class.

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Management;
 
-namespace PC_Ripper_Benchmark.util {
+namespace PC_Ripper_Benchmark.Utilities {
 
     /// <summary>
     /// The <see cref="ComputerSpecs"/> class.
