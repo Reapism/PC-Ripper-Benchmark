@@ -178,7 +178,7 @@
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
                             </Image>
-                            <Image x:Name="imgCPULinkedList" Height="100" Margin="300,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_list.png" ToolTip="The linked list data structure algorithm tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
+                            <Image x:Name="imgCPUList" Height="100" Margin="300,10,0,0" Width="100" Source="/PC Ripper Benchmark;component/resources/cpu_list.png" ToolTip="The list data structure algorithm tests adds, removes, and searches random numbers from its contents (n) times." MinWidth="100" MinHeight="100" MaxWidth="300" MaxHeight="300">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="15" Opacity="0.6"/>
                                 </Image.Effect>
